@@ -64,7 +64,7 @@ global $lang,$dir,$indir,$rtl,$ltr,$title,$date,$short_desc,$description,$jdate;
           </div>
           <div class="ui fluid card">
             <div class="content">
-            <h3 class="title_font" style="direction:rtl;">مطالب مشابه: </h3>
+            <h3 class="title_font" style="direction:rtl;"><?php echo e(trans('home.similar')); ?> </h3>
             <div class="ui three stackable cards" style="text-align:right;direction:<?php echo e($rtl); ?>">
               <?php if($final!=null): ?>
               <?php $__currentLoopData = $final; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>

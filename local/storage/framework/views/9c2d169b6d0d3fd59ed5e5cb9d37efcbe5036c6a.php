@@ -17,50 +17,59 @@
                             Add Ablum
                         </header>
                         <div class="panel-body">
+                            <?php if($errors->any()): ?>
+                              <div class="alert alert-danger">
+                                <ul>
+                                  <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <li><?php echo e($error); ?></li>
+                                  <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                </ul>
+                              </div>
+                            <?php endif; ?>
                             <div class="form">
                                 <form class="cmxform form-horizontal " id="signupForm" method="post" action="<?php echo e(route('album.store')); ?>" enctype="multipart/form-data">
                                 <?php if($session =='en'): ?>
                                     <div class="form-group ">
                                         <label for="title" class="control-label col-lg-3">Title</label>
                                         <div class="col-lg-6">
-                                            <input class=" form-control" id="title" maxlength="150" name="title" type="text">
+                                            <input class=" form-control" id="title_en" name="title_en" type="text" value="<?php echo e(old('title_en')); ?>">
                                         </div>
                                     </div>
                                     <div class="form-group ">
                                         <label for="date" class="control-label col-lg-3">Date</label>
                                         <div class="col-lg-6">
-                                            <input class=" form-control" id="date" maxlength="10"  name="date" type="date" required>
+                                            <input class=" form-control" id="date_en" name="date_en" type="date" required value="<?php echo e(old('date_en')); ?>">
                                         </div>
                                     </div>
                                     <?php elseif($session =='dr'): ?>
                                     <div class="form-group ">
                                         <label for="title_dr" class="control-label col-lg-3">Title Dari</label>
                                         <div class="col-lg-6">
-                                            <input class=" form-control" id="title_dr" maxlength="150" name="title_dr" type="text">
+                                            <input class=" form-control" id="title_dr" name="title_dr" type="text" value="<?php echo e(old('title_dr')); ?>">
                                         </div>
                                     </div>
                                     <div class="form-group ">
                                         <label for="date_dr" class="control-label col-lg-3">Date Dari</label>
                                         <div class="col-lg-6">
-                                            <input class=" form-control date_dr"  maxlength="10" id="date_dr" name="date_dr" type="text" required>
+                                            <input class=" form-control date_dr" id="date_dr" name="date_dr" type="text" required value="<?php echo e(old('date_dr')); ?>">
                                         </div>
                                     </div>
                                     <?php else: ?>
                                     <div class="form-group ">
                                         <label for="title_pa" class="control-label col-lg-3">Title Pashto</label>
                                         <div class="col-lg-6">
-                                            <input class=" form-control" id="title_pa" maxlength="150" name="title_pa" type="text">
+                                            <input class=" form-control" id="title_pa" name="title_pa" type="text" value="<?php echo e(old('title_pa')); ?>">
                                         </div>
                                     </div>
-                                    
+
                                     <div class="form-group ">
                                         <label for="date_dr" class="control-label col-lg-3">Date Pashto</label>
                                         <div class="col-lg-6">
-                                            <input class=" form-control date_dr"  maxlength="10" id="date_dr" name="date_dr" type="text" required>
+                                            <input class=" form-control date_dr" id="date_dr" name="date_dr" type="text" required>
                                         </div>
                                     </div>
                                     <?php endif; ?>
-                                    
+
                                     <div class="form-group">
                                         <label for="image" class="control-label col-lg-3">Image</label>
                                         <input type="file" name="image" class="file">
@@ -72,7 +81,7 @@
                                           </span>
                                         </div>
                                     </div>
-                                 
+
                                     <?php echo e(csrf_field()); ?>
 
 

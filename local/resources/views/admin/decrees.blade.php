@@ -14,9 +14,9 @@
       <div class="field">
         <select name="lang" id="lang">
           <option value="0">Create...</option>
-          <option value="dr">dari</option>
-          <option value="pa">pashto</option>
-          <option value="en">English</option>
+          <option value="dr_decree">dari</option>
+          <option value="pa_decree">pashto</option>
+          <option value="en_decree">English</option>
         </select>
       </div>
     </div>

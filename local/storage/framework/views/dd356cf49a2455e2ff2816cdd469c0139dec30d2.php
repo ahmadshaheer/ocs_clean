@@ -9,12 +9,7 @@
 
 </style>
 <?php
-$type = array('decree','order','message','word','statement');
-$route= substr(URL::previous(), strrpos(URL::previous(), '/') + 1);
-$url = substr($route, 0,-1);
-if (in_array($url, $type)==0) {
-    return;
-}
+$type = Session::get('type');
 ?>
 <!--main content start-->
 <section id="main-content">
@@ -22,14 +17,21 @@ if (in_array($url, $type)==0) {
         <div class="col-md-11">
                     <section class="panel">
                         <header class="panel-heading">
-                            Add President's <?php echo e($url); ?>
+                            Add President's <?php echo e($type); ?>
 
                         </header>
                         <div class="panel-body">
+                          <?php if($errors->any()): ?>
+                            <ul class="alert alert-danger">
+                              <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <li><?php echo e($error); ?></li>
+                              <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                            </ul>
+                          <?php endif; ?>
                             <div class="form">
                                 <form class="cmxform form-horizontal " id="signupForm" method="post" action="<?php echo e(route('the_president.store')); ?>" enctype="multipart/form-data">
                                     <?php if($session == 'en'): ?>
-                                    <?php if($url=='word'): ?>
+                                    <?php if($type=='word'): ?>
                                     <div class="form-group ">
                                         <label for="short_desc_en" class="control-label col-lg-3">President Word</label>
                                         <div class="col-lg-6">
@@ -40,13 +42,13 @@ if (in_array($url, $type)==0) {
                                     <div class="form-group ">
                                         <label for="title" class="control-label col-lg-3">Title</label>
                                         <div class="col-lg-6">
-                                            <input class=" form-control" id="title" maxlength="150" name="title" type="text">
+                                            <input class=" form-control" id="title" name="title_en" type="text">
                                         </div>
                                     </div>
                                     <div class="form-group ">
                                         <label for="date" class="control-label col-lg-3">Date</label>
                                         <div class="col-lg-6">
-                                            <input class=" form-control" id="date" maxlength="10"  name="date" type="date" required>
+                                            <input class=" form-control" id="date"  name="date_en" type="date" >
                                         </div>
                                     </div>
                                     <div class="form-group ">
@@ -63,24 +65,24 @@ if (in_array($url, $type)==0) {
                                     </div>
                                     <?php endif; ?>
                                     <?php elseif($session =='dr'): ?>
-                                    <?php if($url=='word'): ?>
+                                    <?php if($type=='word'): ?>
                                     <div class="form-group ">
                                         <label for="short_desc_dr" class="control-label col-lg-3">President Word Dari</label>
                                         <div class="col-lg-6">
                                             <textarea name="short_desc_dr" class="form-control"></textarea>
                                         </div>
-                                    </div>                                    
+                                    </div>
                                     <?php else: ?>
                                     <div class="form-group ">
                                         <label for="title_dr" class="control-label col-lg-3">Title Dari</label>
                                         <div class="col-lg-6">
-                                            <input class=" form-control" id="title_dr" maxlength="150" name="title_dr" type="text">
+                                            <input class=" form-control" id="title_dr" name="title_dr" type="text">
                                         </div>
                                     </div>
                                      <div class="form-group ">
                                         <label for="date_dr" class="control-label col-lg-3">Date Dari</label>
                                         <div class="col-lg-6">
-                                            <input class=" form-control date_dr"  maxlength="10" id="date_dr" name="date_dr" type="text" required>
+                                            <input class=" form-control date_dr"  id="date_dr" name="date_dr" type="text" >
                                         </div>
                                     </div>
                                     <div class="form-group ">
@@ -97,7 +99,7 @@ if (in_array($url, $type)==0) {
                                     </div>
                                     <?php endif; ?>
                                     <?php elseif($session == 'pa'): ?>
-                                    <?php if($url=='word'): ?>
+                                    <?php if($type=='word'): ?>
                                      <div class="form-group ">
                                         <label for="short_desc_pa" class="control-label col-lg-3">President Word Pashto</label>
                                         <div class="col-lg-6">
@@ -108,13 +110,13 @@ if (in_array($url, $type)==0) {
                                      <div class="form-group ">
                                         <label for="title_pa" class="control-label col-lg-3">Title Pashto</label>
                                         <div class="col-lg-6">
-                                            <input class=" form-control" id="title_pa" maxlength="150" name="title_pa" type="text">
+                                            <input class=" form-control" id="title_pa" name="title_pa" type="text">
                                         </div>
                                     </div>
                                      <div class="form-group ">
                                         <label for="date_dr" class="control-label col-lg-3">Date Pashto</label>
                                         <div class="col-lg-6">
-                                            <input class=" form-control date_dr"  maxlength="10" id="date_dr" name="date_dr" type="text" required>
+                                            <input class=" form-control date_dr"  id="date_dr" name="date_dr" type="text" >
                                         </div>
                                     </div>
                                     <div class="form-group ">
@@ -131,7 +133,7 @@ if (in_array($url, $type)==0) {
                                     </div>
                                     <?php endif; ?>
                                     <?php endif; ?>
-                                    <?php if($url!='order' AND $url!='decree'): ?>
+                                    <?php if($type!='order' AND $type!='decree'): ?>
                                       <div class="form-group">
                                         <label for="image" class="control-label col-lg-3">Image</label>
                                         <input type="file" name="image" class="file">
@@ -145,7 +147,7 @@ if (in_array($url, $type)==0) {
                                     </div>
                                     <?php endif; ?>
 
-                                    <input type="hidden" name="type" value="<?php echo e($url); ?>">
+                                    <input type="hidden" name="type" value="<?php echo e($type); ?>">
                                     
 
                                     <?php echo e(csrf_field()); ?>

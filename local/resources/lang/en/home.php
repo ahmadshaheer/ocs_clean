@@ -22,6 +22,8 @@ return
 		'complaint_p7'=>'<b>Note:</b> All complainers are requested to introduce themselves and raise their complaints. It is worth mentioning that identities of complainers are kept confidential with Complaint Office of President’s Office. ',
 		'complaint_p8'=>'In case of sending complaints through email, kindly download the Complaint Form, fill out the form precisely, write your contact number and complaints and send it to the above mentioned email address.  ',
 		'search'=>'Search...',
+		'similar'=>'Similar Items: ',
+
 
 ];
 

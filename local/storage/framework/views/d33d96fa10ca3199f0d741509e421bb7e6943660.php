@@ -43,11 +43,13 @@ global $lang,$dir,$indir,$rtl,$ltr,$title,$date,$short_desc,$description,$jdate;
                  ?>
                 <div class="ui card">
                   <a class="image" style="border: 5px solid #ddd !important;border-radius:0 !important;"href="<?php echo e(route('album_images',$album->id)); ?>">
-                    <div class="ui bottom attached label body_font" style="text-align: center;"><?php echo e($jdate->detailedDate($album->$date,$lang)); ?></div>
                     <img src="<?php echo e(asset('uploads/album/'.$album->image)); ?>">
                   </a>
                   <div class="content" id="album">
-                    <a class="ui  header" style="clear:both;" href="<?php echo e(route('album_images',$album->id)); ?>"><?php echo e($album->$title); ?></a>
+                    <a class="ui  header" href="<?php echo e(route('album_images',$album->id)); ?>"><?php echo e($album->$title); ?></a>
+                    <div class="meta">
+                      <p class="ui right floated label"><?php echo e($jdate->detailedDate($album->$date,$lang)); ?></p>
+                    </div>
                   </div>
                 </div>
                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>

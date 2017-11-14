@@ -500,9 +500,13 @@ Route::group(['middleware'=>['chk_usr']],function(){
 
 
 	Route::get('admin/set_session',function(){
-			$lang = $_GET['lang'];
+			$session = $_GET['lang'];
+			$parts = explode('_', $session);
+			$type = $parts[1];
+			$lang = $parts[0];
 			$route = $_GET['route'];
 			Session::put('lang',$lang);
+			Session::put('type',$type);
 			return Redirect($route);
 	});
 });

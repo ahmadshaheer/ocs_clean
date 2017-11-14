@@ -399,6 +399,11 @@
       height: 50% !important;
     }
   }
+  @media  screen and (min-width: 1023px) and (max-width:1440px) {
+    .carousel_thumbnail {
+      height:53vh !important;
+    }
+  }
   .ui.fixed.menu {
     display: none;
   }
@@ -700,7 +705,7 @@
     .carousel_thumbnail {
       position: relative;
       width: 100%;
-      height: 35vh;
+      height: 36vh;
       overflow: hidden;
       top: 3px;
     }

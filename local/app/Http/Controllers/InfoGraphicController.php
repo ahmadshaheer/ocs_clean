@@ -49,7 +49,7 @@ class InfoGraphicController extends Controller
             $this->validate($request,[
               'title_en'=>'required|unique:infographics|max:255',
               'date_en'=>'required',
-              'image'=>'required|mimes:jpeg,bmp,png'
+              'image'=>'required|mimes:jpeg,jpg,png,bmp'
             ]);
             $info->title_en = $request->input('title_en');
             $info->date_en = $request->input('date_en');
@@ -58,7 +58,7 @@ class InfoGraphicController extends Controller
             $this->validate($request,[
               'title_dr'=>'required|unique:infographics|max:255',
               'date_dr'=>'required',
-              'image'=>'required|mimes:jpeg,bmp,png'
+              'image'=>'required|mimes:jpeg,jpg,png,bmp'
             ]);
             $info->title_dr = $request->input('title_dr');
             $info->date_dr = $request->input('date_dr');
@@ -67,7 +67,7 @@ class InfoGraphicController extends Controller
             $this->validate($request,[
               'title_pa'=>'required|unique:infographics|max:255',
               'date_dr'=>'required',
-              'image'=>'required|mimes:jpeg,bmp,png'
+              'image'=>'required|mimes:jpeg,jpg,png,bmp'
             ]);
             $info->title_pa = $request->input('title_pa');
             $info->date_pa = $request->input('date_dr');

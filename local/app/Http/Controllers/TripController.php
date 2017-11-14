@@ -47,7 +47,7 @@ class TripController extends Controller
             'date_en'=>'required',
             'short_desc_en'=>'required',
             'desc_en'=>'required',
-            'image'=>'required|mimes:jpg,png,bmp',
+            'image'=>'required|mimes:jpeg,jpg,png,bmp'
           ]);
           $trip->title_en = $request->input('title_en');
           $trip->date_en = $request->input('date_en');
@@ -60,7 +60,7 @@ class TripController extends Controller
             'date_dr'=>'required',
             'short_desc_dr'=>'required',
             'desc_dr'=>'required',
-            'image'=>'required|mimes:jpg,png,bmp',
+            'image'=>'required|mimes:jpeg,jpg,png,bmp'
           ]);
           $trip->title_dr = $request->input('title_dr');
           $trip->date_dr = $request->input('date_dr');
@@ -73,7 +73,7 @@ class TripController extends Controller
             'date_dr'=>'required',
             'short_desc_pa'=>'required',
             'desc_pa'=>'required',
-            'image'=>'required|mimes:jpg,png,bmp',
+            'image'=>'required|mimes:jpeg,jpg,png,bmp'
           ]);
           $trip->title_pa = $request->input('title_pa');
           $trip->date_pa = $request->input('date_dr');
@@ -118,6 +118,7 @@ class TripController extends Controller
             $search->save();
         }
         \Session::put('lang','');
+        \Session::put('type','');
         return Redirect()->route('admin_'.$trip->type);
     }
 
@@ -162,7 +163,6 @@ class TripController extends Controller
             'date_en'=>'required',
             'short_desc_en'=>'required',
             'desc_en'=>'required',
-            'image'=>'required|mimes:jpg,png,bmp',
           ]);
           $trip->title_en = $request->input('title_en');
           $trip->date_en = $request->input('date_en');
@@ -175,7 +175,6 @@ class TripController extends Controller
             'date_dr'=>'required',
             'short_desc_dr'=>'required',
             'desc_dr'=>'required',
-            'image'=>'required|mimes:jpg,png,bmp',
           ]);
           $trip->title_dr = $request->input('title_dr');
           $trip->date_dr = $request->input('date_dr');
@@ -188,7 +187,6 @@ class TripController extends Controller
             'date_dr'=>'required',
             'short_desc_pa'=>'required',
             'desc_pa'=>'required',
-            'image'=>'required|mimes:jpg,png,bmp',
           ]);
           $trip->title_pa = $request->input('title_pa');
           $trip->date_pa = $request->input('date_dr');

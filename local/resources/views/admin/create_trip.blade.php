@@ -9,10 +9,7 @@
 
 </style>
 <?php
-$route= substr(URL::previous(), strrpos(URL::previous(), '/') + 1);
-if ($route!="international" AND $route!='domestic') {
-    return;
-}
+$route= Session::get('type');
 ?>
 <!--main content start-->
 <section id="main-content">
@@ -23,6 +20,13 @@ if ($route!="international" AND $route!='domestic') {
                             Add About the President trip
                         </header>
                         <div class="panel-body">
+                             @if($errors->any())
+                            <ul class="alert alert-danger">
+                              @foreach($errors->all() as $error)
+                                <li>{{$error}}</li>
+                              @endforeach
+                            </ul>
+                          @endif
                             <div class="form">
                                 <form class="cmxform form-horizontal " id="signupForm" method="post" action="{{route('trips.store')}}" enctype="multipart/form-data">
                                 @if($session=='en')
@@ -114,16 +118,6 @@ if ($route!="international" AND $route!='domestic') {
                                     </div>
 
                                     <input type="hidden" name="type" value="{{$route}}">
-
-                                   {{--  <div class="form-group ">
-                                        <label for="type" class="control-label col-lg-3">Type</label>
-                                        <div class="col-lg-6">
-                                            <select class="form-control" name="type">
-                                                <option value="domestic">Domestic</option>
-                                                <option value="international">International</option>
-                                            </select>
-                                        </div>
-                                    </div> --}}
 
                                     {{csrf_field()}}
 

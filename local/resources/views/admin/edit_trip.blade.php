@@ -17,6 +17,13 @@
                             Edit President Trip
                         </header>
                         <div class="panel-body">
+                           @if($errors->any())
+                            <ul class="alert alert-danger">
+                              @foreach($errors->all() as $error)
+                                <li>{{$error}}</li>
+                              @endforeach
+                            </ul>
+                          @endif
                             <div class="form cmxform form-horizontal">
                                 {!! Form::model($trip, ['route' => array('trips.update',$trip->id),'files' =>true]) !!}
                                 @if($session=='dr')

@@ -2,7 +2,7 @@
 <div class="sixteen wide tablet mobile five wide computer column" >
   <div class="ui fluid card" style="">
     <div class="content" style="border:0;!">
-      <div class="header title_font test" style="text-align:<?php echo e($dir); ?>;margin-bottom:12%;padding-left:0;font-size: 25px !important;">
+      <div class="header title_font test" style="text-align:<?php echo e($dir); ?>;margin-bottom:11px;padding-left:0;font-size: 25px !important;">
       <?php echo e(trans('home.president_word')); ?>
 
     </div>
@@ -14,7 +14,7 @@
   </div>
   <div class="ui fluid card">
     <div class="content">
-      <div class="header title_font test" style="text-align:<?php echo e($dir); ?>;margin-bottom:12%;padding-left:0;">
+      <div class="header title_font test" style="text-align:<?php echo e($dir); ?>;margin-bottom:11px;">
       <?php echo e(trans('home.latest_news')); ?>
 
     </div>
@@ -25,9 +25,11 @@
             continue;
            ?>
 
-          <div class="latest_articles <?php echo e(($item==$news->last())?'no_border':''); ?>" style="padding-top:14px;">
-            <a href="<?php echo e(url('news_details/'.$item->id)); ?>" class="ui tiny header title_font" dir="rtl" style="text-align:<?php echo e($dir); ?>;padding-<?php echo e($dir); ?>:10px;display: block;margin-bottom:0;"><?php echo e($item->$title); ?></a>
-            <div class="meta body_font" style="text-align:<?php echo e($indir); ?>;" dir="rtl"><?php echo e($jdate->detailedDate($item->$date,$lang)); ?></div>
+          <div class="latest_articles <?php echo e(($item==$news->last())?'no_border':''); ?>" style="padding:3px 0px;">
+            <a href="<?php echo e(url('news_details/'.$item->id)); ?>" class="ui tiny header title_font" dir="rtl" style="text-align:<?php echo e($dir); ?>;display: block;margin-bottom:0;"><?php echo e($item->$title); ?></a>
+            <div class="meta body_font" style="text-align:<?php echo e($dir); ?>;" dir="rtl">
+              <i class="icon clock"></i>
+              <?php echo e($jdate->detailedDate($item->$date,$lang)); ?></div>
           </div>
         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
       <?php endif; ?>

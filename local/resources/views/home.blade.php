@@ -95,22 +95,14 @@ $pdf = 'pdf_'.$lang;
                             <img style="float:right;" class="" src="{{($item->table_name=='documents')?asset('assets/img/pdf.png'):asset($item->image_thumb)}}" alt="">
                           </div>
                         </div>
-                        <div class="sixteen wide mobile tablet five wide computer column thumbnail news_image" style="">
-                          <img style="float:right;" class="" src="{{($item->table_name=='documents')?asset('assets/img/pdf.png'):asset($item->image_thumb)}}" alt="">
+                        <div class="description body_font short_desc_to_be_trimmed" style="clear:both;">
+                          {{$item->$short_desc}}
                         </div>
-                        <div class="sixteen wide column desc" id="" style="">
-                          <div class="description body_font short_desc_to_be_trimmed" style="clear:both;">
-                            {{$item->$short_desc}}
-                          </div>
-                          <div class="" style="padding-bottom:15px;order:3;">
-                            <a href="{{($item->table_name=='documents')?$url:url($item->type.'_details/'.$item->table_id)}}" class="meta body_font" style="float:left;">{{trans('home.read_more')}}</a>
-                          </div>
+                        <div class="" style="padding-bottom:15px;">
+                          <a href="{{($item->table_name=='documents')?$url:url($item->type.'_details/'.$item->table_id)}}" class="meta body_font" style="float:left;">{{trans('home.read_more')}}</a>
                         </div>
+
                       </div>
-
-
-
-                      {{-- </div> --}}
                     @endif
                   @endforeach
                 @endif
@@ -126,31 +118,25 @@ $pdf = 'pdf_'.$lang;
               @if (sizeof($articles)!=0)
                 @foreach($articles as $item)
 
-                  @if ($item->$title!=null)
+                 @if ($item->$title!=null)
+                   <div class="article {{($item == $articles->last())?'no_borders':''}}" style="border-bottom:1px dashed #ddd;padding-bottom:10px;">
+                     <div class="ui grid" style="display:flex;margin:0 !important;">
+                       <div class="sixteen wide mobile tablet nine wide computer column" id="article_title" style="padding-top:0;">
+                         <a href="{{url('article_details/'.$item->id)}}" class="ui {{$dir}} floated small header title_font title_to_be_trimmed" dir="rtl" style="margin:0">{{$item->$title}}</a>
+                         <p class="meta">
+                           <i class="icon clock">
+                           </i>{{$jdate->detailedDate($item->$date,$lang)}}
+                         </p>
+                       </div>
+                       <div class="sixteen wide mobile tablet seven wide computer column thumbnail" id="article_image" style="">
+                         <img style="float:right;" class="" src="{{asset('uploads/media/article/'.$item->image_thumb)}}" alt="">
+                       </div>
+                     </div>
 
-                    <div class="ui stackable grid news {{($item == $articles->last())?'no_border':'' }}" style="">
-                      <div class="sixteen wide mobile tablet ten wide computer column" id="news_title" style="">
-                        <a href="{{url('news_details/'.$item->id)}}" class="ui {{$dir}} floated small header title_font title_to_be_trimmed" dir="rtl" style="margin:0">{{$item->$title}}</a>
-                        <p class="meta" style="clear:both;">
-                          <i class="icon clock">
-                          </i>{{$jdate->detailedDate($item->$date,$lang)}}
-                        </p>
-                      </div>
-                      <div class="sixteen wide mobile tablet six wide computer column thumbnail news_image" style="">
-                        <img style="float:right;" class="" src="{{asset('uploads/media/news/'.$item->image_thumb)}}" alt="">
-                      </div>
-                      <div class="sixteen wide column desc" id="">
-                        <div class="description body_font short_desc_to_be_trimmed" style="clear:both;">
-                          {{$item->$short_desc}}
-                        </div>
-                        <div class="" style="padding-bottom:15px;order:3;">
-                          <a href="{{url('news_details/'.$item->id)}}" class="meta body_font" style="float:left;">{{trans('home.read_more')}}</a>
-                        </div>
-                      </div>
-                    </div>
+                   </div>
 
-                  @endif
-                @endforeach
+                 @endif
+               @endforeach
               @endif
                 {{--
                 @foreach($articles as $value)

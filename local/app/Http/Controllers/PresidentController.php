@@ -97,7 +97,7 @@ class PresidentController extends Controller
             $img = $max.'.'.$image->getClientOriginalExtension();
             $img_thumb = $max.'_t.'.$image->getClientOriginalExtension();
             $driver = new imageManager(array('driver'=>'gd'));
-            $thumb_img = $driver->make($image)->resize(200,135);
+            $thumb_img = $driver->make($image)->resize(200,150);
             $thumb_img->save("uploads/".$the_president->type."/".$img_thumb);
             // thumbnail generation Ends
 

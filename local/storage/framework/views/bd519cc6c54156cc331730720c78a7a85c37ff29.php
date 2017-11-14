@@ -82,33 +82,29 @@ $pdf = 'pdf_'.$lang;
                   <?php $__currentLoopData = $lattest_news; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                   <?php $url =  ($item->table_name=='documents')?asset('uploads/documents_'.$lang.'/'.$item->table_id.'.pdf'):'';?>
                     <?php if($item->$title!=null): ?>
+                      <div class="news <?php echo e(($item == $lattest_news->last())?'no_borders':''); ?>" style="border-bottom:1px dashed #ddd;padding-bottom:10px;">
+                        <div class="ui grid" style="display:flex;margin:0 !important;">
+                          <div class="sixteen wide mobile tablet eleven wide computer column" id="news_title" style="padding-top:0;">
+                            <a href="<?php echo e(($item->table_name=='documents')?$url:url($item->type.'_details/'.$item->table_id)); ?>" class="ui <?php echo e($dir); ?> floated small header title_font title_to_be_trimmed" dir="rtl" style="margin:0"><?php echo e($item->$title); ?></a>
+                            <p class="meta" style="clear: both">
+                              <i class="icon clock">
+                              </i><?php echo e($jdate->detailedDate($item->$date,$lang)); ?>
 
-                      <div class="ui stackable grid news <?php echo e(($item == $news->last())?'no_border':''); ?> " style="">
-                        <div class="sixteen wide mobile tablet eleven wide computer column" id="news_title" style="">
-                          <a href="<?php echo e(($item->table_name=='documents')?$url:url($item->type.'_details/'.$item->table_id)); ?>" class="ui <?php echo e($dir); ?> floated small header title_font title_to_be_trimmed" dir="rtl" style="margin:0"><?php echo e($item->$title); ?></a>
-                          <p class="meta" style="clear:both;">
-                            <i class="icon clock">
-                            </i><?php echo e($jdate->detailedDate($item->$date,$lang)); ?>
-
-                          </p>
-                        </div>
-                        <div class="sixteen wide mobile tablet five wide computer column thumbnail news_image" style="">
-                          <img style="float:right;" class="" src="<?php echo e(($item->table_name=='documents')?asset('assets/img/pdf.png'):asset($item->image_thumb)); ?>" alt="">
-                        </div>
-                        <div class="sixteen wide column desc" id="" style="">
-                          <div class="description body_font short_desc_to_be_trimmed" style="clear:both;">
-                            <?php echo e($item->$short_desc); ?>
-
+                            </p>
                           </div>
-                          <div class="" style="padding-bottom:15px;order:3;">
-                            <a href="<?php echo e(($item->table_name=='documents')?$url:url($item->type.'_details/'.$item->table_id)); ?>" class="meta body_font" style="float:left;"><?php echo e(trans('home.read_more')); ?></a>
+                          <div class="sixteen wide mobile tablet five wide computer column thumbnail" id="news_image" style="">
+                            <img style="float:right;" class="" src="<?php echo e(($item->table_name=='documents')?asset('assets/img/pdf.png'):asset($item->image_thumb)); ?>" alt="">
                           </div>
                         </div>
+                        <div class="description body_font short_desc_to_be_trimmed" style="clear:both;">
+                          <?php echo e($item->$short_desc); ?>
+
+                        </div>
+                        <div class="" style="padding-bottom:15px;">
+                          <a href="<?php echo e(($item->table_name=='documents')?$url:url($item->type.'_details/'.$item->table_id)); ?>" class="meta body_font" style="float:left;"><?php echo e(trans('home.read_more')); ?></a>
+                        </div>
+
                       </div>
-
-
-
-                      
                     <?php endif; ?>
                   <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 <?php endif; ?>
@@ -124,33 +120,26 @@ $pdf = 'pdf_'.$lang;
               <?php if(sizeof($articles)!=0): ?>
                 <?php $__currentLoopData = $articles; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 
-                  <?php if($item->$title!=null): ?>
+                 <?php if($item->$title!=null): ?>
+                   <div class="article <?php echo e(($item == $articles->last())?'no_borders':''); ?>" style="border-bottom:1px dashed #ddd;padding-bottom:10px;">
+                     <div class="ui grid" style="display:flex;margin:0 !important;">
+                       <div class="sixteen wide mobile tablet nine wide computer column" id="article_title" style="padding-top:0;">
+                         <a href="<?php echo e(url('article_details/'.$item->id)); ?>" class="ui <?php echo e($dir); ?> floated small header title_font title_to_be_trimmed" dir="rtl" style="margin:0"><?php echo e($item->$title); ?></a>
+                         <p class="meta">
+                           <i class="icon clock">
+                           </i><?php echo e($jdate->detailedDate($item->$date,$lang)); ?>
 
-                    <div class="ui stackable grid news <?php echo e(($item == $articles->last())?'no_border':''); ?>" style="">
-                      <div class="sixteen wide mobile tablet ten wide computer column" id="news_title" style="">
-                        <a href="<?php echo e(url('news_details/'.$item->id)); ?>" class="ui <?php echo e($dir); ?> floated small header title_font title_to_be_trimmed" dir="rtl" style="margin:0"><?php echo e($item->$title); ?></a>
-                        <p class="meta" style="clear:both;">
-                          <i class="icon clock">
-                          </i><?php echo e($jdate->detailedDate($item->$date,$lang)); ?>
+                         </p>
+                       </div>
+                       <div class="sixteen wide mobile tablet seven wide computer column thumbnail" id="article_image" style="">
+                         <img style="float:right;" class="" src="<?php echo e(asset('uploads/media/article/'.$item->image_thumb)); ?>" alt="">
+                       </div>
+                     </div>
 
-                        </p>
-                      </div>
-                      <div class="sixteen wide mobile tablet six wide computer column thumbnail news_image" style="">
-                        <img style="float:right;" class="" src="<?php echo e(asset('uploads/media/news/'.$item->image_thumb)); ?>" alt="">
-                      </div>
-                      <div class="sixteen wide column desc" id="">
-                        <div class="description body_font short_desc_to_be_trimmed" style="clear:both;">
-                          <?php echo e($item->$short_desc); ?>
+                   </div>
 
-                        </div>
-                        <div class="" style="padding-bottom:15px;order:3;">
-                          <a href="<?php echo e(url('news_details/'.$item->id)); ?>" class="meta body_font" style="float:left;"><?php echo e(trans('home.read_more')); ?></a>
-                        </div>
-                      </div>
-                    </div>
-
-                  <?php endif; ?>
-                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                 <?php endif; ?>
+               <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
               <?php endif; ?>
                 
               </div>
@@ -172,7 +161,7 @@ $pdf = 'pdf_'.$lang;
                   <div class="fb-page" data-href="https://www.facebook.com/ocs.afg/"  data-width="500" data-height="250" data-small-header="true" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/ocs.afg/" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/ocs.afg/">‎ریاست عمومی دفتر مقام عالی ریاست جمهوری‎</a></blockquote></div>
                 </div>
                 <div class="row" style="margin:10px;">
-                  <div class="fb-page" data-href="https://www.facebook.com/ocs.afg/" data-width="500" data-height="250" data-small-header="true" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/ocs.afg/" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/ocs.afg/">‎ریاست عمومی دفتر مقام عالی ریاست جمهوری‎</a></blockquote></div>
+                <a class="twitter-timeline" data-width="300" data-chrome="nofooter" data-height="200" href="https://twitter.com/OCS_AFG?ref_src=twsrc%5Etfw">Tweets by OCS_AFG</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
                 </div>
               </div>
             </div>

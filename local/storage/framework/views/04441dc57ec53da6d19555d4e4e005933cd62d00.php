@@ -43,7 +43,13 @@ div.mce-fullscreen {
     width:46%;
   }
 }
+.test img{
+    max-width: 100%;
+}
+footer.timeline-Footer.u-cf {
+    display: none !important;
 
+}
 </style>
 
 </head>
@@ -53,8 +59,8 @@ div.mce-fullscreen {
 <header class="header fixed-top clearfix">
 <!--logo start-->
 <div class="brand">
-    <a href="index.html" class="logo">
-        VISITORS
+    <a href="<?php echo e(route('admin')); ?>" class="logo">
+        OCS
     </a>
     <div class="sidebar-toggle-box">
         <div class="fa fa-bars"></div>

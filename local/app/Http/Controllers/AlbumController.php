@@ -85,7 +85,7 @@ class AlbumController extends Controller
           $image = $request->image;
           $img_thumb = $max.'_t.'.$image->getClientOriginalExtension();
           $driver = new imageManager(array('driver'=>'gd'));
-          $thumb_img = $driver->make($image)->resize(200,200);
+          $thumb_img = $driver->make($image)->resize(200,150);
           $thumb_img->save("uploads/album/".$img_thumb);
           // thumbnail generation Ends
           $search_thumb = 'uploads/album/'.$img_thumb;
@@ -197,7 +197,7 @@ class AlbumController extends Controller
             $img_thumb = $max.'_t.'.$request->file('image')->getClientOriginalExtension();
             $data = $request->image;
             $driver = new imageManager(array('driver'=>'gd'));
-            $thumb_img = $driver->make($data)->resize(200,200);
+            $thumb_img = $driver->make($data)->resize(200,150);
             $thumb_img->save("uploads/album/".$img_thumb);
             // thumbnail generation Ends
 
@@ -240,7 +240,6 @@ class AlbumController extends Controller
     public function destroy($id)
     {
         $media = Album::findOrFail($id);
-        print_r(File::delete('uploads/album/'.$media->image));exit;
         $search = Search::where('table_name','album')->where('table_id',$id);
         $search->delete();
         $media->delete();

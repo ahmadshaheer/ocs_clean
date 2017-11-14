@@ -178,10 +178,16 @@
           $('#social').addClass('six wide column');
         <?php endif; ?>
     }
-    if(width<768) {
+    if(width<990){
+      $('.news_image').removeClass('sixteen wide mobile tablet five wide computer column thumbnail ');
+      $('.news_image').addClass('ui image');
+      $('#main').removeClass('container');
+    }
+    else if(width<768) {
       $('#footer_content').removeClass('container');
       $('#main').removeClass('centered');
       $('#main').removeClass('container');
+
     }
 
 
@@ -223,6 +229,32 @@ $(document).ready(function() {
 });
 //language switcher script ends
 
+
+// carousel text trimming i.e. title and short description
+// carousel title trimming & ... concatenation
+$('.news_title').text(function(index,currentText) {
+ var  test = currentText.substr(0,145);
+  if(test.length>144){
+    test+='...';
+    return test;
+  }
+  else{
+    return;
+  }
+});
+
+// carousel body trimming & ... concatenation
+$('.carousel_text').text(function(index,currentText) {
+ var  test = currentText.substr(0,185);
+  if(test.length>184){
+    test+='...';
+    return test;
+  }
+  else{
+    return;
+  }
+});
+
 // short desc trimming i.e. title and short _description
 // home title and short_desc  trimming & ... concatenation
 $('.title_to_be_trimmed').text(function(index,currentText) {
@@ -247,9 +279,6 @@ $('.short_desc_to_be_trimmed').text(function(index,currentText) {
   }
 });
 
-
-
-
 //
 // $('.short_desc').text(function(index,currentText) {
 //   return currentText.substr(0,170);
@@ -258,30 +287,6 @@ $('.short_desc_to_be_trimmed').text(function(index,currentText) {
 //   $('.short_desc').append(' ...');
 // }
 
-// carousel text trimming i.e. title and short description
-// carousel title trimming & ... concatenation
-$('.news_title').text(function(index,currentText) {
- var  test = currentText.substr(0,101);
-  if(test.length>100){
-    test+='...';
-    return test;
-  }
-  else{
-    return;
-  }
-});
-
-// carousel body trimming & ... concatenation
-$('.carousel_text').text(function(index,currentText) {
- var  test = currentText.substr(0,165);
-  if(test.length>164){
-    test+='...';
-    return test;
-  }
-  else{
-    return;
-  }
-});
 //text trimming ends
 
 

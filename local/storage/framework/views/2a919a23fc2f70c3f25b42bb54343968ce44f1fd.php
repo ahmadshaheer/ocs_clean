@@ -10,10 +10,6 @@ $pdf = 'pdf_'.$lang;
 .ui.centered.container.grid {
   padding:0 !important;
 }
-.u-floatLeft{
-  display: none !important;
- }
-
 </style>
   
     
@@ -29,7 +25,7 @@ $pdf = 'pdf_'.$lang;
                       <img style="" src="<?php echo e(asset('uploads/media/news/'.$value->image)); ?>" alt="">
                     </div>
                   </div>
-                  <div class="sixteen wide mobile tablet six wide computer column" id="carousel_text_div" style="position: relative;max-height: 310px !important">
+                  <div class="sixteen wide mobile tablet six wide computer column" id="carousel_text_div" style="position: relative;max-height: 365px !important">
                     <blockquote style="position: absolute;bottom: 20px !important">
                       <a href="<?php echo e(url('news_details/'.$value->id)); ?>" class="ui header title_font news_title" id="carousel_title" style="display:block"><?php echo e($value->$title); ?></a>
                       <p class="body_font " style="color:#888;font-size:14px;" dir=""><i class="icon time"></i>
@@ -81,8 +77,8 @@ $pdf = 'pdf_'.$lang;
           <div class="ui fluid card" style="">
             <div class="content" >
               <a href="<?php echo e(route('news')); ?>" class="header title_font test"><?php echo e(trans('home.latest_news')); ?></a>
-              <div class="ui items" style="margin-top:11px;">
-                <?php if(sizeof($news)!=0): ?>
+              <div class="ui items">
+                <?php if(sizeof($lattest_news)!=0): ?>
                   <?php $__currentLoopData = $lattest_news; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                   <?php $url =  ($item->table_name=='documents')?asset('uploads/documents_'.$lang.'/'.$item->table_id.'.pdf'):'';?>
                     <?php if($item->$title!=null): ?>
@@ -100,15 +96,23 @@ $pdf = 'pdf_'.$lang;
                             <img style="float:right;" class="" src="<?php echo e(($item->table_name=='documents')?asset('assets/img/pdf.png'):asset($item->image_thumb)); ?>" alt="">
                           </div>
                         </div>
-                        <div class="description body_font short_desc_to_be_trimmed" style="clear:both;">
-                          <?php echo e($item->$short_desc); ?>
-
+                        <div class="sixteen wide mobile tablet five wide computer column thumbnail news_image" style="">
+                          <img style="float:right;" class="" src="<?php echo e(($item->table_name=='documents')?asset('assets/img/pdf.png'):asset($item->image_thumb)); ?>" alt="">
                         </div>
-                        <div class="" style="padding-bottom:15px;">
-                          <a href="<?php echo e(($item->table_name=='documents')?$url:url($item->type.'_details/'.$item->table_id)); ?>" class="meta body_font" style="float:left;"><?php echo e(trans('home.read_more')); ?></a>
-                        </div>
+                        <div class="sixteen wide column desc" id="" style="">
+                          <div class="description body_font short_desc_to_be_trimmed" style="clear:both;">
+                            <?php echo e($item->$short_desc); ?>
 
+                          </div>
+                          <div class="" style="padding-bottom:15px;order:3;">
+                            <a href="<?php echo e(($item->table_name=='documents')?$url:url($item->type.'_details/'.$item->table_id)); ?>" class="meta body_font" style="float:left;"><?php echo e(trans('home.read_more')); ?></a>
+                          </div>
+                        </div>
                       </div>
+
+
+
+                      
                     <?php endif; ?>
                   <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 <?php endif; ?>
@@ -125,21 +129,28 @@ $pdf = 'pdf_'.$lang;
                 <?php $__currentLoopData = $articles; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 
                   <?php if($item->$title!=null): ?>
-                    <div class="article <?php echo e(($item == $articles->last())?'no_borders':''); ?>" style="border-bottom:1px dashed #ddd;padding-bottom:10px;">
-                      <div class="ui grid" style="display:flex;margin:0 !important;">
-                        <div class="sixteen wide mobile tablet nine wide computer column" id="article_title" style="padding-top:0;">
-                          <a href="<?php echo e(url('article_details/'.$item->id)); ?>" class="ui <?php echo e($dir); ?> floated small header title_font title_to_be_trimmed" dir="rtl" style="margin:0"><?php echo e($item->$title); ?></a>
-                          <p class="meta">
-                            <i class="icon clock">
-                            </i><?php echo e($jdate->detailedDate($item->$date,$lang)); ?>
 
-                          </p>
+                    <div class="ui stackable grid news <?php echo e(($item == $articles->last())?'no_border':''); ?>" style="">
+                      <div class="sixteen wide mobile tablet ten wide computer column" id="news_title" style="">
+                        <a href="<?php echo e(url('news_details/'.$item->id)); ?>" class="ui <?php echo e($dir); ?> floated small header title_font title_to_be_trimmed" dir="rtl" style="margin:0"><?php echo e($item->$title); ?></a>
+                        <p class="meta" style="clear:both;">
+                          <i class="icon clock">
+                          </i><?php echo e($jdate->detailedDate($item->$date,$lang)); ?>
+
+                        </p>
+                      </div>
+                      <div class="sixteen wide mobile tablet six wide computer column thumbnail news_image" style="">
+                        <img style="float:right;" class="" src="<?php echo e(asset('uploads/media/news/'.$item->image_thumb)); ?>" alt="">
+                      </div>
+                      <div class="sixteen wide column desc" id="">
+                        <div class="description body_font short_desc_to_be_trimmed" style="clear:both;">
+                          <?php echo e($item->$short_desc); ?>
+
                         </div>
-                        <div class="sixteen wide mobile tablet seven wide computer column thumbnail" id="article_image" style="">
-                          <img style="float:right;" class="" src="<?php echo e(asset('uploads/media/article/'.$item->image_thumb)); ?>" alt="">
+                        <div class="" style="padding-bottom:15px;order:3;">
+                          <a href="<?php echo e(url('news_details/'.$item->id)); ?>" class="meta body_font" style="float:left;"><?php echo e(trans('home.read_more')); ?></a>
                         </div>
                       </div>
-
                     </div>
 
                   <?php endif; ?>
@@ -175,18 +186,18 @@ $pdf = 'pdf_'.$lang;
           <div class="ui fluid card" style="">
             <div class="content" >
               <a href="<?php echo e(route('documents')); ?>" class="header title_font test" style=""><?php echo e(trans('home.reports_and_documents')); ?></a>
-              <div class="ui items" style="margin-top: 32px !important">
+              <div class="ui items" style="margin-top: 11px !important">
                 <?php if(sizeof($documents)!=0): ?>
                   <?php $__currentLoopData = $documents; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $document): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <?php if($document->$title!=null): ?>
-                      <div class="item <?php echo e(($document==$documents->last())?'no_border':''); ?>" style="direction:<?php echo e($rtl); ?>;border-bottom: 1px solid #ddd;padding-bottom: 10px;">
+                      <div class="item <?php echo e(($document==$documents->last())?'no_border':''); ?>" style="direction:<?php echo e($rtl); ?>;border-bottom: 1px dashed #ddd;padding-bottom: 10px;">
                         <div class="ui tiny image icon" style="width: 12%">
                           <a target="_blank" href="<?php echo e(asset('uploads/documents_'.$lang.'/'.$document->$pdf)); ?>">
                           <img id="pdf_img" src="<?php echo e(asset('assets/img/pdf.png')); ?>">
                           </a>
                         </div>
-                        <div class="top aligned content" style="padding-top: 7px;">
-                          <a class="ui right floated small header title_font" target="_blank" href="<?php echo e(asset('uploads/documents_'.$lang.'/'.$document->$pdf)); ?>" style=""><?php echo e($document->$title); ?></a>
+                        <div class="top aligned content docs" style="padding-top: 7px;">
+                          <a class="ui <?php echo e($dir); ?> floated small header title_font" target="_blank" href="<?php echo e(asset('uploads/documents_'.$lang.'/'.$document->$pdf)); ?>" style=""><?php echo e($document->$title); ?></a>
                           <div class="meta body_font" style="clear:both;" dir="rtl">
 
                             <i class="icon time"></i>
@@ -204,7 +215,7 @@ $pdf = 'pdf_'.$lang;
           <div class="ui fluid card" style="">
             <div class="content" style="border:0;!">
               <a href="<?php echo e(route('videos')); ?>" class="header title_font test" style=""><?php echo e(trans('home.videos')); ?></a>
-              <div class="ui stackable grid" style="margin-top: 30px !important">
+              <div class="ui stackable grid" style="margin-top:11px;">
                 <?php if(sizeof($videos)): ?>
                   <?php $__currentLoopData = $videos; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $video): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <?php if($video->$title!=null): ?>

@@ -45,7 +45,7 @@
 
 
 
-<link rel="icon" type="image/png" href="favicon-32x32.png" sizes="32x32" />
+<link rel="icon" type="image/png" href="<?php echo e(asset('favicon-32x32.png')); ?>" sizes="32x32" />
 
 
 
@@ -107,7 +107,6 @@
     margin-<?php echo e($dir); ?>:20px;
   }
   .test {
-    padding-<?php echo e($dir); ?>: .5em;
     border-bottom: 2.4px solid #5f5e9a;
     font-size: 1.2em;
     line-height: 1.5em;
@@ -268,6 +267,7 @@
       order: 1;
        padding-top: 0px !important;
     }
+
     #main_div #president_word{
       order: 3;
     }
@@ -301,10 +301,19 @@
     }
     .news,.article>.ui.grid {
       display: flex;
+      display:flex;
+      margin:0 !important;
+      padding-top:10px !important;
     }
     #news_title,#article_title {
       order:2;
       padding:0;
+    }
+    #news_image {
+      order:1;
+    }
+    .desc {
+      order:3;
     }
     #articles>.ui.fluid.card,#articles>.ui.fluid.card>.content,#president_word,#president_word>.ui.fluid.card,#president_word>.ui.fluid.card>.content {
       padding-top:0 !important;
@@ -348,6 +357,19 @@
     }
     #footer_about {
       order:3;
+    }
+    #latest_news,#latest_news>.ui.fluid.card,#articles,#articles>.ui.fluid.card,#president_word,#president_word>.ui.fluid.card,#videos,#videos>.ui.fluid.card,#documents,#documents>.ui.fluid.card,#social_div,#social_div>.ui.fluid.card {
+      padding:0 !important;
+    }
+    #latest_news .content,#articles .content,#president_word .content,#videos .content ,#documents .content ,#social_div .content {
+      padding-right: 2px !important;
+    }
+    .docs {
+      display: block !important;
+      margin: auto !important;
+    }
+    .ui.items:not(.unstackable)>.item {
+      margin:11px 0 !important;
     }
 
 
@@ -418,7 +440,7 @@
     width: 100%;
   }
   .ui.items>.item>.image {
-    padding-top:10px !important;
+    padding-top:5px !important;
   }
   /*home thumbnail image center and crop style starts*/
   .thumbnail {
@@ -589,7 +611,7 @@
   #mobile_menu .search {
     position: absolute;
     <?php echo e($indir); ?>: 21px;
-    top:10px;
+    top:15px;
     color: white;
     font-size: 20px !important;
   }
@@ -678,7 +700,7 @@
     .carousel_thumbnail {
       position: relative;
       width: 100%;
-      height: 290px;
+      height: 35vh;
       overflow: hidden;
       top: 3px;
     }
@@ -727,7 +749,18 @@
   .news,.article {
     border-bottom:1px dashed #ddd;
     padding-bottom:10px;
-    padding-top:10px;
+    padding-top:10px !important;
+    margin:0 !important;
+  }
+  .desc {
+    padding:4px 0  !important;
+
+  }
+  .news>.sixteen.wide.mobile.tablet.eleven.wide.computer.column,.news>.sixteen.wide.mobile.tablet.ten.wide.computer.column {
+    padding:0 5px;;
+  }
+  .ui.items {
+    margin: .8em 0 !important;
   }
  .ui.fluid.card>.content img{
     max-width: 100%;

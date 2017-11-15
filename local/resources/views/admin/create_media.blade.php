@@ -9,13 +9,7 @@
 
 </style>
 <?php
-$route= substr(URL::previous(), strrpos(URL::previous(), '/') + 1);
-// if ($route!="news" AND $route!='articles') {
-//     return;
-// }
-if ($route=='articles') {
-    $route ='article';
-}
+$route= Session::get('type');
 ?>
 <!--main content start-->
 <section id="main-content">
@@ -33,20 +27,19 @@ if ($route=='articles') {
                               @endforeach
                             </ul>
                           @endif
-                          <h1>{{URL::previous()}}</h1>
                             <div class="form">
                                 <form class="cmxform form-horizontal " id="signupForm" method="post" action="{{route('media.store')}}" enctype="multipart/form-data">
                                 @if($session=='en')
                                     <div class="form-group ">
                                         <label for="title" class="control-label col-lg-3">Title</label>
                                         <div class="col-lg-6">
-                                            <input class=" form-control" id="title_en"  name="title" type="text">
+                                            <input class=" form-control" id="title_en"  name="title_en" type="text">
                                         </div>
                                     </div>
                                      <div class="form-group ">
                                         <label for="date" class="control-label col-lg-3">Date</label>
                                         <div class="col-lg-6">
-                                            <input class=" form-control" id="date_en"  name="date" type="date" required>
+                                            <input class=" form-control" id="date_en"  name="date_en" type="date" required>
                                         </div>
                                     </div>
                                       <div class="form-group ">
@@ -139,16 +132,7 @@ if ($route=='articles') {
                                         </div>
                                     </div>
 
-                                    {{-- <input type="hidden" name="type" value="{{$route}}"> --}}
-                                    <div class="form-group ">
-                                        <label for="type" class="control-label col-lg-3">Type</label>
-                                        <div class="col-lg-6">
-                                            <select class="form-control" name="type">
-                                                <option value="news">News</option>
-                                                <option value="article">Articles</option>
-                                            </select>
-                                        </div>
-                                    </div>
+                                    <input type="hidden" name="type" value="{{$route}}">
 
                                     {{csrf_field()}}
 

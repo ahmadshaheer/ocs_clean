@@ -1,4 +1,4 @@
-@include('admin.include.header')
+<?php echo $__env->make('admin.include.header', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 <?php $session = Session::get('lang'); ?>
 <style>
     .file {
@@ -9,7 +9,7 @@
 
 </style>
 <?php
-$route= Session::get('type');
+$type = Session::get('type');
 ?>
 <!--main content start-->
 <section id="main-content">
@@ -17,19 +17,28 @@ $route= Session::get('type');
         <div class="col-md-11">
                     <section class="panel">
                         <header class="panel-heading">
-                            Add About the President trip
+                            Add President's <?php echo e($type); ?>
+
                         </header>
                         <div class="panel-body">
-                             @if($errors->any())
+                          <?php if($errors->any()): ?>
                             <ul class="alert alert-danger">
-                              @foreach($errors->all() as $error)
-                                <li>{{$error}}</li>
-                              @endforeach
+                              <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <li><?php echo e($error); ?></li>
+                              <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </ul>
-                          @endif
+                          <?php endif; ?>
                             <div class="form">
-                                <form class="cmxform form-horizontal " id="signupForm" method="post" action="{{route('trips.store')}}" enctype="multipart/form-data">
-                                @if($session=='en')
+                                <form class="cmxform form-horizontal " id="signupForm" method="post" action="<?php echo e(route('the_president.store')); ?>" enctype="multipart/form-data">
+                                    <?php if($session == 'en'): ?>
+                                    <?php if($type=='word'): ?>
+                                    <div class="form-group ">
+                                        <label for="short_desc_en" class="control-label col-lg-3">President Word</label>
+                                        <div class="col-lg-6">
+                                            <textarea name="short_desc_en" class="form-control"></textarea>
+                                        </div>
+                                    </div>
+                                    <?php else: ?>
                                     <div class="form-group ">
                                         <label for="title" class="control-label col-lg-3">Title</label>
                                         <div class="col-lg-6">
@@ -39,7 +48,7 @@ $route= Session::get('type');
                                     <div class="form-group ">
                                         <label for="date" class="control-label col-lg-3">Date</label>
                                         <div class="col-lg-6">
-                                            <input class=" form-control" id="date"  name="date_en" type="date">
+                                            <input class=" form-control" id="date"  name="date_en" type="date" >
                                         </div>
                                     </div>
                                     <div class="form-group ">
@@ -48,13 +57,22 @@ $route= Session::get('type');
                                             <textarea name="short_desc_en" class="form-control"></textarea>
                                         </div>
                                     </div>
-                                    <div class="form-group ">
+                                     <div class="form-group ">
                                         <label for="desc_en" class="control-label col-lg-3">Description English</label>
                                         <div class="col-lg-6">
                                             <textarea name="desc_en" class="form-control format"></textarea>
                                         </div>
                                     </div>
-                                    @elseif($session=='dr')
+                                    <?php endif; ?>
+                                    <?php elseif($session =='dr'): ?>
+                                    <?php if($type=='word'): ?>
+                                    <div class="form-group ">
+                                        <label for="short_desc_dr" class="control-label col-lg-3">President Word Dari</label>
+                                        <div class="col-lg-6">
+                                            <textarea name="short_desc_dr" class="form-control"></textarea>
+                                        </div>
+                                    </div>
+                                    <?php else: ?>
                                     <div class="form-group ">
                                         <label for="title_dr" class="control-label col-lg-3">Title Dari</label>
                                         <div class="col-lg-6">
@@ -64,7 +82,7 @@ $route= Session::get('type');
                                      <div class="form-group ">
                                         <label for="date_dr" class="control-label col-lg-3">Date Dari</label>
                                         <div class="col-lg-6">
-                                            <input class=" form-control date_dr"  id="date_dr" name="date_dr" type="text">
+                                            <input class=" form-control date_dr"  id="date_dr" name="date_dr" type="text" >
                                         </div>
                                     </div>
                                     <div class="form-group ">
@@ -79,17 +97,26 @@ $route= Session::get('type');
                                             <textarea name="desc_dr" class="form-control format"></textarea>
                                         </div>
                                     </div>
-                                    @elseif($session=='pa')
-                                    <div class="form-group ">
+                                    <?php endif; ?>
+                                    <?php elseif($session == 'pa'): ?>
+                                    <?php if($type=='word'): ?>
+                                     <div class="form-group ">
+                                        <label for="short_desc_pa" class="control-label col-lg-3">President Word Pashto</label>
+                                        <div class="col-lg-6">
+                                            <textarea name="short_desc_pa" class="form-control"></textarea>
+                                        </div>
+                                    </div>
+                                    <?php else: ?>
+                                     <div class="form-group ">
                                         <label for="title_pa" class="control-label col-lg-3">Title Pashto</label>
                                         <div class="col-lg-6">
                                             <input class=" form-control" id="title_pa" name="title_pa" type="text">
                                         </div>
                                     </div>
-                                    <div class="form-group ">
+                                     <div class="form-group ">
                                         <label for="date_dr" class="control-label col-lg-3">Date Pashto</label>
                                         <div class="col-lg-6">
-                                            <input class=" form-control date_dr"  id="date_dr" name="date_dr" type="text">
+                                            <input class=" form-control date_dr"  id="date_dr" name="date_dr" type="text" >
                                         </div>
                                     </div>
                                     <div class="form-group ">
@@ -104,8 +131,10 @@ $route= Session::get('type');
                                             <textarea name="desc_pa" class="form-control format"></textarea>
                                         </div>
                                     </div>
-                                    @endif
-                                    <div class="form-group">
+                                    <?php endif; ?>
+                                    <?php endif; ?>
+                                    <?php if($type!='order' AND $type!='decree'): ?>
+                                      <div class="form-group">
                                         <label for="image" class="control-label col-lg-3">Image</label>
                                         <input type="file" name="image" class="file">
                                         <div class="input-group col-md-6 col-md-offset-3 col-xs-12" style="padding-left:15px; padding-right:14px;">
@@ -116,15 +145,18 @@ $route= Session::get('type');
                                           </span>
                                         </div>
                                     </div>
+                                    <?php endif; ?>
 
-                                    <input type="hidden" name="type" value="{{$route}}">
+                                    <input type="hidden" name="type" value="<?php echo e($type); ?>">
+                                    
 
-                                    {{csrf_field()}}
+                                    <?php echo e(csrf_field()); ?>
+
 
                                     <div class="form-group">
                                         <div class="col-lg-offset-3 col-lg-6">
                                             <button class="btn btn-primary" type="submit">Save</button>
-                                            <a href="{{url()->previous()}}" class="btn btn-default"  type="button">Cancel</a>
+                                            <a href="<?php echo e(url()->previous()); ?>" class="btn btn-default"  type="button">Cancel</a>
                                         </div>
                                     </div>
                                 </form>
@@ -135,7 +167,7 @@ $route= Session::get('type');
 
 </section>
 
-@include('admin.include.footer')
+<?php echo $__env->make('admin.include.footer', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 <script>
     $(document).on('click', '.browse', function(){
       var file = $(this).parent().parent().parent().find('.file');

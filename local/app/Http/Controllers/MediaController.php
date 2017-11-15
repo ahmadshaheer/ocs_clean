@@ -51,7 +51,7 @@ class MediaController extends Controller
           'date_en'=>'required',
           'short_desc_en'=>'required',
           'desc_en'=>'required',
-          'image'=>'required|mimes:jpg,png,bmp'
+          'image'=>'required|mimes:jpeg,jpg,png,bmp'
         ]);
         $media->title_en = $request->input('title_en');
         $media->date_en = $request->input('date_en');
@@ -64,7 +64,7 @@ class MediaController extends Controller
           'date_dr'=>'required',
           'short_desc_dr'=>'required',
           'desc_dr'=>'required',
-          'image'=>'required|mimes:jpg,png,bmp'
+          'image'=>'required|mimes:jpeg,jpg,png,bmp'
         ]);
         $media->title_dr = $request->input('title_dr');
         $media->date_dr = $request->input('date_dr');
@@ -77,7 +77,7 @@ class MediaController extends Controller
           'date_dr'=>'required',
           'short_desc_pa'=>'required',
           'desc_pa'=>'required',
-          'image'=>'required|mimes:jpg,png,bmp'
+          'image'=>'required|mimes:jpeg,jpg,png,bmp'
         ]);
         $media->title_pa = $request->input('title_pa');
         $media->date_pa = $request->input('date_dr');
@@ -134,6 +134,7 @@ class MediaController extends Controller
         $search->image_thumb = $search_thumb;
         $search->save();
         Session::put('lang','');
+        Session::put('type','');
         return Redirect()->route('admin_'.$media->type);
     }
 }

@@ -51,7 +51,7 @@ class PresidentController extends Controller
               'date_en'=>'required',
               'short_desc_en'=>'required',
               'desc_en'=>'required',
-              'image'=>'required|mimes:jpg,png,bmp',
+              'image'=>'required|mimes:jpeg,jpg,png,bmp'
             ]);
             $the_president->title_en = $request->input('title_en');
             $the_president->date_en = $request->input('date_en');
@@ -64,7 +64,7 @@ class PresidentController extends Controller
               'date_dr'=>'required',
               'short_desc_dr'=>'required',
               'desc_dr'=>'required',
-              'image'=>'required|mimes:jpg,png,bmp',
+              'image'=>'required|mimes:jpeg,jpg,png,bmp'
             ]);
             $the_president->title_dr = $request->input('title_dr');
             $the_president->date_dr = $request->input('date_dr');
@@ -77,7 +77,7 @@ class PresidentController extends Controller
               'date_dr'=>'required',
               'short_desc_pa'=>'required',
               'desc_pa'=>'required',
-              'image'=>'required|mimes:jpg,png,bmp',
+              'image'=>'required|mimes:jpeg,jpg,png,bmp'
             ]);
             $the_president->title_pa = $request->input('title_pa');
             $the_president->date_pa = $request->input('date_dr');
@@ -140,6 +140,7 @@ class PresidentController extends Controller
                 $search->save();
         }
         \Session::put('lang','');
+        \Session::put('type','');
         return Redirect()->route("admin_".$request->type);
     }
 
@@ -184,7 +185,6 @@ class PresidentController extends Controller
                   'date_en'=>'required',
                   'short_desc_en'=>'required',
                   'desc_en'=>'required',
-                  'image'=>'required|mimes:jpg,png,bmp',
                 ]);
                 $the_president->title_en = $request->input('title_en');
                 $the_president->date_en = $request->input('date_en');
@@ -197,7 +197,6 @@ class PresidentController extends Controller
                   'date_dr'=>'required',
                   'short_desc_dr'=>'required',
                   'desc_dr'=>'required',
-                  'image'=>'required|mimes:jpg,png,bmp',
                 ]);
                 $the_president->title_dr = $request->input('title_dr');
                 $the_president->date_dr = $request->input('date_dr');
@@ -210,7 +209,7 @@ class PresidentController extends Controller
                   'date_dr'=>'required',
                   'short_desc_pa'=>'required',
                   'desc_pa'=>'required',
-                  'image'=>'required|mimes:jpg,png,bmp',
+                  'image'=>'required|mimes:jpeg,jpg,png,bmp'
                 ]);
                 $the_president->title_pa = $request->input('title_pa');
                 $the_president->date_pa = $request->input('date_dr');

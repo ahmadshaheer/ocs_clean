@@ -9,12 +9,7 @@
 
 </style>
 <?php
-// $type = array('decree','order','message','word','statement');
-// $route= substr(URL::previous(), strrpos(URL::previous(), '/') + 1);
-// $url = substr($route, 0,-1);
-// if (in_array($url, $type)==0) {
-//     return;
-// }
+$type = Session::get('type');
 ?>
 <!--main content start-->
 <section id="main-content">
@@ -22,7 +17,7 @@
         <div class="col-md-11">
                     <section class="panel">
                         <header class="panel-heading">
-                            Add President's {{$url}}
+                            Add President's {{$type}}
                         </header>
                         <div class="panel-body">
                           @if($errors->any())
@@ -35,7 +30,7 @@
                             <div class="form">
                                 <form class="cmxform form-horizontal " id="signupForm" method="post" action="{{route('the_president.store')}}" enctype="multipart/form-data">
                                     @if($session == 'en')
-                                    @if($url=='word')
+                                    @if($type=='word')
                                     <div class="form-group ">
                                         <label for="short_desc_en" class="control-label col-lg-3">President Word</label>
                                         <div class="col-lg-6">
@@ -69,7 +64,7 @@
                                     </div>
                                     @endif
                                     @elseif($session =='dr')
-                                    @if($url=='word')
+                                    @if($type=='word')
                                     <div class="form-group ">
                                         <label for="short_desc_dr" class="control-label col-lg-3">President Word Dari</label>
                                         <div class="col-lg-6">
@@ -103,7 +98,7 @@
                                     </div>
                                     @endif
                                     @elseif($session == 'pa')
-                                    @if($url=='word')
+                                    @if($type=='word')
                                      <div class="form-group ">
                                         <label for="short_desc_pa" class="control-label col-lg-3">President Word Pashto</label>
                                         <div class="col-lg-6">
@@ -137,7 +132,7 @@
                                     </div>
                                     @endif
                                     @endif
-                                    @if($url!='order' AND $url!='decree')
+                                    @if($type!='order' AND $type!='decree')
                                       <div class="form-group">
                                         <label for="image" class="control-label col-lg-3">Image</label>
                                         <input type="file" name="image" class="file">
@@ -151,8 +146,8 @@
                                     </div>
                                     @endif
 
-                                    {{-- <input type="hidden" name="type" value="{{$url}}"> --}}
-                                    <div class="form-group ">
+                                    <input type="hidden" name="type" value="{{$type}}">
+                                    {{-- <div class="form-group ">
                                         <label for="type" class="control-label col-lg-3">Type</label>
                                         <div class="col-lg-6">
                                             <select class="form-control" name="type">
@@ -163,7 +158,7 @@
                                                 <option value="word">Word</option>
                                             </select>
                                         </div>
-                                    </div>
+                                    </div> --}}
 
                                     {{csrf_field()}}
 

@@ -39,7 +39,7 @@ class QuotesController extends Controller
         $quote = new Quotes();
         $this->validate($request,[
           'title'=>'required|unique:quotes|max:255',
-          'image'=>'required|mimes:jpg,png,bmp',
+          'image'=>'required|mimes:jpeg,jpg,png,bmp'
         ]);
         $quote->title = $request->input('title');
         $quote->save();
@@ -94,7 +94,6 @@ class QuotesController extends Controller
         $quote =Quotes::findOrFail($id);
         $this->validate($request,[
           'title'=>'required|unique:quotes|max:255',
-          'image'=>'required|mimes:jpg,png,bmp',
         ]);
         $quote->title = $request->input('title');
 

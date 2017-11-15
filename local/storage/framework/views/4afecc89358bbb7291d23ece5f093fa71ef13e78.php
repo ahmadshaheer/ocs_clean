@@ -1,5 +1,6 @@
-@include('admin.include.header')
+<?php echo $__env->make('admin.include.header', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 <?php $session = Session::get('lang'); ?>
+
 <style>
     .file {
       visibility: hidden;
@@ -14,125 +15,126 @@
         <div class="col-md-11">
                     <section class="panel">
                         <header class="panel-heading">
-                            Edit President Trip
+                            Edit Media
                         </header>
                         <div class="panel-body">
-                           @if($errors->any())
+                          <?php if($errors->any()): ?>
                             <ul class="alert alert-danger">
-                              @foreach($errors->all() as $error)
-                                <li>{{$error}}</li>
-                              @endforeach
+                              <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <li><?php echo e($error); ?></li>
+                              <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </ul>
-                          @endif
+                          <?php endif; ?>
                             <div class="form cmxform form-horizontal">
-                                {!! Form::model($trip, ['route' => array('trips.update',$trip->id),'files' =>true]) !!}
-                                @if($session=='dr')
+                                <?php echo Form::model($media, ['route' => array('media.update',$media->id),'files' =>true]); ?>
+
+                                <input name="_method" type="hidden" value="PATCH">
+
+                                <?php if($session=='dr'): ?>
                                   <div class="form-group ">
                                       <label for="title_dr" class="control-label col-lg-3">Title Dari</label>
                                       <div class="col-lg-6">
-                                          <input class=" form-control" id="title_dr" value="{{$trip->title_dr}}" name="title_dr" type="text">
+                                          <input class=" form-control" id="title_dr" value="<?php echo e($media->title_dr); ?>" name="title_dr" type="text">
                                       </div>
                                   </div>
-
                                   <div class="form-group ">
                                       <label for="date_dr" class="control-label col-lg-3">Date Dari</label>
                                       <div class="col-lg-6">
-                                          <input class=" form-control date_dr"  id="date_dr" value="{{$trip->date_dr}}" name="date_dr" type="text">
+                                          <input class=" form-control date_dr"  id="date_dr" value="<?php echo e($media->date_dr); ?>" name="date_dr" type="text" required>
                                       </div>
                                   </div>
-
                                   <div class="form-group ">
                                       <label for="short_desc_dr" class="control-label col-lg-3">Short Description Dari</label>
                                       <div class="col-lg-6">
-                                          <textarea name="short_desc_dr" class="form-control"> {{$trip->short_desc_dr}}</textarea>
+                                          <textarea name="short_desc_dr" class="form-control"> <?php echo e($media->short_desc_dr); ?></textarea>
                                       </div>
                                   </div>
-
                                   <div class="form-group ">
                                       <label for="desc_dr" class="control-label col-lg-3">Description Dari</label>
                                       <div class="col-lg-6">
-                                          <textarea name="desc_dr" class="form-control format"> {{$trip->description_dr}}</textarea>
+                                          <textarea name="desc_dr" class="form-control format"> <?php echo e($media->description_dr); ?></textarea>
                                       </div>
                                   </div>
-                                @elseif($session=='pa')
 
+                                <?php elseif($session=='pa'): ?>
                                   <div class="form-group ">
                                       <label for="title_pa" class="control-label col-lg-3">Title Pashto</label>
                                       <div class="col-lg-6">
-                                          <input class=" form-control" id="title_pa" value="{{$trip->title_pa}}" name="title_pa" type="text">
+                                          <input class=" form-control" id="title_pa" value="<?php echo e($media->title_pa); ?>" name="title_pa" type="text">
                                       </div>
                                   </div>
 
                                   <div class="form-group ">
                                       <label for="date_dr" class="control-label col-lg-3">Date Pashto</label>
                                       <div class="col-lg-6">
-                                          <input class=" form-control date_dr"  id="date_dr" value="{{$trip->date_dr}}" name="date_dr" type="text">
+                                          <input class=" form-control date_dr"  id="date_dr" value="<?php echo e($media->date_dr); ?>" name="date_dr" type="text" required>
                                       </div>
                                   </div>
+
 
                                   <div class="form-group ">
                                       <label for="short_desc_pa" class="control-label col-lg-3">Short Description Pashto</label>
                                       <div class="col-lg-6">
-                                          <textarea name="short_desc_pa" class="form-control"> {{$trip->short_desc_pa}}</textarea>
+                                          <textarea name="short_desc_pa" class="form-control"> <?php echo e($media->short_desc_pa); ?></textarea>
                                       </div>
                                   </div>
 
                                   <div class="form-group ">
                                       <label for="desc_pa" class="control-label col-lg-3">Description Pashto</label>
                                       <div class="col-lg-6">
-                                          <textarea name="desc_pa" class="form-control format">{{$trip->description_pa}}</textarea>
+                                          <textarea name="desc_pa" class="form-control format"><?php echo e($media->description_pa); ?></textarea>
                                       </div>
                                   </div>
 
-
-                                @elseif($session=='en')
-                                  <div class="form-group ">
+                                <?php elseif($session=='en'): ?>
+                                  <div class="form-group">
                                       <label for="title" class="control-label col-lg-3">Title</label>
                                       <div class="col-lg-6">
-                                          <input class=" form-control" id="title" value="{{$trip->title_en}}" name="title_en" type="text">
+                                          <input class=" form-control" id="title" value="<?php echo e($media->title_en); ?>" name="title" type="text">
                                       </div>
                                   </div>
                                   <div class="form-group ">
                                       <label for="date" class="control-label col-lg-3">Date</label>
                                       <div class="col-lg-6">
-                                          <input class=" form-control" id="date" value="{{$trip->date_en}}"  name="date_en" type="date">
+                                          <input class=" form-control" id="date" value="<?php echo e($media->date_en); ?>"  name="date" type="date" required>
                                       </div>
                                   </div>
                                   <div class="form-group ">
                                       <label for="short_desc_en" class="control-label col-lg-3">Short Description English</label>
                                       <div class="col-lg-6">
-                                          <textarea name="short_desc_en" class="form-control"> {{$trip->short_desc_en}}</textarea>
+                                          <textarea name="short_desc_en" class="form-control"> <?php echo e($media->short_desc_en); ?></textarea>
                                       </div>
                                   </div>
                                   <div class="form-group ">
                                       <label for="desc_en" class="control-label col-lg-3">Description English</label>
                                       <div class="col-lg-6">
-                                          <textarea name="desc_en" class="form-control format">{{$trip->description_en}}</textarea>
+                                          <textarea name="desc_en" class="form-control format"><?php echo e($media->description_en); ?></textarea>
                                       </div>
                                   </div>
-                                @endif
-                                <input name="_method" type="hidden" value="PATCH">
 
-                                    <div class="form-group">
-                                        <label for="image" class="control-label col-lg-3">Image</label>
-                                        <input type="file" name="image" class="file" value="">
-                                        <div class="input-group col-md-6 col-md-offset-3 col-xs-12" style="padding-left:15px; padding-right:14px;">
-                                          <span class="input-group-addon"><i class="fa fa-file-image-o"></i></span>
-                                          <input type="text" class="form-control input-lg" disabled placeholder="Upload Image">
-                                          <span class="input-group-btn">
-                                            <button class="browse btn btn-primary input-lg" type="button"><i class="fa fa-folder-open"></i> Browse</button>
-                                          </span>
-                                        </div>
+                                <?php endif; ?>
+                                <div class="form-group">
+                                    <label for="image" class="control-label col-lg-3">Image</label>
+                                    <input type="file" name="image" class="file" value="<?php echo e($media->image); ?>">
+                                    <div class="input-group col-md-6 col-md-offset-3 col-xs-12" style="padding-left:15px; padding-right:14px;">
+                                      <span class="input-group-addon"><i class="fa fa-file-image-o"></i></span>
+                                      <input type="text" class="form-control input-lg" disabled placeholder="Upload Image">
+                                      <span class="input-group-btn">
+                                        <button class="browse btn btn-primary input-lg" type="button"><i class="fa fa-folder-open"></i> Browse</button>
+                                      </span>
                                     </div>
-                                    <input type="hidden" name="type" value="{{$trip->type}}">
+                                </div>
+                                <input type="hidden" name="type" value="<?php echo e($media->type); ?>">
 
-                                    <div class="form-group">
-                                        <div class="col-lg-offset-3 col-lg-6">
-                                            <button class="btn btn-primary" type="submit">Save</button>
-                                            <a href="{{url()->previous()}}" class="btn btn-default"  type="button">Cancel</a>
-                                        </div>
+
+                                <div class="form-group">
+                                    <div class="col-lg-offset-3 col-lg-6">
+                                        <button class="btn btn-primary" type="submit">Save</button>
+                                        <a href="<?php echo e(url()->previous()); ?>" class="btn btn-default"  type="button">Cancel</a>
                                     </div>
-                               {!! Form::close() !!}
+                                </div>
+                               <?php echo Form::close(); ?>
+
                             </div>
                         </div>
                     </section>
@@ -140,7 +142,7 @@
 
 </section>
 
-@include('admin.include.footer')
+<?php echo $__env->make('admin.include.footer', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 <script>
     $(document).on('click', '.browse', function(){
       var file = $(this).parent().parent().parent().find('.file');

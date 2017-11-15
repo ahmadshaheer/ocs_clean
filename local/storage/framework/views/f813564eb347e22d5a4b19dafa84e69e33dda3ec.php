@@ -1,4 +1,4 @@
-@php
+<?php 
   global $lang;
   global $dir;
   global $indir;
@@ -25,7 +25,7 @@
   $short_desc = 'short_desc_'.$lang;
   $description = 'description_'.$lang;
 
-@endphp
+ ?>
 
 <!DOCTYPE html>
 <html>
@@ -34,41 +34,41 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>OCS</title>
-  <link rel="stylesheet" href="{{asset('assets/css/semantic.min.css')}}">
-  <link rel="stylesheet" href="{{asset('assets/css/owl.carousel.min.css')}}">
-  <link rel="stylesheet" href="{{asset('assets/css/owl.theme.default.min.css')}}">
-  <link rel="stylesheet" href="{{asset('assets/css/pagination.css')}}">
+  <link rel="stylesheet" href="<?php echo e(asset('assets/css/semantic.min.css')); ?>">
+  <link rel="stylesheet" href="<?php echo e(asset('assets/css/owl.carousel.min.css')); ?>">
+  <link rel="stylesheet" href="<?php echo e(asset('assets/css/owl.theme.default.min.css')); ?>">
+  <link rel="stylesheet" href="<?php echo e(asset('assets/css/pagination.css')); ?>">
   <!-- calendar -->
-<link rel="stylesheet" href="{{asset('assets/admin-asset/css/persian-datepicker.css')}}">
-<link rel="stylesheet" href="{{asset('assets/admin-asset/css/monthly.css')}}">
-<link rel="stylesheet" type="text/css" href="{{asset('assets/css/icon.min.css')}}">
+<link rel="stylesheet" href="<?php echo e(asset('assets/admin-asset/css/persian-datepicker.css')); ?>">
+<link rel="stylesheet" href="<?php echo e(asset('assets/admin-asset/css/monthly.css')); ?>">
+<link rel="stylesheet" type="text/css" href="<?php echo e(asset('assets/css/icon.min.css')); ?>">
 
 
-{{-- favicon dem --}}
-<link rel="icon" type="image/png" href="{{asset('favicon-32x32.png')}}" sizes="32x32" />
-{{-- <link rel="icon" type="image/png" href="favicon-16x16.png" sizes="16x16" /> --}}
-{{-- favicon dem --}}
+
+<link rel="icon" type="image/png" href="<?php echo e(asset('favicon-32x32.png')); ?>" sizes="32x32" />
+
+
 
 <!-- //calendar -->
   <style>
   body * {
-    direction:{{$ltr}};
-    text-align:{{$dir}};
+    direction:<?php echo e($ltr); ?>;
+    text-align:<?php echo e($dir); ?>;
     text-transform: none;
   }
   ul li {
-    direction: {{$rtl}} !important;
+    direction: <?php echo e($rtl); ?> !important;
   }
   @font-face {
     font-family: 'aop_font';
-    src:url("{{asset('assets/fonts/aop_font.ttf')}}");
+    src:url("<?php echo e(asset('assets/fonts/aop_font.ttf')); ?>");
   }
   @font-face {
     font-family: 'pashto nazo';
-    src:url("{{asset('assets/fonts/pashto_nazo.ttf')}}");
+    src:url("<?php echo e(asset('assets/fonts/pashto_nazo.ttf')); ?>");
   }
   #top_bar {
-    background-image: url("{{asset('assets/img/banner.png')}}");
+    background-image: url("<?php echo e(asset('assets/img/banner.png')); ?>");
     /*height: fit-content;
     max-height: 95px !important;*/
     max-height:109px !important;
@@ -95,16 +95,16 @@
   #menu_bar .item {
     font-size: 1.1em;
     font-weight: bold;
-    text-align:{{$dir}};
+    text-align:<?php echo e($dir); ?>;
     line-height: 1em !important;
     /*color:white !important;*/
   }
   blockquote {
     border:0;
-    border-{{$dir}}: 4px solid #5f5e9a;
-    padding-{{$dir}}: 1em;
+    border-<?php echo e($dir); ?>: 4px solid #5f5e9a;
+    padding-<?php echo e($dir); ?>: 1em;
     margin-right:0;
-    margin-{{$dir}}:20px;
+    margin-<?php echo e($dir); ?>:20px;
   }
   .test {
     border-bottom: 2.4px solid #5f5e9a;
@@ -113,14 +113,14 @@
     text-transform: none;
   }
   .title_font,h1,h2,h3,h4,h5,h6 {
-    @if ($lang=='pa' || $lang=='dr')
+    <?php if($lang=='pa' || $lang=='dr'): ?>
       font-family: aop_font !important;
       font-size:1.3em !important;
-    @endif
+    <?php endif; ?>
     font-weight: bold !important;
 
-    text-align:{{$dir}};
-    direction:{{$rtl}};
+    text-align:<?php echo e($dir); ?>;
+    direction:<?php echo e($rtl); ?>;
     line-height: 1.2em !important;
   }
   .slider-nav {
@@ -152,8 +152,8 @@
   }
   .body_font,p,a,span,label {
     font-family:aop_font !important;
-    text-align: {{$dir}};
-    direction:{{$rtl}};
+    text-align: <?php echo e($dir); ?>;
+    direction:<?php echo e($rtl); ?>;
     color:black;
     line-height: 1.4em !important;
     font-size: 1.12em;
@@ -162,7 +162,7 @@
     color : #666 !important;
   }
   .description ul {
-    padding-{{$dir}}:15px !important;
+    padding-<?php echo e($dir); ?>:15px !important;
   }
   .social_boxes {
     border:0 !important;
@@ -181,7 +181,7 @@
   }
   #footer_social_buttons {
     position:absolute;
-    {{$dir}}:0;
+    <?php echo e($dir); ?>:0;
     bottom:20%;
   }
   #mobile_only {
@@ -216,7 +216,7 @@
     border-radius: 0 !important;
     box-shadow: none !important;
   }
-  @media screen and (max-width:990px) {
+  @media  screen and (max-width:990px) {
     #mobile_menu {
       display:block;
       position: fixed;
@@ -374,20 +374,20 @@
 
 
   }
-  @media only screen and (max-width: 1000px) and (min-width: 510px){
+  @media  only screen and (max-width: 1000px) and (min-width: 510px){
       #logo_img{
           width: 40% !important;
-          padding-{{$indir}} : 15px !important;
+          padding-<?php echo e($indir); ?> : 15px !important;
           padding-top: 8px;
       }
   }
-  @media screen and (max-width:450px) {
+  @media  screen and (max-width:450px) {
     #logo_img{
       padding-top: 12px;
-      padding-{{$dir}} : 5px !important;
+      padding-<?php echo e($dir); ?> : 5px !important;
     }
     .fb{
-      padding-{{$dir}}:0px !important;
+      padding-<?php echo e($dir); ?>:0px !important;
     }
     #footer_social_first_button {
       margin-left: -8.5em !important;
@@ -399,7 +399,7 @@
       height: 50% !important;
     }
   }
-  @media screen and (min-width: 1023px) and (max-width:1440px) {
+  @media  screen and (min-width: 1023px) and (max-width:1440px) {
     .carousel_thumbnail {
       height:53vh !important;
     }
@@ -415,7 +415,7 @@
     border-width: .5px;
   }
   .ui.fluid.card .content{
-    padding-{{$dir}}:5px !important;
+    padding-<?php echo e($dir); ?>:5px !important;
   }
   .ui.fluid.card {
     border:1px solid #ddd !important;
@@ -427,8 +427,8 @@
     border:0 !important;
   }
   .main_menu_dropdown {
-    {{$dir}}:0 !important;
-    {{$indir}}:auto !important;
+    <?php echo e($dir); ?>:0 !important;
+    <?php echo e($indir); ?>:auto !important;
     width:280px;
   }
   .main_menu_dropdown .item {
@@ -438,7 +438,7 @@
       color:white;
   }
   .second_level_dropdown {
-    {{$dir}}:103% !important;
+    <?php echo e($dir); ?>:103% !important;
     top:-1 !important;
   }
   .second_level_dropdown .item{
@@ -498,11 +498,11 @@
   }
   .ui.items>.item>.content {
     width:95%;
-    padding-{{$dir}}:10px !important;
+    padding-<?php echo e($dir); ?>:10px !important;
   }
   .short_desc {
-    direction: {{$rtl}};
-    text-align:{{$dir}};
+    direction: <?php echo e($rtl); ?>;
+    text-align:<?php echo e($dir); ?>;
 
   }
   .carousel_image_div {
@@ -550,7 +550,7 @@
     padding:13px 12px !important;
   }
   #en {
-    padding-{{$indir}}:16px !important;
+    padding-<?php echo e($indir); ?>:16px !important;
   }
   input {
     border-radius:0 !important;
@@ -564,19 +564,19 @@
   #mobile_top_bar img {
     position: absolute;
     top:0;
-    {{$dir}}:0;
+    <?php echo e($dir); ?>:0;
     height: 60px;
   }
   .ui.inverted.accordion {
-    direction:{{$ltr}};
+    direction:<?php echo e($ltr); ?>;
   }
   .search {
     position: absolute;
-    {{$indir}}: 0px;
+    <?php echo e($indir); ?>: 0px;
     top: 9px;
   }
   input {
-    text-align: {{$dir}} !important;
+    text-align: <?php echo e($dir); ?> !important;
   }
   .ui.small.top.fixed.inverted.menu .logo {
     position: relative;
@@ -602,29 +602,31 @@
     box-shadow: -1px 2px 20px 0px #625d97;
   }
   .ui.small.top.fixed.menu #dr,#fixed_home {
-    {{($lang=='en')?'border-left:.5px solid #716a9c;':''}}
+    <?php echo e(($lang=='en')?'border-left:.5px solid #716a9c;':''); ?>
+
   }
 
   .ui.small.top.fixed.menu #en,#fixed_contact {
-    {{($lang!='en')?'border-left:.5px solid #716a9c;':''}}
+    <?php echo e(($lang!='en')?'border-left:.5px solid #716a9c;':''); ?>
+
   }
   .ui.menu .ui.dropdown.item .menu .item:not(.filtered) {
-    text-align: {{$dir}};
+    text-align: <?php echo e($dir); ?>;
   }
   #mobile_menu .search {
     position: absolute;
-    {{$indir}}: 21px;
+    <?php echo e($indir); ?>: 21px;
     top:15px;
     color: white;
     font-size: 20px !important;
   }
   #mobile_menu .language {
     position: absolute;
-    {{$indir}}: 67px;
+    <?php echo e($indir); ?>: 67px;
     top:21px;
     color: white;
     font-size: 20px !important;
-    padding-{{$indir}}:5px;
+    padding-<?php echo e($indir); ?>:5px;
   }
   .ui.centered.container.grid {
     padding:0 1.8em;
@@ -664,7 +666,7 @@
   .lb-number {
     float: right;
   }
-  @if($lang!='en')
+  <?php if($lang!='en'): ?>
     #carousel_div {
       display: flex;
 
@@ -675,7 +677,7 @@
     #carousel_text_div {
       order:2;
     }
-  @endif
+  <?php endif; ?>
   .owl-dots {
     display: flex;
     justify-content: center;
@@ -696,8 +698,8 @@
   #carousel_image_div img {
     width:88%;
     padding-bottom:5%;
-    float: {{$indir}};
-    margin-{{$dir}}: 55px;
+    float: <?php echo e($indir); ?>;
+    margin-<?php echo e($dir); ?>: 55px;
   }
   @media (min-width:990px) {
     .carousel_thumbnail {
@@ -722,16 +724,19 @@
   }
   #arg {
     padding-top:0;
-    {{($lang=='en')?'padding-right:0;':''}}
+    <?php echo e(($lang=='en')?'padding-right:0;':''); ?>
+
   }
   #logo {
     padding-top:0;
   }
   #social {
-    {{($lang!='en')?"right:30px;":"left:70px;"}}
+    <?php echo e(($lang!='en')?"right:30px;":"left:70px;"); ?>
+
   }
   #carousel_image_div {
-    {{($lang=='en')?'padding-right:35px !important;':''}}
+    <?php echo e(($lang=='en')?'padding-right:35px !important;':''); ?>
+
   }
 
   #social a,#footer_social_buttons a{
@@ -782,18 +787,18 @@
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>
 
-{{-- top bar starts --}}
+
 <div id="top_bar">
-  <div class="ui computer only stackable container grid" style="{{($lang!='en')?'padding:0 18px;':''}}">
+  <div class="ui computer only stackable container grid" style="<?php echo e(($lang!='en')?'padding:0 18px;':''); ?>">
     <div class="ui two column row" style="margin-bottom:0;padding:0 6px;">
       <div class="column" style="padding-left:0;">
         <div class="ui grid">
           <div class="six wide column" id="arg">
-            <img class="ui image" style="width:180px;" src="{{asset('assets/img/arg.png')}}" alt="">
+            <img class="ui image" style="width:180px;" src="<?php echo e(asset('assets/img/arg.png')); ?>" alt="">
           </div>
           <div class="eight wide column" id="social">
             <div class="social_buttons">
-              <a href="{{($lang=='en')?'https://www.facebook.com/AFG.OCS':'https://www.facebook.com/ocs.afg'}}" target="_blank" class="ui tiny circular inverted basic icon button">
+              <a href="<?php echo e(($lang=='en')?'https://www.facebook.com/AFG.OCS':'https://www.facebook.com/ocs.afg'); ?>" target="_blank" class="ui tiny circular inverted basic icon button">
                 <i class="icon facebook f"></i>
               </a>
               <a href="https://twitter.com/OCS_AFG" target="_blank" class="ui tiny circular inverted basic icon button">
@@ -815,8 +820,8 @@
       <div class="column" style="padding-right:0;">
         <div class="ui grid">
           <div class="sixteen wide column" id="logo">
-          <a href="{{route('home')}}">
-            <img style="float:{{$dir}};height: 92px;padding-top: 10px;" src="{{asset('assets/img/logo_'.$lang.'.png')}}" alt="">
+          <a href="<?php echo e(route('home')); ?>">
+            <img style="float:<?php echo e($dir); ?>;height: 92px;padding-top: 10px;" src="<?php echo e(asset('assets/img/logo_'.$lang.'.png')); ?>" alt="">
             </a>
           </div>
         </div>
@@ -824,152 +829,174 @@
     </div>
   </div>
 </div>
-{{-- top bar ends --}}
 
-  {{-- hidden menu starts --}}
+
+  
   <div class="ui small top fixed inverted hidden menu" style="border:0;">
-    <div class="ui container" style="direction:{{$rtl}};padding-left:18px;padding-right:18px;">
-      <a href="{{route('home')}}" class="logo">
-        <img src="{{asset('assets/img/logo_'.$lang.'.png')}}" alt="">
+    <div class="ui container" style="direction:<?php echo e($rtl); ?>;padding-left:18px;padding-right:18px;">
+      <a href="<?php echo e(route('home')); ?>" class="logo">
+        <img src="<?php echo e(asset('assets/img/logo_'.$lang.'.png')); ?>" alt="">
       </a>
-      <a href="{{route('home')}}" id="fixed_home" class="item body_font">{{trans('menu.home')}}</a>
+      <a href="<?php echo e(route('home')); ?>" id="fixed_home" class="item body_font"><?php echo e(trans('menu.home')); ?></a>
       <div class="ui dropdown link item body_font" style="">
-        {{trans('menu.the_president')}}
+        <?php echo e(trans('menu.the_president')); ?>
+
         <div class="ui menu inverted main_menu_dropdown">
-          <a href="{{route('decrees')}}" class="item body_font">{{trans('menu.decrees')}}</a>
-          <a href="{{route('orders')}}" class="item body_font">{{trans('menu.orders')}}</a>
-          <a href="{{route('statements')}}" class="item body_font">{{trans('menu.statements')}}</a>
-          <a href="{{route('messages')}}" class="item body_font">{{trans('menu.messages')}}</a>
-          <a href="{{route('words')}}" class="item body_font">{{trans('menu.words')}}</a>
+          <a href="<?php echo e(route('decrees')); ?>" class="item body_font"><?php echo e(trans('menu.decrees')); ?></a>
+          <a href="<?php echo e(route('orders')); ?>" class="item body_font"><?php echo e(trans('menu.orders')); ?></a>
+          <a href="<?php echo e(route('statements')); ?>" class="item body_font"><?php echo e(trans('menu.statements')); ?></a>
+          <a href="<?php echo e(route('messages')); ?>" class="item body_font"><?php echo e(trans('menu.messages')); ?></a>
+          <a href="<?php echo e(route('words')); ?>" class="item body_font"><?php echo e(trans('menu.words')); ?></a>
            <div class="item body_font " >
-              {{trans('menu.trips')}}
-              <div class="menu second_level_dropdown {{$indir}}" style="border-radius: 0 !important;">
-                <a href="{{route('international_trips')}}" class="item">
-                  {{trans('menu.international_trips')}}
+              <?php echo e(trans('menu.trips')); ?>
+
+              <div class="menu second_level_dropdown <?php echo e($indir); ?>" style="border-radius: 0 !important;">
+                <a href="<?php echo e(route('international_trips')); ?>" class="item">
+                  <?php echo e(trans('menu.international_trips')); ?>
+
                 </a>
-                <a href="{{route('domestic_trips')}}" class="item">
-                  {{trans('menu.domestic_trips')}}
+                <a href="<?php echo e(route('domestic_trips')); ?>" class="item">
+                  <?php echo e(trans('menu.domestic_trips')); ?>
+
                 </a>
               </div>
 
             </div>
-          <a href="{{route('biography')}}" class="item body_font">{{trans('menu.biography')}}</a>
+          <a href="<?php echo e(route('biography')); ?>" class="item body_font"><?php echo e(trans('menu.biography')); ?></a>
         </div>
       </div>
       <div class="ui dropdown link item body_font">
-        {{trans('menu.media')}}
+        <?php echo e(trans('menu.media')); ?>
+
         <div class="ui menu inverted  main_menu_dropdown">
-          <a href="{{route('news')}}" class="item body_font">{{trans('menu.news')}}</a>
-          <a href="{{route('articles')}}" class="item body_font">{{trans('menu.articles')}}</a>
-          <a href="{{route('infographics')}}" class="item body_font">{{trans('menu.infographics')}}</a>
-          <a href="{{route('photo_albums')}}" class="item body_font">{{trans('menu.photo_albums')}}</a>
-          <a href="{{route('videos')}}" class="item body_font">{{trans('menu.videos')}}</a>
-          <a href="{{route('documents')}}" class="item body_font">{{trans('menu.reports_and_documents')}}</a>
-          <a href="{{route('links')}}" class="item body_font">{{trans('menu.links')}}</a>
+          <a href="<?php echo e(route('news')); ?>" class="item body_font"><?php echo e(trans('menu.news')); ?></a>
+          <a href="<?php echo e(route('articles')); ?>" class="item body_font"><?php echo e(trans('menu.articles')); ?></a>
+          <a href="<?php echo e(route('infographics')); ?>" class="item body_font"><?php echo e(trans('menu.infographics')); ?></a>
+          <a href="<?php echo e(route('photo_albums')); ?>" class="item body_font"><?php echo e(trans('menu.photo_albums')); ?></a>
+          <a href="<?php echo e(route('videos')); ?>" class="item body_font"><?php echo e(trans('menu.videos')); ?></a>
+          <a href="<?php echo e(route('documents')); ?>" class="item body_font"><?php echo e(trans('menu.reports_and_documents')); ?></a>
+          <a href="<?php echo e(route('links')); ?>" class="item body_font"><?php echo e(trans('menu.links')); ?></a>
         </div>
       </div>
       <div class="ui dropdown link item body_font">
-        {{trans('menu.about_us')}}
+        <?php echo e(trans('menu.about_us')); ?>
+
         <div class="ui menu inverted main_menu_dropdown" style="left:auto !important;">
-          <a href="{{route('ocs')}}" class="item body_font">{{trans('menu.ocs')}}</a>
-          <a href="{{route('chief_of_staff')}}" class="item body_font">{{trans('menu.chief_of_staff')}}</a>
-          {{-- <a href="{{route('organizational_structure')}}" class="item body_font">{{trans('menu.organizational_structure')}}</a> --}}
-          <a href="{{route('presidential_palace')}}" class="item body_font">{{trans('menu.presidential_palace')}}</a>
+          <a href="<?php echo e(route('ocs')); ?>" class="item body_font"><?php echo e(trans('menu.ocs')); ?></a>
+          <a href="<?php echo e(route('chief_of_staff')); ?>" class="item body_font"><?php echo e(trans('menu.chief_of_staff')); ?></a>
+          
+          <a href="<?php echo e(route('presidential_palace')); ?>" class="item body_font"><?php echo e(trans('menu.presidential_palace')); ?></a>
         </div>
       </div>
       <div class="ui dropdown link item body_font" id="fixed_contact">
-        {{trans('menu.contact_us')}}
+        <?php echo e(trans('menu.contact_us')); ?>
+
         <div class="ui menu inverted main_menu_dropdown">
-          <a href="{{route('register_complaint')}}" class="item body_font">{{trans('menu.complaint_regestration')}}</a>
-          <a href="{{route('media_directorate')}}" class="item body_font">{{trans('menu.media_directorate')}}</a>
+          <a href="<?php echo e(route('register_complaint')); ?>" class="item body_font"><?php echo e(trans('menu.complaint_regestration')); ?></a>
+          <a href="<?php echo e(route('media_directorate')); ?>" class="item body_font"><?php echo e(trans('menu.media_directorate')); ?></a>
            <div class="item body_font " >
-              {{trans('menu.subscription')}}
+              <?php echo e(trans('menu.subscription')); ?>
+
               <div class="menu second_level_dropdown" style="border-radius: 0 !important;">
-                <a href="{{route('media_form')}}" class="item">
-                  {{trans('menu.media_form')}}
+                <a href="<?php echo e(route('media_form')); ?>" class="item">
+                  <?php echo e(trans('menu.media_form')); ?>
+
                 </a>
-                <a href="{{route('journalist_form')}}" class="item">
-                  {{trans('menu.journalist_form')}}
+                <a href="<?php echo e(route('journalist_form')); ?>" class="item">
+                  <?php echo e(trans('menu.journalist_form')); ?>
+
                 </a>
-                <a href="{{route('expert_form')}}" class="item">
-                  {{trans('menu.expert_form')}}
+                <a href="<?php echo e(route('expert_form')); ?>" class="item">
+                  <?php echo e(trans('menu.expert_form')); ?>
+
                 </a>
               </div>
             </div>
         </div>
       </div>
-      <a class="languageSwitcher {{$indir}} item body_font" href="javascript:void(0)" style="" id="pa">پښتو</a>
+      <a class="languageSwitcher <?php echo e($indir); ?> item body_font" href="javascript:void(0)" style="" id="pa">پښتو</a>
       <a class="languageSwitcher item body_font" style="" href="javascript:void(0)" id="dr">دری</a>
       <a class="languageSwitcher item body_font" id="en" href="javascript:void(0)" style="">English</a>
     </div>
   </div>
-  {{-- hidden menu ends --}}
+  
 
 
-  {{--  menu bar starts --}}
+  
     <div id="menu_bar" style="">
-      <div id="" class="ui pointing secondary inverted container menu" style="border:0;direction:{{$rtl}};padding-{{$indir}}:12px;">
-        <a href="{{route('home')}}" class="item body_font">{{trans('menu.home')}}</a>
+      <div id="" class="ui pointing secondary inverted container menu" style="border:0;direction:<?php echo e($rtl); ?>;padding-<?php echo e($indir); ?>:12px;">
+        <a href="<?php echo e(route('home')); ?>" class="item body_font"><?php echo e(trans('menu.home')); ?></a>
         <div class="ui dropdown link item body_font" style="">
-          {{trans('menu.the_president')}}
+          <?php echo e(trans('menu.the_president')); ?>
+
           <div class="ui menu inverted main_menu_dropdown">
-            <a href="{{route('decrees')}}" class="item body_font">{{trans('menu.decrees')}}</a>
-            <a href="{{route('orders')}}" class="item body_font">{{trans('menu.orders')}}</a>
-            <a href="{{route('statements')}}" class="item body_font">{{trans('menu.statements')}}</a>
-            <a href="{{route('messages')}}" class="item body_font">{{trans('menu.messages')}}</a>
-            <a href="{{route('words')}}" class="item body_font">{{trans('menu.words')}}</a>
+            <a href="<?php echo e(route('decrees')); ?>" class="item body_font"><?php echo e(trans('menu.decrees')); ?></a>
+            <a href="<?php echo e(route('orders')); ?>" class="item body_font"><?php echo e(trans('menu.orders')); ?></a>
+            <a href="<?php echo e(route('statements')); ?>" class="item body_font"><?php echo e(trans('menu.statements')); ?></a>
+            <a href="<?php echo e(route('messages')); ?>" class="item body_font"><?php echo e(trans('menu.messages')); ?></a>
+            <a href="<?php echo e(route('words')); ?>" class="item body_font"><?php echo e(trans('menu.words')); ?></a>
             <div class="item body_font " >
-              {{trans('menu.trips')}}
-              <div class="menu second_level_dropdown {{$indir}}" style="border-radius: 0 !important;">
-                <a href="{{route('international_trips')}}" class="item">
-                  {{trans('menu.international_trips')}}
+              <?php echo e(trans('menu.trips')); ?>
+
+              <div class="menu second_level_dropdown <?php echo e($indir); ?>" style="border-radius: 0 !important;">
+                <a href="<?php echo e(route('international_trips')); ?>" class="item">
+                  <?php echo e(trans('menu.international_trips')); ?>
+
                 </a>
-                <a href="{{route('domestic_trips')}}" class="item">
-                  {{trans('menu.domestic_trips')}}
+                <a href="<?php echo e(route('domestic_trips')); ?>" class="item">
+                  <?php echo e(trans('menu.domestic_trips')); ?>
+
                 </a>
               </div>
 
             </div>
-            <a href="{{route('biography')}}" class="item body_font">{{trans('menu.biography')}}</a>
+            <a href="<?php echo e(route('biography')); ?>" class="item body_font"><?php echo e(trans('menu.biography')); ?></a>
           </div>
         </div>
         <div class="ui dropdown link item body_font">
-          {{trans('menu.media')}}
+          <?php echo e(trans('menu.media')); ?>
+
           <div class="ui menu inverted main_menu_dropdown">
-            <a href="{{route('news')}}" class="item body_font">{{trans('menu.news')}}</a>
-            <a href="{{route('articles')}}" class="item body_font">{{trans('menu.articles')}}</a>
-            <a href="{{route('infographics')}}" class="item body_font">{{trans('menu.infographics')}}</a>
-            <a href="{{route('photo_albums')}}" class="item body_font">{{trans('menu.photo_albums')}}</a>
-            <a href="{{route('videos')}}" class="item body_font">{{trans('menu.videos')}}</a>
-            <a href="{{route('documents')}}" class="item body_font">{{trans('menu.reports_and_documents')}}</a>
-            <a href="{{route('links')}}" class="item body_font">{{trans('menu.links')}}</a>
+            <a href="<?php echo e(route('news')); ?>" class="item body_font"><?php echo e(trans('menu.news')); ?></a>
+            <a href="<?php echo e(route('articles')); ?>" class="item body_font"><?php echo e(trans('menu.articles')); ?></a>
+            <a href="<?php echo e(route('infographics')); ?>" class="item body_font"><?php echo e(trans('menu.infographics')); ?></a>
+            <a href="<?php echo e(route('photo_albums')); ?>" class="item body_font"><?php echo e(trans('menu.photo_albums')); ?></a>
+            <a href="<?php echo e(route('videos')); ?>" class="item body_font"><?php echo e(trans('menu.videos')); ?></a>
+            <a href="<?php echo e(route('documents')); ?>" class="item body_font"><?php echo e(trans('menu.reports_and_documents')); ?></a>
+            <a href="<?php echo e(route('links')); ?>" class="item body_font"><?php echo e(trans('menu.links')); ?></a>
           </div>
         </div>
         <div class="ui dropdown link item body_font">
-          {{trans('menu.about_us')}}
+          <?php echo e(trans('menu.about_us')); ?>
+
           <div class="ui menu inverted main_menu_dropdown" style="left:auto !important;">
-            <a href="{{route('ocs')}}" class="item body_font">{{trans('menu.ocs')}}</a>
-            <a href="{{route('chief_of_staff')}}" class="item body_font">{{trans('menu.chief_of_staff')}}</a>
-            {{-- <a href="{{route('organizational_structure')}}" class="item body_font">{{trans('menu.organizational_structure')}}</a> --}}
-            <a href="{{route('presidential_palace')}}" class="item body_font">{{trans('menu.presidential_palace')}}</a>
+            <a href="<?php echo e(route('ocs')); ?>" class="item body_font"><?php echo e(trans('menu.ocs')); ?></a>
+            <a href="<?php echo e(route('chief_of_staff')); ?>" class="item body_font"><?php echo e(trans('menu.chief_of_staff')); ?></a>
+            
+            <a href="<?php echo e(route('presidential_palace')); ?>" class="item body_font"><?php echo e(trans('menu.presidential_palace')); ?></a>
           </div>
         </div>
         <div class="ui dropdown link item body_font">
-          {{trans('menu.contact_us')}}
+          <?php echo e(trans('menu.contact_us')); ?>
+
           <div class="ui menu inverted main_menu_dropdown">
-            <a href="{{route('register_complaint')}}" class="item body_font">{{trans('menu.complaint_regestration')}}</a>
-            <a href="{{route('media_directorate')}}" class="item body_font">{{trans('menu.media_directorate')}}</a>
+            <a href="<?php echo e(route('register_complaint')); ?>" class="item body_font"><?php echo e(trans('menu.complaint_regestration')); ?></a>
+            <a href="<?php echo e(route('media_directorate')); ?>" class="item body_font"><?php echo e(trans('menu.media_directorate')); ?></a>
             <div class="item body_font " >
-              {{trans('menu.subscription')}}
+              <?php echo e(trans('menu.subscription')); ?>
+
               <div class="menu second_level_dropdown left" style="border-radius: 0 !important;">
-                <a href="{{route('media_form')}}" class="item">
-                  {{trans('menu.media_form')}}
+                <a href="<?php echo e(route('media_form')); ?>" class="item">
+                  <?php echo e(trans('menu.media_form')); ?>
+
                 </a>
-                <a href="{{route('journalist_form')}}" class="item">
-                  {{trans('menu.journalist_form')}}
+                <a href="<?php echo e(route('journalist_form')); ?>" class="item">
+                  <?php echo e(trans('menu.journalist_form')); ?>
+
                 </a>
-                <a href="{{route('expert_form')}}" class="item">
-                  {{trans('menu.expert_form')}}
+                <a href="<?php echo e(route('expert_form')); ?>" class="item">
+                  <?php echo e(trans('menu.expert_form')); ?>
+
                 </a>
               </div>
             </div>
@@ -978,7 +1005,7 @@
         <a class="item" id="search">
           <i class="icon search" style="position:relative;top:1px;left:0;  "></i>
         </a>
-        <a id="pa" class="languageSwitcher {{$indir}} item" style="" href="javascript:void(0)">پښتو</a>
+        <a id="pa" class="languageSwitcher <?php echo e($indir); ?> item" style="" href="javascript:void(0)">پښتو</a>
         <a id="dr" class="languageSwitcher item" style="" href="javascript:void(0)">دری</a>
         <a id="en" class="languageSwitcher item" style="" href="javascript:void(0)">English</a>
 
@@ -990,34 +1017,35 @@
         </a>
       </div>
     </div>
-  {{-- menu bar ends --}}
-  {{-- computer search box starts --}}
+  
+  
   <div class="ui grid" id="search_box" style="padding-bottom:0px;display:none;">
     <div class="column" style="background-color:#2c2b4a;padding:5px 14px !important;margin-top:14px;">
       <div class="ui container" style="width:57%;padding-left:10px;">
-        <form class="ui form" action="{{url('search_result')}}" name="search_form">
-          <div class="field" style="display: inline;float: {{$dir}};width: 76%">
+        <form class="ui form" action="<?php echo e(url('search_result')); ?>" name="search_form">
+          <div class="field" style="display: inline;float: <?php echo e($dir); ?>;width: 76%">
             <div class="ui icon input">
-              <input class="prompt body_font" style="direction:ltr;" name="search" id="search_text" type="text" placeholder="{{trans('home.search')}}">
+              <input class="prompt body_font" style="direction:ltr;" name="search" id="search_text" type="text" placeholder="<?php echo e(trans('home.search')); ?>">
               <i class="search icon"></i>
             </div>
           </div>
-          <a class="ui active button" href="{{route('advance_search')}}" target="_blank" style="float:{{$dir}}">
-                {{trans('menu.advanced_search')}}
+          <a class="ui active button" href="<?php echo e(route('advance_search')); ?>" target="_blank" style="float:<?php echo e($dir); ?>">
+                <?php echo e(trans('menu.advanced_search')); ?>
+
               </a>
         </form>
       </div>
     </div>
   </div>
-  {{-- computer search box ends --}}
+  
 
 
 
 
-  {{-- mobile menu starts --}}
+  
   <div class="ui inverted segment" id="mobile_menu">
-    <div class="ui inverted accordion" style="text-align:{{$dir}};">
-      <img src="{{asset('assets/img/logo_'.$lang.'.png')}}" alt="" style="" id="logo_img">
+    <div class="ui inverted accordion" style="text-align:<?php echo e($dir); ?>;">
+      <img src="<?php echo e(asset('assets/img/logo_'.$lang.'.png')); ?>" alt="" style="" id="logo_img">
       <a href="#" class="search" id="mobile_search">
         <i class="icon search" style="font-size:2em;top:0;"></i>
       </a>
@@ -1037,39 +1065,43 @@
       </div>
       <div class="content" style="padding-top: 0px">
         <div class="ui fluid vertical menu inverted ">
-          <a href="{{route('home')}}" class="item body_font">{{trans('menu.home')}}</a>
+          <a href="<?php echo e(route('home')); ?>" class="item body_font"><?php echo e(trans('menu.home')); ?></a>
           <div class="item">
             <div class="accordion">
               <div class="title body_font" style="padding:0;">
-                {{trans('menu.the_president')}}
-                <i class="caret down icon" style="float:{{$indir}};"></i>
+                <?php echo e(trans('menu.the_president')); ?>
+
+                <i class="caret down icon" style="float:<?php echo e($indir); ?>;"></i>
               </div>
               <div class="content" id="mobile_menu_accordion">
                 <div class="menu">
-                  <a href="{{route('decrees')}}" class="item body_font">{{trans('menu.decrees')}}</a>
-                  <a href="{{route('orders')}}" class="item body_font">{{trans('menu.orders')}}</a>
-                  <a href="{{route('statements')}}" class="item body_font">{{trans('menu.statements')}}</a>
-                  <a href="{{route('messages')}}" class="item body_font">{{trans('menu.messages')}}</a>
-                  <a href="{{route('words')}}" class="item body_font">{{trans('menu.words')}}</a>
+                  <a href="<?php echo e(route('decrees')); ?>" class="item body_font"><?php echo e(trans('menu.decrees')); ?></a>
+                  <a href="<?php echo e(route('orders')); ?>" class="item body_font"><?php echo e(trans('menu.orders')); ?></a>
+                  <a href="<?php echo e(route('statements')); ?>" class="item body_font"><?php echo e(trans('menu.statements')); ?></a>
+                  <a href="<?php echo e(route('messages')); ?>" class="item body_font"><?php echo e(trans('menu.messages')); ?></a>
+                  <a href="<?php echo e(route('words')); ?>" class="item body_font"><?php echo e(trans('menu.words')); ?></a>
                   <div class="item">
                     <div class="accordion">
                       <div class="title body_font" style="padding:0;">
-                        {{trans('menu.trips')}}
-                        <i class="caret down icon" style="float:{{$indir}};"></i>
+                        <?php echo e(trans('menu.trips')); ?>
+
+                        <i class="caret down icon" style="float:<?php echo e($indir); ?>;"></i>
                       </div>
                       <div class="content">
                         <div class="menu">
-                           <a href="{{route('international_trips')}}" class="item">
-                            {{trans('menu.international_trips')}}
+                           <a href="<?php echo e(route('international_trips')); ?>" class="item">
+                            <?php echo e(trans('menu.international_trips')); ?>
+
                           </a>
-                          <a href="{{route('domestic_trips')}}" class="item">
-                            {{trans('menu.domestic_trips')}}
+                          <a href="<?php echo e(route('domestic_trips')); ?>" class="item">
+                            <?php echo e(trans('menu.domestic_trips')); ?>
+
                           </a>
                         </div>
                       </div>
                     </div>
                   </div>
-                  <a href="{{route('biography')}}" class="item body_font">{{trans('menu.biography')}}</a>
+                  <a href="<?php echo e(route('biography')); ?>" class="item body_font"><?php echo e(trans('menu.biography')); ?></a>
                 </div>
               </div>
             </div>
@@ -1077,18 +1109,19 @@
           <div class="item">
               <div class="accordion">
                 <div class="title body_font" style="padding:0;">
-                  {{trans('menu.media')}}
-                  <i class="caret down icon" style="float:{{$indir}};"></i>
+                  <?php echo e(trans('menu.media')); ?>
+
+                  <i class="caret down icon" style="float:<?php echo e($indir); ?>;"></i>
                 </div>
                 <div class="content">
                   <div class="menu">
-                     <a href="{{route('news')}}" class="item body_font">{{trans('menu.news')}}</a>
-                      <a href="{{route('articles')}}" class="item body_font">{{trans('menu.articles')}}</a>
-                      <a href="{{route('infographics')}}" class="item body_font">{{trans('menu.infographics')}}</a>
-                      <a href="{{route('photo_albums')}}" class="item body_font">{{trans('menu.photo_albums')}}</a>
-                      <a href="{{route('videos')}}" class="item body_font">{{trans('menu.videos')}}</a>
-                      <a href="{{route('documents')}}" class="item body_font">{{trans('menu.reports_and_documents')}}</a>
-                      <a href="{{route('links')}}" class="item body_font">{{trans('menu.links')}}</a>
+                     <a href="<?php echo e(route('news')); ?>" class="item body_font"><?php echo e(trans('menu.news')); ?></a>
+                      <a href="<?php echo e(route('articles')); ?>" class="item body_font"><?php echo e(trans('menu.articles')); ?></a>
+                      <a href="<?php echo e(route('infographics')); ?>" class="item body_font"><?php echo e(trans('menu.infographics')); ?></a>
+                      <a href="<?php echo e(route('photo_albums')); ?>" class="item body_font"><?php echo e(trans('menu.photo_albums')); ?></a>
+                      <a href="<?php echo e(route('videos')); ?>" class="item body_font"><?php echo e(trans('menu.videos')); ?></a>
+                      <a href="<?php echo e(route('documents')); ?>" class="item body_font"><?php echo e(trans('menu.reports_and_documents')); ?></a>
+                      <a href="<?php echo e(route('links')); ?>" class="item body_font"><?php echo e(trans('menu.links')); ?></a>
                   </div>
                 </div>
               </div>
@@ -1096,15 +1129,16 @@
              <div class="item">
               <div class="accordion">
                 <div class="title body_font" style="padding:0;">
-                  {{trans('menu.about_us')}}
-                  <i class="caret down icon" style="float:{{$indir}};"></i>
+                  <?php echo e(trans('menu.about_us')); ?>
+
+                  <i class="caret down icon" style="float:<?php echo e($indir); ?>;"></i>
                 </div>
                 <div class="content">
                   <div class="menu">
-                      <a href="{{route('ocs')}}" class="item body_font">{{trans('menu.ocs')}}</a>
-                      <a href="{{route('chief_of_staff')}}" class="item body_font">{{trans('menu.chief_of_staff')}}</a>
-                      {{-- <a href="{{route('organizational_structure')}}" class="item body_font">{{trans('menu.organizational_structure')}}</a> --}}
-                      <a href="{{route('presidential_palace')}}" class="item body_font">{{trans('menu.presidential_palace')}}</a>
+                      <a href="<?php echo e(route('ocs')); ?>" class="item body_font"><?php echo e(trans('menu.ocs')); ?></a>
+                      <a href="<?php echo e(route('chief_of_staff')); ?>" class="item body_font"><?php echo e(trans('menu.chief_of_staff')); ?></a>
+                      
+                      <a href="<?php echo e(route('presidential_palace')); ?>" class="item body_font"><?php echo e(trans('menu.presidential_palace')); ?></a>
                   </div>
                 </div>
               </div>
@@ -1112,29 +1146,34 @@
              <div class="item">
               <div class="accordion">
                 <div class="title body_font" style="padding:0;">
-                  {{trans('menu.contact_us')}}
-                  <i class="caret down icon" style="float:{{$indir}};"></i>
+                  <?php echo e(trans('menu.contact_us')); ?>
+
+                  <i class="caret down icon" style="float:<?php echo e($indir); ?>;"></i>
                 </div>
                 <div class="content">
                   <div class="menu">
-                    <a href="{{route('register_complaint')}}" class="item body_font">{{trans('menu.complaint_regestration')}}</a>
-                    <a href="{{route('media_directorate')}}" class="item body_font">{{trans('menu.media_directorate')}}</a>
+                    <a href="<?php echo e(route('register_complaint')); ?>" class="item body_font"><?php echo e(trans('menu.complaint_regestration')); ?></a>
+                    <a href="<?php echo e(route('media_directorate')); ?>" class="item body_font"><?php echo e(trans('menu.media_directorate')); ?></a>
                     <div class="item">
                       <div class="accordion">
                         <div class="title body_font" style="padding:0;">
-                          {{trans('menu.subscription')}}
-                          <i class="caret down icon" style="float:{{$indir}};"></i>
+                          <?php echo e(trans('menu.subscription')); ?>
+
+                          <i class="caret down icon" style="float:<?php echo e($indir); ?>;"></i>
                         </div>
                         <div class="content">
                           <div class="menu">
-                            <a href="{{route('media_form')}}" class="item">
-                              {{trans('menu.media_form')}}
+                            <a href="<?php echo e(route('media_form')); ?>" class="item">
+                              <?php echo e(trans('menu.media_form')); ?>
+
                             </a>
-                            <a href="{{route('journalist_form')}}" class="item">
-                              {{trans('menu.journalist_form')}}
+                            <a href="<?php echo e(route('journalist_form')); ?>" class="item">
+                              <?php echo e(trans('menu.journalist_form')); ?>
+
                             </a>
-                            <a href="{{route('expert_form')}}" class="item">
-                              {{trans('menu.expert_form')}}
+                            <a href="<?php echo e(route('expert_form')); ?>" class="item">
+                              <?php echo e(trans('menu.expert_form')); ?>
+
                             </a>
                           </div>
                         </div>
@@ -1148,20 +1187,21 @@
       </div>
     </div>
    </div>
-  {{-- mobile menu ends --}}
+  
 
    <div class="ui grid" id="mobile_search_box" style="background-color:#2c2b4a;padding-bottom:0px;display:none;">
     <div class="column" style="padding:5px 14px !important;margin-top:4px;">
       <div class="ui container" style="width:57%;padding-left:10px;">
-        <form class="ui form" action="{{url('search_result')}}" name="search_form">
-          <div class="field" style="display: inline;float: {{$dir}};width: auto">
+        <form class="ui form" action="<?php echo e(url('search_result')); ?>" name="search_form">
+          <div class="field" style="display: inline;float: <?php echo e($dir); ?>;width: auto">
             <div class="ui icon input">
-              <input class="prompt body_font" style="direction:{{$ltr}};" name="search" id="search_text" type="text" placeholder="{{trans('home.search')}}">
+              <input class="prompt body_font" style="direction:<?php echo e($ltr); ?>;" name="search" id="search_text" type="text" placeholder="<?php echo e(trans('home.search')); ?>">
               <i class="search icon"></i>
             </div>
           </div>
-          <a class="ui active button" href="{{route('advance_search')}}" target="_blank" style="margin-left:10px;font-size: 9px">
-                {{trans('menu.advanced_search')}}
+          <a class="ui active button" href="<?php echo e(route('advance_search')); ?>" target="_blank" style="margin-left:10px;font-size: 9px">
+                <?php echo e(trans('menu.advanced_search')); ?>
+
               </a>
         </form>
       </div>

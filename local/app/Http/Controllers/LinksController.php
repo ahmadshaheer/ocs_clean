@@ -45,7 +45,7 @@ class LinksController extends Controller
             $this->validate($request,[
               'title_en'=>'required|unique:links|max:255',
               'desc_en'=>'required',
-              'image'=>'mimes:jpg,png,bmp',
+              'image'=>'required|mimes:jpeg,jpg,png,bmp'
               'url'=>'required'
             ]);
             $links->title_en = $request->input('title');
@@ -55,7 +55,7 @@ class LinksController extends Controller
             $this->validate($request,[
               'title_dr'=>'required|unique:links|max:255',
               'desc_dr'=>'required',
-              'image'=>'mimes:jpg,png,bmp',
+              'image'=>'required|mimes:jpeg,jpg,png,bmp'
               'url'=>'required'
             ]);
             $links->title_dr = $request->input('title_dr');
@@ -65,7 +65,7 @@ class LinksController extends Controller
             $this->validate($request,[
               'title_pa'=>'required|unique:links|max:255',
               'desc_pa'=>'required',
-              'image'=>'mimes:jpg,png,bmp',
+              'image'=>'required|mimes:jpeg,jpg,png,bmp'
               'url'=>'required'
             ]);
             $links->title_pa = $request->input('title_pa');

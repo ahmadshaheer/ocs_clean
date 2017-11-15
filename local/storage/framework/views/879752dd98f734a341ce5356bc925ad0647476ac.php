@@ -1,4 +1,4 @@
-@include('admin.include.header')
+<?php echo $__env->make('admin.include.header', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 <?php $session = Session::get('lang'); ?>
 <style>
     .file {
@@ -20,16 +20,16 @@ $route= Session::get('type');
                             Add About the President trip
                         </header>
                         <div class="panel-body">
-                             @if($errors->any())
+                             <?php if($errors->any()): ?>
                             <ul class="alert alert-danger">
-                              @foreach($errors->all() as $error)
-                                <li>{{$error}}</li>
-                              @endforeach
+                              <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <li><?php echo e($error); ?></li>
+                              <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </ul>
-                          @endif
+                          <?php endif; ?>
                             <div class="form">
-                                <form class="cmxform form-horizontal " id="signupForm" method="post" action="{{route('trips.store')}}" enctype="multipart/form-data">
-                                @if($session=='en')
+                                <form class="cmxform form-horizontal " id="signupForm" method="post" action="<?php echo e(route('trips.store')); ?>" enctype="multipart/form-data">
+                                <?php if($session=='en'): ?>
                                     <div class="form-group ">
                                         <label for="title" class="control-label col-lg-3">Title</label>
                                         <div class="col-lg-6">
@@ -54,7 +54,7 @@ $route= Session::get('type');
                                             <textarea name="desc_en" class="form-control format"></textarea>
                                         </div>
                                     </div>
-                                    @elseif($session=='dr')
+                                    <?php elseif($session=='dr'): ?>
                                     <div class="form-group ">
                                         <label for="title_dr" class="control-label col-lg-3">Title Dari</label>
                                         <div class="col-lg-6">
@@ -79,7 +79,7 @@ $route= Session::get('type');
                                             <textarea name="desc_dr" class="form-control format"></textarea>
                                         </div>
                                     </div>
-                                    @elseif($session=='pa')
+                                    <?php elseif($session=='pa'): ?>
                                     <div class="form-group ">
                                         <label for="title_pa" class="control-label col-lg-3">Title Pashto</label>
                                         <div class="col-lg-6">
@@ -104,7 +104,7 @@ $route= Session::get('type');
                                             <textarea name="desc_pa" class="form-control format"></textarea>
                                         </div>
                                     </div>
-                                    @endif
+                                    <?php endif; ?>
                                     <div class="form-group">
                                         <label for="image" class="control-label col-lg-3">Image</label>
                                         <input type="file" name="image" class="file">
@@ -117,14 +117,15 @@ $route= Session::get('type');
                                         </div>
                                     </div>
 
-                                    <input type="hidden" name="type" value="{{$route}}">
+                                    <input type="hidden" name="type" value="<?php echo e($route); ?>">
 
-                                    {{csrf_field()}}
+                                    <?php echo e(csrf_field()); ?>
+
 
                                     <div class="form-group">
                                         <div class="col-lg-offset-3 col-lg-6">
                                             <button class="btn btn-primary" type="submit">Save</button>
-                                            <a href="{{url()->previous()}}" class="btn btn-default"  type="button">Cancel</a>
+                                            <a href="<?php echo e(url()->previous()); ?>" class="btn btn-default"  type="button">Cancel</a>
                                         </div>
                                     </div>
                                 </form>
@@ -135,7 +136,7 @@ $route= Session::get('type');
 
 </section>
 
-@include('admin.include.footer')
+<?php echo $__env->make('admin.include.footer', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 <script>
     $(document).on('click', '.browse', function(){
       var file = $(this).parent().parent().parent().find('.file');

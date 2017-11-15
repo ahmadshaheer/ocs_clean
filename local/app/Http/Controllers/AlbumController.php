@@ -48,7 +48,7 @@ class AlbumController extends Controller
           $this->validate($request, [
               'title_en' => 'required|unique:album|max:255',
               'date_en' => 'required',
-              'image'=>'required',
+              'image'=>'required|mimes:jpeg,jpg,png,bmp'
           ]);
           //if passes the validation
           $album->title_en = $request->input('title_en');
@@ -58,7 +58,7 @@ class AlbumController extends Controller
           $this->validate($request, [
               'title_dr' => 'required|unique:album|max:255',
               'date_dr' => 'required',
-              'image'=>'required',
+              'image'=>'required|mimes:jpeg,jpg,png,bmp'
           ]);
           //if passes the validation
           $album->title_dr = $request->input('title_dr');
@@ -68,7 +68,7 @@ class AlbumController extends Controller
           $this->validate($request, [
               'title_pa' => 'required|unique:album|max:255',
               'date_dr' => 'required',
-              'image'=>'required',
+              'image'=>'required|mimes:jpeg,jpg,png,bmp'
           ]);
           //if passes the validation
           $album->title_pa = $request->input('title_pa');
@@ -239,29 +239,29 @@ class AlbumController extends Controller
      */
     public function destroy($id)
     {
-        $media = Album::findOrFail($id);
-        $search = Search::where('table_name','album')->where('table_id',$id);
-        $search->delete();
-        $media->delete();
-        return Redirect()->route('admin_'.$type);
+        // $media = Album::findOrFail($id);
+        // $search = Search::where('table_name','album')->where('table_id',$id);
+        // $search->delete();
+        // $media->delete();
+        // return Redirect()->route('album.index');
 
 
-        // $album = Album::findOrFail($id);
-        // $album_images = DB::table('album_image')->where('album_id',$id)->get();
-        // if(sizeof($album_images)>0){
-        //     foreach ($album_images as $value) {
-        //         File::delete(public_path().'../uploads/albumImage/'.$value->image);
-        //         $album_image = AlbumImage::findOrFail($value->id);
-        //         $album_image->delete();
-        // }
-        // }
-        // File::delete(public_path().'../uploads/album/'.$album->image);
-        // File::delete(public_path().'../uploads/album/'.$album->image_thumb);
-        // if($album->delete()){
-        //     $search = Search::where('table_name','=','album')->where('table_id','=',$id)->get();
-        //     $search->delete();
-        // }
-        // return redirect()->route('album.index');
+        $album = Album::findOrFail($id);
+        $album_images = DB::table('album_image')->where('album_id',$id)->get();
+        if(sizeof($album_images)>0){
+            foreach ($album_images as $value) {
+                File::delete('uploads/albumImage/'.$value->image);
+                $album_image = AlbumImage::findOrFail($value->id);
+                $album_image->delete();
+        }
+        }
+        File::delete('uploads/album/'.$album->image);
+        File::delete('uploads/album/'.$album->image_thumb);
+        if($album->delete()){
+            $search = Search::where('table_name','=','album')->where('table_id','=',$id)->get();
+            $search->delete();
+        }
+        return redirect()->route('album.index');
     }
 
     public function add_album_image($number,$id){

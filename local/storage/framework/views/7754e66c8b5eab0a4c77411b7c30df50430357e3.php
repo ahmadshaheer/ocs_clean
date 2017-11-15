@@ -1,4 +1,4 @@
-@include('admin.include.header')
+<?php echo $__env->make('admin.include.header', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 <?php $session = Session::get('lang'); ?>
 <style>
     .file {
@@ -17,32 +17,33 @@ $route= Session::get('type');
         <div class="col-md-11">
                     <section class="panel">
                         <header class="panel-heading">
-                            Add About the President trip
+                            Add <?php echo e($route); ?>
+
                         </header>
                         <div class="panel-body">
-                             @if($errors->any())
+                          <?php if($errors->any()): ?>
                             <ul class="alert alert-danger">
-                              @foreach($errors->all() as $error)
-                                <li>{{$error}}</li>
-                              @endforeach
+                              <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <li><?php echo e($error); ?></li>
+                              <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </ul>
-                          @endif
+                          <?php endif; ?>
                             <div class="form">
-                                <form class="cmxform form-horizontal " id="signupForm" method="post" action="{{route('trips.store')}}" enctype="multipart/form-data">
-                                @if($session=='en')
+                                <form class="cmxform form-horizontal " id="signupForm" method="post" action="<?php echo e(route('media.store')); ?>" enctype="multipart/form-data">
+                                <?php if($session=='en'): ?>
                                     <div class="form-group ">
                                         <label for="title" class="control-label col-lg-3">Title</label>
                                         <div class="col-lg-6">
-                                            <input class=" form-control" id="title" name="title_en" type="text">
+                                            <input class=" form-control" id="title_en"  name="title_en" type="text">
                                         </div>
                                     </div>
-                                    <div class="form-group ">
+                                     <div class="form-group ">
                                         <label for="date" class="control-label col-lg-3">Date</label>
                                         <div class="col-lg-6">
-                                            <input class=" form-control" id="date"  name="date_en" type="date">
+                                            <input class=" form-control" id="date_en"  name="date_en" type="date" required>
                                         </div>
                                     </div>
-                                    <div class="form-group ">
+                                      <div class="form-group ">
                                         <label for="short_desc_en" class="control-label col-lg-3">Short Description English</label>
                                         <div class="col-lg-6">
                                             <textarea name="short_desc_en" class="form-control"></textarea>
@@ -54,17 +55,18 @@ $route= Session::get('type');
                                             <textarea name="desc_en" class="form-control format"></textarea>
                                         </div>
                                     </div>
-                                    @elseif($session=='dr')
+                                    <?php elseif($session=='dr'): ?>
+                                    <input type="hidden" id="tags_array" name="tags_array">
                                     <div class="form-group ">
                                         <label for="title_dr" class="control-label col-lg-3">Title Dari</label>
                                         <div class="col-lg-6">
-                                            <input class=" form-control" id="title_dr" name="title_dr" type="text">
+                                            <input class=" form-control" id="title_dr"  name="title_dr" type="text">
                                         </div>
                                     </div>
-                                     <div class="form-group ">
+                                    <div class="form-group ">
                                         <label for="date_dr" class="control-label col-lg-3">Date Dari</label>
                                         <div class="col-lg-6">
-                                            <input class=" form-control date_dr"  id="date_dr" name="date_dr" type="text">
+                                            <input class=" form-control date_dr"  id="date_dr" name="date_dr" type="text" required>
                                         </div>
                                     </div>
                                     <div class="form-group ">
@@ -79,17 +81,18 @@ $route= Session::get('type');
                                             <textarea name="desc_dr" class="form-control format"></textarea>
                                         </div>
                                     </div>
-                                    @elseif($session=='pa')
+                                    <?php else: ?>
                                     <div class="form-group ">
                                         <label for="title_pa" class="control-label col-lg-3">Title Pashto</label>
                                         <div class="col-lg-6">
-                                            <input class=" form-control" id="title_pa" name="title_pa" type="text">
+                                            <input class=" form-control" id="title_pa"  name="title_pa" type="text">
                                         </div>
                                     </div>
+
                                     <div class="form-group ">
                                         <label for="date_dr" class="control-label col-lg-3">Date Pashto</label>
                                         <div class="col-lg-6">
-                                            <input class=" form-control date_dr"  id="date_dr" name="date_dr" type="text">
+                                            <input class=" form-control date_dr"  id="date_dr" name="date_dr" type="text" required>
                                         </div>
                                     </div>
                                     <div class="form-group ">
@@ -104,7 +107,20 @@ $route= Session::get('type');
                                             <textarea name="desc_pa" class="form-control format"></textarea>
                                         </div>
                                     </div>
-                                    @endif
+                                    <?php endif; ?>
+                                    <div class="form-group">
+                                      <label for="" class="control-label col-lg-3">Tags</label>
+                                      <div class="col-lg-6">
+                                        <div class="ui fluid multiple search selection dropdown" id="tags">
+                                          <input name="tags" type="hidden">
+                                          <i class="dropdown icon"></i>
+                                          <div class="default text">Tags</div>
+                                          <div class="menu" id="menu">
+                                            
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
                                     <div class="form-group">
                                         <label for="image" class="control-label col-lg-3">Image</label>
                                         <input type="file" name="image" class="file">
@@ -117,14 +133,15 @@ $route= Session::get('type');
                                         </div>
                                     </div>
 
-                                    <input type="hidden" name="type" value="{{$route}}">
+                                    <input type="hidden" name="type" value="<?php echo e($route); ?>">
 
-                                    {{csrf_field()}}
+                                    <?php echo e(csrf_field()); ?>
+
 
                                     <div class="form-group">
                                         <div class="col-lg-offset-3 col-lg-6">
-                                            <button class="btn btn-primary" type="submit">Save</button>
-                                            <a href="{{url()->previous()}}" class="btn btn-default"  type="button">Cancel</a>
+                                            <button class="btn btn-primary" onclick="go()" type="">Save</button>
+                                            <a href="<?php echo e(url()->previous()); ?>" class="btn btn-default"  type="button">Cancel</a>
                                         </div>
                                     </div>
                                 </form>
@@ -135,7 +152,7 @@ $route= Session::get('type');
 
 </section>
 
-@include('admin.include.footer')
+<?php echo $__env->make('admin.include.footer', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 <script>
     $(document).on('click', '.browse', function(){
       var file = $(this).parent().parent().parent().find('.file');
@@ -143,5 +160,28 @@ $route= Session::get('type');
     });
     $(document).on('change', '.file', function(){
       $(this).parent().find('.form-control').val($(this).val().replace(/C:\\fakepath\\/i, ''));
+    });
+    // tag generating & editing script
+    $('.dropdown')
+      .dropdown({
+        allowAdditions: true
+      })
+    ;
+    function go() {
+      var test = $('.dropdown').dropdown("get value");
+      $('#tags_array').val(test);
+    }
+    $('#title').focusout(function() {
+      $('#menu').empty();
+      var text = $('#title').val();
+      arr = text.split(" ");
+      var length = arr.length;
+      var data=[];
+      for(var i=0;i<length;i++) {
+        data[i+1] = '<div class="item" data-value="'+arr[i]+'">'+arr[i]+'</div>';
+      }
+      data = $.unique(data);
+      $('#menu').append(data);
+
     });
 </script>

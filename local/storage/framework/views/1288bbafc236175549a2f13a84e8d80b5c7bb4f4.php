@@ -1,4 +1,4 @@
-@include('admin.include.header')
+<?php echo $__env->make('admin.include.header', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 <?php $session = Session::get('lang'); ?>
 <style>
     .file {
@@ -23,20 +23,21 @@ if ($route=='articles') {
         <div class="col-md-11">
                     <section class="panel">
                         <header class="panel-heading">
-                            Add {{$route}}
+                            Add <?php echo e($route); ?>
+
                         </header>
                         <div class="panel-body">
-                          @if($errors->any())
+                          <?php if($errors->any()): ?>
                             <ul class="alert alert-danger">
-                              @foreach($errors->all() as $error)
-                                <li>{{$error}}</li>
-                              @endforeach
+                              <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <li><?php echo e($error); ?></li>
+                              <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </ul>
-                          @endif
-                          <h1>{{URL::previous()}}</h1>
+                          <?php endif; ?>
+                          <h1><?php echo e(URL::previous()); ?></h1>
                             <div class="form">
-                                <form class="cmxform form-horizontal " id="signupForm" method="post" action="{{route('media.store')}}" enctype="multipart/form-data">
-                                @if($session=='en')
+                                <form class="cmxform form-horizontal " id="signupForm" method="post" action="<?php echo e(route('media.store')); ?>" enctype="multipart/form-data">
+                                <?php if($session=='en'): ?>
                                     <div class="form-group ">
                                         <label for="title" class="control-label col-lg-3">Title</label>
                                         <div class="col-lg-6">
@@ -61,7 +62,7 @@ if ($route=='articles') {
                                             <textarea name="desc_en" class="form-control format"></textarea>
                                         </div>
                                     </div>
-                                    @elseif($session=='dr')
+                                    <?php elseif($session=='dr'): ?>
                                     <input type="hidden" id="tags_array" name="tags_array">
                                     <div class="form-group ">
                                         <label for="title_dr" class="control-label col-lg-3">Title Dari</label>
@@ -87,7 +88,7 @@ if ($route=='articles') {
                                             <textarea name="desc_dr" class="form-control format"></textarea>
                                         </div>
                                     </div>
-                                    @else
+                                    <?php else: ?>
                                     <div class="form-group ">
                                         <label for="title_pa" class="control-label col-lg-3">Title Pashto</label>
                                         <div class="col-lg-6">
@@ -113,7 +114,7 @@ if ($route=='articles') {
                                             <textarea name="desc_pa" class="form-control format"></textarea>
                                         </div>
                                     </div>
-                                    @endif
+                                    <?php endif; ?>
                                     <div class="form-group">
                                       <label for="" class="control-label col-lg-3">Tags</label>
                                       <div class="col-lg-6">
@@ -122,7 +123,7 @@ if ($route=='articles') {
                                           <i class="dropdown icon"></i>
                                           <div class="default text">Tags</div>
                                           <div class="menu" id="menu">
-                                            {{-- tag from jquery comes here --}}
+                                            
                                           </div>
                                         </div>
                                       </div>
@@ -139,7 +140,7 @@ if ($route=='articles') {
                                         </div>
                                     </div>
 
-                                    {{-- <input type="hidden" name="type" value="{{$route}}"> --}}
+                                    
                                     <div class="form-group ">
                                         <label for="type" class="control-label col-lg-3">Type</label>
                                         <div class="col-lg-6">
@@ -150,12 +151,13 @@ if ($route=='articles') {
                                         </div>
                                     </div>
 
-                                    {{csrf_field()}}
+                                    <?php echo e(csrf_field()); ?>
+
 
                                     <div class="form-group">
                                         <div class="col-lg-offset-3 col-lg-6">
                                             <button class="btn btn-primary" onclick="go()" type="">Save</button>
-                                            <a href="{{url()->previous()}}" class="btn btn-default"  type="button">Cancel</a>
+                                            <a href="<?php echo e(url()->previous()); ?>" class="btn btn-default"  type="button">Cancel</a>
                                         </div>
                                     </div>
                                 </form>
@@ -166,7 +168,7 @@ if ($route=='articles') {
 
 </section>
 
-@include('admin.include.footer')
+<?php echo $__env->make('admin.include.footer', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 <script>
     $(document).on('click', '.browse', function(){
       var file = $(this).parent().parent().parent().find('.file');

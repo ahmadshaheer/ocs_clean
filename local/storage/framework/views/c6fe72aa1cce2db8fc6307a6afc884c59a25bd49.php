@@ -1,4 +1,4 @@
-@include('admin.include.header')
+<?php echo $__env->make('admin.include.header', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 <?php $session = Session::get('lang'); ?>
 <style>
     .file {
@@ -17,59 +17,59 @@
                             Add Links
                         </header>
                         <div class="panel-body">
-                            @if($errors->any())
+                            <?php if($errors->any()): ?>
                               <ul class="alert alert-danger">
-                                @foreach($errors->all() as $error)
-                                  <li>{{$error}}</li>
-                                @endforeach
+                                <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                  <li><?php echo e($error); ?></li>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                               </ul>
-                            @endif
+                            <?php endif; ?>
                             <div class="form">
-                                <form class="cmxform form-horizontal " id="signupForm" method="post" action="{{route('links.store')}}" enctype="multipart/form-data">
-                                @if($session=='en')
+                                <form class="cmxform form-horizontal " id="signupForm" method="post" action="<?php echo e(route('links.store')); ?>" enctype="multipart/form-data">
+                                <?php if($session=='en'): ?>
                                     <div class="form-group ">
                                         <label for="title" class="control-label col-lg-3">Title</label>
                                         <div class="col-lg-6">
-                                            <input class=" form-control" id="title_en"  value="{{old('title_en')}}" name="" type="text">
+                                            <input class=" form-control" id="title_en"  value="<?php echo e(old('title_en')); ?>" name="" type="text">
                                         </div>
                                     </div>
                                     <div class="form-group ">
                                         <label for="desc_en" class="control-label col-lg-3">Description English</label>
                                         <div class="col-lg-6">
-                                            <textarea name="desc_en" class="form-control">{{old('desc_en')}}</textarea>
+                                            <textarea name="desc_en" class="form-control"><?php echo e(old('desc_en')); ?></textarea>
                                         </div>
                                     </div>
-                                    @elseif($session=='dr')
+                                    <?php elseif($session=='dr'): ?>
                                     <div class="form-group ">
                                         <label for="title_dr" class="control-label col-lg-3">Title Dari</label>
                                         <div class="col-lg-6">
-                                            <input class=" form-control" id="title_dr"  value="{{old('title_dr')}}" name="title_dr" type="text">
+                                            <input class=" form-control" id="title_dr"  value="<?php echo e(old('title_dr')); ?>" name="title_dr" type="text">
                                         </div>
                                     </div>
                                     <div class="form-group ">
                                         <label for="desc_dr" class="control-label col-lg-3">Description Dari</label>
                                         <div class="col-lg-6">
-                                            <textarea name="desc_dr" class="form-control">{{old('desc_dr')}}</textarea>
+                                            <textarea name="desc_dr" class="form-control"><?php echo e(old('desc_dr')); ?></textarea>
                                         </div>
                                     </div>
-                                    @else
+                                    <?php else: ?>
                                     <div class="form-group ">
                                         <label for="title_pa" class="control-label col-lg-3">Title Pashto</label>
                                         <div class="col-lg-6">
-                                            <input class=" form-control" id="title_pa" value="{{old('title_pa')}}" name="" type="text">
+                                            <input class=" form-control" id="title_pa" value="<?php echo e(old('title_pa')); ?>" name="" type="text">
                                         </div>
                                     </div>
                                     <div class="form-group ">
                                         <label for="desc_pa" class="control-label col-lg-3">Description Pashto</label>
                                         <div class="col-lg-6">
-                                            <textarea name="desc_pa" class="form-control">{{old('desc_pa')}}</textarea>
+                                            <textarea name="desc_pa" class="form-control"><?php echo e(old('desc_pa')); ?></textarea>
                                         </div>
                                     </div>
-                                    @endif
+                                    <?php endif; ?>
                                      <div class="form-group ">
                                         <label for="url" class="control-label col-lg-3">Web Url</label>
                                         <div class="col-lg-6">
-                                            <input class="form-control" id="url"  value="{{old('url')}}" name="url" type="text">
+                                            <input class="form-control" id="url"  value="<?php echo e(old('url')); ?>" name="url" type="text">
                                         </div>
                                     </div>
 
@@ -86,12 +86,13 @@
                                         </div>
                                     </div>
 
-                                    {{csrf_field()}}
+                                    <?php echo e(csrf_field()); ?>
+
 
                                     <div class="form-group">
                                         <div class="col-lg-offset-3 col-lg-6">
                                             <button class="btn btn-primary" onclick="go()" type="">Save</button>
-                                            <a href="{{url()->previous()}}" class="btn btn-default"  type="button">Cancel</a>
+                                            <a href="<?php echo e(url()->previous()); ?>" class="btn btn-default"  type="button">Cancel</a>
                                         </div>
                                     </div>
                                 </form>
@@ -102,7 +103,7 @@
 
 </section>
 
-@include('admin.include.footer')
+<?php echo $__env->make('admin.include.footer', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 <script>
     $(document).on('click', '.browse', function(){
       var file = $(this).parent().parent().parent().find('.file');

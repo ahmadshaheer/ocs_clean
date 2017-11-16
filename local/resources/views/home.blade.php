@@ -77,7 +77,7 @@ $pdf = 'pdf_'.$lang;
                   <div class="image" style="margin-top:21px;">
                     <img style="width:100%;" src="{{asset('uploads/word/'.$word->image_thumb)}}" alt="">
                   </div>
-                  <div class="description body_font" style="text-align:justify;margin-top:10px;direction: {{$rtl}}">{{$word->$title}}</div>
+                  <div class="description body_font" style="text-align:justify;margin-top:10px;direction: {{$rtl}}">{{$word->$short_desc}}</div>
                 @endif
             </div>
           </div>

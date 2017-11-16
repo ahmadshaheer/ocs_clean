@@ -91,6 +91,6 @@
   $(".edit_lang").change(function(){
     var lang = $(this).val().substring(0,2);
     var id = $(this).val().substring(3);
-    window.location = "{{url('admin/set_session?lang=')}}"+lang+"&route={{url('admin/media/')}}"+"/"+id+"/edit";
+    window.location = "{{url('admin/edit_session?lang=')}}"+lang+"&route={{url('admin/media/')}}"+"/"+id+"/edit";
   });
 </script>

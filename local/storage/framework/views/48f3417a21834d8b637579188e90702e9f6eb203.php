@@ -1,8 +1,8 @@
-@include('include.header')
+<?php echo $__env->make('include.header', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 <?php
 global $lang,$dir,$indir,$rtl,$ltr,$title,$date,$short_desc,$description,$jdate;
 ?>
-  {{-- main content starts --}}
+  
   <style>
   .ui.fluid.card {
     border:1px solid #ddd;
@@ -17,25 +17,28 @@ global $lang,$dir,$indir,$rtl,$ltr,$title,$date,$short_desc,$description,$jdate;
     float: right;
     text-align: right;
   }
+ 
   </style>
+    
 
-    {{-- left sidebar president word and social boxes start --}}
     <div class="ui segment">
       <div class="ui centered container grid" id="main" style="display: flex">
-        @include('include.sidebar')
+        <?php echo $__env->make('include.sidebar', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
         <div class="sixteen wide tablet mobile eleven wide computer column">
-          <div class="ui fluid card" style="">
-            <div class="ui breadcrumb" style="direction:{{$rtl}}">
-              <a class="section">{{trans('menu.the_president')}}</a>
+           <div class="ui fluid card" style="">
+            <div class="ui breadcrumb" style="direction:<?php echo e($rtl); ?>">
+              <a class="section"><?php echo e(trans('menu.the_president')); ?></a>
               <div class="divider"> / </div>
-              <a class="section">{{trans('menu.international_trips')}}</a>
+              <a class="section"><?php echo e(trans('menu.statements')); ?></a>
             </div>
           </div>
           <div class="ui fluid card" style="direction:rtl;float:right;text-align:right;">
             <div class="content">
-              <h2 class="ui header title_font border">{{$international_details->$title}}</h2>
-              <p class="meta">{{$jdate->detailedDate($international_details->$date,$lang)}}</p>
-              <div>{!!$international_details->$description!!}
+              <h2 class="ui header title_font border"><?php echo e($statement->$title); ?></h2>
+              <p class="meta"><?php echo e($jdate->detailedDate($statement->$date,$lang)); ?></p>
+              <div style="padding-bottom:14px;">
+                <?php echo $statement->$description; ?>
+
               </div>
               <!-- AddToAny BEGIN -->
               <div class="a2a_kit a2a_kit_size_32 a2a_default_style">
@@ -58,6 +61,6 @@ global $lang,$dir,$indir,$rtl,$ltr,$title,$date,$short_desc,$description,$jdate;
 
       </div>
     </div>
-    {{-- left sidebar president word and social boxes end --}}
+    
 
-@include('include.footer')
+<?php echo $__env->make('include.footer', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

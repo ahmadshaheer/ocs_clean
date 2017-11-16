@@ -498,6 +498,12 @@ Route::group(['middleware'=>['chk_usr']],function(){
 	Route::get('admin/view_expert_register','MediaRegisterationController@view_expert')->name('view_expert_register');
 
 
+Route::get('admin/set_session_all',function(){
+			$lang = $_GET['lang'];
+			$route = $_GET['route'];
+			Session::put('lang',$lang);
+			return Redirect($route);
+	});
 
 	Route::get('admin/set_session',function(){
 			$session = $_GET['lang'];
@@ -507,6 +513,12 @@ Route::group(['middleware'=>['chk_usr']],function(){
 			$route = $_GET['route'];
 			Session::put('lang',$lang);
 			Session::put('type',$type);
+			return Redirect($route);
+	});
+	Route::get('admin/edit_session',function(){
+			$lang = $_GET['lang'];
+			$route = $_GET['route'];
+			Session::put('lang',$lang);
 			return Redirect($route);
 	});
 });

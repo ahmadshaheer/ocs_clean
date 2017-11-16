@@ -46,13 +46,13 @@
 <script>
   $("#lang").change(function(){
     var id = $(this).val();
-    window.location = "{{url('admin/set_session?lang=')}}"+id+"&route={{route('quotes.create')}}";
+    window.location = "{{url('admin/set_session_all?lang=')}}"+id+"&route={{route('quotes.create')}}";
   });
 
   $(".edit_lang").change(function(){
     var lang = $(this).val().substring(0,2);
     var id = $(this).val().substring(3);
-    window.location = "{{url('admin/set_session?lang=')}}"+lang+"&route={{url('admin/quotes/')}}"+"/"+id+"/edit";
+    window.location = "{{url('admin/edit_session?lang=')}}"+lang+"&route={{url('admin/quotes/')}}"+"/"+id+"/edit";
   });
 
 </script>

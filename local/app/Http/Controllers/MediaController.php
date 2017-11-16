@@ -177,7 +177,7 @@ class MediaController extends Controller
         $search_pdf = '';
         if($lang=='en') {
           $this->validate($request,[
-            'title_en'=>'required|unique:media|max:255',
+            'title_en'=>'required|max:255',
             'date_en'=>'required',
             'short_desc_en'=>'required',
             'desc_en'=>'required',
@@ -189,7 +189,7 @@ class MediaController extends Controller
         }
         else if($lang=='dr') {
           $this->validate($request,[
-            'title_dr'=>'required|unique:media|max:255',
+            'title_dr'=>'required|max:255',
             'date_dr'=>'required',
             'short_desc_dr'=>'required',
             'desc_dr'=>'required',
@@ -201,7 +201,7 @@ class MediaController extends Controller
         }
         else if($lang=='pa') {
           $this->validate($request,[
-            'title_pa'=>'required|unique:media|max:255',
+            'title_pa'=>'required|max:255',
             'date_dr'=>'required',
             'short_desc_pa'=>'required',
             'desc_pa'=>'required',

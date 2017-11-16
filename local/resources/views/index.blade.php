@@ -8,7 +8,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" type="text/css" href="{{asset('assets/css/semantic.min.css')}}">
-  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+  <link rel="stylesheet" type="text/css" href="{{asset('assets/css/animate.min.css')}}">
   {{-- favicon dem --}}
 <link rel="icon" type="image/png" href="favicon-32x32.png" sizes="32x32" />
 {{-- <link rel="icon" type="image/png" href="favicon-16x16.png" sizes="16x16" /> --}}

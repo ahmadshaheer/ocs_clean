@@ -45,7 +45,23 @@ class PresidentController extends Controller
         $lang = \Session::get('lang');
         $search_image = '';
         $the_president = new President();
+        $the_president->type = $request->input('type');
         if($lang == 'en'){
+          if($request->input('type')=='word') {
+            $this->validate($request,[
+              'short_desc_en'=>'required|unique:president',
+              'image'=>'required|mimes:jpeg,jpg,png,bmp'
+            ]);
+          }
+          else if($request->input('type')=='order' || $request->input('type')=='decree') {
+            $this->validate($request,[
+            'title_en'=>'required',
+            'date_en'=>'required',
+            'short_desc_en'=>'required',
+            'desc_en'=>'required'
+          ]);  
+          }
+          else {
             $this->validate($request,[
               'title_en'=>'required',
               'date_en'=>'required',
@@ -53,12 +69,28 @@ class PresidentController extends Controller
               'desc_en'=>'required',
               'image'=>'required|mimes:jpeg,jpg,png,bmp'
             ]);
-            $the_president->title_en = $request->input('title_en');
-            $the_president->date_en = $request->input('date_en');
-            $the_president->short_desc_en = $request->input('short_desc_en');
-            $the_president->description_en = $request->input('desc_en');
+          }
+          $the_president->title_en = $request->input('title_en');
+          $the_president->date_en = $request->input('date_en');
+          $the_president->short_desc_en = $request->input('short_desc_en');
+          $the_president->description_en = $request->input('desc_en');
         }
         else if($lang == 'dr'){
+          if($request->input('type')=='word') {
+            $this->validate($request,[
+              'short_desc_dr'=>'required|unique:president',
+              'image'=>'required|mimes:jpeg,jpg,png,bmp',
+            ]);
+          }
+          else if($request->input('type')=='order' || $request->input('type')=='decree') {
+            $this->validate($request,[
+            'title_dr'=>'required',
+            'date_dr'=>'required',
+            'short_desc_dr'=>'required',
+            'desc_dr'=>'required'
+          ]);  
+          }
+          else {
             $this->validate($request,[
               'title_dr'=>'required',
               'date_dr'=>'required',
@@ -66,28 +98,44 @@ class PresidentController extends Controller
               'desc_dr'=>'required',
               'image'=>'required|mimes:jpeg,jpg,png,bmp'
             ]);
-            $the_president->title_dr = $request->input('title_dr');
-            $the_president->date_dr = $request->input('date_dr');
-             $the_president->short_desc_dr = $request->input('short_desc_dr');
-            $the_president->description_dr = $request->input('desc_dr');
+          }
+          $the_president->title_dr = $request->input('title_dr');
+          $the_president->date_dr = $request->input('date_dr');
+           $the_president->short_desc_dr = $request->input('short_desc_dr');
+          $the_president->description_dr = $request->input('desc_dr');
         }
         else{
+          if($request->input('type')=='word') {
+            $this->validate($request,[
+              'short_desc_pa'=>'required|unique:president',
+              'image'=>'required|mimes:jpeg,jpg,png,bmp',
+            ]);
+          }
+          else if($request->input('type')=='order' || $request->input('type')=='decree') {
+            $this->validate($request,[
+            'title_pa'=>'required',
+            'date_pa'=>'required',
+            'short_desc_pa'=>'required',
+            'desc_pa'=>'required'
+          ]);  
+          }
+          else {
             $this->validate($request,[
               'title_pa'=>'required',
-              'date_dr'=>'required',
+              'date_pa'=>'required',
               'short_desc_pa'=>'required',
               'desc_pa'=>'required',
               'image'=>'required|mimes:jpeg,jpg,png,bmp'
             ]);
-            $the_president->title_pa = $request->input('title_pa');
-            $the_president->date_pa = $request->input('date_dr');
-             $the_president->short_desc_pa = $request->input('short_desc_pa');
-            $the_president->description_pa = $request->input('desc_pa');
+          }
+          $the_president->title_pa = $request->input('title_pa');
+          $the_president->date_pa = $request->input('date_dr');
+           $the_president->short_desc_pa = $request->input('short_desc_pa');
+          $the_president->description_pa = $request->input('desc_pa');
 
         }
 
 
-            $the_president->type = $request->input('type');
             $the_president->save();
 
           if($the_president->type!='order' AND $the_president->type!='decree') {
@@ -180,41 +228,91 @@ class PresidentController extends Controller
         $lang = \Session::get('lang');
         $search_image = '';
         if($lang =='en'){
-                $this->validate($request,[
-                  'title_en'=>'required',
-                  'date_en'=>'required',
-                  'short_desc_en'=>'required',
-                  'desc_en'=>'required',
-                ]);
-                $the_president->title_en = $request->input('title_en');
-                $the_president->date_en = $request->input('date_en');
-                $the_president->short_desc_en = $request->input('short_desc_en');
-                $the_president->description_en = $request->input('desc_en');
+          if($request->input('type')=='word') {
+            $this->validate($request,[
+              'short_desc_pa'=>'required',
+              'image'=>'mimes:jpeg,jpg,png,bmp',
+            ]);
+          }
+          else if($request->input('type')=='order' || $request->input('type')=='decree') {
+            $this->validate($request,[
+            'title_pa'=>'required',
+            'date_pa'=>'required',
+            'short_desc_pa'=>'required',
+            'desc_pa'=>'required'
+          ]);  
+          }
+          else {
+            $this->validate($request,[
+              'title_pa'=>'required',
+              'date_pa'=>'required',
+              'short_desc_pa'=>'required',
+              'desc_pa'=>'required',
+              'image'=>'mimes:jpeg,jpg,png,bmp'
+            ]);
+          } 
+          $the_president->title_en = $request->input('title_en');
+          $the_president->date_en = $request->input('date_en');
+          $the_president->short_desc_en = $request->input('short_desc_en');
+          $the_president->description_en = $request->input('desc_en');
         }
         else if($lang =='dr'){
-                $this->validate($request,[
-                  'title_dr'=>'required',
-                  'date_dr'=>'required',
-                  'short_desc_dr'=>'required',
-                  'desc_dr'=>'required',
-                ]);
-                $the_president->title_dr = $request->input('title_dr');
-                $the_president->date_dr = $request->input('date_dr');
-                $the_president->short_desc_dr = $request->input('short_desc_dr');
-                $the_president->description_dr = $request->input('desc_dr');
+          if($request->input('type')=='word') {
+            $this->validate($request,[
+              'short_desc_pa'=>'required',
+              'image'=>'mimes:jpeg,jpg,png,bmp',
+            ]);
+          }
+          else if($request->input('type')=='order' || $request->input('type')=='decree') {
+            $this->validate($request,[
+            'title_pa'=>'required',
+            'date_pa'=>'required',
+            'short_desc_pa'=>'required',
+            'desc_pa'=>'required'
+          ]);  
+          }
+          else {
+            $this->validate($request,[
+              'title_pa'=>'required',
+              'date_pa'=>'required',
+              'short_desc_pa'=>'required',
+              'desc_pa'=>'required',
+              'image'=>'mimes:jpeg,jpg,png,bmp'
+            ]);
+          } 
+          $the_president->title_dr = $request->input('title_dr');
+          $the_president->date_dr = $request->input('date_dr');
+          $the_president->short_desc_dr = $request->input('short_desc_dr');
+          $the_president->description_dr = $request->input('desc_dr');
         }
         else{
-                $this->validate($request,[
-                  'title_pa'=>'required',
-                  'date_dr'=>'required',
-                  'short_desc_pa'=>'required',
-                  'desc_pa'=>'required',
-                  'image'=>'required|mimes:jpeg,jpg,png,bmp'
-                ]);
-                $the_president->title_pa = $request->input('title_pa');
-                $the_president->date_pa = $request->input('date_dr');
-                $the_president->short_desc_pa = $request->input('short_desc_pa');
-                $the_president->description_pa = $request->input('desc_pa');
+          if($request->input('type')=='word') {
+            $this->validate($request,[
+              'short_desc_pa'=>'required',
+              'image'=>'mimes:jpeg,jpg,png,bmp',
+            ]);
+          }
+          else if($request->input('type')=='order' || $request->input('type')=='decree') {
+            $this->validate($request,[
+            'title_pa'=>'required',
+            'date_pa'=>'required',
+            'short_desc_pa'=>'required',
+            'desc_pa'=>'required'
+          ]);  
+          }
+          else {
+            $this->validate($request,[
+              'title_pa'=>'required',
+              'date_pa'=>'required',
+              'short_desc_pa'=>'required',
+              'desc_pa'=>'required',
+              'image'=>'mimes:jpeg,jpg,png,bmp'
+            ]);
+          }
+          $the_president->title_pa = $request->input('title_pa');
+          $the_president->date_pa = $request->input('date_dr');
+          $the_president->short_desc_pa = $request->input('short_desc_pa');
+          $the_president->description_pa = $request->input('desc_pa');
 
         }
 

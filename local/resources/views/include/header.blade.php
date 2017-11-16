@@ -828,7 +828,7 @@
 
   {{-- hidden menu starts --}}
   <div class="ui small top fixed inverted hidden menu" style="border:0;">
-    <div class="ui container" style="direction:{{$rtl}};padding-left:18px;padding-right:18px;">
+    <div class="ui container" style="direction:{{$rtl}};padding-left:27px;padding-right:0px;">
       <a href="{{route('home')}}" class="logo">
         <img src="{{asset('assets/img/logo_'.$lang.'.png')}}" alt="">
       </a>

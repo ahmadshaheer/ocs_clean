@@ -90,7 +90,7 @@
   $('.edit_lang').change(function() {//accepts the request from #edit_langX e.g. X being 1,2,...
     var lang = $(this).val().substring(0,2);
     var id = $(this).val().substring(3);
-    window.location = "{{url('admin/set_session?lang=')}}"+lang+"&route={{url('admin/trips/')}}"+"/"+id+"/edit";
+    window.location = "{{url('admin/edit_session?lang=')}}"+lang+"&route={{url('admin/trips/')}}"+"/"+id+"/edit";
   });
 
 </script>

@@ -77,7 +77,7 @@ $pdf = 'pdf_'.$lang;
                   <div class="image" style="margin-top:21px;">
                     <img style="width:100%;" src="<?php echo e(asset('uploads/word/'.$word->image_thumb)); ?>" alt="">
                   </div>
-                  <div class="description body_font" style="text-align:justify;margin-top:10px;direction: <?php echo e($rtl); ?>"><?php echo e($word->$title); ?></div>
+                  <div class="description body_font" style="text-align:justify;margin-top:10px;direction: <?php echo e($rtl); ?>"><?php echo e($word->$short_desc); ?></div>
                 <?php endif; ?>
             </div>
           </div>

@@ -1,4 +1,4 @@
-@include('admin.include.header')
+<?php echo $__env->make('admin.include.header', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 
 <!--main content start-->
 <section id="main-content">
@@ -8,7 +8,7 @@
           <h2 class="ui block header">Words</h2>
         </div>
 <div class="container pull-left" style="margin:10px;">
-@if(Session::get('role')!='editor')
+<?php if(Session::get('role')!='editor'): ?>
   <div class="ui form">
     <div class="eight fields">
       <div class="field">
@@ -21,7 +21,7 @@
       </div>
     </div>
   </div>
-@endif
+<?php endif; ?>
 </div>
 <table class="table">
   <thead>
@@ -32,7 +32,7 @@
     </tr>
   </thead>
   <tbody>
-    @foreach($words as $value)
+    <?php $__currentLoopData = $words; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
     <?php
       if($value->short_desc_en!=null)
         $lang = "en";
@@ -44,46 +44,48 @@
       $short_desc = "short_desc_".$lang;
        ?>
     <tr>
-      <th><img src="{{asset('uploads/word/'.$value->image)}}" style="width:100px;"></th>
-      <td>{{$value->$short_desc}}</td>
+      <th><img src="<?php echo e(asset('uploads/word/'.$value->image)); ?>" style="width:100px;"></th>
+      <td><?php echo e($value->$short_desc); ?></td>
       <td>
-      <form action="{{ route('the_president.destroy', $value->id) }}" class="ui form" method="POST">
-          {{ method_field('DELETE') }}
-          {{ csrf_field() }}
-          {{-- <a href="{{route('the_president.edit',$value->id)}}" class="ui tiny button blue ">Edit</a> --}}
+      <form action="<?php echo e(route('the_president.destroy', $value->id)); ?>" class="ui form" method="POST">
+          <?php echo e(method_field('DELETE')); ?>
+
+          <?php echo e(csrf_field()); ?>
+
+          
           <div class="small field" style="float:left;padding-right:5px;">
             <select name="lang" class="edit_lang">
               <option value="0">Edit...</option>
-              <option value="dr_{{$value->id}}">dari</option>
-              <option value="pa_{{$value->id}}">pashto</option>
-              <option value="en_{{$value->id}}">English</option>
+              <option value="dr_<?php echo e($value->id); ?>">dari</option>
+              <option value="pa_<?php echo e($value->id); ?>">pashto</option>
+              <option value="en_<?php echo e($value->id); ?>">English</option>
             </select>
           </div>
-          @if(Session::get('role')=='admin')
+          <?php if(Session::get('role')=='admin'): ?>
           <button class="ui tiny button red " onclick="return confirm_submit()">Delete</button>
-          @endif
+          <?php endif; ?>
       </form>
 
 
       </td>
     </tr>
- @endforeach
+ <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
   </tbody>
 </table>
 </div>
 </section>
 
-@include('admin.include.footer')
+<?php echo $__env->make('admin.include.footer', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 <script>
   $("#lang").change(function(){
     var id = $(this).val();
-    window.location = "{{url('admin/set_session?lang=')}}"+id+"&route={{route('the_president.create')}}";
+    window.location = "<?php echo e(url('admin/set_session?lang=')); ?>"+id+"&route=<?php echo e(route('the_president.create')); ?>";
   });
 
   $(".edit_lang").change(function(){
     var lang = $(this).val().substring(0,2);
     var id = $(this).val().substring(3);
-    window.location = "{{url('admin/edit_session?lang=')}}"+lang+"&route={{url('admin/the_president/')}}"+"/"+id+"/edit";
+    window.location = "<?php echo e(url('admin/set_session?lang=')); ?>"+lang+"&route=<?php echo e(url('admin/the_president/')); ?>"+"/"+id+"/edit";
   });
 
 </script>

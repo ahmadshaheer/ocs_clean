@@ -21,7 +21,7 @@
 <link rel="stylesheet" href="<?php echo e(asset('assets/admin-asset/css/morris.css')); ?>" type="text/css"/>
 <!-- calendar -->
 <link rel="stylesheet" href="<?php echo e(asset('assets/admin-asset/css/persian-datepicker.css')); ?>">
-<link rel="stylesheet" href="<?php echo e(asset('assets/admin-asset/css/monthly.css')); ?>">
+
 <link rel="stylesheet" type="text/css" href="<?php echo e(asset('assets/css/icon.min.css')); ?>">
 
 <!-- //calendar -->

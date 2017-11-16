@@ -21,7 +21,6 @@
 <link rel="stylesheet" href="{{asset('assets/admin-asset/css/morris.css')}}" type="text/css"/>
 <!-- calendar -->
 <link rel="stylesheet" href="{{asset('assets/admin-asset/css/persian-datepicker.css')}}">
-<link rel="stylesheet" href="{{asset('assets/admin-asset/css/monthly.css')}}">
 <link rel="stylesheet" type="text/css" href="{{asset('assets/css/icon.min.css')}}">
 
 <!-- //calendar -->

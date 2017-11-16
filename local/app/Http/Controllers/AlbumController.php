@@ -239,26 +239,20 @@ class AlbumController extends Controller
      */
     public function destroy($id)
     {
-        // $media = Album::findOrFail($id);
-        // $search = Search::where('table_name','album')->where('table_id',$id);
-        // $search->delete();
-        // $media->delete();
-        // return Redirect()->route('album.index');
-
-
         $album = Album::findOrFail($id);
         $album_images = DB::table('album_image')->where('album_id',$id)->get();
         if(sizeof($album_images)>0){
-            foreach ($album_images as $value) {
-                File::delete('uploads/albumImage/'.$value->image);
-                $album_image = AlbumImage::findOrFail($value->id);
-                $album_image->delete();
-        }
+          foreach ($album_images as $value) {
+              File::delete('uploads/albumImage/'.$value->image);
+              $album_image = AlbumImage::findOrFail($value->id);
+              $album_image->delete();
+          }
         }
         File::delete('uploads/album/'.$album->image);
         File::delete('uploads/album/'.$album->image_thumb);
+
         if($album->delete()){
-            $search = Search::where('table_name','=','album')->where('table_id','=',$id)->get();
+            $search = Search::where('table_name','=','album')->where('table_id','=',$id)->first();
             $search->delete();
         }
         return redirect()->route('album.index');

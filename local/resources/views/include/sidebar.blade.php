@@ -5,9 +5,9 @@
       <div class="header title_font test" style="text-align:{{$dir}};margin-bottom:11px;padding-left:0;font-size: 25px !important;">
       {{trans('home.president_word')}}
     </div>
-      @if (sizeof($word->$title)!=0)
-        <div class="image"><img style="width:100%;" src="{{asset('uploads/word/'.$word->image)}}" alt=""></div>
-        <div class="description body_font" style="text-align:justify;margin-top:10px;padding-bottom:10px;" dir="rtl">{{$word->$title}}</div>
+      @if (sizeof($word->$short_desc)!=0)
+        <div class="image"><img style="width:100%;" src="{{asset('uploads/word/'.$word->image_thumb)}}" alt=""></div>
+        <div class="description body_font" style="text-align:justify;margin-top:10px;padding-bottom:10px;" dir="rtl">{{$word->$short_desc}}</div>
       @endif
     </div>
   </div>

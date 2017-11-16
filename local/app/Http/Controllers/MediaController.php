@@ -86,7 +86,7 @@ class MediaController extends Controller
       }
       $media->tags = $request->input('tags_array');
       $media->type = $request->input('type');
-      $media->save();
+      // $media->save();
 
       $max = $media->id;
 
@@ -95,6 +95,7 @@ class MediaController extends Controller
       $img_thumb = $max.'_t.'.$image->getClientOriginalExtension();
       $driver = new imageManager(array('driver'=>'gd'));
       $thumb_img = $driver->make($image)->resize(200,150);
+      print_r($thumb_img->save("uploads/media/".$media->type."/".$img_thumb));
       $thumb_img->save("uploads/media/".$media->type."/".$img_thumb);
       // thumbnail generation Ends
       $search_thumb = "uploads/media/".$media->type."/".$img_thumb;

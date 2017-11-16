@@ -71,7 +71,7 @@ $pdf = 'pdf_'.$lang;
                   <div class="image" style="margin-top:21px;">
                     <img style="width:100%;" src="{{asset('uploads/word/'.$word->image_thumb)}}" alt="">
                   </div>
-                  <div class="description body_font" style="text-align:justify;margin-top:10px;direction: {{$rtl}}">{{$word->$short_desc}}</div>
+                  <div class="description body_font" style="text-align:justify;margin-top:10px;direction: {{$rtl}}">{{$word->$title}}</div>
                 @endif
             </div>
           </div>
@@ -86,7 +86,7 @@ $pdf = 'pdf_'.$lang;
                   <?php $url =  ($item->table_name=='documents')?asset('uploads/documents_'.$lang.'/'.$item->table_id.'.pdf'):'';?>
                     @if($item->$title!=null)
                       <div class="news {{($item == $lattest_news->last())?'no_borders':''}}" style="border-bottom:1px dashed #ddd;padding-bottom:10px;">
-                        <div class="ui grid" style="display:flex;margin:0 !important;">
+                        <div class="ui stackable grid" style="display:flex;margin:0 !important;">
                           <div class="sixteen wide mobile tablet eleven wide computer column" id="news_title" style="padding-top:0;">
                             <a href="{{($item->table_name=='documents')?$url:url($item->type.'_details/'.$item->table_id)}}" class="ui {{$dir}} floated small header title_font title_to_be_trimmed" dir="rtl" style="margin:0">{{$item->$title}}</a>
                             <p class="meta" style="clear: both">
@@ -94,17 +94,18 @@ $pdf = 'pdf_'.$lang;
                               </i>{{$jdate->detailedDate($item->$date,$lang)}}
                             </p>
                           </div>
-                          <div class="sixteen wide mobile tablet five wide computer column thumbnail" id="news_image" style="">
+                          <div class="sixteen wide mobile tablet five wide computer column thumbnail news_image" id="news_image" style="">
                             <img style="float:right;" class="" src="{{($item->table_name=='documents')?asset('assets/img/pdf.png'):asset($item->image_thumb)}}" alt="">
                           </div>
+                          <div class="desc">
+                            <div class="description body_font short_desc_to_be_trimmed" style="clear:both;">
+                            {{$item->$short_desc}}
+                            </div>
+                            <div class="" style="padding-bottom:15px;">
+                              <a href="{{($item->table_name=='documents')?$url:url($item->type.'_details/'.$item->table_id)}}" class="meta body_font" style="float:left;">{{trans('home.read_more')}}</a>
+                            </div>
+                          </div>
                         </div>
-                        <div class="description body_font short_desc_to_be_trimmed" style="clear:both;">
-                          {{$item->$short_desc}}
-                        </div>
-                        <div class="" style="padding-bottom:15px;">
-                          <a href="{{($item->table_name=='documents')?$url:url($item->type.'_details/'.$item->table_id)}}" class="meta body_font" style="float:left;">{{trans('home.read_more')}}</a>
-                        </div>
-
                       </div>
                     @endif
                   @endforeach
@@ -126,12 +127,12 @@ $pdf = 'pdf_'.$lang;
                      <div class="ui grid" style="display:flex;margin:0 !important;">
                        <div class="sixteen wide mobile tablet nine wide computer column" id="article_title" style="padding-top:0;">
                          <a href="{{url('article_details/'.$item->id)}}" class="ui {{$dir}} floated small header title_font title_to_be_trimmed" dir="rtl" style="margin:0">{{$item->$title}}</a>
-                         <p class="meta">
+                         <p class="meta" style="clear:both;">
                            <i class="icon clock">
                            </i>{{$jdate->detailedDate($item->$date,$lang)}}
                          </p>
                        </div>
-                       <div class="sixteen wide mobile tablet seven wide computer column thumbnail" id="article_image" style="">
+                       <div class="sixteen wide mobile tablet seven wide computer column thumbnail news_image" id="news_image" style="">
                          <img style="float:right;" class="" src="{{asset('uploads/media/article/'.$item->image_thumb)}}" alt="">
                        </div>
                      </div>

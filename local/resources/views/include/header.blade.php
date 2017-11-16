@@ -307,9 +307,10 @@
     }
     #news_title,#article_title {
       order:2;
-      padding:0;
+      padding:3px 0 !important;
     }
     #news_image {
+      padding: 2px 0 !important;
       order:1;
     }
     .desc {

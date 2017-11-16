@@ -307,9 +307,10 @@
     }
     #news_title,#article_title {
       order:2;
-      padding:0;
+      padding:3px 0 !important;
     }
     #news_image {
+      padding: 2px 0 !important;
       order:1;
     }
     .desc {
@@ -839,7 +840,7 @@
 
   
   <div class="ui small top fixed inverted hidden menu" style="border:0;">
-    <div class="ui container" style="direction:<?php echo e($rtl); ?>;padding-left:18px;padding-right:18px;">
+    <div class="ui container" style="direction:<?php echo e($rtl); ?>;padding-left:27px;padding-right:0px;">
       <a href="<?php echo e(route('home')); ?>" class="logo">
         <img src="<?php echo e(asset('assets/img/logo_'.$lang.'.png')); ?>" alt="">
       </a>

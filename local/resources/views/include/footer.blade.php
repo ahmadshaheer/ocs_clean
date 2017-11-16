@@ -178,14 +178,14 @@
         @endif
     }
     if(width<990){
-      $('.news_image').removeClass('sixteen wide mobile tablet five wide computer column thumbnail ');
-      $('.news_image').addClass('ui image');
-      $('#main').removeClass('container');
+      $('.news_image').removeClass('thumbnail');
+      $('.news_image>img').css('width','100%');
     }
     else if(width<768) {
       $('#footer_content').removeClass('container');
       $('#main').removeClass('centered');
       $('#main').removeClass('container');
+
 
     }
 

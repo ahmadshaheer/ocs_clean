@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Video;
 use App\Search;
+use Log;
+use Session;
 
 class videoController extends Controller
 {
@@ -37,6 +39,7 @@ class videoController extends Controller
      */
     public function store(Request $request)
     {
+        
         $lang=\Session::get('lang');
         $video = new video();
         if($lang=='en') {
@@ -89,6 +92,7 @@ class videoController extends Controller
             $search->save();
         }
         \Session::put('lang','');
+        Log::info($video->id." Video created by ".Session::get('email')." on ".date('l jS \of F Y h:i:s A'));
         return Redirect()->route('videos.index');
     }
 
@@ -124,6 +128,7 @@ class videoController extends Controller
      */
     public function update(Request $request, $id)
     {
+        
         $lang=\Session::get('lang');
         $video =video::findOrFail($id);
         if($lang=='en') {
@@ -176,6 +181,7 @@ class videoController extends Controller
                 $search->save();
         }
         \Session::put('lang','');
+        Log::info($id." Video updated by ".Session::get('email')." on ".date('l jS \of F Y h:i:s A'));
         return Redirect()->route('videos.index');
     }
 
@@ -187,11 +193,13 @@ class videoController extends Controller
      */
     public function destroy($id)
     {
+        
         $video = video::findOrFail($id);
         if($video->delete()){
             $search = Search::where('table_name','=','videos')->where('table_id','=',$id)->first();
             $search->delete();
         }
-        return view('videos.index');
+        Log::info($id." Video deleted by ".Session::get('email')." on ".date('l jS \of F Y h:i:s A'));
+        return redirect()->route('videos.index');
     }
 }

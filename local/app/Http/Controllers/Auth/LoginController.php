@@ -8,6 +8,7 @@ use Auth;
 use DB;
 use Session;
 use Hash;
+use Log;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -43,6 +44,7 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
     public function login(Request $request) {
+
         $email = $request->input('email');
         $password =$request->input('password');
         $rec = DB::table('users')->where('email',$email)->first();
@@ -53,14 +55,17 @@ class LoginController extends Controller
               Session::put('username',$username);
               Session::put('email',$email);
               Session::put('role',$rec->role);
+              Log::info("User '".Session::get('username')."' logged  in on ".date('l jS \of F Y h:i:s A'));
               return redirect()->route('admin');
           }
           else {
+            Log::warning("user '".$email."' login attempt failed on ".date('l jS \of F Y h:i:s A'));
             Session::flash('login_failed','Incorrect Email Or Password');
             return Redirect()->route('login');
           }
         }
         else {
+            Log::warning("User '".$email."' login attempt failed on ".date('l jS \of F Y h:i:s A'));
             Session::flash('login_failed','This Email Doesnt Belong To Any User, Please Create An Account and Try Again Later!!!');
             return Redirect()->route('login');
         }
@@ -74,19 +79,19 @@ class LoginController extends Controller
 
     }
     public function logout() {
+        Log::info("User '".Session::get('username')."' logged out in ".date('l jS \of F Y h:i:s A'));
         session()->flush();
         return redirect()->route('login');
     }
     public function destroy($id)
     {
-        $stories = User::findOrFail($id);
-        $stories->delete();
+        $user = User::findOrFail($id);
+        $email = $user->email;
+        $user->delete();
+        Log::info("User '".$email." has been deleted on ".date('l jS \of F Y h:i:s A'));
         return Redirect()->route('users');
     }
     public function users() {
-
-
-
     }
     public function edit_user($id) {
         $user = User::findOrFail($id);
@@ -98,7 +103,8 @@ class LoginController extends Controller
       $user->email = $request->input('email');
       $user->role = $request->input('role');
       $user->save();
-      return Redirect()->route('admin');
+      Log::info("User '".$user->email."' updated on ".date('l jS \of F Y h:i:s A'));
+      return Redirect()->route('users');
     }
 
 }

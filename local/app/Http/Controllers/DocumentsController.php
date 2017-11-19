@@ -7,6 +7,7 @@ use App\Document;
 use App\Search;
 use Session;
 use File;
+use Log;
 
 class DocumentsController extends Controller
 { /**
@@ -38,6 +39,7 @@ class DocumentsController extends Controller
      */
     public function store(Request $request)
     {
+        
         $document = new Document();
         $max = Document::max('id');
         $max+=1;
@@ -103,6 +105,7 @@ class DocumentsController extends Controller
             $search->save();
         }
         Session::put('lang','');
+        Log::info($document->id." Document created by ".Session::get('email')." on ".date('l jS \of F Y h:i:s A'));
         return Redirect()->route('documents.index');
     }
 
@@ -138,6 +141,7 @@ class DocumentsController extends Controller
      */
     public function update(Request $request, $id)
     {
+        
         $document =Document::findOrFail($id);
         $max = $document->id;
 
@@ -221,6 +225,7 @@ class DocumentsController extends Controller
             $search->save();
         }
         Session::put('lang','');
+        Log::info($id." Document updated by ".Session::get('email')." on ".date('l jS \of F Y h:i:s A'));
         return Redirect()->route('documents.index');
     }
 
@@ -232,10 +237,12 @@ class DocumentsController extends Controller
      */
     public function destroy($id)
     {
+        
         $document = document::findOrFail($id);
         $search = Search::where('table_name','documents')->where('table_id',$id);
         $search->delete();
         $document->delete();
+        Log::info($id." Document deleted by ".Session::get('email')." on ".date('l jS \of F Y h:i:s A'));
         return view('admin.documents');
     }
 }

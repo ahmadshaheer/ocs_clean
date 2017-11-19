@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Presidential_Palace;
+use Log;
 
 class Presidential_PalaceController extends Controller
 {
@@ -36,6 +37,7 @@ class Presidential_PalaceController extends Controller
      */
     public function store(Request $request)
     {
+      
       $lang = \Session::get('lang');
       $palace = new Presidential_Palace();
       if($lang=='en') {
@@ -58,6 +60,7 @@ class Presidential_PalaceController extends Controller
       }
       $palace->save();
       \Session::put('lang','');
+      Log::info($palace->id." President palace record created by ".Session::get('email')." on ".date('l jS \of F Y h:i:s A'));
       return Redirect()->route('the_palace.index');
     }
 
@@ -93,6 +96,7 @@ class Presidential_PalaceController extends Controller
      */
     public function update(Request $request, $id)
     {
+      
       $lang=\Session::get('lang');
       $palace =Presidential_Palace::findOrFail($id);
       if($lang=='en') {
@@ -115,6 +119,7 @@ class Presidential_PalaceController extends Controller
       }
       $palace->save();
       \Session::put('lang','');
+      Log::info($id." President Palace Record updated by ".Session::get('email')." on ".date('l jS \of F Y h:i:s A'));
       return Redirect()->route('the_palace.index');
     }
 
@@ -126,8 +131,10 @@ class Presidential_PalaceController extends Controller
      */
     public function destroy($id)
     {
+      
         $palace = Presidential_Palace::findOrFail($id);
         $palace->delete();
+        Log::info($id." President Palace record deleted by ".Session::get('email')." on ".date('l jS \of F Y h:i:s A'));
         return Redirect()->route('the_palace.index');
     }
 }

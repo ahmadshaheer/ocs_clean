@@ -9,6 +9,7 @@ use File;
 use App\Search;
 use Session;
 use URL;
+use Log;
 use Intervention\Image\ImageManager;
 
 class PresidentController extends Controller
@@ -42,6 +43,7 @@ class PresidentController extends Controller
      */
     public function store(Request $request)
     {
+        
         $lang = \Session::get('lang');
         $search_image = '';
         $the_president = new President();
@@ -59,7 +61,7 @@ class PresidentController extends Controller
             'date_en'=>'required',
             'short_desc_en'=>'required',
             'desc_en'=>'required'
-          ]);  
+          ]);
           }
           else {
             $this->validate($request,[
@@ -88,7 +90,7 @@ class PresidentController extends Controller
             'date_dr'=>'required',
             'short_desc_dr'=>'required',
             'desc_dr'=>'required'
-          ]);  
+          ]);
           }
           else {
             $this->validate($request,[
@@ -117,7 +119,7 @@ class PresidentController extends Controller
             'date_pa'=>'required',
             'short_desc_pa'=>'required',
             'desc_pa'=>'required'
-          ]);  
+          ]);
           }
           else {
             $this->validate($request,[
@@ -189,6 +191,7 @@ class PresidentController extends Controller
         }
         \Session::put('lang','');
         \Session::put('type','');
+        Log::info($max." President record created by ".Session::get('email')." on ".date('l jS \of F Y h:i:s A'));
         return Redirect()->route("admin_".$request->type);
     }
 
@@ -224,6 +227,7 @@ class PresidentController extends Controller
      */
     public function update(Request $request, $id)
     {
+        
         $the_president = President::findOrFail($id);
         $lang = \Session::get('lang');
         $search_image = '';
@@ -240,7 +244,7 @@ class PresidentController extends Controller
             'date_pa'=>'required',
             'short_desc_pa'=>'required',
             'desc_pa'=>'required'
-          ]);  
+          ]);
           }
           else {
             $this->validate($request,[
@@ -250,7 +254,7 @@ class PresidentController extends Controller
               'desc_pa'=>'required',
               'image'=>'mimes:jpeg,jpg,png,bmp'
             ]);
-          } 
+          }
           $the_president->title_en = $request->input('title_en');
           $the_president->date_en = $request->input('date_en');
           $the_president->short_desc_en = $request->input('short_desc_en');
@@ -269,7 +273,7 @@ class PresidentController extends Controller
             'date_pa'=>'required',
             'short_desc_pa'=>'required',
             'desc_pa'=>'required'
-          ]);  
+          ]);
           }
           else {
             $this->validate($request,[
@@ -279,7 +283,7 @@ class PresidentController extends Controller
               'desc_pa'=>'required',
               'image'=>'mimes:jpeg,jpg,png,bmp'
             ]);
-          } 
+          }
           $the_president->title_dr = $request->input('title_dr');
           $the_president->date_dr = $request->input('date_dr');
           $the_president->short_desc_dr = $request->input('short_desc_dr');
@@ -298,7 +302,7 @@ class PresidentController extends Controller
             'date_pa'=>'required',
             'short_desc_pa'=>'required',
             'desc_pa'=>'required'
-          ]);  
+          ]);
           }
           else {
             $this->validate($request,[
@@ -367,6 +371,8 @@ class PresidentController extends Controller
                 $search->save();
         }
         \Session::put('lang','');
+        print_r("here");exit;
+        Log::info($id." President record updated by ".Session::get('email')." on ".date('l jS \of F Y h:i:s A'));
         return Redirect()->route("admin_".$request->type);
     }
 
@@ -378,12 +384,14 @@ class PresidentController extends Controller
      */
     public function destroy($id)
     {
+        
         $president = President::findOrFail($id);
         $type = $president->type;
         File::delete('uploads/'.$type.'/'.$president->image);
         $search = Search::where('table_name','president')->where('table_id',$id);
         $search->delete();
         $president->delete();
+        Log::info($id." President record deleted by ".Session::get('email')." on ".date('l jS \of F Y h:i:s A'));
         return Redirect()->route('admin_'.$type);
     }
 

@@ -8,6 +8,7 @@ use DB;
 use App\Search;
 use File;
 use Session;
+use Log;
 use Intervention\Image\ImageManager;
 
 class MediaController extends Controller
@@ -42,6 +43,7 @@ class MediaController extends Controller
      */
     public function store(Request $request)
     {
+      
       $lang=Session::get('lang');
       $media = new Media();
       // print_r($request->input());exit;
@@ -136,6 +138,7 @@ class MediaController extends Controller
         $search->save();
         Session::put('lang','');
         Session::put('type','');
+        Log::info($max." ".$request->input('type')."  created by ".Session::get('email')." on ".date('l jS \of F Y h:i:s A'));
         return Redirect()->route('admin_'.$media->type);
     }
 }
@@ -173,6 +176,7 @@ class MediaController extends Controller
      */
     public function update(Request $request, $id)
     {
+        
         $lang=Session::get('lang');
         $media = Media::findOrFail($id);
         $search_pdf = '';
@@ -262,6 +266,7 @@ class MediaController extends Controller
             $search->save();
         }
         Session::put('lang','');
+        Log::info($id." $media->type updated by ".Session::get('email')." on ".date('l jS \of F Y h:i:s A'));
         return Redirect()->route('admin_'.$media->type);
     }
 
@@ -273,6 +278,7 @@ class MediaController extends Controller
      */
     public function destroy($id)
     {
+        
         $media = Media::findOrFail($id);
         $type = $media->type;
         // File::delete(public_path().'../uploads/media/'.$type.'/'.$media->image);
@@ -283,6 +289,7 @@ class MediaController extends Controller
         $search = Search::where('table_name','media')->where('table_id',$id);
         $search->delete();
         $media->delete();
+        Log::info($id." $type deleted by ".Session::get('email')." on ".date('l jS \of F Y h:i:s A'));
         return Redirect()->route('admin_'.$type);
     }
 

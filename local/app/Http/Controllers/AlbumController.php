@@ -8,6 +8,7 @@ use App\AlbumImage;
 use App\Search;
 use DB;
 use File;
+use Log;
 use Session;
 use Intervention\Image\ImageManager;
 class AlbumController extends Controller
@@ -41,6 +42,7 @@ class AlbumController extends Controller
      */
     public function store(Request $request)
     {
+
         $lang = Session::get('lang');
         $album = new Album();
         // print_r($request->input('title_en'));exit;
@@ -78,7 +80,6 @@ class AlbumController extends Controller
         $search_image = '';
 
         $album->save();
-
         $max = $album->id;
 
          // thumbnail generation starts
@@ -115,6 +116,7 @@ class AlbumController extends Controller
                 $search->save();
         }
         Session::put('lang','');
+        Log::info("ID No. ".$max." Album created by ".Session::get('email')." on ".date('l jS \of F Y h:i:s A'));
         return redirect()->route('album.index');
 
     }
@@ -151,6 +153,7 @@ class AlbumController extends Controller
      */
     public function update(Request $request, $id)
     {
+
       $album = Album::findOrFail($id);
       $lang = Session::get('lang');
 
@@ -228,6 +231,7 @@ class AlbumController extends Controller
                 $search->save();
         }
         Session::put('lang','');
+        Log::info("ID No. ".$album->id." Album updated by ".Session::get('email')." on ".date('l jS \of F Y h:i:s A'));
         return redirect()->route('album.index');
     }
 
@@ -239,6 +243,7 @@ class AlbumController extends Controller
      */
     public function destroy($id)
     {
+
         $album = Album::findOrFail($id);
         $album_images = DB::table('album_image')->where('album_id',$id)->get();
         if(sizeof($album_images)>0){
@@ -255,6 +260,7 @@ class AlbumController extends Controller
             $search = Search::where('table_name','=','album')->where('table_id','=',$id)->first();
             $search->delete();
         }
+        Log::info("ID No. ".$id." Album deleted by ".Session::get('email')." on ".date('l jS \of F Y h:i:s A'));
         return redirect()->route('album.index');
     }
 
@@ -263,6 +269,7 @@ class AlbumController extends Controller
     }
 
     public function add_image(Request $request,$id,$number){
+
         for ($i=0; $i <$number ; $i++) {
             $album_image = new AlbumImage();
             $album_image->title_en = $request->input('title'.$i);
@@ -279,6 +286,7 @@ class AlbumController extends Controller
             $album_image->image = $img;
             $album_image->save();
         }
+        Log::info("Images added to ID No.  ".$id." album by ".Session::get('email')." on ".date('l jS \of F Y h:i:s A'));
         return redirect()->route('album.index');
     }
 
@@ -297,6 +305,7 @@ class AlbumController extends Controller
         return view('admin.edit_album_image')->with('image',$album_image);
     }
     public function update_album_image(Request $request , $id){
+
         $album_image = AlbumImage::findOrFail($id);
         $album_image->title_en = $request->input('title');
         $album_image->title_dr = $request->input('title_dr');
@@ -313,14 +322,16 @@ class AlbumController extends Controller
         }
         $album_image->image = $image;
         $album_image->save();
-
+        Log::info("Images updated in ".$id." album by ".Session::get('email')." on ".date('l jS \of F Y h:i:s A'));
         return redirect()->route('album.index');
     }
 
       public function delete_album_image($id,$album_id){
+
         $album_image = AlbumImage::findOrFail($id);
         File::delete('uploads/albumImage/'.$album_image->image);
         $album_image->delete();
+        Log::info("Image deleted from ".$id." album by ".Session::get('email')." on ".date('l jS \of F Y h:i:s A'));
         return \Redirect::to('admin/edit_images/'.$album_id);
     }
 }

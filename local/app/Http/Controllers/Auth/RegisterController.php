@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Hash;
 use DB;
+use Log;
 use Session;
 
 class RegisterController extends Controller
@@ -75,6 +76,7 @@ class RegisterController extends Controller
         return view('admin.register');
     }
     protected function register() {
+      
         $name = $_POST['name'];
         $email = $_POST['email'];
         $password =Hash::make($_POST['password']);
@@ -89,15 +91,18 @@ class RegisterController extends Controller
                 $user->password = $password;
                 $user->role = $_POST['role'];
                 $user->save();
+                Log::info($user->email." created on ".date('l jS \of F Y h:i:s A'));
                 return Redirect()->Route('users');
             }
             else {
+              Log::info($user->email." user creation failed on ".date('l jS \of F Y h:i:s A'));
                 Session::flash('user_exists','User Already Exists');
                 Session::put('email_exists',$email);
                 return Redirect()->Route('register_user');
             }
         }
         else {
+          Log::info($user->email." user creation failed on ".date('l jS \of F Y h:i:s A'));
             Session::flash('bad_match','Passwords Do not Match');
             return Redirect()->Route('register_user');
         }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\OCS;
 use Session;
+use Log;
 
 class OCSController extends Controller
 {
@@ -37,6 +38,7 @@ class OCSController extends Controller
      */
     public function store(Request $request)
     {
+        
         $ocs = new OCS();
         $lang = Session::get('lang');
         if($lang=='en') {
@@ -59,6 +61,7 @@ class OCSController extends Controller
         }
         $ocs->save();
         \Session::put('lang','');
+        Log::info($ocs->id." OCS created by ".Session::get('email')." on ".date('l jS \of F Y h:i:s A'));
         return Redirect()->route('the_ocs.index');
     }
 
@@ -94,6 +97,7 @@ class OCSController extends Controller
      */
     public function update(Request $request, $id)
     {
+      
       $lang=\Session::get('lang');
       $ocs =OCS::findOrFail($id);
       if($lang=='en') {
@@ -116,6 +120,7 @@ class OCSController extends Controller
       }
       \Session::put('lang','');
       $ocs->save();
+      Log::info($id." OCS updated by ".Session::get('email')." on ".date('l jS \of F Y h:i:s A'));
 return Redirect()->route('the_ocs.index');
     }
 
@@ -127,8 +132,10 @@ return Redirect()->route('the_ocs.index');
      */
     public function destroy($id)
     {
+      
         $ocs = OCS::findOrFail($id);
         $ocs->delete();
+        Log::info($id." OCS deleted by ".Session::get('email')." on ".date('l jS \of F Y h:i:s A'));
         return Redirect()->route('the_ocs.index');
     }
 }

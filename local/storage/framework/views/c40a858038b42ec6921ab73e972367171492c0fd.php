@@ -1,4 +1,4 @@
-@include('admin.include.header')
+<?php echo $__env->make('admin.include.header', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 
 <style>
     .file {
@@ -16,18 +16,19 @@
                         </header>
                         <div class="panel-body">
                         <div class="form cmxform form-horizontal ">
-                            {!! Form::model($quote, ['route' => array('quotes.update',$quote->id),'files'=>true]) !!}
+                            <?php echo Form::model($quote, ['route' => array('quotes.update',$quote->id),'files'=>true]); ?>
+
                             <input name="_method" type="hidden" value="PATCH">
                                 <div class="form-group ">
                                         <label for="title" class="control-label col-lg-3">Quote</label>
                                         <div class="col-lg-6">
-                                            <input class=" form-control" id="title" value="{{$quote->title}}" name="title" type="text">
+                                            <input class=" form-control" id="title" value="<?php echo e($quote->title); ?>" name="title" type="text">
                                         </div>
                                     </div>
 
                                     <div class="form-group">
                                         <label for="image" class="control-label col-lg-3">Quote Image</label>
-                                        <input type="file" name="image" value="{{$quote->image}}" class="file">
+                                        <input type="file" name="image" value="<?php echo e($quote->image); ?>" class="file">
                                         <div class="input-group col-md-6 col-md-offset-3 col-xs-12" style="padding-left:15px; padding-right:14px;">
                                           <span class="input-group-addon"><i class="fa fa-file-image-o"></i></span>
                                           <input type="text" class="form-control input-lg" disabled placeholder="Update Image">
@@ -40,17 +41,18 @@
                                         <div class="form-group">
                                             <div class="col-lg-offset-3 col-lg-6">
                                                 <button class="btn btn-primary" type="submit">Update</button>
-                                                <a href="{{url()->previous()}}" class="btn btn-default"  type="button">Cancel</a>
+                                                <a href="<?php echo e(url()->previous()); ?>" class="btn btn-default"  type="button">Cancel</a>
                                             </div>
                                         </div>
-                            {!! Form::close() !!}
+                            <?php echo Form::close(); ?>
+
                         </div>
                         </div>
                     </section>
         </div>
 
 </section>
-@include('admin.include.footer')
+<?php echo $__env->make('admin.include.footer', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 
 <script>
     $(document).on('click', '.browse', function(){

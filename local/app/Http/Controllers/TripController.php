@@ -7,6 +7,7 @@ use App\Trip;
 use DB;
 use App\Search;
 use File;
+use Log;
 
 class TripController extends Controller
 {
@@ -38,6 +39,7 @@ class TripController extends Controller
      */
     public function store(Request $request)
     {
+        
         $lang=\Session::get('lang');
         $search_image = '';
         $trip = new Trip();
@@ -119,6 +121,7 @@ class TripController extends Controller
         }
         \Session::put('lang','');
         \Session::put('type','');
+        Log::info($max." Trip created by ".Session::get('email')." on ".date('l jS \of F Y h:i:s A'));
         return Redirect()->route('admin_'.$trip->type);
     }
 
@@ -154,6 +157,7 @@ class TripController extends Controller
      */
     public function update(Request $request, $id)
     {
+        
         $lang=\Session::get('lang');
         $search_image ='';
         $trip = Trip::findOrFail($id);
@@ -239,6 +243,7 @@ class TripController extends Controller
                 $search->save();
         }
         \Session::put('lang','');
+        Log::info($id." Trip updated by ".Session::get('email')." on ".date('l jS \of F Y h:i:s A'));
         return Redirect()->route('admin_'.$trip->type);
     }
 
@@ -250,12 +255,14 @@ class TripController extends Controller
      */
     public function destroy($id)
     {
+        
         $trip = Trip::findOrFail($id);
         $type = $trip->type;
         File::delete('uploads/trips/'.$type.'/'.$trip->image);
         $search = Search::where('table_name','trips')->where('table_id',$id)->first();
         $search->delete();
         $trip->delete();
+        Log::info($id." Trip deleted by ".Session::get('email')." on ".date('l jS \of F Y h:i:s A'));
         return Redirect()->route('admin_'.$type);
     }
 

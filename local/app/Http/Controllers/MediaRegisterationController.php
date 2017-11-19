@@ -9,11 +9,13 @@ use App\ExpertRegisteration;
 use App\MediaStaff;
 use Session;
 use Config;
+use Log;
 
 class MediaRegisterationController extends Controller {
 
 
   public function store_media_form(Request $request) {
+      
       $this->validate($request,[
         'name'=>'required',
         'license_number'=>'required',
@@ -150,7 +152,7 @@ class MediaRegisterationController extends Controller {
           }
         }
         $media->save();
-
+        Log::info($media->id." Media record created by ".Session::get('email')." on ".date('l jS \of F Y h:i:s A'));
         if($media) {
           Session::put('form_success',trans('media.success_message'));
         }
@@ -162,6 +164,7 @@ class MediaRegisterationController extends Controller {
       }
 
   public function store_journalist_form(Request $request) {
+      
       $this->validate($request,[
         'name'=>'required',
         'last_name'=>'required',
@@ -234,10 +237,12 @@ class MediaRegisterationController extends Controller {
     else {
       Session::put('form_failure',trans('complaints.failure_message'));
     }
+    Log::info($media->id." Journalist record created by ".Session::get('email')." on ".date('l jS \of F Y h:i:s A'));
     return Redirect()->route('journalist_form');
   }
 
   public function store_expert_form(Request $request) {
+      
       $this->validate($request,[
         'name'=>'required',
         'last_name'=>'required',
@@ -288,6 +293,7 @@ class MediaRegisterationController extends Controller {
     else {
       Session::put('form_failure',trans('complaints.failure_message'));
     }
+    Log::info($expert->id." Expert record created by ".Session::get('email')." on ".date('l jS \of F Y h:i:s A'));
     return Redirect()->route('expert_form');
   }
 

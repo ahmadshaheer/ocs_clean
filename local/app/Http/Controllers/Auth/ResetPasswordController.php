@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\ResetsPasswords;
 use DB;
 use Mail;
 use Hash;
+use Log;
 use Session;
 
 class ResetPasswordController extends Controller
@@ -41,12 +42,12 @@ class ResetPasswordController extends Controller
     {
         $this->middleware('guest');
     }
-    
+
 
     public function show_reset_form($email) {
       return view('auth.passwords.reset')->with('email',$email);
     }
-    
+
 
 
     public function forgot() {
@@ -56,6 +57,7 @@ class ResetPasswordController extends Controller
 
 
     public function send_reset_link() {
+      
       $email = $_POST['email'];
       $res = DB::table('users')->where('email',$email)->first();
       if($res!=null) {
@@ -65,10 +67,12 @@ class ResetPasswordController extends Controller
                  $message->to($array);
                 $message->subject('E-Mail Example');
               });
+              Log::info("email sent to ".$mail." on ".date('l jS \of F Y h:i:s A'));
              Session::flash('email_sent','Please Check Your Email and Reset Using The Link Sent!!!');
             return Redirect()->route('login');
       }
       else {
+        Log::info("email sending failed to ".$mail." on ".date('l jS \of F Y h:i:s A'));
             Session::flash('invalid_email','Please Enter A Valid Email');
             return Redirect()->route('login');
       }
@@ -76,6 +80,7 @@ class ResetPasswordController extends Controller
 
     }
     public function reset_password() {
+      
         if(isset($_POST['password'])) {
             if(Session::has('email')) {
                 session()->flush();
@@ -83,6 +88,7 @@ class ResetPasswordController extends Controller
                 $password = $_POST['password'];
                 // print_r($email);exit;
                 DB::table('users')->where('email',$email)->update(['password'=>Hash::make($password)]);
+                Log::info($email." password reset on ".date('l jS \of F Y h:i:s A'));
                 Session::flash('reset_success','Password Reset was Successfull!!!');
                 return Redirect()->route('login');
             }

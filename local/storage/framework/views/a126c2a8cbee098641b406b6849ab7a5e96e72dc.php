@@ -31,6 +31,9 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
+.rtl{
+  direction: rtl !important;
+}
 .mce-branding-powered-by{
     display: none;
 }

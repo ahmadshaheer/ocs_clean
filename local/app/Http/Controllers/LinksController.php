@@ -18,7 +18,7 @@ class LinksController extends Controller
      */
     public function index()
     {
-        $links = Links::all();
+        $links = Links::orderBy('id','desc')->get();
         return view('admin.links')->with('links',$links);
     }
 
@@ -40,7 +40,7 @@ class LinksController extends Controller
      */
     public function store(Request $request)
     {
-        
+
         $links = new Links();
         $lang = Session::get('lang');
         if($lang=='en'){
@@ -127,7 +127,7 @@ class LinksController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
+
         $links = Links::findOrFail($id);
         $lang = Session::get('lang');
         if($lang=='en'){
@@ -193,7 +193,7 @@ class LinksController extends Controller
      */
     public function destroy($id)
     {
-        
+
         $link = Links::findOrFail($id);
         File::delete('uploads/links/'.$link->image);
         $link->delete();

@@ -20,7 +20,7 @@ class AlbumController extends Controller
      */
     public function index()
     {
-        $album = Album::all();
+        $album = Album::orderBy('id','desc')->get();
         return view('admin.album')->with('album',$album);
     }
 
@@ -197,7 +197,7 @@ class AlbumController extends Controller
             File::delete('uploads/album/'.$album->image);
             File::delete('uploads/album/'.$album->image_thumb);
             // generating thumbnail image for display in home and other pages
-            $img_thumb = $max.'_t.'.$request->file('image')->getClientOriginalExtension();
+            $img_thumb = $id.'_t.'.$request->file('image')->getClientOriginalExtension();
             $data = $request->image;
             $driver = new imageManager(array('driver'=>'gd'));
             $thumb_img = $driver->make($data)->resize(200,150);

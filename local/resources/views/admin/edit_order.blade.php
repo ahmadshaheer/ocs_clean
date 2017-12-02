@@ -74,32 +74,32 @@ if (in_array($url, $type)==0) {
                                      <div class="form-group ">
                                         <label for="short_desc_dr" class="control-label col-lg-3">President Word Dari</label>
                                         <div class="col-lg-6">
-                                            <textarea name="short_desc_dr" class="form-control"> {{$the_president->short_desc_dr}}</textarea>
+                                            <textarea name="short_desc_dr" class="form-control rtl"> {{$the_president->short_desc_dr}}</textarea>
                                         </div>
                                     </div>
                                     @else
                                     <div class="form-group ">
                                         <label for="title_dr" class="control-label col-lg-3">Title Dari</label>
                                         <div class="col-lg-6">
-                                            <input class=" form-control" id="title_dr"  value="{{$the_president->title_dr}}" name="title_dr" type="text">
+                                            <input class=" form-control rtl" id="title_dr"  value="{{$the_president->title_dr}}" name="title_dr" type="text">
                                         </div>
                                     </div>
                                     <div class="form-group ">
                                         <label for="date_dr" class="control-label col-lg-3">Date Dari</label>
                                         <div class="col-lg-6">
-                                            <input class=" form-control date_dr"   id="date_dr" value="{{$the_president->date_dr}}" name="date_dr" type="text" >
+                                            <input class=" form-control date_dr rtl"   id="date_dr" value="{{$the_president->date_dr}}" name="date_dr" type="text" >
                                         </div>
                                     </div>
                                     <div class="form-group ">
                                         <label for="short_desc_dr" class="control-label col-lg-3">Short Description Dari</label>
                                         <div class="col-lg-6">
-                                            <textarea name="short_desc_dr" class="form-control"> {{$the_president->short_desc_dr}}</textarea>
+                                            <textarea name="short_desc_dr" class="form-control rtl"> {{$the_president->short_desc_dr}}</textarea>
                                         </div>
                                     </div>
                                     <div class="form-group ">
                                         <label for="desc_dr" class="control-label col-lg-3">Description Dari</label>
                                         <div class="col-lg-6">
-                                            <textarea name="desc_dr" class="form-control format"> {{$the_president->description_dr}}</textarea>
+                                            <textarea name="desc_dr" class="form-control format rtl"> {{$the_president->description_dr}}</textarea>
                                         </div>
                                     </div>
                                     @endif
@@ -108,33 +108,33 @@ if (in_array($url, $type)==0) {
                                     <div class="form-group ">
                                         <label for="short_desc_pa" class="control-label col-lg-3">President Word Pashto</label>
                                         <div class="col-lg-6">
-                                            <textarea name="short_desc_pa" class="form-control"> {{$the_president->short_desc_pa}}</textarea>
+                                            <textarea name="short_desc_pa" class="form-control rtl"> {{$the_president->short_desc_pa}}</textarea>
                                         </div>
                                     </div>
                                     @else
                                     <div class="form-group ">
                                         <label for="title_pa" class="control-label col-lg-3">Title Pashto</label>
                                         <div class="col-lg-6">
-                                            <input class=" form-control" id="title_pa"  value="{{$the_president->title_pa}}" name="title_pa" type="text">
+                                            <input class="form-control rtl" id="title_pa"  value="{{$the_president->title_pa}}" name="title_pa" type="text">
                                         </div>
                                     </div>
 
                                     <div class="form-group ">
                                         <label for="date_dr" class="control-label col-lg-3">Date Pashto</label>
                                         <div class="col-lg-6">
-                                            <input class=" form-control date_dr"   id="date_dr" value="{{$the_president->date_dr}}" name="date_dr" type="text" >
+                                            <input class=" form-control date_dr rtl"   id="date_dr" value="{{$the_president->date_dr}}" name="date_dr" type="text" >
                                         </div>
                                     </div>
                                     <div class="form-group ">
                                         <label for="short_desc_pa" class="control-label col-lg-3">Short Description Pashto</label>
                                         <div class="col-lg-6">
-                                            <textarea name="short_desc_pa" class="form-control"> {{$the_president->short_desc_pa}}</textarea>
+                                            <textarea name="short_desc_pa" class="form-control rtl"> {{$the_president->short_desc_pa}}</textarea>
                                         </div>
                                     </div>
                                     <div class="form-group ">
                                         <label for="desc_pa" class="control-label col-lg-3">Description Pashto</label>
                                         <div class="col-lg-6">
-                                            <textarea name="desc_pa" class="form-control format">{{$the_president->description_pa}}</textarea>
+                                            <textarea name="desc_pa" class="form-control format rtl">{{$the_president->description_pa}}</textarea>
                                         </div>
                                     </div>
                                     @endif
@@ -156,7 +156,7 @@ if (in_array($url, $type)==0) {
 
                                     <div class="form-group">
                                         <div class="col-lg-offset-3 col-lg-6">
-                                            <button class="btn btn-primary" type="submit">Save</button>
+                                            <button class="btn btn-primary" type="submit">Update</button>
                                             <a href="{{url()->previous()}}" class="btn btn-default"  type="button">Cancel</a>
                                         </div>
                                     </div>

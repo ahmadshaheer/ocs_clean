@@ -1,4 +1,4 @@
-@include('admin.include.header')
+ @include('admin.include.header')
 <?php $session = Session::get('lang'); ?>
 <style>
     .file {
@@ -43,26 +43,26 @@
                                     <div class="form-group ">
                                         <label for="title_dr" class="control-label col-lg-3">Title Dari</label>
                                         <div class="col-lg-6">
-                                            <input class=" form-control" id="title_dr"  value="{{old('title_dr')}}" name="title_dr" type="text">
+                                            <input class=" form-control rtl" id="title_dr"  value="{{old('title_dr')}}" name="title_dr" type="text">
                                         </div>
                                     </div>
                                     <div class="form-group ">
                                         <label for="desc_dr" class="control-label col-lg-3">Description Dari</label>
                                         <div class="col-lg-6">
-                                            <textarea name="desc_dr" class="form-control">{{old('desc_dr')}}</textarea>
+                                            <textarea name="desc_dr" class="form-control rtl">{{old('desc_dr')}}</textarea>
                                         </div>
                                     </div>
                                     @else
                                     <div class="form-group ">
                                         <label for="title_pa" class="control-label col-lg-3">Title Pashto</label>
                                         <div class="col-lg-6">
-                                            <input class=" form-control" id="title_pa" value="{{old('title_pa')}}" name="" type="text">
+                                            <input class=" form-control rtl" id="title_pa" value="{{old('title_pa')}}" name="" type="text">
                                         </div>
                                     </div>
                                     <div class="form-group ">
                                         <label for="desc_pa" class="control-label col-lg-3">Description Pashto</label>
                                         <div class="col-lg-6">
-                                            <textarea name="desc_pa" class="form-control">{{old('desc_pa')}}</textarea>
+                                            <textarea name="desc_pa" class="form-control rtl">{{old('desc_pa')}}</textarea>
                                         </div>
                                     </div>
                                     @endif

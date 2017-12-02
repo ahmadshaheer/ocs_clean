@@ -43,27 +43,27 @@
                                     <div class="form-group ">
                                         <label for="title_dr" class="control-label col-lg-3">Title Dari</label>
                                         <div class="col-lg-6">
-                                            <input class=" form-control" id="title_dr" value="{{old('title_dr')}}" name="title_dr" type="text">
+                                            <input class=" form-control rtl" id="title_dr" value="{{old('title_dr')}}" name="title_dr" type="text">
                                         </div>
                                     </div>
                                     <div class="form-group ">
                                         <label for="date_dr" class="control-label col-lg-3">Date Dari</label>
                                         <div class="col-lg-6">
-                                            <input class=" form-control date_dr"  value="{{old('date_dr')}}" id="date_dr" name="date_dr" type="text">
+                                            <input class=" form-control date_dr rtl"  value="{{old('date_dr')}}" id="date_dr" name="date_dr" type="text">
                                         </div>
                                     </div>
                                     @else
                                     <div class="form-group ">
                                         <label for="title_pa" class="control-label col-lg-3">Title Pashto</label>
                                         <div class="col-lg-6">
-                                            <input class=" form-control" id="title_pa" value="{{old('title_pa')}}" name="title_pa" type="text">
+                                            <input class=" form-control rtl" id="title_pa" value="{{old('title_pa')}}" name="title_pa" type="text">
                                         </div>
                                     </div>
 
                                     <div class="form-group ">
                                         <label for="date_dr" class="control-label col-lg-3">Date Pashto</label>
                                         <div class="col-lg-6">
-                                            <input class=" form-control date_dr"  value="{{old('date_dr')}}" id="date_dr" name="date_dr" type="text">
+                                            <input class=" form-control date_dr rtl"  value="{{old('date_dr')}}" id="date_dr" name="date_dr" type="text">
                                         </div>
                                     </div>
                                     @endif
@@ -105,5 +105,5 @@
     $(document).on('change', '.file', function(){
       $(this).parent().find('.form-control').val($(this).val().replace(/C:\\fakepath\\/i, ''));
     });
-    
+
 </script>

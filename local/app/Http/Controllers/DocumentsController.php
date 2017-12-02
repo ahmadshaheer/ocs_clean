@@ -17,7 +17,7 @@ class DocumentsController extends Controller
      */
     public function index()
     {
-        $document = Document::all();
+        $document = Document::orderBy('id','desc')->get();
         return view('admin.documents')->with('documents',$document);
     }
 
@@ -39,7 +39,7 @@ class DocumentsController extends Controller
      */
     public function store(Request $request)
     {
-        
+
         $document = new Document();
         $max = Document::max('id');
         $max+=1;
@@ -141,7 +141,7 @@ class DocumentsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
+
         $document =Document::findOrFail($id);
         $max = $document->id;
 
@@ -237,7 +237,7 @@ class DocumentsController extends Controller
      */
     public function destroy($id)
     {
-        
+
         $document = document::findOrFail($id);
         $search = Search::where('table_name','documents')->where('table_id',$id);
         $search->delete();

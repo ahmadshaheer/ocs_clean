@@ -15,7 +15,7 @@ class MediaRegisterationController extends Controller {
 
 
   public function store_media_form(Request $request) {
-      
+
       $this->validate($request,[
         'name'=>'required',
         'license_number'=>'required',
@@ -164,7 +164,7 @@ class MediaRegisterationController extends Controller {
       }
 
   public function store_journalist_form(Request $request) {
-      
+
       $this->validate($request,[
         'name'=>'required',
         'last_name'=>'required',
@@ -242,7 +242,7 @@ class MediaRegisterationController extends Controller {
   }
 
   public function store_expert_form(Request $request) {
-      
+
       $this->validate($request,[
         'name'=>'required',
         'last_name'=>'required',
@@ -308,15 +308,15 @@ class MediaRegisterationController extends Controller {
   }
 
   public function view_media(){
-    $media = MediaRegisteration::all();
+    $media = MediaRegisteration::orderBy('id','desc')->get();
     return view('admin.view_media_register')->with('media',$media);
   }
   public function view_journalist(){
-    $journalist = JournalistRegisteration::all();
+    $journalist = JournalistRegisteration::orderBy('id','desc')->get();
     return view('admin.view_journalist_register')->with('journalist',$journalist);
   }
   public function view_expert(){
-    $expert = ExpertRegisteration::all();
+    $expert = ExpertRegisteration::orderBy('id','desc')->get();
     return view('admin.view_expert_register')->with('expert',$expert);
   }
 }

@@ -722,7 +722,7 @@
     #carousel_div #carousel_text_div {
       position: absolute;
       bottom: 0;
-      right: 0;
+      {{$dir}}: 0;
       padding-bottom: 2.8em;
     }
 

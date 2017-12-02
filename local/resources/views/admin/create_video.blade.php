@@ -1,4 +1,4 @@
-@include('admin.include.header')
+ @include('admin.include.header')
 <?php $session = Session::get('lang'); ?>
 <style>
     .file {
@@ -32,9 +32,11 @@
                                             <input class=" form-control" id="date" maxlength="10"  name="date" type="date" required>
                                         </div>
                                     </div>
+
                                  <div class="form-group">
                                         <label for="video" class="control-label col-lg-3">Video English</label>
-                                        <div class="col-lg-6">
+                                        <div class="input-group" style="width:43%;left:15px;">
+                                          <span class="input-group-addon" id="basic-addon3">https://www.youtube.com/watch?v=</span>
                                         <input type="url" name="video" class="form-control">
                                       </div>
                                     </div>
@@ -42,18 +44,19 @@
                                     <div class="form-group ">
                                         <label for="title_dr" class="control-label col-lg-3">Title Dari</label>
                                         <div class="col-lg-6">
-                                            <input class=" form-control" id="title_dr" maxlength="150" name="title_dr" type="text">
+                                            <input class=" form-control rtl" id="title_dr" maxlength="150" name="title_dr" type="text">
                                         </div>
                                     </div>
                                      <div class="form-group ">
                                         <label for="date_dr" class="control-label col-lg-3">Date Dari</label>
                                         <div class="col-lg-6">
-                                            <input class=" form-control date_dr"  maxlength="10" id="date_dr" name="date_dr" type="text" required>
+                                            <input class=" form-control date_dr rtl"  maxlength="10" id="date_dr" name="date_dr" type="text" required>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="video_dr" class="control-label col-lg-3">Video Dari</label>
-                                        <div class="col-lg-6">
+                                        <div class="input-group" style="width:43%;left:15px;">
+                                          <span class="input-group-addon" id="basic-addon3">https://www.youtube.com/watch?v=</span>
                                         <input type="url" name="video_dr" class="form-control">
                                       </div>
                                     </div>
@@ -61,18 +64,19 @@
                                     <div class="form-group ">
                                         <label for="title_pa" class="control-label col-lg-3">Title Pashto</label>
                                         <div class="col-lg-6">
-                                            <input class=" form-control" id="title_pa" maxlength="150" name="title_pa" type="text">
+                                            <input class=" form-control rtl" id="title_pa" maxlength="150" name="title_pa" type="text">
                                         </div>
                                     </div>
                                      <div class="form-group ">
                                         <label for="date_dr" class="control-label col-lg-3">Date Pashto</label>
                                         <div class="col-lg-6">
-                                            <input class=" form-control date_dr"  maxlength="10" id="date_dr" name="date_dr" type="text" required>
+                                            <input class=" form-control date_dr rtl"  maxlength="10" id="date_dr" name="date_dr" type="text" required>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="video_pa" class="control-label col-lg-3">Video Pashto</label>
-                                        <div class="col-lg-6">
+                                        <div class="input-group" style="width:43%;left:15px;">
+                                          <span class="input-group-addon" id="basic-addon3">https://www.youtube.com/watch?v=</span>
                                         <input type="url" name="video_pa" class="form-control">
                                       </div>
                                     </div>

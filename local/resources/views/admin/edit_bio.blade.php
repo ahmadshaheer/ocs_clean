@@ -52,7 +52,7 @@
 
                                     <div class="form-group">
                                         <div class="col-lg-offset-3 col-lg-6">
-                                            <button class="btn btn-primary" type="submit">Save</button>
+                                            <button class="btn btn-primary" type="submit">Update</button>
                                             <a href="{{url()->previous()}}" class="btn btn-default"  type="button">Cancel</a>
                                         </div>
                                     </div>

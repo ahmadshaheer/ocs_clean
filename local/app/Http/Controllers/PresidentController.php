@@ -43,7 +43,7 @@ class PresidentController extends Controller
      */
     public function store(Request $request)
     {
-        
+
         $lang = \Session::get('lang');
         $search_image = '';
         $the_president = new President();
@@ -103,7 +103,7 @@ class PresidentController extends Controller
           }
           $the_president->title_dr = $request->input('title_dr');
           $the_president->date_dr = $request->input('date_dr');
-           $the_president->short_desc_dr = $request->input('short_desc_dr');
+          $the_president->short_desc_dr = $request->input('short_desc_dr');
           $the_president->description_dr = $request->input('desc_dr');
         }
         else{
@@ -132,16 +132,13 @@ class PresidentController extends Controller
           }
           $the_president->title_pa = $request->input('title_pa');
           $the_president->date_pa = $request->input('date_dr');
-           $the_president->short_desc_pa = $request->input('short_desc_pa');
+          $the_president->short_desc_pa = $request->input('short_desc_pa');
           $the_president->description_pa = $request->input('desc_pa');
-
         }
-
-
-            $the_president->save();
-
+        $the_president->save();
+        $pr = '';
+        $max = $the_president->id;
           if($the_president->type!='order' AND $the_president->type!='decree') {
-              $max = $the_president->id;
             // thumbnail generation starts
             $image = $request->image;
             $img = $max.'.'.$image->getClientOriginalExtension();
@@ -157,16 +154,17 @@ class PresidentController extends Controller
             $pr->image = $img;
             // assign thumb image to image_thumb column in db
             $pr->image_thumb = $img_thumb;
-
             $pr->image =$img;
-
             $search_image = "uploads/".$the_president->type."/".$img_thumb;
+            }
+            else{
+              $pr = President::findOrFail($max);
             }
               if($pr->save()){
                 $search = new Search();
                 if($lang =='en'){
-                    $search->title_en = $request->input('title');
-                    $search->date_en = $request->input('date');
+                    $search->title_en = $request->input('title_en');
+                    $search->date_en = $request->input('date_en');
                     $search->short_desc_en = $request->input('short_desc_en');
                     $search->description_en = $request->input('desc_en');
                 }
@@ -227,31 +225,30 @@ class PresidentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
-        $the_president = President::findOrFail($id);
         $lang = \Session::get('lang');
         $search_image = '';
+        $the_president = President::findOrFail($id);
         if($lang =='en'){
           if($request->input('type')=='word') {
             $this->validate($request,[
-              'short_desc_pa'=>'required',
+              'short_desc_en'=>'required',
               'image'=>'mimes:jpeg,jpg,png,bmp',
             ]);
           }
           else if($request->input('type')=='order' || $request->input('type')=='decree') {
             $this->validate($request,[
-            'title_pa'=>'required',
-            'date_pa'=>'required',
-            'short_desc_pa'=>'required',
-            'desc_pa'=>'required'
+            'title_en'=>'required',
+            'date_en'=>'required',
+            'short_desc_en'=>'required',
+            'desc_en'=>'required'
           ]);
           }
           else {
             $this->validate($request,[
-              'title_pa'=>'required',
-              'date_pa'=>'required',
-              'short_desc_pa'=>'required',
-              'desc_pa'=>'required',
+              'title_en'=>'required',
+              'date_en'=>'required',
+              'short_desc_en'=>'required',
+              'desc_en'=>'required',
               'image'=>'mimes:jpeg,jpg,png,bmp'
             ]);
           }
@@ -263,24 +260,24 @@ class PresidentController extends Controller
         else if($lang =='dr'){
           if($request->input('type')=='word') {
             $this->validate($request,[
-              'short_desc_pa'=>'required',
+              'short_desc_dr'=>'required',
               'image'=>'mimes:jpeg,jpg,png,bmp',
             ]);
           }
           else if($request->input('type')=='order' || $request->input('type')=='decree') {
             $this->validate($request,[
-            'title_pa'=>'required',
-            'date_pa'=>'required',
-            'short_desc_pa'=>'required',
-            'desc_pa'=>'required'
+            'title_dr'=>'required',
+            'date_dr'=>'required',
+            'short_desc_dr'=>'required',
+            'desc_dr'=>'required'
           ]);
           }
           else {
             $this->validate($request,[
-              'title_pa'=>'required',
-              'date_pa'=>'required',
-              'short_desc_pa'=>'required',
-              'desc_pa'=>'required',
+              'title_dr'=>'required',
+              'date_dr'=>'required',
+              'short_desc_dr'=>'required',
+              'desc_dr'=>'required',
               'image'=>'mimes:jpeg,jpg,png,bmp'
             ]);
           }
@@ -299,7 +296,7 @@ class PresidentController extends Controller
           else if($request->input('type')=='order' || $request->input('type')=='decree') {
             $this->validate($request,[
             'title_pa'=>'required',
-            'date_pa'=>'required',
+            'date_dr'=>'required',
             'short_desc_pa'=>'required',
             'desc_pa'=>'required'
           ]);
@@ -307,7 +304,7 @@ class PresidentController extends Controller
           else {
             $this->validate($request,[
               'title_pa'=>'required',
-              'date_pa'=>'required',
+              'date_dr'=>'required',
               'short_desc_pa'=>'required',
               'desc_pa'=>'required',
               'image'=>'mimes:jpeg,jpg,png,bmp'
@@ -317,7 +314,6 @@ class PresidentController extends Controller
           $the_president->date_pa = $request->input('date_dr');
           $the_president->short_desc_pa = $request->input('short_desc_pa');
           $the_president->description_pa = $request->input('desc_pa');
-
         }
 
         $the_president->type = $request->input('type');
@@ -347,8 +343,8 @@ class PresidentController extends Controller
         if($the_president->save()){
                 $search = Search::where('table_name','=','president')->where('table_id','=',$id)->first();
                  if($lang =='en'){
-                    $search->title_en = $request->input('title');
-                    $search->date_en = $request->input('date');
+                    $search->title_en = $request->input('title_en');
+                    $search->date_en = $request->input('date_en');
                     $search->short_desc_en = $request->input('short_desc_en');
                     $search->description_en = $request->input('desc_en');
                 }
@@ -371,8 +367,7 @@ class PresidentController extends Controller
                 $search->save();
         }
         \Session::put('lang','');
-        print_r("here");exit;
-        Log::info($id." President record updated by ".Session::get('email')." on ".date('l jS \of F Y h:i:s A'));
+        Log::info("Record ID No. '".$id."' President record updated by ".Session::get('email')." on ".date('l jS \of F Y h:i:s A'));
         return Redirect()->route("admin_".$request->type);
     }
 
@@ -384,7 +379,7 @@ class PresidentController extends Controller
      */
     public function destroy($id)
     {
-        
+
         $president = President::findOrFail($id);
         $type = $president->type;
         File::delete('uploads/'.$type.'/'.$president->image);
@@ -397,30 +392,29 @@ class PresidentController extends Controller
 
     public function decrees()
     {
-        $decrees = DB::table('president')->where('type','decree')->get();
+        $decrees = DB::table('president')->where('type','decree')->orderBy('id','desc')->get();
         return view('admin.decrees')->with('decrees',$decrees);
     }
 
     public function orders()
     {
-        $orders = DB::table('president')->where('type','order')->get();
-        // print_r($orders);exit;
+        $orders = DB::table('president')->where('type','order')->orderBy('id','desc')->get();
         return view('admin.orders')->with('orders',$orders);
     }
 
     public function statements()
     {
-        $statements = DB::table('president')->where('type','statement')->get();
+        $statements = DB::table('president')->where('type','statement')->orderBy('id','desc')->get();
         return view('admin.statements')->with('statements',$statements);
     }
     public function messages()
     {
-        $messages = DB::table('president')->where('type','message')->get();
+        $messages = DB::table('president')->where('type','message')->orderBy('id','desc')->get();
         return view('admin.messages')->with('messages',$messages);
     }
     public function words()
     {
-        $words = DB::table('president')->where('type','word')->get();
+        $words = DB::table('president')->where('type','word')->orderBy('id','desc')->get();
         return view('admin.words')->with('words',$words);
     }
 }

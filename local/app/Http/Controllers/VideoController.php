@@ -39,7 +39,7 @@ class videoController extends Controller
      */
     public function store(Request $request)
     {
-        
+
         $lang=\Session::get('lang');
         $video = new video();
         if($lang=='en') {
@@ -77,14 +77,17 @@ class videoController extends Controller
             if($lang=='en') {
               $search->title_en = $request->input('title');
               $search->date_en = $request->input('date');
+              $search->image_thumb = $request->input('video');
             }
             else if($lang=='dr') {
               $search->title_dr = $request->input('title_dr');
               $search->date_dr = $request->input('date_dr');
+              $search->image_thumb = $request->input('video_dr');
             }
             else if($lang=='pa') {
               $search->title_pa = $request->input('title_pa');
               $search->date_pa = $request->input('date_dr');
+              $search->image_thumb = $request->input('video_pa');
             }
             $search->table_name = 'videos';
             $search->type = 'video';
@@ -128,14 +131,14 @@ class videoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        
+
         $lang=\Session::get('lang');
         $video =video::findOrFail($id);
         if($lang=='en') {
           $this->validate($request,[
-            'title_en'=>'required|unique:videos|max:255',
+            'title_en'=>'max:255',
             'date_en'=>'required',
-            'video'=>'required',
+            'video'=>'',
           ]);
           $video->title_en = $request->input('title');
           $video->date_en = $request->input('date');
@@ -143,9 +146,9 @@ class videoController extends Controller
         }
         else if($lang=='dr') {
           $this->validate($request,[
-            'title_dr'=>'required|unique:videos|max:255',
+            'title_dr'=>'max:255',
             'date_dr'=>'required',
-            'video_dr'=>'required',
+            'video_dr'=>'',
           ]);
           $video->title_dr = $request->input('title_dr');
           $video->date_dr = $request->input('date_dr');
@@ -153,9 +156,9 @@ class videoController extends Controller
         }
         else if($lang=='pa') {
           $this->validate($request,[
-            'title_pa'=>'required|unique:videos|max:255',
+            'title_pa'=>'max:255',
             'date_dr'=>'required',
-            'video_pa'=>'required',
+            'video_pa'=>'',
           ]);
           $video->title_pa = $request->input('title_pa');
           $video->date_pa = $request->input('date_dr');
@@ -193,7 +196,7 @@ class videoController extends Controller
      */
     public function destroy($id)
     {
-        
+
         $video = video::findOrFail($id);
         if($video->delete()){
             $search = Search::where('table_name','=','videos')->where('table_id','=',$id)->first();

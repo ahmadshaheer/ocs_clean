@@ -62,7 +62,7 @@
           <?php echo e(csrf_field()); ?>
 
           <div class="small field" style="float:left;padding-right:5px;">
-            <select name="lang" class="edit_lang">
+            <select name="lang" class="edit_lang" id="edit_lang">
               <option value="0">Edit...</option>
               <option value="dr_<?php echo e($value->id); ?>">dari</option>
               <option value="pa_<?php echo e($value->id); ?>">pashto</option>
@@ -90,9 +90,9 @@
     window.location = "<?php echo e(url('admin/set_session?lang=')); ?>"+id+"&route=<?php echo e(route('media.create')); ?>";
   });
 
-  $(".edit_lang").change(function(){
+  $("#edit_lang").change(function(){
     var lang = $(this).val().substring(0,2);
     var id = $(this).val().substring(3);
-    window.location = "<?php echo e(url('admin/set_session?lang=')); ?>"+lang+"&route=<?php echo e(url('admin/media/')); ?>"+"/"+id+"/edit";
+    window.location = "<?php echo e(url('admin/edit_session?lang=')); ?>"+lang+"&route=<?php echo e(url('admin/media/')); ?>"+"/"+id+"/edit";
   });
 </script>

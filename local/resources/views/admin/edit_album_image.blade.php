@@ -1,10 +1,10 @@
-@include('admin.include.header')
+ rtl@include('admin.include.header')
 <style>
     .file {
       visibility: hidden;
       position: absolute;
     }
-  
+
 
 
 </style>
@@ -29,16 +29,16 @@
                                     <div class="form-group ">
                                         <label for="title_dr" class="control-label col-lg-3">Title Dari</label>
                                         <div class="col-lg-6">
-                                            <input class=" form-control" id="title_dr" maxlength="150" value="{{$image->title_dr}}" name="title_dr" type="text">
+                                            <input class=" form-control rtl" id="title_dr" maxlength="150" value="{{$image->title_dr}}" name="title_dr" type="text">
                                         </div>
                                     </div>
                                     <div class="form-group ">
                                         <label for="title_pa" class="control-label col-lg-3">Title Pashto</label>
                                         <div class="col-lg-6">
-                                            <input class=" form-control" id="title_pa" maxlength="150" value="{{$image->title_pa}}" name="title_pa" type="text">
+                                            <input class=" form-control rtl" id="title_pa" maxlength="150" value="{{$image->title_pa}}" name="title_pa" type="text">
                                         </div>
                                     </div>
-                                   
+
                                     <div class="form-group">
                                         <label for="image" class="control-label col-lg-3">Image</label>
                                         <input type="file" name="image" class="file" value="{{$image->image}}">
@@ -51,11 +51,11 @@
                                         </div>
                                     </div>
 
-                                   
+
 
                                     <div class="form-group">
                                         <div class="col-lg-offset-3 col-lg-6">
-                                            <button class="btn btn-primary" type="submit">Save</button>
+                                            <button class="btn btn-primary" type="submit">Update</button>
                                             <a href="{{url()->previous()}}" class="btn btn-default"  type="button">Cancel</a>
                                         </div>
                                     </div>

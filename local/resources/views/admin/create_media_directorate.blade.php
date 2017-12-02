@@ -37,14 +37,14 @@
                                      <div class="form-group ">
                                         <label for="desc_dr" class="control-label col-lg-3">Description Dari</label>
                                         <div class="col-lg-9">
-                                            <textarea name="desc_dr" class="form-control format"></textarea>
+                                            <textarea name="desc_dr rtl" class="form-control format"></textarea>
                                         </div>
                                     </div>
                                     @else
                                      <div class="form-group ">
                                         <label for="desc_pa" class="control-label col-lg-3">Description Pashto</label>
                                         <div class="col-lg-9">
-                                            <textarea name="desc_pa" class="form-control format"></textarea>
+                                            <textarea name="desc_pa" class="form-control format rtl"></textarea>
                                         </div>
                                     </div>
                                     @endif

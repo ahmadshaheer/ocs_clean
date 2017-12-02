@@ -28,16 +28,16 @@
                                     <div class="form-group ">
                                         <label for="title_dr{{$i}}" class="control-label col-lg-3">Title Dari</label>
                                         <div class="col-lg-6">
-                                            <input class=" form-control" id="title_dr{{$i}}" maxlength="150" name="title_dr{{$i}}" type="text">
+                                            <input class=" form-control rtl" id="title_dr{{$i}}" maxlength="150" name="title_dr{{$i}}" type="text">
                                         </div>
                                     </div>
                                     <div class="form-group ">
                                         <label for="title_pa{{$i}}" class="control-label col-lg-3">Title Pashto</label>
                                         <div class="col-lg-6">
-                                            <input class=" form-control" id="title_pa{{$i}}" maxlength="150" name="title_pa{{$i}}" type="text">
+                                            <input class=" form-control rtl" id="title_pa{{$i}}" maxlength="150" name="title_pa{{$i}}" type="text">
                                         </div>
                                     </div>
-                                    
+
                                     <div class="form-group">
                                         <label for="image{{$i}}" class="control-label col-lg-3">Image</label>
                                         <input type="file" name="image{{$i}}" class="file">

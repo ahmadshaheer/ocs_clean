@@ -16,7 +16,7 @@ class QuotesController extends Controller
      */
     public function index()
     {
-        $quotes = Quotes::all();
+        $quotes = Quotes::orderBy('id','desc')->get();
         return view('admin.quotes')->with('quotes',$quotes);
     }
 

@@ -57,7 +57,7 @@ class ResetPasswordController extends Controller
 
 
     public function send_reset_link() {
-      
+
       $email = $_POST['email'];
       $res = DB::table('users')->where('email',$email)->first();
       if($res!=null) {
@@ -80,7 +80,7 @@ class ResetPasswordController extends Controller
 
     }
     public function reset_password() {
-      
+
         if(isset($_POST['password'])) {
             if(Session::has('email')) {
                 session()->flush();

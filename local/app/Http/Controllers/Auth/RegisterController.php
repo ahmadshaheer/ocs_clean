@@ -9,6 +9,7 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Hash;
 use DB;
 use Session;
+use Illuminate\Http\Request;
 
 class RegisterController extends Controller
 {
@@ -74,32 +75,19 @@ class RegisterController extends Controller
     protected function show_register() {
         return view('admin.register');
     }
-    protected function register() {
-        $name = $_POST['name'];
-        $email = $_POST['email'];
-        $password =Hash::make($_POST['password']);
-        $password_confirmation =$_POST['password_confirmation'];
-        if(Hash::check($password_confirmation,$password)) {
-            $user = new User();
-            $db = DB::table('users')->where('email',$email)->first();
-            if($db==null) {
-                // print_r($email.' exists ');exit;
-                $user->name = $name;
-                $user->email = $email;
-                $user->password = $password;
-                $user->role = $_POST['role'];
-                $user->save();
-                return Redirect()->Route('users');
-            }
-            else {
-                Session::flash('user_exists','User Already Exists');
-                Session::put('email_exists',$email);
-                return Redirect()->Route('register_user');
-            }
-        }
-        else {
-            Session::flash('bad_match','Passwords Do not Match');
-            return Redirect()->Route('register_user');
-        }
+    protected function register(Request $request) {
+
+        $this->validate($request,[
+          'name'=>'required',
+          'email'=>'required|unique:users|max:30',
+          'password'=>'required|confirmed|min:8'
+        ]);
+        $user = new User();
+        $user->name = $request->input('name');
+        $user->email = $request->input('email');
+        $user->password = Hash::make($request->input('password'));
+        $user->role = $request->input('role');
+        $user->save();
+        return Redirect()->Route('users');
     }
 }

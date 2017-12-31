@@ -10,7 +10,7 @@
                         </div>
                     @endif
 
-                    <form class="form-horizontal" role="form" method="POST" action="{{ url('/send_reset_link') }}">
+                    <form class="form-horizontal" role="form" method="POST" action="{{route('send_reset_link')}}">
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">

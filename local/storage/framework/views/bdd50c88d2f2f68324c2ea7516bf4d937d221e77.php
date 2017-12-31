@@ -53,6 +53,6 @@
     </div>
 
     <!-- Scripts -->
-    <script src="/js/app.js"></script>
+    <script src="<?php echo e(asset('assets/js/app.js')); ?>"></script>
 </body>
 </html>

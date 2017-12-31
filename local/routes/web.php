@@ -485,10 +485,6 @@ Route::group(['middleware'=>['chk_usr']],function(){
 	Route::delete('delete_user/{id?}','Auth\LoginController@destroy')->name('delete_user');
 	Route::get('edit_user/{id?}','Auth\LoginController@edit_user')->name('edit_user');
 	Route::any('update_user/{id?}','Auth\LoginController@update_user')->name('update_user');
-	Route::get('show_reset_form/{email?}','Auth\ResetPasswordController@show_reset_form')->name('show_reset_form');
-	Route::get('forgot','Auth\ResetPasswordController@forgot')->name('forgot');
-	Route::post('send_reset_link','Auth\ResetPasswordController@send_reset_link')->name('send_reset_link');
-	Route::post('reset_password','Auth\ResetPasswordController@reset_password')->name('reset_password');
 	Route::get('logout','Auth\LoginController@logout')->name('logout');
 
 	// Form Registered Route
@@ -531,6 +527,11 @@ Route::get('admin/set_session_all',function(){
 	})->name('login');
 
 	Route::post('login_user','Auth\LoginController@login')->name('check_crediential');
+
+	Route::get('forgot','Auth\ResetPasswordController@forgot')->name('forgot');
+	Route::post('send_reset_link','Auth\ResetPasswordController@send_reset_link')->name('send_reset_link');
+	Route::get('show_reset_form/{email?}','Auth\ResetPasswordController@show_reset_form')->name('show_reset_form');
+	Route::post('reset_password','Auth\ResetPasswordController@reset_password')->name('reset_password');
 
 // Login Routes Ends
 	// Route::get('test',function(){

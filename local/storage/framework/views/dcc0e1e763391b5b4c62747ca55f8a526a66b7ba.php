@@ -60,6 +60,7 @@
     var editor_config = {
       path_absolute : "<?php echo e(URL::to('/')); ?>/",
       selector: ".format",
+      width: "731",
       menubar:true,
       height: 500,
       statusbar: false,

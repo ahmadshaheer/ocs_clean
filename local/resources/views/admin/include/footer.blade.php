@@ -63,6 +63,7 @@
     var editor_config = {
       path_absolute : "{{ URL::to('/') }}/",
       selector: ".format",
+      width: "731",
       menubar:true,
       height: 500,
       statusbar: false,

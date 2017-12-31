@@ -49,6 +49,12 @@ footer.timeline-Footer.u-cf {
     display: none !important;
 
 }
+#mceu_20 {
+width: 731px !important;
+display: block !important;
+margin: auto !important;
+}
+
 </style>
 
 </head>

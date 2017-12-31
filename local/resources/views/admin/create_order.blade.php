@@ -34,32 +34,32 @@ $type = Session::get('type');
                                     <div class="form-group ">
                                         <label for="short_desc_en" class="control-label col-lg-3">President Word</label>
                                         <div class="col-lg-6">
-                                            <textarea name="short_desc_en" class="form-control"></textarea>
+                                            <textarea name="short_desc_en" value="{{old('short_desc_en')}}" class="form-control"></textarea>
                                         </div>
                                     </div>
                                     @else
                                     <div class="form-group ">
                                         <label for="title" class="control-label col-lg-3">Title</label>
                                         <div class="col-lg-6">
-                                            <input class=" form-control" id="title" name="title_en" type="text">
+                                            <input class=" form-control" id="title" name="title_en" value="{{old('title_en')}}" type="text">
                                         </div>
                                     </div>
                                     <div class="form-group ">
                                         <label for="date" class="control-label col-lg-3">Date</label>
                                         <div class="col-lg-6">
-                                            <input class=" form-control" id="date"  name="date_en" type="date" >
+                                            <input class=" form-control" id="date"  name="date_en" value="{{old('date_en')}}" type="date" >
                                         </div>
                                     </div>
                                     <div class="form-group ">
                                         <label for="short_desc_en" class="control-label col-lg-3">Short Description English</label>
                                         <div class="col-lg-6">
-                                            <textarea name="short_desc_en" class="form-control"></textarea>
+                                            <textarea name="short_desc_en" value="{{old('short_desc_en')}}" class="form-control"></textarea>
                                         </div>
                                     </div>
                                      <div class="form-group ">
                                         <label for="desc_en" class="control-label col-lg-3">Description English</label>
                                         <div class="col-lg-6">
-                                            <textarea name="desc_en" class="form-control format"></textarea>
+                                            <textarea name="desc_en" value="{{old('desc_en')}}" class="form-control format"></textarea>
                                         </div>
                                     </div>
                                     @endif

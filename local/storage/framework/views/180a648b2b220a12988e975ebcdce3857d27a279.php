@@ -6,9 +6,9 @@
       <?php echo e(trans('home.president_word')); ?>
 
     </div>
-      <?php if(sizeof($word->$title)!=0): ?>
-        <div class="image"><img style="width:100%;" src="<?php echo e(asset('uploads/word/'.$word->image)); ?>" alt=""></div>
-        <div class="description body_font" style="text-align:justify;margin-top:10px;padding-bottom:10px;" dir="rtl"><?php echo e($word->$title); ?></div>
+      <?php if(sizeof($word->$short_desc)!=0): ?>
+        <div class="image"><img style="width:100%;" src="<?php echo e(asset('uploads/word/'.$word->image_thumb)); ?>" alt=""></div>
+        <div class="description body_font" style="text-align:justify;margin-top:10px;padding-bottom:10px;" dir="rtl"><?php echo e($word->$short_desc); ?></div>
       <?php endif; ?>
     </div>
   </div>

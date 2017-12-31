@@ -43,27 +43,39 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
     public function login(Request $request) {
+        $test = $request->all();
+        unset($test['_token']);
+        // print_r($test);exit;
+        // print_r(Auth::attempt($test));exit;
+        $this->validate($request,[
+          'email'=>'email|required|exists:users,email',
+          'password'=>'required'
+        ]);
         $email = $request->input('email');
-        $password =$request->input('password');
+        // $password =$request->input('password');
         $rec = DB::table('users')->where('email',$email)->first();
-        if($rec!=null){
-          $password_db = $rec->password;
-          if(Hash::check($password,$password_db)) {
-              $username = $rec->name;
-              Session::put('username',$username);
-              Session::put('email',$email);
-              Session::put('role',$rec->role);
-              return redirect()->route('admin');
-          }
-          else {
-            Session::flash('login_failed','Incorrect Email Or Password');
-            return Redirect()->route('login');
-          }
+        // $password_db = $rec->password;
+        // if(Hash::check($password,$password_db)) {
+        //
+        // }
+        // else {
+        //   Session::flash('login_failed','Incorrect Email Or Password');
+        //   return Redirect()->route('login');
+        // }
+
+        if(Auth::attempt($test)) {
+          $username = $rec->name;
+          Session::put('username',$username);
+          Session::put('email',$email);
+          Session::put('role',$rec->role);
+          return redirect()->route('admin');
         }
         else {
-            Session::flash('login_failed','This Email Doesnt Belong To Any User, Please Create An Account and Try Again Later!!!');
-            return Redirect()->route('login');
+          Session::flash('login_failed','Incorrect Email Or Password');
+
+          return Redirect()->route('login');
         }
+
         // if (Auth::attempt(['email' => $email, 'password' => $password])) {
         //     // Authentication passed...
         //     return redirect()->route('admin');

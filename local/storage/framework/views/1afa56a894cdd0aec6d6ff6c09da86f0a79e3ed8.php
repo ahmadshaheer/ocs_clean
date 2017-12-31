@@ -21,7 +21,6 @@
 <link rel="stylesheet" href="<?php echo e(asset('assets/admin-asset/css/morris.css')); ?>" type="text/css"/>
 <!-- calendar -->
 <link rel="stylesheet" href="<?php echo e(asset('assets/admin-asset/css/persian-datepicker.css')); ?>">
-<link rel="stylesheet" href="<?php echo e(asset('assets/admin-asset/css/monthly.css')); ?>">
 <link rel="stylesheet" type="text/css" href="<?php echo e(asset('assets/css/icon.min.css')); ?>">
 
 <!-- //calendar -->
@@ -50,6 +49,12 @@ footer.timeline-Footer.u-cf {
     display: none !important;
 
 }
+#mceu_20 {
+width: 731px !important;
+display: block !important;
+margin: auto !important;
+}
+
 </style>
 
 </head>

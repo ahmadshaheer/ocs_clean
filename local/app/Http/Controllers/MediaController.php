@@ -178,8 +178,8 @@ class MediaController extends Controller
         $search_pdf = '';
         if($lang=='en') {
           $this->validate($request,[
-            'title_en'=>'required|max:255',
-            'date_en'=>'required',
+            'title'=>'required|max:255',
+            'date'=>'required',
             'short_desc_en'=>'required',
             'desc_en'=>'required',
           ]);
@@ -191,24 +191,26 @@ class MediaController extends Controller
         else if($lang=='dr') {
           $this->validate($request,[
             'title_dr'=>'required|max:255',
-            'date_dr'=>'required',
             'short_desc_dr'=>'required',
             'desc_dr'=>'required',
           ]);
           $media->title_dr = $request->input('title_dr');
-          $media->date_dr = $request->input('date_dr');
+          if($request->date_dr!=null) {
+            $media->date_dr = $request->input('date_dr');
+          }
           $media->short_desc_dr = $request->input('short_desc_dr');
           $media->description_dr = $request->input('desc_dr');
         }
         else if($lang=='pa') {
           $this->validate($request,[
             'title_pa'=>'required|max:255',
-            'date_dr'=>'required',
             'short_desc_pa'=>'required',
             'desc_pa'=>'required',
           ]);
           $media->title_pa = $request->input('title_pa');
-          $media->date_pa = $request->input('date_dr');
+          if($request->date_pa!=null) {
+            $media->date_pa = $request->input('date_dr');
+          }
           $media->short_desc_pa = $request->input('short_desc_pa');
           $media->description_pa = $request->input('desc_pa');
         }

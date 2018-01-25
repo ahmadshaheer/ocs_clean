@@ -1,3 +1,7 @@
+<?php
+  global $jdate;
+  use App\Http\Controllers\DateChanger;
+  $jdate = new DateChanger(); ?>
 <!DOCTYPE HTML>
 <head>
 <title>OCS Admin Panel</title>
@@ -42,7 +46,7 @@ div.mce-fullscreen {
 }
 @media (min-width: 1200px) {
   .col-lg-6,.col-md-6 {
-    width:46%;
+    width: 55.3%;
   }
 }
 .test img{
@@ -51,6 +55,9 @@ div.mce-fullscreen {
 footer.timeline-Footer.u-cf {
     display: none !important;
 
+}
+.change_date {
+  direction: rtl;
 }
 /*iframe.desc_dr_ifr{
   background:red !important;

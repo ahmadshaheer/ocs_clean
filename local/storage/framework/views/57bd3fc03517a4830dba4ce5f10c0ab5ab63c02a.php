@@ -8,7 +8,8 @@ else{
 }
 $title = "title_".$lang;
 $date = "date_".$lang;
-$short_desc = "short_desc_".$lang;
+$pdf = "pdf_".$lang;
+$documents_val = "documents_".$lang;
 if($lang=='en'){
   $dir = 'left';
   $direction = 'ltr';
@@ -24,30 +25,30 @@ $i=1;
 <section class="wrapper">
     <div class="table-responsive ui stacked segment" style="">
         <div class="row ui block header">
-          <h2>Articles</h2>
+          <h2>Documents</h2>
           <a class="btn btn-<?php echo e(($lang=='en'?'success':'default')); ?>" href="javascript:void(0)" onclick="show('en')">English</a>
           <a class="btn btn-<?php echo e(($lang=='dr'?'success':'default')); ?>" href="javascript:void(0)" onclick="show('dr')">Dari</a>
-          <a class="btn btn-<?php echo e(($lang=='pa'?'success':'default')); ?>" href="javascript:void(0)" onclick="show('pa')">Pashto</a>
+          <a class="btn btn-<?php echo e(($lang=='pa'?'success':'default')); ?>" href="javascript:void(0)" onclick="show('pa')">Pashto</a>          
         </div>
 <div class="container pull-left" style="margin:10px;">
-  <?php if(Session::get('role')!='editor'): ?>
-<a class="btn btn-default pull-<?php echo e($dir); ?>" href="javascript:void(0)" onclick="create('<?php echo e($lang); ?>')" style="margin-bottom: 10px;">Create</a>
-  <?php endif; ?>
+<?php if(Session::get('role')!='editor'): ?>
+ <a class="btn btn-default pull-<?php echo e($dir); ?>" href="javascript:void(0)" onclick="create('<?php echo e($lang); ?>')" style="margin-bottom: 10px;">Create</a>
+<?php endif; ?>
 </div>
 <table class="table table-bordered" style="direction: <?php echo e($direction); ?>">
   <thead>
     <tr>
       <th>No.</th>
-      <th>Image</th>
       <th>Title</th>
       <th>Date</th>
-      <th>Short Description</th>
+      <th>Attachement</th>
       <th>Options</th>
     </tr>
   </thead>
   <tbody>
-    <?php $__currentLoopData = $articles; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-    <?php
+    <?php $i=1; ?>
+    <?php $__currentLoopData = $documents; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+     <?php
        if($value->$title==''){
           if($value->title_en=='' && $value->title_dr!=''){
           $title_value = $value->title_dr;
@@ -65,20 +66,19 @@ $i=1;
        ?>
     <tr>
       <td><?php echo e($i++); ?></td>
-      <th><img src="<?php echo e(asset('uploads/media/article/'.$value->image)); ?>" style="width:100px;"></th>
-      <td><div style="width:20em" class="test"><?php echo e($title_value); ?></div></td>
+      <td><div style="width:10em" class="test"><?php echo e($title_value); ?></div></td>
       <td><div style="width:10em" class="test"><?php echo e($value->$date); ?></div></td>
-      <td style=""><?php echo e($value->$short_desc); ?></td>
+      <td style="width:10%;"><a href="<?php echo e(asset('uploads/'.$documents_val.'/'.$value->$pdf)); ?>" target="_blank"><i class="fa fa-file-pdf-o"></i></a></td>
 
-      <td style="width:12em;">
-      <form action="<?php echo e(route('media.destroy', $value->id)); ?>" class="ui form" method="POST">
+      <td>
+      <form action="<?php echo e(route('documents.destroy', $value->id)); ?>" class="ui form" method="POST">
           <?php echo e(method_field('DELETE')); ?>
 
           <?php echo e(csrf_field()); ?>
 
-           <a class="btn btn-default pull-<?php echo e($dir); ?>" href="javascript:void(0)" onclick="edit('<?php echo e($lang.'_'.$value->id); ?>')" style="margin-bottom: 10px;"><?php echo e(($value->$title==''?'Add':'Edit')); ?></a>
-         <?php if(Session::get('role')=='admin'): ?>
-          <button class="ui tiny button red" onclick="return confirm_submit()">Delete</button>
+         <a class="btn btn-default pull-<?php echo e($dir); ?>" href="javascript:void(0)" onclick="edit('<?php echo e($lang.'_'.$value->id); ?>')" style="margin-bottom: 10px;"><?php echo e(($value->$title==''?'Add':'Edit')); ?></a>
+          <?php if(Session::get('role')=='admin'): ?>
+          <button class="ui tiny button red " onclick="return confirm_submit()">Delete</button>
           <?php endif; ?>
       </form>
 
@@ -92,14 +92,15 @@ $i=1;
 </section>
 
 <?php echo $__env->make('admin.include.footer', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+
 <script>
-   function create(lang){
-    window.location = "<?php echo e(url('admin/set_session_all?lang=')); ?>"+lang+"&route=<?php echo e(route('media.create')); ?>";
+  function create(lang){
+    window.location = "<?php echo e(url('admin/set_session_all?lang=')); ?>"+lang+"&route=<?php echo e(route('documents.create')); ?>";
   }
 
   function edit(para){
     var lang = para.substring(0,2);
     var id = para.substring(3);
-    window.location = "<?php echo e(url('admin/edit_session?lang=')); ?>"+lang+"&route=<?php echo e(url('admin/media/')); ?>"+"/"+id+"/edit";
+    window.location = "<?php echo e(url('admin/edit_session?lang=')); ?>"+lang+"&route=<?php echo e(url('admin/documents/')); ?>"+"/"+id+"/edit";
   }
 </script>

@@ -1,4 +1,4 @@
-@include('admin.include.header')
+<?php echo $__env->make('admin.include.header', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 <?php
 $session = Session::get('lang');
 global $jdate;
@@ -19,21 +19,22 @@ global $jdate;
                             Edit Document
                         </header>
                         <div class="panel-body">
-                          @if($errors->any())
+                          <?php if($errors->any()): ?>
                             <ul class="alert alert-danger">
-                              @foreach($errors->all() as $error)
-                                <li>{{$error}}</li>
-                              @endforeach
+                              <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <li><?php echo e($error); ?></li>
+                              <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                             </ul>
-                          @endif
+                          <?php endif; ?>
                         <div class="form cmxform form-horizontal ">
-                            {!! Form::model($document, ['route' => array('documents.update',$document->id),'files' => true]) !!}
+                            <?php echo Form::model($document, ['route' => array('documents.update',$document->id),'files' => true]); ?>
+
                             <input name="_method" type="hidden" value="PATCH">
-                            @if($session=='dr')
+                            <?php if($session=='dr'): ?>
                               <div class="form-group ">
                                   <label for="title_dr" class="control-label col-lg-3">Title Dari</label>
                                   <div class="col-lg-6">
-                                      <input class=" form-control rtl" maxlength="150" value="{{$document->title_dr}}" id="title_dr" name="title_dr" type="text">
+                                      <input class=" form-control rtl" maxlength="150" value="<?php echo e($document->title_dr); ?>" id="title_dr" name="title_dr" type="text">
                                   </div>
                               </div>
                               <div class="form-group form-check">
@@ -45,12 +46,12 @@ global $jdate;
                               <div class="form-group date_dari">
                                   <label for="date_dr" class="control-label col-lg-3">Date Dari</label>
                                   <div class="col-lg-6">
-                                    <input class="form-control change_date" disabled id="date_dr" value="{{$jdate->detailedDate($document->date_dr,$session)}}"  name="date_dr" type="text" required>
+                                    <input class="form-control change_date" disabled id="date_dr" value="<?php echo e($jdate->detailedDate($document->date_dr,$session)); ?>"  name="date_dr" type="text" required>
                                   </div>
                               </div>
                               <div class="form-group">
                               <label for="pdf_dr" class="control-label col-lg-3">PDF Dari</label>
-                                  <input type="file" name="pdf_dr" value="{{$document->pdf_dr}}" class="file">
+                                  <input type="file" name="pdf_dr" value="<?php echo e($document->pdf_dr); ?>" class="file">
                                   <div class="input-group col-md-6 col-md-offset-3 col-xs-12" style="padding-left:15px; padding-right:14px;">
                                     <span class="input-group-addon"><i class="fa fa-file-image-o"></i></span>
                                     <input type="text" class="form-control input-lg" disabled placeholder="Update PDF">
@@ -59,11 +60,11 @@ global $jdate;
                                     </span>
                                   </div>
                               </div>
-                            @elseif ($session=='pa')
+                            <?php elseif($session=='pa'): ?>
                               <div class="form-group ">
                                   <label for="title_pa" class="control-label col-lg-3">Title Pashto</label>
                                   <div class="col-lg-6">
-                                      <input class=" form-control rtl" maxlength="150" id="title_pa" value="{{$document->title_pa}}" name="title_pa" type="text">
+                                      <input class=" form-control rtl" maxlength="150" id="title_pa" value="<?php echo e($document->title_pa); ?>" name="title_pa" type="text">
                                   </div>
                               </div>
 
@@ -76,13 +77,13 @@ global $jdate;
                               <div class="form-group date_dari">
                                   <label for="date_dr" class="control-label col-lg-3">Date Pashto</label>
                                   <div class="col-lg-6">
-                                    <input class="form-control change_date" disabled id="date_dr" value="{{$jdate->detailedDate($document->date_dr,$session)}}"  name="date_dr" type="text" required>
+                                    <input class="form-control change_date" disabled id="date_dr" value="<?php echo e($jdate->detailedDate($document->date_dr,$session)); ?>"  name="date_dr" type="text" required>
                                   </div>
                               </div>
 
                               <div class="form-group">
                                   <label for="pdf_pa" class="control-label col-lg-3">PDF Pashto</label>
-                                  <input type="file" name="pdf_pa" value="{{$document->pdf_pa}}" class="file">
+                                  <input type="file" name="pdf_pa" value="<?php echo e($document->pdf_pa); ?>" class="file">
                                   <div class="input-group col-md-6 col-md-offset-3 col-xs-12" style="padding-left:15px; padding-right:14px;">
                                     <span class="input-group-addon"><i class="fa fa-file-image-o"></i></span>
                                     <input type="text" class="form-control input-lg" disabled placeholder="Update PDF">
@@ -92,22 +93,22 @@ global $jdate;
                                   </div>
                               </div>
 
-                            @elseif ($session=='en')
+                            <?php elseif($session=='en'): ?>
                               <div class="form-group ">
                                   <label for="title" class="control-label col-lg-3">Title</label>
                                   <div class="col-lg-6">
-                                      <input class=" form-control" maxlength="150" id="title" value="{{$document->title_en}}" name="title" type="text">
+                                      <input class=" form-control" maxlength="150" id="title" value="<?php echo e($document->title_en); ?>" name="title" type="text">
                                   </div>
                               </div>
                               <div class="form-group ">
                                   <label for="date" class="control-label col-lg-3">Date</label>
                                   <div class="col-lg-6">
-                                      <input class=" form-control" id="date" name="date" value="{{$document->date_en}}" type="date" required>
+                                      <input class=" form-control" id="date" name="date" value="<?php echo e($document->date_en); ?>" type="date" required>
                                   </div>
                               </div>
                               <div class="form-group">
                                   <label for="pdf_en" class="control-label col-lg-3">PDF English</label>
-                                  <input type="file" name="pdf_en" value="{{$document->pdf_en}}" class="file">
+                                  <input type="file" name="pdf_en" value="<?php echo e($document->pdf_en); ?>" class="file">
                                   <div class="input-group col-md-6 col-md-offset-3 col-xs-12" style="padding-left:15px; padding-right:14px;">
                                     <span class="input-group-addon"><i class="fa fa-file-image-o"></i></span>
                                     <input type="text" class="form-control input-lg" disabled placeholder="Update PDF">
@@ -116,21 +117,22 @@ global $jdate;
                                     </span>
                                   </div>
                               </div>
-                            @endif
+                            <?php endif; ?>
                             <div class="form-group">
                                 <div class="col-lg-offset-3 col-lg-6">
                                     <button class="btn btn-primary" type="submit">Update</button>
-                                    <a href="{{url()->previous()}}" class="btn btn-default"  type="button">Cancel</a>
+                                    <a href="<?php echo e(url()->previous()); ?>" class="btn btn-default"  type="button">Cancel</a>
                                 </div>
                             </div>
-                  {!! Form::close() !!}
+                  <?php echo Form::close(); ?>
+
                         </div>
                         </div>
                     </section>
         </div>
 
 </section>
-@include('admin.include.footer')
+<?php echo $__env->make('admin.include.footer', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 
 <script>
     $(document).on('click', '.browse', function(){

@@ -169,21 +169,23 @@ class InfoGraphicController extends Controller
         }
         else if($lang=='dr'){
             $this->validate($request,[
-              'title_dr'=>'required|unique:infographics|max:255',
-              'date_dr'=>'required',
+              'title_dr'=>'required|max:255',
               'image'=>'mimes:jpeg,bmp,png'
             ]);
             $info->title_dr = $request->input('title_dr');
-            $info->date_dr = $request->input('date_dr');
+            if($request->date_dr!=null) {
+              $info->date_dr = $request->input('date_dr');
+            }
         }
         else if($lang=='pa'){
             $this->validate($request,[
-              'title_pa'=>'required|unique:infographics|max:255',
-              'date_dr'=>'required',
+              'title_pa'=>'required|max:255',
               'image'=>'mimes:jpeg,bmp,png'
             ]);
             $info->title_pa = $request->input('title_pa');
-            $info->date_pa = $request->input('date_dr');
+            if($request->date_dr!=null) {
+              $info->date_pa = $request->input('date_dr');
+            }
         }
         $image = '';
 

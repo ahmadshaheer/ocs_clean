@@ -1,29 +1,38 @@
 @include('admin.include.header')
-
+<?php 
+if(Session::get('view_lang')==''){
+  $lang='en';
+}
+else{
+  $lang = Session::get('view_lang');
+}
+$bio_val = "bio_".$lang;
+if($lang=='en'){
+  $dir = 'left';
+  $direction = 'ltr';
+}
+else{
+ $dir = 'right'; 
+ $direction = 'rtl';
+}
+$i=1;
+?>
 <!--main content start-->
 <section id="main-content">
 <section class="wrapper">
     <div class="table-responsive ui stacked segment" style="">
-        <div class="row">
-          <h2 class="ui block header">Biography</h2>
+        <div class="row ui block header">
+          <h2>Biography</h2>
+          <a class="btn btn-{{($lang=='en'?'success':'default')}}" href="javascript:void(0)" onclick="show('en')">English</a>
+          <a class="btn btn-{{($lang=='dr'?'success':'default')}}" href="javascript:void(0)" onclick="show('dr')">Dari</a>
+          <a class="btn btn-{{($lang=='pa'?'success':'default')}}" href="javascript:void(0)" onclick="show('pa')">Pashto</a>
         </div>
 <div class="container pull-left" style="margin:10px;">
   @if($bio==null && Session::get('role')!='editor')
-    <div class="ui form">
-      <div class="eight fields">
-        <div class="field">
-          <select name="lang" id="lang">
-            <option value="dr">Create</option>
-            <option value="dr">dari</option>
-            <option value="pa">Pashto</option>
-            <option value="en">English</option>
-          </select>
-        </div>
-      </div>
-    </div>
+    <a class="btn btn-default pull-{{$dir}}" href="javascript:void(0)" onclick="create('{{$lang}}')" style="margin-bottom: 10px;">Create</a>
     @endif
 </div>
-<table class="table">
+<table class="table table-bordered" style="direction: {{$direction}}">
   <thead>
     <tr>
       <th>Bio</th>
@@ -32,30 +41,29 @@
   <tbody>
     @foreach($bio as $value)
       <?php
-       $lang='';
-       if($value->bio_en != null)
-         $lang = "en";
-       else if($value->bio_dr != null)
-         $lang = "dr";
-       else if($value->bio_pa != null)
-         $lang = "pa";
-
-       $bio = "bio_".$lang;
-        ?>
+       if($value->$bio_val==''){
+          if($value->bio_en=='' && $value->bio_dr!=''){
+          $bio_value = $value->bio_dr;
+        }
+        else if($value->bio_en=='' && $value->bio_dr ==''){
+         $bio_value = $value->bio_pa; 
+        }
+        else if($value->bio_en=='' && $value->bio_dr =='' && $value->bio_pa=''){
+          continue;
+        }
+       }
+       else{
+          $bio_value = $value->$bio_val;
+       }
+       ?>
     <tr>
-      <td><div style="width:60em" class="test">{!!$value->$bio!!}</div></td>
-      <td style="width:20em;">
+      <td>{{$i++}}</td>
+      <td><div style="width:60em" class="test">{!!$bio_value!!}</div></td>
+      <td style="width:12em;">
         <form action="{{ route('the_bio.destroy', $value->id) }}" class="ui form" method="POST">
             {{ method_field('DELETE') }}
             {{ csrf_field() }}
-            <div class="small field" style="float:left;padding-right:5px;">
-              <select name="edit_lang" id="edit_lang">
-                  <option value="0">Edit...</option>
-                  <option value="dr_{{$value->id}}">dari</option>
-                  <option value="pa_{{$value->id}}">Pashto</option>
-                  <option value="en_{{$value->id}}">English</option>
-              </select>
-            </div>
+           <a class="btn btn-default pull-{{$dir}}" href="javascript:void(0)" onclick="edit('{{$lang.'_'.$value->id}}')" style="margin-bottom: 10px;">{{($value->$bio_val==''?'Add':'Edit')}}</a>
             @if(Session::get('role')=='admin')
             <button class="ui tiny button red " onclick="return confirm_submit()">Delete</button>
             @endif
@@ -74,15 +82,13 @@
 @include('admin.include.footer')
 <script>
 
-  $("#lang").change(function(){
-    var id = $(this).val();
-    window.location = "{{url('admin/set_session_all?lang=')}}"+id+"&route={{route('the_bio.create')}}";
-  });
+  function create(lang){
+    window.location = "{{url('admin/set_session?lang=')}}"+lang+"&route={{route('the_bio.create')}}";
+  }
 
-  $("#edit_lang").change(function(){
-    var lang = $(this).val().substring(0,2);
-    var id = $(this).val().substring(3);
+  function edit(para){
+    var lang = para.substring(0,2);
+    var id = para.substring(3);
     window.location = "{{url('admin/edit_session?lang=')}}"+lang+"&route={{url('admin/the_bio/')}}"+"/"+id+"/edit";
-  });
-
+  }
 </script>

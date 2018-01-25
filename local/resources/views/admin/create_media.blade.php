@@ -54,6 +54,19 @@ $route= Session::get('type');
                                             <textarea name="desc_en" value="{{old('desc_en')}}" class="form-control format"></textarea>
                                         </div>
                                     </div>
+                                     <div class="form-group">
+                                      <label for="" class="control-label col-lg-3">Tags</label>
+                                      <div class="col-lg-6">
+                                        <div class="ui fluid multiple search selection dropdown" id="tags">
+                                          <input name="tags" type="hidden">
+                                          <i class="dropdown icon"></i>
+                                          <div class="default text">Tags</div>
+                                          <div class="menu" id="menu">
+                                            {{-- tag from jquery comes here --}}
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
                                     @elseif($session=='dr')
                                     <input type="hidden" id="tags_array" name="tags_array">
                                     <div class="form-group ">
@@ -107,19 +120,6 @@ $route= Session::get('type');
                                         </div>
                                     </div>
                                     @endif
-                                    <div class="form-group">
-                                      <label for="" class="control-label col-lg-3">Tags</label>
-                                      <div class="col-lg-6">
-                                        <div class="ui fluid multiple search selection dropdown" id="tags">
-                                          <input name="tags" type="hidden">
-                                          <i class="dropdown icon"></i>
-                                          <div class="default text">Tags</div>
-                                          <div class="menu" id="menu">
-                                            {{-- tag from jquery comes here --}}
-                                          </div>
-                                        </div>
-                                      </div>
-                                    </div>
                                     <div class="form-group">
                                         <label for="image" class="control-label col-lg-3">Image</label>
                                         <input type="file" name="image" class="file">

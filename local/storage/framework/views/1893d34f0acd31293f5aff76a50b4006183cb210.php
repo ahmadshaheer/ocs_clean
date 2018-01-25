@@ -14,6 +14,7 @@ $pdf = 'pdf_'.$lang;
   position: relative;
 }
 </style>
+
   
     
     <div class="ui stackable segment masthead" style="background-color:#dfdfdf;margin-top:0;">
@@ -90,6 +91,9 @@ $pdf = 'pdf_'.$lang;
                         }
                         else if($item->table_name == 'videos'){
                               $img = "https://img.youtube.com/vi/$item->image_thumb/hqdefault.jpg";
+                        }
+                         else if($item->type == 'decree' || $item->type=='order'){
+                              $img = asset('assets/img/thumb.jpg');
                         }
                         else{
                           $img = asset($item->image_thumb);

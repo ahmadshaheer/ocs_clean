@@ -1,31 +1,43 @@
 @include('admin.include.header')
-<?php $lang='';?>
+<?php 
+if(Session::get('view_lang')==''){
+  $lang='en';
+}
+else{
+  $lang = Session::get('view_lang');
+}
+$title = "title_".$lang;
+$date = "date_".$lang;
+$short_desc = "short_desc_".$lang;
+if($lang=='en'){
+  $dir = 'left';
+  $direction = 'ltr';
+}
+else{
+ $dir = 'right'; 
+ $direction = 'rtl';
+}
+$i=1;
+?>
 <!--main content start-->
 <section id="main-content">
 <section class="wrapper">
     <div class="table-responsive ui stacked segment" style="">
-        <div class="row">
-          <h2 class="ui block header">Domestic Trips</h2>
+        <div class="row ui block header">
+          <h2>Domestic Trips</h2>
+          <a class="btn btn-{{($lang=='en'?'success':'default')}}" href="javascript:void(0)" onclick="show('en')">English</a>
+          <a class="btn btn-{{($lang=='dr'?'success':'default')}}" href="javascript:void(0)" onclick="show('dr')">Dari</a>
+          <a class="btn btn-{{($lang=='pa'?'success':'default')}}" href="javascript:void(0)" onclick="show('pa')">Pashto</a>
         </div>
 <div class="container pull-left" style="margin:10px;">
   @if(Session::get('role')!='editor')
-  <div class="ui form">
-    <div class="eight fields">
-      <div class="field">
-        <select name="lang" id="lang">
-          <option value="0">Create...</option>
-          <option value="dr_domestic">dari</option>
-          <option value="pa_domestic">pashto</option>
-          <option value="en_domestic">English</option>
-        </select>
-      </div>
-    </div>
-  </div>
+  <a class="btn btn-default pull-{{$dir}}" href="javascript:void(0)" onclick="create('{{$lang}}')" style="margin-bottom: 10px;">Create</a>
   @endif
 </div>
-<table class="table">
+<table class="table table-bordered" style="direction: {{$direction}}">
   <thead>
     <tr>
+      <td>No.</td>
       <th>Image</th>
       <th>Title</th>
       <th>Date</th>
@@ -37,20 +49,25 @@
 
     @foreach($domestic as $value)
     <?php
-    if($value->title_en!=null)
-      $lang = "en";
-    elseif($value->title_dr!=null)
-      $lang = "dr";
-    else
-      $lang = "pa";
-    $title = "title_".$lang;
-    $date = "date_".$lang;
-    $short_desc = "short_desc_".$lang;
-    // print_r($value->$date);exit;
-   ?>
+       if($value->$title==''){
+          if($value->title_en=='' && $value->title_dr!=''){
+          $title_value = $value->title_dr;
+        }
+        else if($value->title_en=='' && $value->title_dr ==''){
+         $title_value = $value->title_pa; 
+        }
+        else if($value->title_en=='' && $value->title_dr =='' && $value->title_pa=''){
+          continue;
+        }
+       }
+       else{
+          $title_value = $value->$title;
+       }
+       ?>
     <tr>
+      <th>{{$i++}}</th>
       <th><img src="{{asset('uploads/trips/domestic/'.$value->image)}}" style="width:100px;"></th>
-      <td><div style="width:20em" class="test">{{$value->$title}}</div></td>
+      <td><div style="width:20em" class="test">{{$title_value}}</div></td>
       <td><div style="width:10em" class="test">{{$value->$date}}</div></td>
       <td style="">{{$value->$short_desc}}</td>
 
@@ -58,14 +75,7 @@
       <form action="{{ route('trips.destroy', $value->id) }}" class="ui form" method="POST">
           {{ method_field('DELETE') }}
           {{ csrf_field() }}
-          <div class="small field" style="float:left;padding-right:5px;">
-            <select name="lang" class="edit_lang" id="edit_lang">
-              <option value="0">Edit...</option>
-              <option value="dr_{{$value->id}}">dari</option>
-              <option value="pa_{{$value->id}}">pashto</option>
-              <option value="en_{{$value->id}}">English</option>
-            </select>
-          </div>
+          <a class="btn btn-default pull-{{$dir}}" href="javascript:void(0)" onclick="edit('{{$lang.'_'.$value->id}}')" style="margin-bottom: 10px;">{{($value->$title==''?'Add':'Edit')}}</a>
           @if(Session::get('role')=='admin')
           <button class="ui tiny button red " onclick="return confirm_submit()">Delete</button>
           @endif
@@ -82,15 +92,15 @@
 
 @include('admin.include.footer')
 <script>
-  $("#lang").change(function(){
-    var id = $(this).val();
+ function create(lang){
+    var id = lang+"_domestic";
     window.location = "{{url('admin/set_session?lang=')}}"+id+"&route={{route('trips.create')}}";
-  });
+  }
 
-  $('.edit_lang').change(function() {//accepts the request from #edit_langX e.g. X being 1,2,...
-    var lang = $(this).val().substring(0,2);
-    var id = $(this).val().substring(3);
+  function edit(para){
+    var lang = para.substring(0,2);
+    var id = para.substring(3);
     window.location = "{{url('admin/edit_session?lang=')}}"+lang+"&route={{url('admin/trips/')}}"+"/"+id+"/edit";
-  });
+  }
 
 </script>

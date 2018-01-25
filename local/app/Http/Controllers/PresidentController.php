@@ -161,6 +161,7 @@ class PresidentController extends Controller
             }
             else{
               $pr = President::findOrFail($max);
+              $pr->image = '/assets/img/thumb.jpg';
             }
               if($pr->save()){
                 $search = new Search();

@@ -1,31 +1,35 @@
 <?php echo $__env->make('admin.include.header', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
-
+<?php $lang = Session::get('view_lang');
+$short_desc = "short_desc_".$lang;
+if($lang=='en'){
+  $dir = 'left';
+  $direction = 'ltr';
+}
+else{
+ $dir = 'right'; 
+ $direction = 'rtl';
+}
+$i=1;
+?>
 <!--main content start-->
 <section id="main-content">
 <section class="wrapper">
     <div class="table-responsive ui stacked segment" style="">
-        <div class="row">
-          <h2 class="ui block header">Words</h2>
+        <div class="row ui block header">
+          <h2>Words</h2>
+           <a class="btn btn-<?php echo e(($lang=='en'?'success':'default')); ?>" href="javascript:void(0)" onclick="show('en')">English</a>
+          <a class="btn btn-<?php echo e(($lang=='dr'?'success':'default')); ?>" href="javascript:void(0)" onclick="show('dr')">Dari</a>
+          <a class="btn btn-<?php echo e(($lang=='pa'?'success':'default')); ?>" href="javascript:void(0)" onclick="show('pa')">Pashto</a>
         </div>
 <div class="container pull-left" style="margin:10px;">
 <?php if(Session::get('role')!='editor'): ?>
-  <div class="ui form">
-    <div class="eight fields">
-      <div class="field">
-        <select name="lang" id="lang">
-          <option value="0">Create...</option>
-          <option value="dr_word">dari</option>
-          <option value="pa_word">pashto</option>
-          <option value="en_word">English</option>
-        </select>
-      </div>
-    </div>
-  </div>
+  <a class="btn btn-default pull-<?php echo e($dir); ?>" href="javascript:void(0)" onclick="create('<?php echo e($lang); ?>')" style="margin-bottom: 10px;">Create</a>
 <?php endif; ?>
 </div>
-<table class="table">
+<table class="table table-bordered" style="direction: <?php echo e($direction); ?>">
   <thead>
     <tr>
+      <th>No.</th>
       <th>Image</th>
       <th>President's Word</th>
       <th>Options</th>
@@ -33,17 +37,8 @@
   </thead>
   <tbody>
     <?php $__currentLoopData = $words; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-    <?php
-      if($value->short_desc_en!=null)
-        $lang = "en";
-      elseif($value->short_desc_dr!=null)
-        $lang = "dr";
-      else
-        $lang = "pa";
-
-      $short_desc = "short_desc_".$lang;
-       ?>
     <tr>
+      <td><?php echo e($i++); ?></td>
       <th><img src="<?php echo e(asset('uploads/word/'.$value->image)); ?>" style="width:100px;"></th>
       <td><?php echo e($value->$short_desc); ?></td>
       <td>
@@ -52,15 +47,7 @@
 
           <?php echo e(csrf_field()); ?>
 
-          
-          <div class="small field" style="float:left;padding-right:5px;">
-            <select name="lang" class="edit_lang">
-              <option value="0">Edit...</option>
-              <option value="dr_<?php echo e($value->id); ?>">dari</option>
-              <option value="pa_<?php echo e($value->id); ?>">pashto</option>
-              <option value="en_<?php echo e($value->id); ?>">English</option>
-            </select>
-          </div>
+         <a class="btn btn-default pull-<?php echo e($dir); ?>" href="javascript:void(0)" onclick="edit('<?php echo e($lang.'_'.$value->id); ?>')" style="margin-bottom: 10px;"><?php echo e(($value->$short_desc==''?'Add':'Edit')); ?></a>
           <?php if(Session::get('role')=='admin'): ?>
           <button class="ui tiny button red " onclick="return confirm_submit()">Delete</button>
           <?php endif; ?>
@@ -77,16 +64,15 @@
 
 <?php echo $__env->make('admin.include.footer', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 <script>
-  $("#lang").change(function(){
-    var id = $(this).val();
+ function create(lang){
+    var id = lang+"_word";
     window.location = "<?php echo e(url('admin/set_session?lang=')); ?>"+id+"&route=<?php echo e(route('the_president.create')); ?>";
-  });
+  }
 
-  $(".edit_lang").change(function(){
-    alert($(this).val().substring(0,2));
-    var lang = $(this).val().substring(0,2);
-    var id = $(this).val().substring(3);
+  function edit(para){
+    var lang = para.substring(0,2);
+    var id = para.substring(3);
     window.location = "<?php echo e(url('admin/edit_session?lang=')); ?>"+lang+"&route=<?php echo e(url('admin/the_president/')); ?>"+"/"+id+"/edit";
-  });
+  }
 
 </script>

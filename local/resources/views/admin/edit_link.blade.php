@@ -1,4 +1,4 @@
- rtl@include('admin.include.header')
+ @include('admin.include.header')
 <?php $session = Session::get('lang'); ?>
 
 <style>

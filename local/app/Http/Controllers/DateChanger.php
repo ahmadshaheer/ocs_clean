@@ -3,6 +3,7 @@ namespace App\Http\Controllers;
   class DateChanger {
     public static function detailedDate($date, $lang) {
       if($date==null OR $lang==null) {
+
         $msg='';
         if($lang=='en') {
           $msg = 'Invalid';

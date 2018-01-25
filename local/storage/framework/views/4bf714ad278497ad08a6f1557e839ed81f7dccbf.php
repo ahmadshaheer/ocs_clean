@@ -88,6 +88,6 @@
   $(".edit_lang").change(function(){
     var lang = $(this).val().substring(0,2);
     var id = $(this).val().substring(3);
-    window.location = "<?php echo e(url('admin/set_session?lang=')); ?>"+lang+"&route=<?php echo e(url('admin/the_president/')); ?>"+"/"+id+"/edit";
+    window.location = "<?php echo e(url('admin/edit_session?lang=')); ?>"+lang+"&route=<?php echo e(url('admin/the_president/')); ?>"+"/"+id+"/edit";
   });
 </script>

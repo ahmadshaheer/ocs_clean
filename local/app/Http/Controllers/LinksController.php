@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Links;
 use Session;
 use File;
+use Log;
 use Intervention\Image\ImageManager;
 
 class LinksController extends Controller
@@ -17,7 +18,7 @@ class LinksController extends Controller
      */
     public function index()
     {
-        $links = Links::all();
+        $links = Links::orderBy('id','desc')->get();
         return view('admin.links')->with('links',$links);
     }
 
@@ -39,13 +40,14 @@ class LinksController extends Controller
      */
     public function store(Request $request)
     {
+
         $links = new Links();
         $lang = Session::get('lang');
         if($lang=='en'){
             $this->validate($request,[
               'title_en'=>'required|unique:links|max:255',
               'desc_en'=>'required',
-              'image'=>'required|mimes:jpeg,jpg,png,bmp'
+              'image'=>'required|mimes:jpeg,jpg,png,bmp',
               'url'=>'required'
             ]);
             $links->title_en = $request->input('title');
@@ -55,7 +57,7 @@ class LinksController extends Controller
             $this->validate($request,[
               'title_dr'=>'required|unique:links|max:255',
               'desc_dr'=>'required',
-              'image'=>'required|mimes:jpeg,jpg,png,bmp'
+              'image'=>'required|mimes:jpeg,jpg,png,bmp',
               'url'=>'required'
             ]);
             $links->title_dr = $request->input('title_dr');
@@ -65,7 +67,7 @@ class LinksController extends Controller
             $this->validate($request,[
               'title_pa'=>'required|unique:links|max:255',
               'desc_pa'=>'required',
-              'image'=>'required|mimes:jpeg,jpg,png,bmp'
+              'image'=>'required|mimes:jpeg,jpg,png,bmp',
               'url'=>'required'
             ]);
             $links->title_pa = $request->input('title_pa');
@@ -89,6 +91,7 @@ class LinksController extends Controller
         $links_n->image = $img_thumb;
         $links_n->save();
         Session::put('lang','');
+        Log::info($max." Link created by ".Session::get('email')." on ".date('l jS \of F Y h:i:s A'));
         return Redirect()->route('links.index');
     }
 
@@ -124,6 +127,7 @@ class LinksController extends Controller
      */
     public function update(Request $request, $id)
     {
+
         $links = Links::findOrFail($id);
         $lang = Session::get('lang');
         if($lang=='en'){
@@ -177,6 +181,7 @@ class LinksController extends Controller
         $links->image = $img_thumb;
         $links->save();
         Session::put('lang','');
+        Log::info($id." Link updated by ".Session::get('email')." on ".date('l jS \of F Y h:i:s A'));
         return Redirect()->route('links.index');
     }
 
@@ -188,9 +193,11 @@ class LinksController extends Controller
      */
     public function destroy($id)
     {
+
         $link = Links::findOrFail($id);
         File::delete('uploads/links/'.$link->image);
         $link->delete();
+        Log::info($id." Link deleted by ".Session::get('email')." on ".date('l jS \of F Y h:i:s A'));
         return Redirect()->route('links.index');
     }
 }

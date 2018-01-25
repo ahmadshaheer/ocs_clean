@@ -146,12 +146,12 @@ Route::get('domestic_trips',function(){
 	return view('domestic_trips')->with(['word'=>$words,'news'=>$news,'domestic'=>$domestic]);
 })->name('domestic_trips');
 
-Route::get('domestic_trip_details/{id}',function($id){
+Route::get('domestic_details/{id}',function($id){
 	$words = DB::table('president')->where('type','word')->orderBy('id','desc')->first();
 	$news = DB::table('media')->where('type','news')->orderBy('id','desc')->take(5)->get();
 	$domestic_trip = DB::table('trips')->where('type','domestic')->where('id',$id)->first();
 	return view('domestic_trip_details')->with(['word'=>$words,'news'=>$news,'domestic_trip'=>$domestic_trip]);
-})->name('domestic_trip_details');
+})->name('domestic_details');
 
 Route::get('international_trips',function(){
 	$words = DB::table('president')->where('type','word')->orderBy('id','desc')->first();

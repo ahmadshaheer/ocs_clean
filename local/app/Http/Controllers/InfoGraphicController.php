@@ -7,6 +7,7 @@ use App\InfoGraphic;
 use App\Search;
 use Session;
 use File;
+use Log;
 use Intervention\Image\ImageManager;
 
 class InfoGraphicController extends Controller
@@ -18,7 +19,7 @@ class InfoGraphicController extends Controller
      */
     public function index()
     {
-        $info = InfoGraphic::all();
+        $info = InfoGraphic::orderBy('id','desc')->get();
         return view('admin.infographics')->with('info',$info);
     }
 
@@ -40,6 +41,7 @@ class InfoGraphicController extends Controller
      */
     public function store(Request $request)
     {
+
         $info = new InfoGraphic();
 
         $lang = Session::get('lang');
@@ -114,6 +116,7 @@ class InfoGraphicController extends Controller
 
         }
         Session::put('lang','');
+        Log::info($max." InfoGraphic created by ".Session::get('email')." on ".date('l jS \of F Y h:i:s A'));
         return Redirect()->route('infographic.index');
     }
 
@@ -150,6 +153,7 @@ class InfoGraphicController extends Controller
      */
     public function update(Request $request, $id)
     {
+
         $info = InfoGraphic::findOrFail($id);
         $lang = Session::get('lang');
         $search_image = '';
@@ -189,7 +193,7 @@ class InfoGraphicController extends Controller
         else{
             File::delete('uploads/infographics/'.$info->image);
              // generating thumbnail image for display in home and other pages
-            $img_thumb = $max.'_t.'.$request->file('image')->getClientOriginalExtension();
+            $img_thumb = $id.'_t.'.$request->file('image')->getClientOriginalExtension();
             $data = $request->image;
             $driver = new imageManager(array('driver'=>'gd'));
             $thumb_img = $driver->make($data)->resize(150,200);
@@ -225,6 +229,7 @@ class InfoGraphicController extends Controller
           $search->save();
         }
         Session::put('lang','');
+        Log::info($id." InfoGraphic updated by ".Session::get('email')." on ".date('l jS \of F Y h:i:s A'));
         return Redirect()->route('infographic.index');
     }
 
@@ -236,12 +241,14 @@ class InfoGraphicController extends Controller
      */
     public function destroy($id)
     {
+
         $info = InfoGraphic::findOrFail($id);
         File::delete('uploads/infographics/'.$info->image);
         File::delete('uploads/infographics/'.$info->image_thumb);
         $search = Search::where('table_name','info')->where('table_id',$id);
         $search->delete();
         $info->delete();
+        Log::info($id." InfoGraphic deleted by ".Session::get('email')." on ".date('l jS \of F Y h:i:s A'));
         return Redirect()->route('infographic.index');
     }
 }

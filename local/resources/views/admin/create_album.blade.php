@@ -45,27 +45,27 @@
                                     <div class="form-group ">
                                         <label for="title_dr" class="control-label col-lg-3">Title Dari</label>
                                         <div class="col-lg-6">
-                                            <input class=" form-control" id="title_dr" name="title_dr" type="text" value="{{old('title_dr')}}">
+                                            <input class=" form-control rtl" id="title_dr" name="title_dr" type="text" value="{{old('title_dr')}}">
                                         </div>
                                     </div>
                                     <div class="form-group ">
                                         <label for="date_dr" class="control-label col-lg-3">Date Dari</label>
                                         <div class="col-lg-6">
-                                            <input class=" form-control date_dr" id="date_dr" name="date_dr" type="text" required value="{{old('date_dr')}}">
+                                            <input class=" form-control date_dr rtl" id="date_dr" name="date_dr" type="text" required value="{{old('date_dr')}}">
                                         </div>
                                     </div>
                                     @else
                                     <div class="form-group ">
                                         <label for="title_pa" class="control-label col-lg-3">Title Pashto</label>
                                         <div class="col-lg-6">
-                                            <input class=" form-control" id="title_pa" name="title_pa" type="text" value="{{old('title_pa')}}">
+                                            <input class=" form-control rtl" id="title_pa" name="title_pa" type="text" value="{{old('title_pa')}}">
                                         </div>
                                     </div>
 
                                     <div class="form-group ">
                                         <label for="date_dr" class="control-label col-lg-3">Date Pashto</label>
                                         <div class="col-lg-6">
-                                            <input class=" form-control date_dr" id="date_dr" name="date_dr" type="text" required>
+                                            <input class=" form-control date_dr rtl" id="date_dr" name="date_dr" type="text" required>
                                         </div>
                                     </div>
                                     @endif

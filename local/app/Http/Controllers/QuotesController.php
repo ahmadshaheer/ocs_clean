@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 use App\Quotes;
 use Illuminate\Http\Request;
 use File;
+use Log;
+use Session;
 
 class QuotesController extends Controller
 {
@@ -14,7 +16,7 @@ class QuotesController extends Controller
      */
     public function index()
     {
-        $quotes = Quotes::all();
+        $quotes = Quotes::orderBy('id','desc')->get();
         return view('admin.quotes')->with('quotes',$quotes);
     }
 
@@ -36,6 +38,7 @@ class QuotesController extends Controller
      */
     public function store(Request $request)
     {
+
         $quote = new Quotes();
         $this->validate($request,[
           'title'=>'required|unique:quotes|max:255',
@@ -56,6 +59,7 @@ class QuotesController extends Controller
         $quote_n = Quotes::findOrFail($max);
         $quote_n->image = $imageName;
         $quote_n->save();
+        Log::info("ID No. ".$max." Quote created by ".Session::get('email')." on ".date('l jS \of F Y h:i:s A'));
         return Redirect()->route('quotes.index');
     }
 
@@ -91,9 +95,10 @@ class QuotesController extends Controller
      */
     public function update(Request $request, $id)
     {
+
         $quote =Quotes::findOrFail($id);
         $this->validate($request,[
-          'title'=>'required|unique:quotes|max:255',
+          'title'=>'required|max:255',
         ]);
         $quote->title = $request->input('title');
 
@@ -113,6 +118,7 @@ class QuotesController extends Controller
 
         $quote->image = $imageName;
         $quote->save();
+        Log::info("ID No. ".$id." Quote updated by ".Session::get('email')." on ".date('l jS \of F Y h:i:s A'));
         return Redirect()->route('quotes.index');
     }
 
@@ -124,9 +130,11 @@ class QuotesController extends Controller
      */
     public function destroy($id)
     {
+
         $quote = Quotes::findOrFail($id);
          File::delete('uploads/quotes/'.$quote->image);
         $quote->delete();
+        Log::info("ID No. ".$id." Quote deleted by ".Session::get('email')." on ".date('l jS \of F Y h:i:s A'));
         return redirect()->route('quotes.index');
     }
 }

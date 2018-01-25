@@ -31,20 +31,20 @@
                                     <div class="form-group ">
                                         <label for="desc_dr" class="control-label col-lg-3">Description Dari</label>
                                         <div class="col-lg-9">
-                                            <textarea name="desc_dr" class="form-control format">{{$ocs->desc_dr}}</textarea>
+                                            <textarea name="desc_dr" class="form-control format rtl">{{$ocs->desc_dr}}</textarea>
                                         </div>
                                     </div>
                                      @else
                                     <div class="form-group ">
                                         <label for="desc_pa" class="control-label col-lg-3">Description Pashto</label>
                                         <div class="col-lg-9">
-                                            <textarea name="desc_pa" class="form-control format">{{$ocs->description_en}}</textarea>
+                                            <textarea name="desc_pa" class="form-control format rtl">{{$ocs->description_en}}</textarea>
                                         </div>
                                     </div>
                                     @endif
                                     <div class="form-group">
                                         <div class="col-lg-offset-3 col-lg-6">
-                                            <button class="btn btn-primary" type="submit">Save</button>
+                                            <button class="btn btn-primary" type="submit">Update</button>
                                             <a href="{{url()->previous()}}" class="btn btn-default"  type="button">Cancel</a>
                                         </div>
                                     </div>

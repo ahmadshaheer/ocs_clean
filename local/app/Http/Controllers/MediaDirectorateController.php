@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\MediaDirectorate;
+use Log;
 
 class MediaDirectorateController extends Controller
 {
@@ -36,6 +37,7 @@ class MediaDirectorateController extends Controller
      */
     public function store(Request $request)
     {
+      
       $lang = \Session::get('lang');
       $media = new MediaDirectorate();
       if($lang=='en') {
@@ -58,6 +60,7 @@ class MediaDirectorateController extends Controller
       }
       $media->save();
       \Session::put('lang','');
+      Log::info($media->id." Media Directorate created by ".Session::get('email')." on ".date('l jS \of F Y h:i:s A'));
       return Redirect()->route('media_directorate.index');
     }
 
@@ -93,6 +96,7 @@ class MediaDirectorateController extends Controller
      */
     public function update(Request $request, $id)
     {
+      
       $lang = \Session::get('lang');
       $media =MediaDirectorate::findOrFail($id);
       if($lang=='en') {
@@ -115,6 +119,7 @@ class MediaDirectorateController extends Controller
       }
       $media->save();
       \Session::put('lang','');
+      Log::info($id." Media Directorate updated by ".Session::get('email')." on ".date('l jS \of F Y h:i:s A'));
       return Redirect()->route('media_directorate.index');
     }
 
@@ -126,8 +131,10 @@ class MediaDirectorateController extends Controller
      */
     public function destroy($id)
     {
+      
       $media = MediaDirectorate::findOrFail($id);
       $media->delete();
+      Log::info($id." Media Directorate deleted by ".Session::get('email')." on ".date('l jS \of F Y h:i:s A'));
       return Redirect()->route('media_directorate.index');
     }
 }

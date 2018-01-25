@@ -38,14 +38,14 @@
                                      <div class="form-group ">
                                         <label for="bio_dr" class="control-label col-lg-3">Biography Dari</label>
                                         <div class="col-lg-6">
-                                            <textarea name="bio_dr" value="{{old('bio_dr')}}" class="form-control format"></textarea>
+                                            <textarea name="bio_dr" value="{{old('bio_dr')}}" class="form-control format rtl"></textarea>
                                         </div>
                                     </div>
                                     @else
                                      <div class="form-group ">
                                         <label for="bio_pa" class="control-label col-lg-3">Biography Pashto</label>
                                         <div class="col-lg-6">
-                                            <textarea name="bio_pa" value="{{old('bio_pa')}}" class="form-control format"></textarea>
+                                            <textarea name="bio_pa" value="{{old('bio_pa')}}" class="form-control format rtl"></textarea>
                                         </div>
                                     </div>
                                     @endif

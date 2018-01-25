@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Chief;
 use Session;
+use Log;
 class ChiefController extends Controller
 {
     /**
@@ -36,6 +37,7 @@ class ChiefController extends Controller
      */
     public function store(Request $request)
     {
+      
         $chief = new Chief();
         $lang = Session::get('lang');
         if($lang=='en'){
@@ -58,6 +60,7 @@ class ChiefController extends Controller
         }
         $chief->save();
         Session::put('lang','');
+        Log::info($chief->id." Cheif of staff details created by ".Session::get('email')." on ".date('l jS \of F Y h:i:s A'));
         return Redirect()->route('the_chief.index');
     }
 
@@ -93,6 +96,7 @@ class ChiefController extends Controller
      */
     public function update(Request $request, $id)
     {
+       
        $chief =Chief::findOrFail($id);
        $lang = Session::get('lang');
        if($lang=='en'){
@@ -115,6 +119,7 @@ class ChiefController extends Controller
        }
         $chief->save();
         Session::put('lang','');
+        Log::info($id." Cheif of staff details updated by ".Session::get('email')." on ".date('l jS \of F Y h:i:s A'));
         return Redirect()->route('the_chief.index');
     }
 
@@ -126,8 +131,10 @@ class ChiefController extends Controller
      */
     public function destroy($id)
     {
+        
         $chief = Chief::findOrFail($id);
         $chief->delete();
+        Log::info($id." Chief of staff details deleted by ".Session::get('email')." on ".date('l jS \of F Y h:i:s A'));
         return Redirect()->route('the_chief.index');
     }
 }

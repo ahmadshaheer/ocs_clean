@@ -21,7 +21,7 @@
                                 <div class="form-group ">
                                         <label for="title" class="control-label col-lg-3">Quote</label>
                                         <div class="col-lg-6">
-                                            <input class=" form-control" maxlength="150" id="title" value="{{$quote->title}}" name="title" type="text">
+                                            <input class=" form-control" id="title" value="{{$quote->title}}" name="title" type="text">
                                         </div>
                                     </div>
 

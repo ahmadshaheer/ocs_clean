@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Bio;
 use Session;
+use Log;
 
 class BioController extends Controller
 {
@@ -37,6 +38,7 @@ class BioController extends Controller
      */
     public function store(Request $request)
     {
+        
         $bio = new Bio();
         $lang = Session::get('lang');
         if($lang == 'en'){
@@ -59,6 +61,7 @@ class BioController extends Controller
         }
         $bio->save();
         Session::put('lang','');
+        Log::info($bio->id." Bio created by ".Session::get('email')." on ".date('l jS \of F Y h:i:s A'));
         return Redirect()->route('the_bio.index');
     }
 
@@ -94,6 +97,7 @@ class BioController extends Controller
      */
     public function update(Request $request, $id)
     {
+        
         $bio =Bio::findOrFail($id);
          $lang = Session::get('lang');
         if($lang == 'en'){
@@ -116,6 +120,7 @@ class BioController extends Controller
         }
         $bio->save();
         Session::put('lang','');
+        Log::info($id." Bio updated by ".Session::get('email')." on ".date('l jS \of F Y h:i:s A'));
         return Redirect()->route('the_bio.index');
     }
 
@@ -127,8 +132,10 @@ class BioController extends Controller
      */
     public function destroy($id)
     {
+        
         $bio = Bio::findOrFail($id);
         $bio->delete();
+        Log::info($id." Bio deleted by ".Session::get('email')." on ".date('l jS \of F Y h:i:s A'));
         return Redirect()->route('the_bio.index');
     }
 }

@@ -13,12 +13,6 @@ $pdf = 'pdf_'.$lang;
 #carousel_div {
   position: relative;
 }
-#carousel_div #carousel_text_div {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  padding-bottom: 2.8em;
-}
 </style>
   
     
@@ -89,10 +83,21 @@ $pdf = 'pdf_'.$lang;
               <div class="ui items">
                 <?php if(sizeof($lattest_news)!=0): ?>
                   <?php $__currentLoopData = $lattest_news; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                  <?php $url =  ($item->table_name=='documents')?asset('uploads/documents_'.$lang.'/'.$item->table_id.'.pdf'):'';?>
+                  <?php $url =  ($item->table_name=='documents')?asset('uploads/documents_'.$lang.'/'.$item->table_id.'.pdf'):'';
+                        $img = '';
+                       if($item->table_name=='documents'){
+                          $img = asset('assets/img/pdf.png');
+                        }
+                        else if($item->table_name == 'videos'){
+                              $img = "https://img.youtube.com/vi/$item->image_thumb/hqdefault.jpg";
+                        }
+                        else{
+                          $img = asset($item->image_thumb);
+                        }
+                  ?>
                     <?php if($item->$title!=null): ?>
                       <div class="news <?php echo e(($item == $lattest_news->last())?'no_borders':''); ?>" style="border-bottom:1px dashed #ddd;padding-bottom:10px;">
-                        <div class="ui grid" style="display:flex;margin:0 !important;">
+                        <div class="ui stackable grid" style="display:flex;margin:0 !important;">
                           <div class="sixteen wide mobile tablet eleven wide computer column" id="news_title" style="padding-top:0;">
                             <a href="<?php echo e(($item->table_name=='documents')?$url:url($item->type.'_details/'.$item->table_id)); ?>" class="ui <?php echo e($dir); ?> floated small header title_font title_to_be_trimmed" dir="rtl" style="margin:0"><?php echo e($item->$title); ?></a>
                             <p class="meta" style="clear: both">
@@ -101,18 +106,19 @@ $pdf = 'pdf_'.$lang;
 
                             </p>
                           </div>
-                          <div class="sixteen wide mobile tablet five wide computer column thumbnail" id="news_image" style="">
-                            <img style="float:right;" class="" src="<?php echo e(($item->table_name=='documents')?asset('assets/img/pdf.png'):asset($item->image_thumb)); ?>" alt="">
+                          <div class="sixteen wide mobile tablet five wide computer column thumbnail news_image" id="news_image" style="">
+                            <img style="float:right;" class="" src="<?php echo e($img); ?>" alt="">
+                          </div>
+                          <div class="desc">
+                            <div class="description body_font short_desc_to_be_trimmed" style="clear:both;">
+                            <?php echo e($item->$short_desc); ?>
+
+                            </div>
+                            <div class="" style="padding-bottom:15px;">
+                              <a href="<?php echo e(($item->table_name=='documents')?$url:url($item->type.'_details/'.$item->table_id)); ?>" class="meta body_font" style="float:left;"><?php echo e(trans('home.read_more')); ?></a>
+                            </div>
                           </div>
                         </div>
-                        <div class="description body_font short_desc_to_be_trimmed" style="clear:both;">
-                          <?php echo e($item->$short_desc); ?>
-
-                        </div>
-                        <div class="" style="padding-bottom:15px;">
-                          <a href="<?php echo e(($item->table_name=='documents')?$url:url($item->type.'_details/'.$item->table_id)); ?>" class="meta body_font" style="float:left;"><?php echo e(trans('home.read_more')); ?></a>
-                        </div>
-
                       </div>
                     <?php endif; ?>
                   <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
@@ -134,13 +140,13 @@ $pdf = 'pdf_'.$lang;
                      <div class="ui grid" style="display:flex;margin:0 !important;">
                        <div class="sixteen wide mobile tablet nine wide computer column" id="article_title" style="padding-top:0;">
                          <a href="<?php echo e(url('article_details/'.$item->id)); ?>" class="ui <?php echo e($dir); ?> floated small header title_font title_to_be_trimmed" dir="rtl" style="margin:0"><?php echo e($item->$title); ?></a>
-                         <p class="meta">
+                         <p class="meta" style="clear:both;">
                            <i class="icon clock">
                            </i><?php echo e($jdate->detailedDate($item->$date,$lang)); ?>
 
                          </p>
                        </div>
-                       <div class="sixteen wide mobile tablet seven wide computer column thumbnail" id="article_image" style="">
+                       <div class="sixteen wide mobile tablet seven wide computer column thumbnail news_image" id="news_image" style="">
                          <img style="float:right;" class="" src="<?php echo e(asset('uploads/media/article/'.$item->image_thumb)); ?>" alt="">
                        </div>
                      </div>

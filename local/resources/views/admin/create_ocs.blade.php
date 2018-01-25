@@ -1,4 +1,4 @@
-@include('admin.include.header')
+ @include('admin.include.header')
 <?php $session = Session::get('lang'); ?>
 <style>
     .file {
@@ -30,14 +30,22 @@
                                      <div class="form-group ">
                                         <label for="desc_dr" class="control-label col-lg-3">Description Dari</label>
                                         <div class="col-lg-9">
+<<<<<<< HEAD
                                             <textarea name="desc_dr" value="{{old('desc_dr')}} class="form-control format"></textarea>
+=======
+                                            <textarea name="desc_dr" class="form-control format rtl"></textarea>
+>>>>>>> 5eca33ae590378911d6ea862350fa1380a487053
                                         </div>
                                     </div>
                                     @else
                                      <div class="form-group ">
                                         <label for="desc_pa" class="control-label col-lg-3">Description Pashto</label>
                                         <div class="col-lg-9">
+<<<<<<< HEAD
                                             <textarea name="desc_pa" value="{{old('desc_pa')}} class="form-control format"></textarea>
+=======
+                                            <textarea name="desc_pa" class="form-control format rtl"></textarea>
+>>>>>>> 5eca33ae590378911d6ea862350fa1380a487053
                                         </div>
                                     </div>
                                     @endif

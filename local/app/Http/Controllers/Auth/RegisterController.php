@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Hash;
 use DB;
+use Log;
 use Session;
 use Illuminate\Http\Request;
 
@@ -75,6 +76,7 @@ class RegisterController extends Controller
     protected function show_register() {
         return view('admin.register');
     }
+<<<<<<< HEAD
     protected function register(Request $request) {
 
         $this->validate($request,[
@@ -89,5 +91,38 @@ class RegisterController extends Controller
         $user->role = $request->input('role');
         $user->save();
         return Redirect()->Route('users');
+=======
+    protected function register() {
+      
+        $name = $_POST['name'];
+        $email = $_POST['email'];
+        $password =Hash::make($_POST['password']);
+        $password_confirmation =$_POST['password_confirmation'];
+        if(Hash::check($password_confirmation,$password)) {
+            $user = new User();
+            $db = DB::table('users')->where('email',$email)->first();
+            if($db==null) {
+                // print_r($email.' exists ');exit;
+                $user->name = $name;
+                $user->email = $email;
+                $user->password = $password;
+                $user->role = $_POST['role'];
+                $user->save();
+                Log::info($user->email." created on ".date('l jS \of F Y h:i:s A'));
+                return Redirect()->Route('users');
+            }
+            else {
+              Log::info($user->email." user creation failed on ".date('l jS \of F Y h:i:s A'));
+                Session::flash('user_exists','User Already Exists');
+                Session::put('email_exists',$email);
+                return Redirect()->Route('register_user');
+            }
+        }
+        else {
+          Log::info($user->email." user creation failed on ".date('l jS \of F Y h:i:s A'));
+            Session::flash('bad_match','Passwords Do not Match');
+            return Redirect()->Route('register_user');
+        }
+>>>>>>> 5eca33ae590378911d6ea862350fa1380a487053
     }
 }

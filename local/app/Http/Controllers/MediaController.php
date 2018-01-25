@@ -8,6 +8,7 @@ use DB;
 use App\Search;
 use File;
 use Session;
+use Log;
 use Intervention\Image\ImageManager;
 
 class MediaController extends Controller
@@ -86,7 +87,7 @@ class MediaController extends Controller
       }
       $media->tags = $request->input('tags_array');
       $media->type = $request->input('type');
-      // $media->save();
+      $media->save();
 
       $max = $media->id;
 
@@ -95,11 +96,9 @@ class MediaController extends Controller
       $img_thumb = $max.'_t.'.$image->getClientOriginalExtension();
       $driver = new imageManager(array('driver'=>'gd'));
       $thumb_img = $driver->make($image)->resize(200,150);
-      // print_r($thumb_img->save("uploads/media/".$media->type."/".$img_thumb));
       $thumb_img->save("uploads/media/".$media->type."/".$img_thumb);
       // thumbnail generation Ends
       $search_thumb = "uploads/media/".$media->type."/".$img_thumb;
-
 
       $img = $max.'.'.$image->getClientOriginalExtension();
       $image->move('uploads/media/'.$request->input('type'),$img);
@@ -107,7 +106,6 @@ class MediaController extends Controller
       $media_n->image = $img;
       // assign thumb image to image_thumb column in db
       $media_n->image_thumb = $img_thumb;
-
 
       if($media_n->save()){
           $search = new Search();
@@ -136,6 +134,7 @@ class MediaController extends Controller
         $search->save();
         Session::put('lang','');
         Session::put('type','');
+        Log::info($max." ".$request->input('type')."  created by ".Session::get('email')." on ".date('l jS \of F Y h:i:s A'));
         return Redirect()->route('admin_'.$media->type);
     }
 }
@@ -173,6 +172,7 @@ class MediaController extends Controller
      */
     public function update(Request $request, $id)
     {
+
         $lang=Session::get('lang');
         $media = Media::findOrFail($id);
         $search_pdf = '';
@@ -262,6 +262,7 @@ class MediaController extends Controller
             $search->save();
         }
         Session::put('lang','');
+        Log::info($id." $media->type updated by ".Session::get('email')." on ".date('l jS \of F Y h:i:s A'));
         return Redirect()->route('admin_'.$media->type);
     }
 
@@ -273,6 +274,7 @@ class MediaController extends Controller
      */
     public function destroy($id)
     {
+
         $media = Media::findOrFail($id);
         $type = $media->type;
         // File::delete(public_path().'../uploads/media/'.$type.'/'.$media->image);
@@ -283,18 +285,19 @@ class MediaController extends Controller
         $search = Search::where('table_name','media')->where('table_id',$id);
         $search->delete();
         $media->delete();
+        Log::info($id." $type deleted by ".Session::get('email')." on ".date('l jS \of F Y h:i:s A'));
         return Redirect()->route('admin_'.$type);
     }
 
      public function news()
     {
-        $news = DB::table('media')->where('type','news')->get();
+        $news = DB::table('media')->where('type','news')->orderBy('id','desc')->get();
         return view('admin.news')->with('news',$news);
     }
 
     public function articles()
     {
-        $articles = DB::table('media')->where('type','article')->get();
+        $articles = DB::table('media')->where('type','article')->orderBy('id','desc')->get();
         return view('admin.articles')->with('articles',$articles);
     }
 }

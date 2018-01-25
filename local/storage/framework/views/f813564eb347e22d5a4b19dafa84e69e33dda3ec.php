@@ -307,9 +307,10 @@
     }
     #news_title,#article_title {
       order:2;
-      padding:0;
+      padding:3px 0 !important;
     }
     #news_image {
+      padding: 2px 0 !important;
       order:1;
     }
     .desc {
@@ -719,6 +720,12 @@
       -webkit-transform: translate(-50%,-50%);
       -ms-transform: translate(-50%,-50%);
       transform: translate(-50%,-50%);
+    }
+    #carousel_div #carousel_text_div {
+      position: absolute;
+      bottom: 0;
+      <?php echo e($dir); ?>: 0;
+      padding-bottom: 2.8em;
     }
 
   }

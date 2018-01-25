@@ -7,6 +7,8 @@ use App\Trip;
 use DB;
 use App\Search;
 use File;
+use Session;
+use Log;
 
 class TripController extends Controller
 {
@@ -38,6 +40,7 @@ class TripController extends Controller
      */
     public function store(Request $request)
     {
+
         $lang=\Session::get('lang');
         $search_image = '';
         $trip = new Trip();
@@ -119,6 +122,7 @@ class TripController extends Controller
         }
         \Session::put('lang','');
         \Session::put('type','');
+        Log::info($max." Trip created by ".Session::get('email')." on ".date('l jS \of F Y h:i:s A'));
         return Redirect()->route('admin_'.$trip->type);
     }
 
@@ -154,12 +158,13 @@ class TripController extends Controller
      */
     public function update(Request $request, $id)
     {
+
         $lang=\Session::get('lang');
         $search_image ='';
         $trip = Trip::findOrFail($id);
         if($lang=='en') {
           $this->validate($request,[
-            'title_en'=>'required|unique:trips|max:255',
+            'title_en'=>'required|max:255',
             'date_en'=>'required',
             'short_desc_en'=>'required',
             'desc_en'=>'required',
@@ -171,7 +176,7 @@ class TripController extends Controller
         }
         else if($lang=='dr') {
           $this->validate($request,[
-            'title_dr'=>'required|unique:trips|max:255',
+            'title_dr'=>'required|max:255',
             'date_dr'=>'required',
             'short_desc_dr'=>'required',
             'desc_dr'=>'required',
@@ -183,7 +188,7 @@ class TripController extends Controller
         }
         else if($lang=='pa') {
           $this->validate($request,[
-            'title_pa'=>'required|unique:trips|max:255',
+            'title_pa'=>'required|max:255',
             'date_dr'=>'required',
             'short_desc_pa'=>'required',
             'desc_pa'=>'required',
@@ -239,6 +244,7 @@ class TripController extends Controller
                 $search->save();
         }
         \Session::put('lang','');
+        Log::info($id." Trip updated by ".Session::get('email')." on ".date('l jS \of F Y h:i:s A'));
         return Redirect()->route('admin_'.$trip->type);
     }
 
@@ -250,24 +256,26 @@ class TripController extends Controller
      */
     public function destroy($id)
     {
+
         $trip = Trip::findOrFail($id);
         $type = $trip->type;
         File::delete('uploads/trips/'.$type.'/'.$trip->image);
         $search = Search::where('table_name','trips')->where('table_id',$id)->first();
         $search->delete();
         $trip->delete();
+        Log::info($id." Trip deleted by ".Session::get('email')." on ".date('l jS \of F Y h:i:s A'));
         return Redirect()->route('admin_'.$type);
     }
 
      public function domestic()
     {
-        $domestic = DB::table('trips')->where('type','domestic')->get();
+        $domestic = DB::table('trips')->where('type','domestic')->orderBy('id','desc')->get();
         return view('admin.domestic')->with('domestic',$domestic);
     }
 
     public function international()
     {
-        $international = DB::table('trips')->where('type','international')->get();
+        $international = DB::table('trips')->where('type','international')->orderBy('id','desc')->get();
         return view('admin.international')->with('international',$international);
     }
 }

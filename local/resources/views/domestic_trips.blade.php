@@ -39,7 +39,7 @@ global $lang,$dir,$indir,$rtl,$ltr,$title,$date,$short_desc,$description,$jdate;
                     <img src="{{asset('uploads/trips/domestic/'.$value->image)}}" style="padding-left:8px;">
                   </div>
                   <div class="content">
-                    <a href="{{url('domestic_trip_details/'.$value->id)}}" class="ui small header title_font">{{$value->$title}}</a>
+                    <a href="{{url('domestic_details/'.$value->id)}}" class="ui small header title_font">{{$value->$title}}</a>
                     <div class="meta">
                       <span class="" dir="">{{$jdate->detailedDate($value->$date,$lang)}}</span>
                     </div>

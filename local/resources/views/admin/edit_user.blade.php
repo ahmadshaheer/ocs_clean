@@ -30,9 +30,9 @@
 
                                         <div class="col-md-6">
                                          <select name="role" class="form-control">
-                                                <option value="editor" selected="<?php echo ($user->role=='editor')?'selected':''; ?>">Editor</option>
-                                                <option value="author" selected="<?php echo ($user->role=='author')?'selected':''; ?>">Author</option>
-                                                <option value="admin" selected="<?php echo ($user->role=='admin')?'selected':''; ?>">Admin</option>
+                                                <option value="editor" <?php echo ($user->role=='editor')?'selected':''; ?>>Editor</option>
+                                                <option value="author" <?php echo ($user->role=='author')?'selected':''; ?>>Author</option>
+                                                <option value="admin" <?php echo ($user->role=='admin')?'selected':''; ?>>Admin</option>
                                             </select>
                                         </div>
                                       </div>

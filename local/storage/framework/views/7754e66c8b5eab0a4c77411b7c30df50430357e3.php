@@ -60,51 +60,51 @@ $route= Session::get('type');
                                     <div class="form-group ">
                                         <label for="title_dr" class="control-label col-lg-3">Title Dari</label>
                                         <div class="col-lg-6">
-                                            <input class=" form-control" id="title_dr"  name="title_dr" type="text">
+                                            <input class=" form-control rtl" id="title_dr"  name="title_dr" type="text">
                                         </div>
                                     </div>
                                     <div class="form-group ">
                                         <label for="date_dr" class="control-label col-lg-3">Date Dari</label>
                                         <div class="col-lg-6">
-                                            <input class=" form-control date_dr"  id="date_dr" name="date_dr" type="text" required>
+                                            <input class=" form-control date_dr rtl"  id="date_dr" name="date_dr" type="text" required>
                                         </div>
                                     </div>
                                     <div class="form-group ">
                                         <label for="short_desc_dr" class="control-label col-lg-3">Short Description Dari</label>
                                         <div class="col-lg-6">
-                                            <textarea name="short_desc_dr" class="form-control"></textarea>
+                                            <textarea name="short_desc_dr" class="form-control rtl"></textarea>
                                         </div>
                                     </div>
                                     <div class="form-group ">
                                         <label for="desc_dr" class="control-label col-lg-3">Description Dari</label>
                                         <div class="col-lg-6">
-                                            <textarea name="desc_dr" class="form-control format"></textarea>
+                                            <textarea name="desc_dr" class="form-control format rtl"></textarea>
                                         </div>
                                     </div>
                                     <?php else: ?>
                                     <div class="form-group ">
                                         <label for="title_pa" class="control-label col-lg-3">Title Pashto</label>
                                         <div class="col-lg-6">
-                                            <input class=" form-control" id="title_pa"  name="title_pa" type="text">
+                                            <input class=" form-control rtl" id="title_pa"  name="title_pa" type="text">
                                         </div>
                                     </div>
 
                                     <div class="form-group ">
                                         <label for="date_dr" class="control-label col-lg-3">Date Pashto</label>
                                         <div class="col-lg-6">
-                                            <input class=" form-control date_dr"  id="date_dr" name="date_dr" type="text" required>
+                                            <input class=" form-control date_dr rtl"  id="date_dr" name="date_dr" type="text" required>
                                         </div>
                                     </div>
                                     <div class="form-group ">
                                         <label for="short_desc_pa" class="control-label col-lg-3">Short Description Pashto</label>
                                         <div class="col-lg-6">
-                                            <textarea name="short_desc_pa" class="form-control"></textarea>
+                                            <textarea name="short_desc_pa" class="form-control rtl"></textarea>
                                         </div>
                                     </div>
                                     <div class="form-group ">
                                         <label for="desc_pa" class="control-label col-lg-3">Description Pashto</label>
                                         <div class="col-lg-6">
-                                            <textarea name="desc_pa" class="form-control format"></textarea>
+                                            <textarea name="desc_pa" class="form-control format rtl"></textarea>
                                         </div>
                                     </div>
                                     <?php endif; ?>
@@ -160,28 +160,5 @@ $route= Session::get('type');
     });
     $(document).on('change', '.file', function(){
       $(this).parent().find('.form-control').val($(this).val().replace(/C:\\fakepath\\/i, ''));
-    });
-    // tag generating & editing script
-    $('.dropdown')
-      .dropdown({
-        allowAdditions: true
-      })
-    ;
-    function go() {
-      var test = $('.dropdown').dropdown("get value");
-      $('#tags_array').val(test);
-    }
-    $('#title').focusout(function() {
-      $('#menu').empty();
-      var text = $('#title').val();
-      arr = text.split(" ");
-      var length = arr.length;
-      var data=[];
-      for(var i=0;i<length;i++) {
-        data[i+1] = '<div class="item" data-value="'+arr[i]+'">'+arr[i]+'</div>';
-      }
-      data = $.unique(data);
-      $('#menu').append(data);
-
     });
 </script>

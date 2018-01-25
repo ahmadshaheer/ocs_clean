@@ -58,50 +58,82 @@ $route= Session::get('type');
                                     <div class="form-group ">
                                         <label for="title_dr" class="control-label col-lg-3">Title Dari</label>
                                         <div class="col-lg-6">
+<<<<<<< HEAD
                                             <input class=" form-control" id="title_dr" name="title_dr" value="{{old('title_dr')}}" type="text">
+=======
+                                            <input class=" form-control rtl" id="title_dr" name="title_dr" type="text">
+>>>>>>> 5eca33ae590378911d6ea862350fa1380a487053
                                         </div>
                                     </div>
                                      <div class="form-group ">
                                         <label for="date_dr" class="control-label col-lg-3">Date Dari</label>
                                         <div class="col-lg-6">
+<<<<<<< HEAD
                                             <input class=" form-control date_dr"  id="date_dr" name="date_dr" value="{{old('date_dr')}}" type="text">
+=======
+                                            <input class=" form-control date_dr rtl"  id="date_dr" name="date_dr" type="text">
+>>>>>>> 5eca33ae590378911d6ea862350fa1380a487053
                                         </div>
                                     </div>
                                     <div class="form-group ">
                                         <label for="short_desc_dr" class="control-label col-lg-3">Short Description Dari</label>
                                         <div class="col-lg-6">
+<<<<<<< HEAD
                                             <textarea name="short_desc_dr" value="{{old('short_desc_dr')}}" class="form-control"></textarea>
+=======
+                                            <textarea name="short_desc_dr" class="form-control rtl"></textarea>
+>>>>>>> 5eca33ae590378911d6ea862350fa1380a487053
                                         </div>
                                     </div>
                                     <div class="form-group ">
                                         <label for="desc_dr" class="control-label col-lg-3">Description Dari</label>
                                         <div class="col-lg-6">
+<<<<<<< HEAD
                                             <textarea name="desc_dr" value="{{old('desc_dr')}}" class="form-control format"></textarea>
+=======
+                                            <textarea name="desc_dr" class="form-control format rtl"></textarea>
+>>>>>>> 5eca33ae590378911d6ea862350fa1380a487053
                                         </div>
                                     </div>
                                     @elseif($session=='pa')
                                     <div class="form-group ">
                                         <label for="title_pa" class="control-label col-lg-3">Title Pashto</label>
                                         <div class="col-lg-6">
+<<<<<<< HEAD
                                             <input class=" form-control" id="title_pa" name="title_pa" value="{{old('title_pa')}}" type="text">
+=======
+                                            <input class=" form-control rtl" id="title_pa" name="title_pa" type="text">
+>>>>>>> 5eca33ae590378911d6ea862350fa1380a487053
                                         </div>
                                     </div>
                                     <div class="form-group ">
                                         <label for="date_dr" class="control-label col-lg-3">Date Pashto</label>
                                         <div class="col-lg-6">
+<<<<<<< HEAD
                                             <input class=" form-control date_dr"  id="date_dr" name="date_dr" value="{{old('date_dr')}}" type="text">
+=======
+                                            <input class=" form-control date_dr rtl"  id="date_dr" name="date_dr" type="text">
+>>>>>>> 5eca33ae590378911d6ea862350fa1380a487053
                                         </div>
                                     </div>
                                     <div class="form-group ">
                                         <label for="short_desc_pa" class="control-label col-lg-3">Short Description Pashto</label>
                                         <div class="col-lg-6">
+<<<<<<< HEAD
                                             <textarea name="short_desc_pa" value="{{old('short_desc_pa')}}" class="form-control"></textarea>
+=======
+                                            <textarea name="short_desc_pa" class="form-control rtl"></textarea>
+>>>>>>> 5eca33ae590378911d6ea862350fa1380a487053
                                         </div>
                                     </div>
                                     <div class="form-group ">
                                         <label for="desc_pa" class="control-label col-lg-3">Description Pashto</label>
                                         <div class="col-lg-6">
+<<<<<<< HEAD
                                             <textarea name="desc_pa" value="{{old('desc_pa')}}" class="form-control format"></textarea>
+=======
+                                            <textarea name="desc_pa" class="form-control format rtl"></textarea>
+>>>>>>> 5eca33ae590378911d6ea862350fa1380a487053
                                         </div>
                                     </div>
                                     @endif

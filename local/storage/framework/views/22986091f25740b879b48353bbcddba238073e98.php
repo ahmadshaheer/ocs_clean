@@ -1,29 +1,37 @@
 <?php echo $__env->make('admin.include.header', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
-
+<?php 
+if(Session::get('view_lang')==''){
+  $lang='en';
+}
+else{
+  $lang = Session::get('view_lang');
+}
+$description = "description_".$lang;
+if($lang=='en'){
+  $dir = 'left';
+  $direction = 'ltr';
+}
+else{
+ $dir = 'right'; 
+ $direction = 'rtl';
+}
+?>
 <!--main content start-->
 <section id="main-content">
 <section class="wrapper">
     <div class="table-responsive ui stacked segment" style="">
-        <div class="row">
-          <h2 class="ui block header">Media Directorate</h2>
+        <div class="row ui block header">
+          <h2>Media Directorate</h2>
+           <a class="btn btn-<?php echo e(($lang=='en'?'success':'default')); ?>" href="javascript:void(0)" onclick="show('en')">English</a>
+          <a class="btn btn-<?php echo e(($lang=='dr'?'success':'default')); ?>" href="javascript:void(0)" onclick="show('dr')">Dari</a>
+          <a class="btn btn-<?php echo e(($lang=='pa'?'success':'default')); ?>" href="javascript:void(0)" onclick="show('pa')">Pashto</a>
         </div>
 <div class="container pull-left" style="margin:10px;">
   <?php if(sizeof($media)==0 && Session::get('role')!='editor'): ?>
-    <div class="ui form">
-    <div class="eight fields">
-      <div class="field">
-        <select name="lang" id="lang">
-          <option value="0">Create...</option>
-          <option value="dr">dari</option>
-          <option value="pa">pashto</option>
-          <option value="en">English</option>
-        </select>
-      </div>
-    </div>
-  </div>
+  <a class="btn btn-default pull-<?php echo e($dir); ?>" href="javascript:void(0)" onclick="create('<?php echo e($lang); ?>')" style="margin-bottom: 10px;">Create</a>
     <?php endif; ?>
 </div>
-<table class="table">
+<table class="table table-bordered" style="direction: <?php echo e($direction); ?>">
   <thead>
     <tr>
       <th>Media Directorate</th>
@@ -31,32 +39,31 @@
   </thead>
   <tbody>
     <?php $__currentLoopData = $media; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-     <?php if($value->title_en!=null): ?>
-    <?php $lang = "en"; ?>
-    <?php elseif($value->title_dr!=null): ?>
-    <?php $lang = "dr"; ?>
-    <?php else: ?>
-    <?php $lang = "pa"; ?>
-    <?php endif; ?>
     <?php
-    $description = "description_".$lang;
-     ?>
+       if($value->$description==''){
+          if($value->description_en=='' && $value->description_dr!=''){
+          $description_value = $value->description_dr;
+        }
+        else if($value->description_en=='' && $value->description_dr ==''){
+         $description_value = $value->description_pa; 
+        }
+        else if($value->description_en=='' && $value->description_dr =='' && $value->description_pa=''){
+          continue;
+        }
+       }
+       else{
+          $description_value = $value->$description;
+       }
+       ?>
     <tr>
-      <td><div style="width:90em" class="test"><?php echo $value->$description; ?></div></td>
+      <td><div style="width:90em" class="test"><?php echo $description_value; ?></div></td>
       <td>
         <form action="<?php echo e(route('media_directorate.destroy', $value->id)); ?>" method="POST">
             <?php echo e(method_field('DELETE')); ?>
 
             <?php echo e(csrf_field()); ?>
 
-            <div class="small field" style="float:left;padding-right:5px;">
-            <select name="lang" class="edit_lang">
-              <option value="0">Edit...</option>
-              <option value="dr_<?php echo e($value->id); ?>">dari</option>
-              <option value="pa_<?php echo e($value->id); ?>">pashto</option>
-              <option value="en_<?php echo e($value->id); ?>">English</option>
-            </select>
-          </div>
+            <a class="btn btn-default pull-<?php echo e($dir); ?>" href="javascript:void(0)" onclick="edit('<?php echo e($lang.'_'.$value->id); ?>')" style="margin-bottom: 10px;"><?php echo e(($value->$description==''?'Add':'Edit')); ?></a>
             <?php if(Session::get('role')=='admin'): ?>
             <button class="ui tiny button red " onclick="return confirm_submit()">Delete</button>
             <?php endif; ?>
@@ -71,15 +78,14 @@
 
 <?php echo $__env->make('admin.include.footer', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 <script>
-  $("#lang").change(function(){
-    var id = $(this).val();
-    window.location = "<?php echo e(url('admin/set_session_all?lang=')); ?>"+id+"&route=<?php echo e(route('media_directorate.create')); ?>";
-  });
+   function create(lang){
+    window.location = "<?php echo e(url('admin/set_session_all?lang=')); ?>"+lang+"&route=<?php echo e(route('media_directorate.create')); ?>";
+  }
 
-  $(".edit_lang").change(function(){
-    var lang = $(this).val().substring(0,2);
-    var id = $(this).val().substring(3);
+  function edit(para){
+    var lang = para.substring(0,2);
+    var id = para.substring(3);
     window.location = "<?php echo e(url('admin/edit_session?lang=')); ?>"+lang+"&route=<?php echo e(url('admin/media_directorate/')); ?>"+"/"+id+"/edit";
-  });
+  }
 
 </script>

@@ -88,15 +88,15 @@ footer.timeline-Footer.u-cf {
         <!-- sidebar menu start-->
         <div class="leftside-navigation">
             <ul class="sidebar-menu" id="nav-accordion">
-                <li>
+               {{--  <li>
                     <a class="active" href="#">
                         <i class="fa fa-dashboard"></i>
                         <span>Dashboard</span>
                     </a>
-                </li>
+                </li> --}}
                  <li class="sub-menu">
                     <a href="javascript:;">
-                        <i class="fa fa-book"></i>
+                        <i class="fa fa-user"></i>
                         <span>About the President</span>
                     </a>
                     <ul class="sub">
@@ -151,7 +151,7 @@ footer.timeline-Footer.u-cf {
                 </li>
                   <li class="sub-menu">
                     <a href="javascript:;">
-                        <i class="fa fa-book"></i>
+                        <i class="fa fa-newspaper-o"></i>
                         <span>Media</span>
                     </a>
                     <ul class="sub">
@@ -218,7 +218,7 @@ footer.timeline-Footer.u-cf {
                 </li>
                 <li class="sub-menu">
                     <a href="javascript:;">
-                        <i class="fa fa-book"></i>
+                        <i class="fa fa-phone-square"></i>
                         <span>Contact Us</span>
                     </a>
                     <ul class="sub">
@@ -231,7 +231,8 @@ footer.timeline-Footer.u-cf {
                     </ul>
                 </li>
                    <li class="sub-menu">
-                            <a href="javascript:void(0)">
+                            <a href="javascript:void:;">
+                                <i class="fa fa-user-circle"></i>
                                 <span>Register Users</span>
                             </a>
                             <ul class="sub">
@@ -254,6 +255,7 @@ footer.timeline-Footer.u-cf {
                         </li>
                  <li>
                     <a href="{{route('quotes.index')}}">
+                        <i class="fa fa-quote-left"></i>
                         <span>Quotes</span>
                     </a>
                 </li>

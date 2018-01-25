@@ -34,7 +34,7 @@ if (in_array($url, $type)==0) {
                             </ul>
                           <?php endif; ?>
                             <div class="form cmxform form-horizontal">
-                                <?php echo Form::model($the_president, ['route' => array('the_president.update',$the_president->id),'files' =>true]); ?>
+                                <?php echo Form::model($the_president, ['route' => array('the_president.update',$the_president->id),'files' =>true,'id'=>'edit_form']); ?>
 
                                 <input name="_method" type="hidden" value="PATCH">
                                 <?php if($session =='en'): ?>
@@ -159,6 +159,7 @@ if (in_array($url, $type)==0) {
                                     <div class="form-group">
                                         <div class="col-lg-offset-3 col-lg-6">
                                             <button class="btn btn-primary" type="submit">Update</button>
+                                            <a href="javascript:void(0)" onclick="clearForm()" class="btn btn-warning"  type="button">Clear All</a>
                                             <a href="<?php echo e(url()->previous()); ?>" class="btn btn-default"  type="button">Cancel</a>
                                         </div>
                                     </div>

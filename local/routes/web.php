@@ -521,6 +521,11 @@ Route::get('admin/set_session_all',function(){
 			Session::put('lang',$lang);
 			return Redirect($route);
 	});
+		Route::get('admin/set_session_for_view',function(){
+			$session = $_GET['lang'];
+			Session::put('view_lang',$session);
+			return back();
+	});
 });
 
 

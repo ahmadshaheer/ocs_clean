@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="<?php echo e(csrf_token()); ?>">
 
-    <title><?php echo e(config('app.name', 'OCS')); ?></title>
+    <title>OCS</title>
 
     <!-- Styles -->
     <link href="<?php echo e(asset('assets/css/app.css')); ?>" rel="stylesheet">
@@ -53,6 +53,6 @@
     </div>
 
     <!-- Scripts -->
-    <script src="/js/app.js"></script>
+    <script src="<?php echo e(asset('assets/js/app.js')); ?>"></script>
 </body>
 </html>

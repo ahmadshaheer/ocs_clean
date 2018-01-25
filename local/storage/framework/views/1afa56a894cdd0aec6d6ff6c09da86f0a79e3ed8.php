@@ -1,3 +1,7 @@
+<?php
+  global $jdate;
+  use App\Http\Controllers\DateChanger;
+  $jdate = new DateChanger(); ?>
 <!DOCTYPE HTML>
 <head>
 <title>OCS Admin Panel</title>
@@ -21,7 +25,6 @@
 <link rel="stylesheet" href="<?php echo e(asset('assets/admin-asset/css/morris.css')); ?>" type="text/css"/>
 <!-- calendar -->
 <link rel="stylesheet" href="<?php echo e(asset('assets/admin-asset/css/persian-datepicker.css')); ?>">
-<link rel="stylesheet" href="<?php echo e(asset('assets/admin-asset/css/monthly.css')); ?>">
 <link rel="stylesheet" type="text/css" href="<?php echo e(asset('assets/css/icon.min.css')); ?>">
 
 <!-- //calendar -->
@@ -32,6 +35,9 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
+.rtl{
+  direction: rtl !important;
+}
 .mce-branding-powered-by{
     display: none;
 }
@@ -40,7 +46,7 @@ div.mce-fullscreen {
 }
 @media (min-width: 1200px) {
   .col-lg-6,.col-md-6 {
-    width:46%;
+    width: 55.3%;
   }
 }
 .test img{
@@ -50,6 +56,14 @@ footer.timeline-Footer.u-cf {
     display: none !important;
 
 }
+.change_date {
+  direction: rtl;
+}
+/*iframe.desc_dr_ifr{
+  background:red !important;
+
+}*/
+
 </style>
 
 </head>
@@ -86,15 +100,10 @@ footer.timeline-Footer.u-cf {
         <!-- sidebar menu start-->
         <div class="leftside-navigation">
             <ul class="sidebar-menu" id="nav-accordion">
-                <li>
-                    <a class="active" href="#">
-                        <i class="fa fa-dashboard"></i>
-                        <span>Dashboard</span>
-                    </a>
-                </li>
+               
                  <li class="sub-menu">
                     <a href="javascript:;">
-                        <i class="fa fa-book"></i>
+                        <i class="fa fa-user"></i>
                         <span>About the President</span>
                     </a>
                     <ul class="sub">
@@ -149,7 +158,7 @@ footer.timeline-Footer.u-cf {
                 </li>
                   <li class="sub-menu">
                     <a href="javascript:;">
-                        <i class="fa fa-book"></i>
+                        <i class="fa fa-newspaper-o"></i>
                         <span>Media</span>
                     </a>
                     <ul class="sub">
@@ -216,7 +225,7 @@ footer.timeline-Footer.u-cf {
                 </li>
                 <li class="sub-menu">
                     <a href="javascript:;">
-                        <i class="fa fa-book"></i>
+                        <i class="fa fa-phone-square"></i>
                         <span>Contact Us</span>
                     </a>
                     <ul class="sub">
@@ -229,7 +238,8 @@ footer.timeline-Footer.u-cf {
                     </ul>
                 </li>
                    <li class="sub-menu">
-                            <a href="javascript:void(0)">
+                            <a href="javascript:void:;">
+                                <i class="fa fa-user-circle"></i>
                                 <span>Register Users</span>
                             </a>
                             <ul class="sub">
@@ -252,6 +262,7 @@ footer.timeline-Footer.u-cf {
                         </li>
                  <li>
                     <a href="<?php echo e(route('quotes.index')); ?>">
+                        <i class="fa fa-quote-left"></i>
                         <span>Quotes</span>
                     </a>
                 </li>

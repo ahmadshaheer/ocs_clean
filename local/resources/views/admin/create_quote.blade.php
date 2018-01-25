@@ -21,13 +21,13 @@
                                     <div class="form-group ">
                                         <label for="title" class="control-label col-lg-3">Quote</label>
                                         <div class="col-lg-6">
-                                            <input class=" form-control" id="title" maxlength="150" name="title" type="text">
+                                            <input class=" form-control" id="title" name="title" value="{{old('title')}}" type="text">
                                         </div>
                                     </div>
-                                    
+
                                     <div class="form-group">
                                         <label for="image" class="control-label col-lg-3">Quote Image</label>
-                                        <input type="file" name="image" class="file">
+                                        <input type="file" name="image" value="{{old('image')}}" class="file">
                                         <div class="input-group col-md-6 col-md-offset-3 col-xs-12" style="padding-left:15px; padding-right:14px;">
                                           <span class="input-group-addon"><i class="fa fa-file-image-o"></i></span>
                                           <input type="text" class="form-control input-lg" disabled placeholder="Upload Image">

@@ -172,10 +172,11 @@ class DocumentsController extends Controller
         else if($lang=='dr'){
             $this->validate($request,[
               'title_dr'=>'required|max:255',
-              'date_dr'=>'required',
             ]);
             $document->title_dr = $request->input('title_dr');
-            $document->date_dr = $request->input('date_dr');
+            if($request->date_dr!=null) {
+              $document->date_dr = $request->input('date_dr');
+            }
             if($request->file('pdf_dr') ==null){
                     $pdfName_dr = $document->pdf_dr;
             }
@@ -190,11 +191,12 @@ class DocumentsController extends Controller
         else if($lang=='pa'){
             $this->validate($request,[
               'title_pa'=>'required|max:255',
-              'date_dr'=>'required',
             ]);
 
             $document->title_pa = $request->input('title_pa');
-            $document->date_pa = $request->input('date_dr');
+            if($request->date_dr!=null) {
+              $document->date_pa = $request->input('date_dr');
+            }
             if($request->file('pdf_pa') ==null){
                 $pdfName_pa = $document->pdf_pa;
             }

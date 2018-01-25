@@ -1,4 +1,4 @@
- rtl@include('admin.include.header')
+@include('admin.include.header')
 <style>
     .file {
       visibility: hidden;

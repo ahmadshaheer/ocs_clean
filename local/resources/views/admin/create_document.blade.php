@@ -30,13 +30,13 @@
                                     <div class="form-group ">
                                         <label for="title" class="control-label col-lg-3">Title</label>
                                         <div class="col-lg-6">
-                                            <input class=" form-control" id="title" maxlength="150" name="title_en" type="text">
+                                            <input class=" form-control" id="title" value="{{old('title_en')}}" name="title_en" type="text">
                                         </div>
                                     </div>
                                      <div class="form-group ">
                                         <label for="date" class="control-label col-lg-3">Date</label>
                                         <div class="col-lg-6">
-                                            <input class=" form-control" id="date_en" maxlength="10"  name="date" type="date" required>
+                                            <input class=" form-control" id="date_en" value="{{old('date')}}"  name="date" type="date" required>
                                         </div>
                                     </div>
                                     <div class="form-group">

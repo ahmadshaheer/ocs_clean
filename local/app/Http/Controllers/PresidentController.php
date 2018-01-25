@@ -135,9 +135,11 @@ class PresidentController extends Controller
           $the_president->short_desc_pa = $request->input('short_desc_pa');
           $the_president->description_pa = $request->input('desc_pa');
         }
+
         $the_president->save();
         $pr = '';
         $max = $the_president->id;
+
           if($the_president->type!='order' AND $the_president->type!='decree') {
             // thumbnail generation starts
             $image = $request->image;

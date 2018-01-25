@@ -619,7 +619,7 @@
         <div class="ui grid">
           <div class="sixteen wide column" id="logo">
           <a href="{{route('home')}}">
-            <img style="float:{{$dir}};" src="{{asset('assets/img/logo_'.$lang.'.png')}}" alt="">
+            <img style="float:{{$dir}};width:37em;" src="{{asset('assets/img/logo_'.$lang.'.png')}}" alt="">
             </a>
           </div>
         </div>

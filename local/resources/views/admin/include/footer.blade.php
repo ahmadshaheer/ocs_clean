@@ -8,7 +8,7 @@
 <!--main content end-->
 </section>
 <script src="{{asset('assets/admin-asset/js/jquery.min.js')}}"></script>
-<script src="{{asset('assets/js/semantic.min.js')}}"></script>
+{{-- <script src="{{asset('assets/js/semantic.min.js')}}"></script> --}}
 <script src="{{asset('assets/admin-asset/js/persian-datepicker-0.4.5.min.js')}}"></script>
 <script src="{{asset('assets/admin-asset/js/persian-date.js')}}"></script>
 <script src="{{asset('assets/admin-asset/js/jquery.dcjqaccordion.2.7.js')}}"></script>
@@ -23,6 +23,26 @@
 <script src="{{asset('assets/admin-asset/js/jquery.scrollTo.js')}}"></script>
 <!-- morris JavaScript -->
 <script type="text/javascript">
+
+    //toggle change date
+    $('input#change_date').change(function() {
+      $('.change_date').prop('disabled', function(i, v) { return !v; });
+      $('.change_date').toggleClass('date_dr');
+      if($('.change_date').hasClass('date_dr')) {
+        $(".date_dr").pDatepicker({
+           format : "YYYY - MM - DD"
+         });
+      }
+      else {
+        $('.change_date').val($('.change_date').attr("value"));
+      }
+    });
+
+    //toggle image replace
+    $('form #replace_image').change(function() {
+      $('#image_upload').toggle();
+    });
+
     function confirm_submit(){
         var agree = confirm('Are you sure want to delete this record');
         if(agree){
@@ -63,6 +83,8 @@
     var editor_config = {
       path_absolute : "{{ URL::to('/') }}/",
       selector: ".format",
+      width: "780",
+      content_style: "body {width:731px;border:3px solid #ddd;display:block;margin:auto;direction:rtl; }",
       menubar:true,
       height: 500,
       statusbar: false,

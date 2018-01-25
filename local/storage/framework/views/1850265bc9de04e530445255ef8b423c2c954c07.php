@@ -1,5 +1,11 @@
 <?php echo $__env->make('admin.include.header', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
-<?php $lang = Session::get('view_lang');
+<?php 
+if(Session::get('view_lang')==''){
+  $lang='en';
+}
+else{
+  $lang = Session::get('view_lang');
+}
 $title = "title_".$lang;
 $date = "date_".$lang;
 $short_desc = "short_desc_".$lang;
@@ -42,12 +48,20 @@ $i=1;
 
     <?php $__currentLoopData = $orders; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
       <?php
-        if($value->title_en=='' && $value->title_dr!=''){
+       if($value->$title==''){
+          if($value->title_en=='' && $value->title_dr!=''){
           $title_value = $value->title_dr;
         }
         else if($value->title_en=='' && $value->title_dr ==''){
          $title_value = $value->title_pa; 
         }
+        else if($value->title_en=='' && $value->title_dr =='' && $value->title_pa=''){
+          continue;
+        }
+       }
+       else{
+          $title_value = $value->$title;
+       }
        ?>
 
     <tr>

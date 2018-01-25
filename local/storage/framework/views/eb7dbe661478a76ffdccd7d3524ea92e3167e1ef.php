@@ -1,5 +1,11 @@
 <?php echo $__env->make('admin.include.header', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
-<?php $lang = Session::get('view_lang');
+<?php 
+if(Session::get('view_lang')==''){
+  $lang='en';
+}
+else{
+  $lang = Session::get('view_lang');
+}
 $bio_val = "bio_".$lang;
 if($lang=='en'){
   $dir = 'left';
@@ -53,7 +59,7 @@ $i=1;
     <tr>
       <td><?php echo e($i++); ?></td>
       <td><div style="width:60em" class="test"><?php echo $bio_value; ?></div></td>
-      <td style="width:20em;">
+      <td style="width:12em;">
         <form action="<?php echo e(route('the_bio.destroy', $value->id)); ?>" class="ui form" method="POST">
             <?php echo e(method_field('DELETE')); ?>
 

@@ -160,6 +160,8 @@
         // (this works for both single and multiple select elements)
         else if (tag == 'select')
           this.selectedIndex = -1;
+        else if(tinymce.activeEditor!=null)
+          tinymce.activeEditor.setContent('');
       });
 };
  function show(lang){

@@ -103,6 +103,7 @@
                                 <div class="form-group">
                                     <div class="col-lg-offset-3 col-lg-6">
                                         <button class="btn btn-primary" type="submit">Update</button>
+                                        <a href="javascript:void(0)" onclick="clearForm()" class="btn btn-warning"  type="button">Clear All</a>
                                         <a href="<?php echo e(url()->previous()); ?>" class="btn btn-default"  type="button">Cancel</a>
                                     </div>
                                 </div>

@@ -1,5 +1,11 @@
 <?php echo $__env->make('admin.include.header', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
-<?php $lang = Session::get('view_lang');
+<?php 
+if(Session::get('view_lang')==''){
+  $lang='en';
+}
+else{
+  $lang = Session::get('view_lang');
+}
 $title = "title_".$lang;
 $date = "date_".$lang;
 $short_desc = "short_desc_".$lang;

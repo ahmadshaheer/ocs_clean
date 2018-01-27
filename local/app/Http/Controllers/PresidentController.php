@@ -93,6 +93,7 @@ class PresidentController extends Controller
           ]);
           }
           else {
+
             $this->validate($request,[
               'title_dr'=>'required',
               'date_dr'=>'required',
@@ -116,7 +117,7 @@ class PresidentController extends Controller
           else if($request->input('type')=='order' || $request->input('type')=='decree') {
             $this->validate($request,[
             'title_pa'=>'required',
-            'date_pa'=>'required',
+            'date_dr'=>'required',
             'short_desc_pa'=>'required',
             'desc_pa'=>'required'
           ]);
@@ -124,7 +125,7 @@ class PresidentController extends Controller
           else {
             $this->validate($request,[
               'title_pa'=>'required',
-              'date_pa'=>'required',
+              'date_dr'=>'required',
               'short_desc_pa'=>'required',
               'desc_pa'=>'required',
               'image'=>'required|mimes:jpeg,jpg,png,bmp'
@@ -229,6 +230,40 @@ class PresidentController extends Controller
     public function update(Request $request, $id)
     {
         $lang = \Session::get('lang');
+        $short_desc = 'short_desc_'.$lang;
+
+        $the_president = President::findOrFail($id);
+         $this->validate($request,[
+              'title_en'=>'required',
+              'date_en'=>'required',
+              'short_desc_en'=>'required',
+              'desc_en'=>'required',
+              'image'=>'mimes:jpeg,jpg,png,bmp'
+          ]);
+
+         $the_president->$title = $request->input($title);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         $search_image = '';
         $the_president = President::findOrFail($id);
         if($lang =='en'){
@@ -270,7 +305,6 @@ class PresidentController extends Controller
           else if($request->input('type')=='order' || $request->input('type')=='decree') {
             $this->validate($request,[
             'title_dr'=>'required',
-            'date_dr'=>'required',
             'short_desc_dr'=>'required',
             'desc_dr'=>'required'
           ]);
@@ -278,14 +312,15 @@ class PresidentController extends Controller
           else {
             $this->validate($request,[
               'title_dr'=>'required',
-              'date_dr'=>'required',
               'short_desc_dr'=>'required',
               'desc_dr'=>'required',
               'image'=>'mimes:jpeg,jpg,png,bmp'
             ]);
           }
           $the_president->title_dr = $request->input('title_dr');
-          $the_president->date_dr = $request->input('date_dr');
+           if($request->date_dr!=null) {
+            $the_president->date_dr = $request->input('date_dr');
+          }
           $the_president->short_desc_dr = $request->input('short_desc_dr');
           $the_president->description_dr = $request->input('desc_dr');
         }
@@ -299,7 +334,6 @@ class PresidentController extends Controller
           else if($request->input('type')=='order' || $request->input('type')=='decree') {
             $this->validate($request,[
             'title_pa'=>'required',
-            'date_dr'=>'required',
             'short_desc_pa'=>'required',
             'desc_pa'=>'required'
           ]);
@@ -307,18 +341,18 @@ class PresidentController extends Controller
           else {
             $this->validate($request,[
               'title_pa'=>'required',
-              'date_dr'=>'required',
               'short_desc_pa'=>'required',
               'desc_pa'=>'required',
               'image'=>'mimes:jpeg,jpg,png,bmp'
             ]);
           }
           $the_president->title_pa = $request->input('title_pa');
-          $the_president->date_pa = $request->input('date_dr');
+          if($request->date_dr!=null) {
+            $the_president->date_pa = $request->input('date_dr');
+          }
           $the_president->short_desc_pa = $request->input('short_desc_pa');
           $the_president->description_pa = $request->input('desc_pa');
         }
-
         $the_president->type = $request->input('type');
         $max = $the_president->id;
         $image = '';

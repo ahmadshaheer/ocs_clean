@@ -1,5 +1,4 @@
 <?php echo $__env->make('admin.include.header', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
-
 <!--main content start-->
 <section id="main-content">
 <section class="wrapper">
@@ -7,7 +6,7 @@
         <div class="row">
           <h2 class="ui block header">Users</h2>
         </div>
-<div class="container pull-left" style="margin:10px;">
+<div class="" style="margin:10px;">
 <?php if(Session::get('role')!='editor'): ?>
      <a href="<?php echo e(route('register_user')); ?>" class="ui button teal">Create</a>
 <?php endif; ?>

@@ -1,5 +1,11 @@
 <?php echo $__env->make('admin.include.header', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
-<?php $lang = Session::get('view_lang');
+<?php 
+if(Session::get('view_lang')==''){
+  $lang='en';
+}
+else{
+  $lang = Session::get('view_lang');
+}
 $description = "description_".$lang;
 if($lang=='en'){
   $dir = 'left';
@@ -20,9 +26,9 @@ else{
           <a class="btn btn-<?php echo e(($lang=='dr'?'success':'default')); ?>" href="javascript:void(0)" onclick="show('dr')">Dari</a>
           <a class="btn btn-<?php echo e(($lang=='pa'?'success':'default')); ?>" href="javascript:void(0)" onclick="show('pa')">Pashto</a>
         </div>
-<div class="container pull-left" style="margin:10px;">
+<div class="" style="margin:10px;">
   <?php if(sizeof($chief)==0 && Session::get('role')!='editor'): ?>
-    <a class="btn btn-default pull-<?php echo e($dir); ?>" href="javascript:void(0)" onclick="create('<?php echo e($lang); ?>')" style="margin-bottom: 10px;">Create</a>
+    <a class="btn btn-default pull-left" href="javascript:void(0)" onclick="create('<?php echo e($lang); ?>')" style="margin-bottom: 10px;">Create</a>
     <?php endif; ?>
 </div>
 <table class="table table-bordered" style="direction: <?php echo e($direction); ?>">
@@ -33,21 +39,49 @@ else{
   </thead>
   <tbody>
     <?php $__currentLoopData = $chief; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-     <?php
-       if($value->$description==''){
-          if($value->description_en=='' && $value->description_dr!=''){
-          $description_value = $value->description_dr;
-        }
-        else if($value->description_en=='' && $value->description_dr ==''){
-         $description_value = $value->description_pa; 
-        }
-        else if($value->description_en=='' && $value->description_dr =='' && $value->description_pa=''){
-          continue;
-        }
-       }
-       else{
-          $description_value = $value->$description;
-       }
+      <?php
+    $description_value ='';
+      switch ($lang) {
+        case 'dr':
+          if($value->$description=='') {
+            if($value->description_pa=='') {
+              $description_value = $value->description_en;
+            }
+            else{
+              $description_value = $value->description_pa;
+            }
+          }
+          else {
+            $description_value = $value->$description_val;
+          }
+          break;
+        case 'pa':
+          if($value->$description=='') {
+            if($value->description_dr=='') {
+              $description_value = $value->description_en;
+            }
+            else{
+              $description_value = $value->description_dr;
+            }
+          }
+          else {
+            $description_value = $value->$description;
+          }
+          break;
+        case 'en':
+          if($value->$description=='') {
+            if($value->description_pa=='') {
+              $description_value = $value->description_dr;
+            }
+            else{
+              $description_value = $value->description_pa;
+            }
+          }
+          else {
+            $description_value = $value->$description;
+          }
+          break;
+      }
        ?>
     <tr>
       <td><div style="width:60em" class="test"><?php echo $description_value; ?></div></td>

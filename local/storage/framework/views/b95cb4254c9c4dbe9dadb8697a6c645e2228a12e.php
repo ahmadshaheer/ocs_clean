@@ -23,7 +23,7 @@ $i=1;
           <a class="btn btn-<?php echo e(($lang=='dr'?'success':'default')); ?>" href="javascript:void(0)" onclick="show('dr')">Dari</a>
           <a class="btn btn-<?php echo e(($lang=='pa'?'success':'default')); ?>" href="javascript:void(0)" onclick="show('pa')">Pashto</a>
         </div>
-<div class="container pull-left" style="margin:10px;">
+<div class="" style="margin:10px;">
   <?php if(Session::get('role')!='editor'): ?>
   <a class="btn btn-default pull-<?php echo e($dir); ?>" href="javascript:void(0)" onclick="create('<?php echo e($lang); ?>')" style="margin-bottom: 10px;">Create</a>
   <?php endif; ?>

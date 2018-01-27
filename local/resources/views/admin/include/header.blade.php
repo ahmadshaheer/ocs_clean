@@ -46,7 +46,10 @@ div.mce-fullscreen {
 }
 @media (min-width: 1200px) {
   .col-lg-6,.col-md-6 {
-    width: 55.3%;
+    width: 810px;
+  }
+  .col-lg-3 {
+    width:14%;
   }
 }
 .test img{
@@ -271,12 +274,14 @@ footer.timeline-Footer.u-cf {
                         <span>Quotes</span>
                     </a>
                 </li>
+                @if(Session::get('role')=='admin')
                 <li>
                     <a href="{{route('users')}}">
                         <i class="fa fa-user-plus"></i>
                         <span>Users</span>
                     </a>
                 </li>
+                @endif
             </ul>
         </div>
         <!-- sidebar menu end-->

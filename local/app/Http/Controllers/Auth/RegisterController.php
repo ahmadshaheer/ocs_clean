@@ -76,22 +76,21 @@ class RegisterController extends Controller
     protected function show_register() {
         return view('admin.register');
     }
-<<<<<<< HEAD
-    protected function register(Request $request) {
+//     protected function register(Request $request) {
 
-        $this->validate($request,[
-          'name'=>'required',
-          'email'=>'required|unique:users|max:30',
-          'password'=>'required|confirmed|min:8'
-        ]);
-        $user = new User();
-        $user->name = $request->input('name');
-        $user->email = $request->input('email');
-        $user->password = Hash::make($request->input('password'));
-        $user->role = $request->input('role');
-        $user->save();
-        return Redirect()->Route('users');
-=======
+//         $this->validate($request,[
+//           'name'=>'required',
+//           'email'=>'required|unique:users|max:30',
+//           'password'=>'required|confirmed|min:8'
+//         ]);
+//         $user = new User();
+//         $user->name = $request->input('name');
+//         $user->email = $request->input('email');
+//         $user->password = Hash::make($request->input('password'));
+//         $user->role = $request->input('role');
+//         $user->save();
+//         return Redirect()->Route('users');
+// =======
     protected function register() {
       
         $name = $_POST['name'];
@@ -123,6 +122,5 @@ class RegisterController extends Controller
             Session::flash('bad_match','Passwords Do not Match');
             return Redirect()->Route('register_user');
         }
->>>>>>> 5eca33ae590378911d6ea862350fa1380a487053
     }
 }

@@ -1,10 +1,17 @@
 <?php echo $__env->make('admin.include.header', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
-<?php $session = Session::get('lang'); ?>
+<?php
+$session = Session::get('lang');
+global $jdate;
+ ?>
 
 <style>
     .file {
       visibility: hidden;
       position: absolute;
+    }
+    
+    #image_upload {
+      display: none;
     }
 </style>
 <!--main content start-->
@@ -34,16 +41,28 @@
                                       <input class=" form-control rtl" maxlength="150" value="<?php echo e($document->title_dr); ?>" id="title_dr" name="title_dr" type="text">
                                   </div>
                               </div>
-                              <div class="form-group ">
+                              <div class="form-group form-check">
+                                <label class="col-lg-6 col-md-offset-1 form-check-label">
+                                  <input type="checkbox" id="change_date" name="change_date" class="form-check-input">
+                                  Change Date?
+                                </label>
+                              </div>
+                              <div class="form-group date_dari">
                                   <label for="date_dr" class="control-label col-lg-3">Date Dari</label>
                                   <div class="col-lg-6">
-                                      <input class=" form-control date_dr rtl" id="date_dr" vlaue="<?php echo e($document->date_dr); ?>" name="date_dr" type="text">
+                                    <input class="form-control change_date" disabled id="date_dr" value="<?php echo e($jdate->detailedDate($document->date_dr,$session)); ?>"  name="date_dr" type="text" required>
                                   </div>
                               </div>
-                              <div class="form-group">
-                              <label for="pdf_dr" class="control-label col-lg-3">PDF Dari</label>
-                                  <input type="file" name="pdf_dr" value="<?php echo e($document->pdf_dr); ?>" class="file">
-                                  <div class="input-group col-md-6 col-md-offset-3 col-xs-12" style="padding-left:15px; padding-right:14px;">
+                              <div class="form-group form-check">
+                                  <label class="col-lg-6 col-md-offset-1 form-check-label">
+                                    <input type="checkbox" id="replace_image" name="replace" class="form-check-input">
+                                    Replace PDF?
+                                  </label>
+                                </div>
+                              <div class="form-group" id="image_upload">
+                                  <label for="pdf_en" class="control-label col-lg-3">PDF English</label>
+                                  <input type="file" name="pdf_en" value="<?php echo e($document->pdf_en); ?>" class="file">
+                                  <div class="input-group col-md-6 col-md-offset-1 col-xs-12" style="padding-left:15px; padding-right:14px;">
                                     <span class="input-group-addon"><i class="fa fa-file-image-o"></i></span>
                                     <input type="text" class="form-control input-lg" disabled placeholder="Update PDF">
                                     <span class="input-group-btn">
@@ -59,17 +78,29 @@
                                   </div>
                               </div>
 
-                              <div class="form-group ">
+                              <div class="form-group form-check">
+                                <label class="col-lg-6 col-md-offset-1 form-check-label">
+                                  <input type="checkbox" id="change_date" name="change_date" class="form-check-input">
+                                  Change Date?
+                                </label>
+                              </div>
+                              <div class="form-group date_dari">
                                   <label for="date_dr" class="control-label col-lg-3">Date Pashto</label>
                                   <div class="col-lg-6">
-                                      <input class=" form-control date_dr rtl" id="date_dr" vlaue="<?php echo e($document->date_dr); ?>" name="date_dr" type="text">
+                                    <input class="form-control change_date" disabled id="date_dr" value="<?php echo e($jdate->detailedDate($document->date_dr,$session)); ?>"  name="date_dr" type="text" required>
                                   </div>
                               </div>
 
-                              <div class="form-group">
-                                  <label for="pdf_pa" class="control-label col-lg-3">PDF Pashto</label>
-                                  <input type="file" name="pdf_pa" value="<?php echo e($document->pdf_pa); ?>" class="file">
-                                  <div class="input-group col-md-6 col-md-offset-3 col-xs-12" style="padding-left:15px; padding-right:14px;">
+                              <div class="form-group form-check">
+                                  <label class="col-lg-6 col-md-offset-1 form-check-label">
+                                    <input type="checkbox" id="replace_image" name="replace" class="form-check-input">
+                                    Replace PDF?
+                                  </label>
+                                </div>
+                              <div class="form-group" id="image_upload">
+                                  <label for="pdf_en" class="control-label col-lg-3">PDF English</label>
+                                  <input type="file" name="pdf_en" value="<?php echo e($document->pdf_en); ?>" class="file">
+                                  <div class="input-group col-md-6 col-md-offset-1 col-xs-12" style="padding-left:15px; padding-right:14px;">
                                     <span class="input-group-addon"><i class="fa fa-file-image-o"></i></span>
                                     <input type="text" class="form-control input-lg" disabled placeholder="Update PDF">
                                     <span class="input-group-btn">
@@ -91,10 +122,16 @@
                                       <input class=" form-control" id="date" name="date" value="<?php echo e($document->date_en); ?>" type="date" required>
                                   </div>
                               </div>
-                              <div class="form-group">
+                              <div class="form-group form-check">
+                                  <label class="col-lg-6 col-md-offset-1 form-check-label">
+                                    <input type="checkbox" id="replace_image" name="replace" class="form-check-input">
+                                    Replace PDF?
+                                  </label>
+                                </div>
+                              <div class="form-group" id="image_upload">
                                   <label for="pdf_en" class="control-label col-lg-3">PDF English</label>
                                   <input type="file" name="pdf_en" value="<?php echo e($document->pdf_en); ?>" class="file">
-                                  <div class="input-group col-md-6 col-md-offset-3 col-xs-12" style="padding-left:15px; padding-right:14px;">
+                                  <div class="input-group col-md-6 col-md-offset-1 col-xs-12" style="padding-left:15px; padding-right:14px;">
                                     <span class="input-group-addon"><i class="fa fa-file-image-o"></i></span>
                                     <input type="text" class="form-control input-lg" disabled placeholder="Update PDF">
                                     <span class="input-group-btn">
@@ -106,6 +143,7 @@
                             <div class="form-group">
                                 <div class="col-lg-offset-3 col-lg-6">
                                     <button class="btn btn-primary" type="submit">Update</button>
+                                    <a href="javascript:void(0)" onclick="clearForm()" class="btn btn-warning"  type="button">Clear All</a>
                                     <a href="<?php echo e(url()->previous()); ?>" class="btn btn-default"  type="button">Cancel</a>
                                 </div>
                             </div>

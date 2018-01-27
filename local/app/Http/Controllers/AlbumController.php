@@ -175,7 +175,9 @@ class AlbumController extends Controller
         ]);
         //if passed the validation then
         $album->title_dr = $request->input('title_dr');
+        if($request->date_dr!=null) {
         $album->date_dr = $request->input('date_dr');
+        }
       }
       else if($lang=='pa') {
         $this->validate($request, [
@@ -185,7 +187,9 @@ class AlbumController extends Controller
         ]);
         //if passed the validation then
         $album->title_pa = $request->input('title_pa');
-        $album->date_pa = $request->input('date_dr');
+        if($request->date_pa!=null) {
+          $album->date_pa = $request->input('date_pa');
+        }
       }
 
         $search_image = '';

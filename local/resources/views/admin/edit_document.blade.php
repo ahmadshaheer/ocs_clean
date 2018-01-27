@@ -9,6 +9,10 @@ global $jdate;
       visibility: hidden;
       position: absolute;
     }
+    
+    #image_upload {
+      display: none;
+    }
 </style>
 <!--main content start-->
 <section id="main-content">
@@ -37,7 +41,7 @@ global $jdate;
                                   </div>
                               </div>
                               <div class="form-group form-check">
-                                <label class="col-lg-6 col-md-offset-3 form-check-label">
+                                <label class="col-lg-6 col-md-offset-1 form-check-label">
                                   <input type="checkbox" id="change_date" name="change_date" class="form-check-input">
                                   Change Date?
                                 </label>
@@ -48,10 +52,16 @@ global $jdate;
                                     <input class="form-control change_date" disabled id="date_dr" value="{{$jdate->detailedDate($document->date_dr,$session)}}"  name="date_dr" type="text" required>
                                   </div>
                               </div>
-                              <div class="form-group">
-                              <label for="pdf_dr" class="control-label col-lg-3">PDF Dari</label>
-                                  <input type="file" name="pdf_dr" value="{{$document->pdf_dr}}" class="file">
-                                  <div class="input-group col-md-6 col-md-offset-3 col-xs-12" style="padding-left:15px; padding-right:14px;">
+                              <div class="form-group form-check">
+                                  <label class="col-lg-6 col-md-offset-1 form-check-label">
+                                    <input type="checkbox" id="replace_image" name="replace" class="form-check-input">
+                                    Replace PDF?
+                                  </label>
+                                </div>
+                              <div class="form-group" id="image_upload">
+                                  <label for="pdf_en" class="control-label col-lg-3">PDF English</label>
+                                  <input type="file" name="pdf_en" value="{{$document->pdf_en}}" class="file">
+                                  <div class="input-group col-md-6 col-md-offset-1 col-xs-12" style="padding-left:15px; padding-right:14px;">
                                     <span class="input-group-addon"><i class="fa fa-file-image-o"></i></span>
                                     <input type="text" class="form-control input-lg" disabled placeholder="Update PDF">
                                     <span class="input-group-btn">
@@ -68,7 +78,7 @@ global $jdate;
                               </div>
 
                               <div class="form-group form-check">
-                                <label class="col-lg-6 col-md-offset-3 form-check-label">
+                                <label class="col-lg-6 col-md-offset-1 form-check-label">
                                   <input type="checkbox" id="change_date" name="change_date" class="form-check-input">
                                   Change Date?
                                 </label>
@@ -80,10 +90,16 @@ global $jdate;
                                   </div>
                               </div>
 
-                              <div class="form-group">
-                                  <label for="pdf_pa" class="control-label col-lg-3">PDF Pashto</label>
-                                  <input type="file" name="pdf_pa" value="{{$document->pdf_pa}}" class="file">
-                                  <div class="input-group col-md-6 col-md-offset-3 col-xs-12" style="padding-left:15px; padding-right:14px;">
+                              <div class="form-group form-check">
+                                  <label class="col-lg-6 col-md-offset-1 form-check-label">
+                                    <input type="checkbox" id="replace_image" name="replace" class="form-check-input">
+                                    Replace PDF?
+                                  </label>
+                                </div>
+                              <div class="form-group" id="image_upload">
+                                  <label for="pdf_en" class="control-label col-lg-3">PDF English</label>
+                                  <input type="file" name="pdf_en" value="{{$document->pdf_en}}" class="file">
+                                  <div class="input-group col-md-6 col-md-offset-1 col-xs-12" style="padding-left:15px; padding-right:14px;">
                                     <span class="input-group-addon"><i class="fa fa-file-image-o"></i></span>
                                     <input type="text" class="form-control input-lg" disabled placeholder="Update PDF">
                                     <span class="input-group-btn">
@@ -105,10 +121,16 @@ global $jdate;
                                       <input class=" form-control" id="date" name="date" value="{{$document->date_en}}" type="date" required>
                                   </div>
                               </div>
-                              <div class="form-group">
+                              <div class="form-group form-check">
+                                  <label class="col-lg-6 col-md-offset-1 form-check-label">
+                                    <input type="checkbox" id="replace_image" name="replace" class="form-check-input">
+                                    Replace PDF?
+                                  </label>
+                                </div>
+                              <div class="form-group" id="image_upload">
                                   <label for="pdf_en" class="control-label col-lg-3">PDF English</label>
                                   <input type="file" name="pdf_en" value="{{$document->pdf_en}}" class="file">
-                                  <div class="input-group col-md-6 col-md-offset-3 col-xs-12" style="padding-left:15px; padding-right:14px;">
+                                  <div class="input-group col-md-6 col-md-offset-1 col-xs-12" style="padding-left:15px; padding-right:14px;">
                                     <span class="input-group-addon"><i class="fa fa-file-image-o"></i></span>
                                     <input type="text" class="form-control input-lg" disabled placeholder="Update PDF">
                                     <span class="input-group-btn">
@@ -120,6 +142,7 @@ global $jdate;
                             <div class="form-group">
                                 <div class="col-lg-offset-3 col-lg-6">
                                     <button class="btn btn-primary" type="submit">Update</button>
+                                    <a href="javascript:void(0)" onclick="clearForm()" class="btn btn-warning"  type="button">Clear All</a>
                                     <a href="{{url()->previous()}}" class="btn btn-default"  type="button">Cancel</a>
                                 </div>
                             </div>

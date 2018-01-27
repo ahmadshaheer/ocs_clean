@@ -7,7 +7,7 @@
         <div class="row">
           <h2 class="ui block header">Media Directorate</h2>
         </div>
-<div class="container pull-left" style="margin:10px;">
+<div class="" style="margin:10px;">
   <?php if(sizeof($media)==0 && Session::get('role')!='editor'): ?>
     <div class="ui form">
     <div class="eight fields">

@@ -1,5 +1,6 @@
 <?php echo $__env->make('admin.include.header', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
-<?php $session = Session::get('lang'); ?>
+<?php $session = Session::get('lang');
+global $jdate; ?>
 
 <style>
     .file {
@@ -27,14 +28,18 @@
                                       <input class=" form-control rtl" maxlength="150" value="<?php echo e($video->title_dr); ?>" id="title_dr" name="title_dr" type="text">
                                   </div>
                               </div>
-
-                              <div class="form-group ">
+                              <div class="form-group form-check">
+                                <label class="col-lg-6 col-md-offset-1 form-check-label">
+                                  <input type="checkbox" id="change_date" name="change_date" class="form-check-input">
+                                  Change Date?
+                                </label>
+                              </div>
+                              <div class="form-group date_dari">
                                   <label for="date_dr" class="control-label col-lg-3">Date Dari</label>
                                   <div class="col-lg-6">
-                                      <input class=" form-control date_dr rtl" id="date_dr" vlaue="<?php echo e($video->date_dr); ?>" name="date_dr" type="text">
+                                    <input class="form-control change_date" disabled id="date_dr" value="<?php echo e($jdate->detailedDate($video->date_dr,$session)); ?>"  name="date_dr" type="text" required>
                                   </div>
                               </div>
-
                               <div class="form-group" style="margin-left:.25%;">
                                 <label for="video_dr" class="control-label col-lg-3" style="padding-right:30px;">Video Dari</label>
                                 <div class="input-group" style="width:48.7%;margin-bottom:0;">
@@ -50,15 +55,18 @@
                                       <input class=" form-control rtl" maxlength="150" id="title_pa" value="<?php echo e($video->title_pa); ?>" name="title_pa" type="text">
                                   </div>
                               </div>
-
-                              <div class="form-group ">
+                              <div class="form-group form-check">
+                                <label class="col-lg-6 col-md-offset-1 form-check-label">
+                                  <input type="checkbox" id="change_date" name="change_date" class="form-check-input">
+                                  Change Date?
+                                </label>
+                              </div>
+                              <div class="form-group date_dari">
                                   <label for="date_dr" class="control-label col-lg-3">Date Pashto</label>
                                   <div class="col-lg-6">
-                                      <input class=" form-control date_dr rtl" id="date_dr" vlaue="<?php echo e($video->date_dr); ?>" name="date_dr" type="text">
+                                    <input class="form-control change_date" disabled id="date_dr" value="<?php echo e($jdate->detailedDate($video->date_dr,$session)); ?>"  name="date_dr" type="text" required>
                                   </div>
                               </div>
-
-
                               <div class="form-group" style="margin-left:.25%;">
                                 <label for="video_pa" class="control-label col-lg-3" style="padding-right:30px;">Video Pashto</label>
                                 <div class="input-group" style="width:48.7%;margin-bottom:0;">
@@ -95,6 +103,7 @@
                                     <div class="form-group">
                                       <div class="col-lg-offset-3 col-lg-6">
                                           <button class="btn btn-primary" type="submit">Update</button>
+                                          <a href="javascript:void(0)" onclick="clearForm()" class="btn btn-warning"  type="button">Clear All</a>
                                           <a href="<?php echo e(url()->previous()); ?>" class="btn btn-default"  type="button">Cancel</a>
                                       </div>
                                     </div>

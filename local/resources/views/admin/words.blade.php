@@ -27,9 +27,9 @@ $i=1;
           <a class="btn btn-{{($lang=='dr'?'success':'default')}}" href="javascript:void(0)" onclick="show('dr')">Dari</a>
           <a class="btn btn-{{($lang=='pa'?'success':'default')}}" href="javascript:void(0)" onclick="show('pa')">Pashto</a>
         </div>
-<div class="container pull-left" style="margin:10px;">
+<div class="container" style="margin:10px;">
 @if(Session::get('role')!='editor')
-  <a class="btn btn-default pull-{{$dir}}" href="javascript:void(0)" onclick="create('{{$lang}}')" style="margin-bottom: 10px;">Create</a>
+  <a class="btn btn-default pull-left" href="javascript:void(0)" onclick="create('{{$lang}}')" style="margin-bottom: 10px;">Create</a>
 @endif
 </div>
 <table class="table table-bordered" style="direction: {{$direction}}">

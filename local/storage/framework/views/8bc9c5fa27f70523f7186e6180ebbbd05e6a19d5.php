@@ -1,9 +1,13 @@
 <?php echo $__env->make('admin.include.header', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
-<?php $session = Session::get('lang'); ?>
+<?php $session = Session::get('lang');
+global $jdate; ?>
 <style>
     .file {
       visibility: hidden;
       position: absolute;
+    }
+    #image_upload {
+      display: none;
     }
 
 
@@ -34,14 +38,18 @@
                                           <input class=" form-control rtl" id="title_dr" value="<?php echo e($trip->title_dr); ?>" name="title_dr" type="text">
                                       </div>
                                   </div>
-
-                                  <div class="form-group ">
-                                      <label for="date_dr" class="control-label col-lg-3">Date Dari</label>
-                                      <div class="col-lg-6">
-                                          <input class=" form-control date_dr rtl"  id="date_dr" value="<?php echo e($trip->date_dr); ?>" name="date_dr" type="text">
+                                  <div class="form-group form-check">
+                                        <label class="col-lg-6 col-md-offset-1 form-check-label">
+                                          <input type="checkbox" id="change_date" name="change_date" class="form-check-input">
+                                          Change Date?
+                                        </label>
                                       </div>
-                                  </div>
-
+                                      <div class="form-group date_dari">
+                                          <label for="date_dr" class="control-label col-lg-3">Date Dari</label>
+                                          <div class="col-lg-6">
+                                            <input class="form-control change_date" disabled id="date_dr" value="<?php echo e($jdate->detailedDate($trip->date_dr,$session)); ?>"  name="date_dr" type="text" required>
+                                          </div>
+                                      </div>
                                   <div class="form-group ">
                                       <label for="short_desc_dr" class="control-label col-lg-3">Short Description Dari</label>
                                       <div class="col-lg-6">
@@ -63,13 +71,18 @@
                                           <input class=" form-control rtl" id="title_pa" value="<?php echo e($trip->title_pa); ?>" name="title_pa" type="text">
                                       </div>
                                   </div>
-
-                                  <div class="form-group ">
-                                      <label for="date_dr" class="control-label col-lg-3">Date Pashto</label>
-                                      <div class="col-lg-6">
-                                          <input class=" form-control date_dr rtl"  id="date_dr" value="<?php echo e($trip->date_dr); ?>" name="date_dr" type="text">
+                                  <div class="form-group form-check">
+                                        <label class="col-lg-6 col-md-offset-1 form-check-label">
+                                          <input type="checkbox" id="change_date" name="change_date" class="form-check-input">
+                                          Change Date?
+                                        </label>
                                       </div>
-                                  </div>
+                                      <div class="form-group date_dari">
+                                          <label for="date_dr" class="control-label col-lg-3">Date Pashto</label>
+                                          <div class="col-lg-6">
+                                            <input class="form-control change_date" disabled id="date_dr" value="<?php echo e($jdate->detailedDate($trip->date_dr,$session)); ?>"  name="date_dr" type="text" required>
+                                          </div>
+                                      </div>
 
                                   <div class="form-group ">
                                       <label for="short_desc_pa" class="control-label col-lg-3">Short Description Pashto</label>
@@ -113,11 +126,16 @@
                                   </div>
                                 <?php endif; ?>
                                 <input name="_method" type="hidden" value="PATCH">
-
-                                    <div class="form-group">
+                                   <div class="form-group form-check">
+                                      <label class="col-lg-6 col-md-offset-1 form-check-label">
+                                        <input type="checkbox" id="replace_image" name="replace" class="form-check-input">
+                                        Replace Image?
+                                      </label>
+                                    </div>
+                                    <div class="form-group" id="image_upload">
                                         <label for="image" class="control-label col-lg-3">Image</label>
                                         <input type="file" name="image" class="file" value="">
-                                        <div class="input-group col-md-6 col-md-offset-3 col-xs-12" style="padding-left:15px; padding-right:14px;">
+                                        <div class="input-group col-md-6 col-md-offset-1 col-xs-12" style="padding-left:15px; padding-right:14px;">
                                           <span class="input-group-addon"><i class="fa fa-file-image-o"></i></span>
                                           <input type="text" class="form-control input-lg" disabled placeholder="Upload Image">
                                           <span class="input-group-btn">
@@ -130,6 +148,7 @@
                                     <div class="form-group">
                                         <div class="col-lg-offset-3 col-lg-6">
                                             <button class="btn btn-primary" type="submit">Update</button>
+                                            <a href="javascript:void(0)" onclick="clearForm()" class="btn btn-warning"  type="button">Clear All</a>
                                             <a href="<?php echo e(url()->previous()); ?>" class="btn btn-default"  type="button">Cancel</a>
                                         </div>
                                     </div>

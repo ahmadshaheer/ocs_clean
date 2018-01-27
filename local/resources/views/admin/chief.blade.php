@@ -26,9 +26,9 @@ else{
           <a class="btn btn-{{($lang=='dr'?'success':'default')}}" href="javascript:void(0)" onclick="show('dr')">Dari</a>
           <a class="btn btn-{{($lang=='pa'?'success':'default')}}" href="javascript:void(0)" onclick="show('pa')">Pashto</a>
         </div>
-<div class="container pull-left" style="margin:10px;">
+<div class="" style="margin:10px;">
   @if(sizeof($chief)==0 && Session::get('role')!='editor')
-    <a class="btn btn-default pull-{{$dir}}" href="javascript:void(0)" onclick="create('{{$lang}}')" style="margin-bottom: 10px;">Create</a>
+    <a class="btn btn-default pull-left" href="javascript:void(0)" onclick="create('{{$lang}}')" style="margin-bottom: 10px;">Create</a>
     @endif
 </div>
 <table class="table table-bordered" style="direction: {{$direction}}">
@@ -39,21 +39,49 @@ else{
   </thead>
   <tbody>
     @foreach($chief as $value)
-     <?php
-       if($value->$description==''){
-          if($value->description_en=='' && $value->description_dr!=''){
-          $description_value = $value->description_dr;
-        }
-        else if($value->description_en=='' && $value->description_dr ==''){
-         $description_value = $value->description_pa; 
-        }
-        else if($value->description_en=='' && $value->description_dr =='' && $value->description_pa=''){
-          continue;
-        }
-       }
-       else{
-          $description_value = $value->$description;
-       }
+      <?php
+    $description_value ='';
+      switch ($lang) {
+        case 'dr':
+          if($value->$description=='') {
+            if($value->description_pa=='') {
+              $description_value = $value->description_en;
+            }
+            else{
+              $description_value = $value->description_pa;
+            }
+          }
+          else {
+            $description_value = $value->$description_val;
+          }
+          break;
+        case 'pa':
+          if($value->$description=='') {
+            if($value->description_dr=='') {
+              $description_value = $value->description_en;
+            }
+            else{
+              $description_value = $value->description_dr;
+            }
+          }
+          else {
+            $description_value = $value->$description;
+          }
+          break;
+        case 'en':
+          if($value->$description=='') {
+            if($value->description_pa=='') {
+              $description_value = $value->description_dr;
+            }
+            else{
+              $description_value = $value->description_pa;
+            }
+          }
+          else {
+            $description_value = $value->$description;
+          }
+          break;
+      }
        ?>
     <tr>
       <td><div style="width:60em" class="test">{!!$description_value!!}</div></td>

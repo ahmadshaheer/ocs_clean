@@ -121,25 +121,22 @@
         loop:true,
         margin: 10,
         autoplay:true,
-        autoHeight:false,
+        // autoHeight:false,
         merge:true,
         dots:true,
-        navSpeed:5000,
+        navSpeed:10000,
         autoplaySpeed:1000,
-        responsiveClass:true,
-        responsive: {
-          0: {
-            items:1,
-            // loop:false
-          },
-          480: {
-            items:2
-          },
-          768: {
-
-          }
-
-        }
+        // responsiveClass:true,
+        // responsive: {
+        //   0: {
+        //     items:1,
+        //     // loop:false
+        //   },
+        //   768: {
+        //     items:1,
+        //   }
+        //
+        // }
     });
     $('.owl-carousel blockquote').on('mouseover', function (e){
       $('.owl-carousel').trigger('stop.owl.autoplay');

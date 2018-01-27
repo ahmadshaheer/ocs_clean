@@ -1,5 +1,11 @@
 <?php echo $__env->make('admin.include.header', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
-<?php $lang = Session::get('view_lang');
+<?php 
+if(Session::get('view_lang')==''){
+  $lang='en';
+}
+else{
+  $lang = Session::get('view_lang');
+}
 $title = "title_".$lang;
 $date = "date_".$lang;
 $short_desc = "short_desc_".$lang;
@@ -23,9 +29,9 @@ $i=1;
           <a class="btn btn-<?php echo e(($lang=='dr'?'success':'default')); ?>" href="javascript:void(0)" onclick="show('dr')">Dari</a>
           <a class="btn btn-<?php echo e(($lang=='pa'?'success':'default')); ?>" href="javascript:void(0)" onclick="show('pa')">Pashto</a>
         </div>
-<div class="container pull-left" style="margin:10px;">
+<div class="" style="margin:10px;">
   <?php if(Session::get('role')!='editor'): ?>
-  <a class="btn btn-default pull-<?php echo e($dir); ?>" href="javascript:void(0)" onclick="create('<?php echo e($lang); ?>')" style="margin-bottom: 10px;">Create</a>
+  <a class="btn btn-default pull-left" href="javascript:void(0)" onclick="create('<?php echo e($lang); ?>')" style="margin-bottom: 10px;">Create</a>
   <?php endif; ?>
   </div>
   <table class="table table-bordered" style="direction: <?php echo e($direction); ?>">
@@ -41,20 +47,48 @@ $i=1;
     <tbody>
       <?php $__currentLoopData = $messages; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
         <?php
-       if($value->$title==''){
-          if($value->title_en=='' && $value->title_dr!=''){
-          $title_value = $value->title_dr;
-        }
-        else if($value->title_en=='' && $value->title_dr ==''){
-         $title_value = $value->title_pa; 
-        }
-        else if($value->title_en=='' && $value->title_dr =='' && $value->title_pa=''){
-          continue;
-        }
-       }
-       else{
-          $title_value = $value->$title;
-       }
+    $title_value ='';
+      switch ($lang) {
+        case 'dr':
+          if($value->$title=='') {
+            if($value->title_pa=='') {
+              $title_value = $value->title_en;
+            }
+            else{
+              $title_value = $value->title_pa;
+            }
+          }
+          else {
+            $title_value = $value->$title;
+          }
+          break;
+        case 'pa':
+          if($value->$title=='') {
+            if($value->title_dr=='') {
+              $title_value = $value->title_en;
+            }
+            else{
+              $title_value = $value->title_dr;
+            }
+          }
+          else {
+            $title_value = $value->$title;
+          }
+          break;
+        case 'en':
+          if($value->$title=='') {
+            if($value->title_pa=='') {
+              $title_value = $value->title_dr;
+            }
+            else{
+              $title_value = $value->title_pa;
+            }
+          }
+          else {
+            $title_value = $value->$title;
+          }
+          break;
+      }
        ?>
       <tr>
         <td><?php echo e($i++); ?></td>

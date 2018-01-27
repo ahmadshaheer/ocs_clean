@@ -8,7 +8,7 @@
 <!--main content end-->
 </section>
 <script src="{{asset('assets/admin-asset/js/jquery.min.js')}}"></script>
-{{-- <script src="{{asset('assets/js/semantic.min.js')}}"></script> --}}
+<script src="{{asset('assets/js/semantic.min.js')}}"></script>
 <script src="{{asset('assets/admin-asset/js/persian-datepicker-0.4.5.min.js')}}"></script>
 <script src="{{asset('assets/admin-asset/js/persian-date.js')}}"></script>
 <script src="{{asset('assets/admin-asset/js/jquery.dcjqaccordion.2.7.js')}}"></script>

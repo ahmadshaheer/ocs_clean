@@ -418,6 +418,32 @@ Route::get('language',[
 
 Route::group(['middleware'=>['chk_usr']],function(){
 
+	Route::group(['middleware'=>['chk_admin']],function(){
+
+		// Auth Routes
+
+
+	Route::get('register','Auth\RegisterController@show_register')->name('register_user');
+	Route::post('register','Auth\RegisterController@register')->name('register');
+
+	Route::get('admin/users',function(){
+		$users = User::all();
+		return view('admin.users')->with('users',$users);
+	})->name('users');
+
+	Route::delete('delete_user/{id?}','Auth\LoginController@destroy')->name('delete_user');
+	Route::get('edit_user/{id?}','Auth\LoginController@edit_user')->name('edit_user');
+	Route::any('update_user/{id?}','Auth\LoginController@update_user')->name('update_user');
+	Route::get('logout','Auth\LoginController@logout')->name('logout');
+
+	// Form Registered Route
+
+	Route::get('admin/view_media_register','MediaRegisterationController@view_media')->name('view_media_register');
+	Route::get('admin/view_journalist_register','MediaRegisterationController@view_journalist')->name('view_journalist_register');
+	Route::get('admin/view_expert_register','MediaRegisterationController@view_expert')->name('view_expert_register');
+
+	});
+
 
 	Route::get('admin',function(){
 		return view('admin.index');
@@ -470,28 +496,6 @@ Route::group(['middleware'=>['chk_usr']],function(){
 
 	Route::get('admin/news','MediaController@news')->name('admin_news');
 	Route::get('admin/articles','MediaController@articles')->name('admin_article');
-
-	// Auth Routes
-
-
-	Route::get('register','Auth\RegisterController@show_register')->name('register_user');
-	Route::post('register','Auth\RegisterController@register')->name('register');
-
-	Route::get('admin/users',function(){
-		$users = User::all();
-		return view('admin.users')->with('users',$users);
-	})->name('users');
-
-	Route::delete('delete_user/{id?}','Auth\LoginController@destroy')->name('delete_user');
-	Route::get('edit_user/{id?}','Auth\LoginController@edit_user')->name('edit_user');
-	Route::any('update_user/{id?}','Auth\LoginController@update_user')->name('update_user');
-	Route::get('logout','Auth\LoginController@logout')->name('logout');
-
-	// Form Registered Route
-
-	Route::get('admin/view_media_register','MediaRegisterationController@view_media')->name('view_media_register');
-	Route::get('admin/view_journalist_register','MediaRegisterationController@view_journalist')->name('view_journalist_register');
-	Route::get('admin/view_expert_register','MediaRegisterationController@view_expert')->name('view_expert_register');
 
 
 Route::get('admin/set_session_all',function(){

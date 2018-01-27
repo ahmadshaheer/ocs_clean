@@ -27,9 +27,9 @@ $i=1;
           <a class="btn btn-<?php echo e(($lang=='dr'?'success':'default')); ?>" href="javascript:void(0)" onclick="show('dr')">Dari</a>
           <a class="btn btn-<?php echo e(($lang=='pa'?'success':'default')); ?>" href="javascript:void(0)" onclick="show('pa')">Pashto</a>
         </div>
-<div class="container pull-left" style="margin:10px;">
+<div class="" style="margin:10px;">
   <?php if($bio==null && Session::get('role')!='editor'): ?>
-    <a class="btn btn-default pull-<?php echo e($dir); ?>" href="javascript:void(0)" onclick="create('<?php echo e($lang); ?>')" style="margin-bottom: 10px;">Create</a>
+    <a class="btn btn-default pull-left" href="javascript:void(0)" onclick="create('<?php echo e($lang); ?>')" style="margin-bottom: 10px;">Create</a>
     <?php endif; ?>
 </div>
 <table class="table table-bordered" style="direction: <?php echo e($direction); ?>">
@@ -40,21 +40,50 @@ $i=1;
   </thead>
   <tbody>
     <?php $__currentLoopData = $bio; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-      <?php
-       if($value->$bio_val==''){
-          if($value->bio_en=='' && $value->bio_dr!=''){
-          $bio_value = $value->bio_dr;
-        }
-        else if($value->bio_en=='' && $value->bio_dr ==''){
-         $bio_value = $value->bio_pa; 
-        }
-        else if($value->bio_en=='' && $value->bio_dr =='' && $value->bio_pa=''){
-          continue;
-        }
-       }
-       else{
-          $bio_value = $value->$bio_val;
-       }
+
+       <?php
+    $title_value ='';
+      switch ($lang) {
+        case 'dr':
+          if($value->$bio_val=='') {
+            if($value->bio_pa=='') {
+              $bio_value = $value->bio_en;
+            }
+            else{
+              $bio_value = $value->bio_pa;
+            }
+          }
+          else {
+            $bio_value = $value->$bio_val;
+          }
+          break;
+        case 'pa':
+          if($value->$bio_val=='') {
+            if($value->bio_dr=='') {
+              $bio_value = $value->bio_en;
+            }
+            else{
+              $bio_value = $value->bio_dr;
+            }
+          }
+          else {
+            $bio_value = $value->$bio;
+          }
+          break;
+        case 'en':
+          if($value->$bio_val=='') {
+            if($value->bio_pa=='') {
+              $bio_value = $value->bio_dr;
+            }
+            else{
+              $bio_value = $value->bio_pa;
+            }
+          }
+          else {
+            $bio_value = $value->$bio;
+          }
+          break;
+      }
        ?>
     <tr>
       <td><?php echo e($i++); ?></td>

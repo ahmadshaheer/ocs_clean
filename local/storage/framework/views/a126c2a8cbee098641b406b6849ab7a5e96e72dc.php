@@ -1,3 +1,7 @@
+<?php
+  global $jdate;
+  use App\Http\Controllers\DateChanger;
+  $jdate = new DateChanger(); ?>
 <!DOCTYPE HTML>
 <head>
 <title>OCS Admin Panel</title>
@@ -42,7 +46,10 @@ div.mce-fullscreen {
 }
 @media (min-width: 1200px) {
   .col-lg-6,.col-md-6 {
-    width:46%;
+    width: 810px;
+  }
+  .col-lg-3 {
+    width:14%;
   }
 }
 .test img{
@@ -52,6 +59,14 @@ footer.timeline-Footer.u-cf {
     display: none !important;
 
 }
+.change_date {
+  direction: rtl;
+}
+/*iframe.desc_dr_ifr{
+  background:red !important;
+
+}*/
+
 </style>
 
 </head>
@@ -254,12 +269,14 @@ footer.timeline-Footer.u-cf {
                         <span>Quotes</span>
                     </a>
                 </li>
+                <?php if(Session::get('role')=='admin'): ?>
                 <li>
                     <a href="<?php echo e(route('users')); ?>">
                         <i class="fa fa-user-plus"></i>
                         <span>Users</span>
                     </a>
                 </li>
+                <?php endif; ?>
             </ul>
         </div>
         <!-- sidebar menu end-->

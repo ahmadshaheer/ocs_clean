@@ -84,21 +84,31 @@ $pdf = 'pdf_'.$lang;
               <div class="ui items">
                 @if(sizeof($lattest_news)!=0)
                   @foreach($lattest_news as $item)
-                  <?php $url =  ($item->table_name=='documents')?asset('uploads/documents_'.$lang.'/'.$item->table_id.'.pdf'):'';
-                        $img = '';
+                    <?php if($item->$title=='')
+                      continue;?>
+                    
+
+                  <?php
+                     // $url =  ($item->table_name=='documents')?asset('uploads/documents_'.$lang.'/'.$item->table_id.'.pdf'):'';
+                        // $img = '';
                        if($item->table_name=='documents'){
+                          print_r('doc');
                           $img = asset('assets/img/pdf.png');
                         }
                         else if($item->table_name == 'videos'){
-                              $img = "https://img.youtube.com/vi/$item->image_thumb/hqdefault.jpg";
+                          print_r('vid');
+                          $img = "https://img.youtube.com/vi/$item->image_thumb/hqdefault.jpg";
                         }
                          else if($item->type == 'decree' || $item->type=='order'){
-                              $img = asset('assets/img/thumb.jpg');
+                            print_r('dec_ord');
+                            $img = asset('assets/img/thumb.jpg');
                         }
                         else{
                           $img = asset($item->image_thumb);
+                          print_r($img);
                         }
                   ?>
+                  {{-- <h1>{{print_r($item->table_name)}}</h1> --}}
                     @if($item->$title!=null)
                       <div class="news {{($item == $lattest_news->last())?'no_borders':''}}" style="border-bottom:1px dashed #ddd;padding-bottom:10px;">
                         <div class="ui stackable grid" style="display:flex;margin:0 !important;">

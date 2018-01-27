@@ -7,7 +7,7 @@
         <div class="row">
           <h2 class="ui block header">Users</h2>
         </div>
-<div class="container pull-left" style="margin:10px;">
+<div class="" style="margin:10px;">
 <?php if(Session::get('role')!='editor'): ?>
      <a href="<?php echo e(route('register_user')); ?>" class="ui button teal">Create</a>
 <?php endif; ?>

@@ -29,9 +29,9 @@ $i=1;
           <a class="btn btn-{{($lang=='dr'?'success':'default')}}" href="javascript:void(0)" onclick="show('dr')">Dari</a>
           <a class="btn btn-{{($lang=='pa'?'success':'default')}}" href="javascript:void(0)" onclick="show('pa')">Pashto</a>
         </div>
-<div class="container pull-left" style="margin:10px;">
+<div class="" style="margin:10px;">
   @if(Session::get('role')!='editor')
-  <a class="btn btn-default pull-{{$dir}}" href="javascript:void(0)" onclick="create('{{$lang}}')" style="margin-bottom: 10px;">Create</a>
+  <a class="btn btn-default pull-left" href="javascript:void(0)" onclick="create('{{$lang}}')" style="margin-bottom: 10px;">Create</a>
   @endif
 </div>
 <table class="table table-bordered" style="direction: {{$direction}}">
@@ -49,20 +49,48 @@ $i=1;
 
     @foreach($domestic as $value)
     <?php
-       if($value->$title==''){
-          if($value->title_en=='' && $value->title_dr!=''){
-          $title_value = $value->title_dr;
-        }
-        else if($value->title_en=='' && $value->title_dr ==''){
-         $title_value = $value->title_pa; 
-        }
-        else if($value->title_en=='' && $value->title_dr =='' && $value->title_pa=''){
-          continue;
-        }
-       }
-       else{
-          $title_value = $value->$title;
-       }
+    $title_value ='';
+      switch ($lang) {
+        case 'dr':
+          if($value->$title=='') {
+            if($value->title_pa=='') {
+              $title_value = $value->title_en;
+            }
+            else{
+              $title_value = $value->title_pa;
+            }
+          }
+          else {
+            $title_value = $value->$title;
+          }
+          break;
+        case 'pa':
+          if($value->$title=='') {
+            if($value->title_dr=='') {
+              $title_value = $value->title_en;
+            }
+            else{
+              $title_value = $value->title_dr;
+            }
+          }
+          else {
+            $title_value = $value->$title;
+          }
+          break;
+        case 'en':
+          if($value->$title=='') {
+            if($value->title_pa=='') {
+              $title_value = $value->title_dr;
+            }
+            else{
+              $title_value = $value->title_pa;
+            }
+          }
+          else {
+            $title_value = $value->$title;
+          }
+          break;
+      }
        ?>
     <tr>
       <th>{{$i++}}</th>

@@ -1,5 +1,4 @@
 @include('admin.include.header')
-
 <!--main content start-->
 <section id="main-content">
 <section class="wrapper">
@@ -7,7 +6,7 @@
         <div class="row">
           <h2 class="ui block header">Users</h2>
         </div>
-<div class="container pull-left" style="margin:10px;">
+<div class="" style="margin:10px;">
 @if(Session::get('role')!='editor')
      <a href="{{route('register_user')}}" class="ui button teal">Create</a>
 @endif

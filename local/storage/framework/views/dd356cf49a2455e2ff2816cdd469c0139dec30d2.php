@@ -35,32 +35,32 @@ $type = Session::get('type');
                                     <div class="form-group ">
                                         <label for="short_desc_en" class="control-label col-lg-3">President Word</label>
                                         <div class="col-lg-6">
-                                            <textarea name="short_desc_en" class="form-control"></textarea>
+                                            <textarea name="short_desc_en" value="<?php echo e(old('short_desc_en')); ?>" class="form-control"></textarea>
                                         </div>
                                     </div>
                                     <?php else: ?>
                                     <div class="form-group ">
                                         <label for="title" class="control-label col-lg-3">Title</label>
                                         <div class="col-lg-6">
-                                            <input class=" form-control" id="title" name="title_en" type="text">
+                                            <input class=" form-control" id="title" name="title_en" value="<?php echo e(old('title_en')); ?>" type="text">
                                         </div>
                                     </div>
                                     <div class="form-group ">
                                         <label for="date" class="control-label col-lg-3">Date</label>
                                         <div class="col-lg-6">
-                                            <input class=" form-control" id="date"  name="date_en" type="date" >
+                                            <input class=" form-control" id="date"  name="date_en" value="<?php echo e(old('date_en')); ?>" type="date" >
                                         </div>
                                     </div>
                                     <div class="form-group ">
                                         <label for="short_desc_en" class="control-label col-lg-3">Short Description English</label>
                                         <div class="col-lg-6">
-                                            <textarea name="short_desc_en" class="form-control"></textarea>
+                                            <textarea name="short_desc_en" value="<?php echo e(old('short_desc_en')); ?>" class="form-control"></textarea>
                                         </div>
                                     </div>
                                      <div class="form-group ">
                                         <label for="desc_en" class="control-label col-lg-3">Description English</label>
                                         <div class="col-lg-6">
-                                            <textarea name="desc_en" class="form-control format"></textarea>
+                                            <textarea name="desc_en" value="<?php echo e(old('desc_en')); ?>" class="form-control format"></textarea>
                                         </div>
                                     </div>
                                     <?php endif; ?>
@@ -137,7 +137,7 @@ $type = Session::get('type');
                                       <div class="form-group">
                                         <label for="image" class="control-label col-lg-3">Image</label>
                                         <input type="file" name="image" class="file">
-                                        <div class="input-group col-md-6 col-md-offset-3 col-xs-12" style="padding-left:15px; padding-right:14px;">
+                                        <div class="input-group col-md-6 col-xs-12" style="padding-left:15px; padding-right:14px;">
                                           <span class="input-group-addon"><i class="fa fa-file-image-o"></i></span>
                                           <input type="text" class="form-control input-lg" disabled placeholder="Upload Image">
                                           <span class="input-group-btn">

@@ -7,7 +7,7 @@
         <div class="row">
           <h2 class="ui block header">President Quotes</h2>
         </div>
-<div class="container pull-left" style="margin:10px;">
+<div class="" style="margin:10px;">
 @if(Session::get('role')!='editor')
   <a href="{{route('quotes.create')}}" class="ui button teal">Create</a>
 @endif

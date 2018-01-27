@@ -1,10 +1,14 @@
 @include('admin.include.header')
-<?php $session = Session::get('lang'); ?>
+<?php $session = Session::get('lang');
+global $jdate; ?>
 
 <style>
     .file {
       visibility: hidden;
       position: absolute;
+    }
+    #image_upload {
+      display: none;
     }
 
 
@@ -50,12 +54,18 @@
                                             <input class=" form-control rtl" id="title_dr" value="{{$album->title_dr}}" name="title_dr" type="text">
                                         </div>
                                     </div>
-                                    <div class="form-group ">
-                                        <label for="date_dr" class="control-label col-lg-3">Date Dari</label>
-                                        <div class="col-lg-6">
-                                            <input class=" form-control date_dr rtl"  id="date_dr" value="{{$album->date_dr}}" name="date_dr" type="text" required>
-                                        </div>
-                                    </div>
+                                    <div class="form-group form-check">
+                                        <label class="col-lg-6 col-md-offset-1 form-check-label">
+                                          <input type="checkbox" id="change_date" name="change_date" class="form-check-input">
+                                          Change Date?
+                                        </label>
+                                      </div>
+                                      <div class="form-group date_dari">
+                                          <label for="date_dr" class="control-label col-lg-3">Date Dari</label>
+                                          <div class="col-lg-6">
+                                            <input class="form-control change_date" disabled id="date_dr" value="{{$jdate->detailedDate($album->date_dr,$session)}}"  name="date_dr" type="text" required>
+                                          </div>
+                                      </div>
                                     @else
                                     <div class="form-group ">
                                         <label for="title_pa" class="control-label col-lg-3">Title Pashto</label>
@@ -64,18 +74,29 @@
                                         </div>
                                     </div>
 
-                                    <div class="form-group ">
-                                        <label for="date_dr" class="control-label col-lg-3">Date Pashto</label>
-                                        <div class="col-lg-6">
-                                            <input class=" form-control date_dr rtl"  id="date_dr" value="{{$album->date_dr}}" name="date_dr" type="text" required>
-                                        </div>
-                                    </div>
+                                    <div class="form-group form-check">
+                                        <label class="col-lg-6 col-md-offset-1 form-check-label">
+                                          <input type="checkbox" id="change_date" name="change_date" class="form-check-input">
+                                          Change Date?
+                                        </label>
+                                      </div>
+                                      <div class="form-group date_dari">
+                                          <label for="date_dr" class="control-label col-lg-3">Date Pashto</label>
+                                          <div class="col-lg-6">
+                                            <input class="form-control change_date" disabled id="date_dr" value="{{$jdate->detailedDate($album->date_dr,$session)}}"  name="date_dr" type="text" required>
+                                          </div>
+                                      </div>
                                     @endif
-
-                                    <div class="form-group">
+                                     <div class="form-group form-check">
+                                        <label class="col-lg-6 col-md-offset-1 form-check-label">
+                                          <input type="checkbox" id="replace_image" name="replace" class="form-check-input">
+                                          Replace Image?
+                                        </label>
+                                      </div>
+                                    <div class="form-group" id="image_upload">
                                         <label for="image" class="control-label col-lg-3">Image</label>
                                         <input type="file" name="image" class="file" value="{{$album->image}}">
-                                        <div class="input-group col-md-6 col-md-offset-3 col-xs-12" style="padding-left:15px; padding-right:14px;">
+                                        <div class="input-group col-md-6 col-md-offset-1 col-xs-12" style="padding-left:15px; padding-right:14px;">
                                           <span class="input-group-addon"><i class="fa fa-file-image-o"></i></span>
                                           <input type="text" class="form-control input-lg" disabled placeholder="Upload Image">
                                           <span class="input-group-btn">

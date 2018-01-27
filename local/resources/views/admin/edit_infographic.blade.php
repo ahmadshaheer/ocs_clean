@@ -1,7 +1,8 @@
 @include('admin.include.header')
 <?php
 $session = Session::get('lang');
-global $jdate; ?>
+global $jdate;
+ ?>
 
 
 <style>
@@ -40,7 +41,7 @@ global $jdate; ?>
                                       </div>
                                   </div>
                                   <div class="form-group form-check">
-                                    <label class="col-lg-6 col-md-offset-3 form-check-label">
+                                    <label class="col-lg-6 col-md-offset-1 form-check-label">
                                       <input type="checkbox" id="change_date" name="change_date" class="form-check-input">
                                       Change Date?
                                     </label>
@@ -61,7 +62,7 @@ global $jdate; ?>
                                   </div>
 
                                   <div class="form-group form-check">
-                                    <label class="col-lg-6 col-md-offset-3 form-check-label">
+                                    <label class="col-lg-6 col-md-offset-1 form-check-label">
                                       <input type="checkbox" id="change_date" name="change_date" class="form-check-input">
                                       Change Date?
                                     </label>
@@ -89,23 +90,23 @@ global $jdate; ?>
                                       </div>
                                   </div>
                                 @endif
-
-
-
-
-
-
-                                    <div class="form-group">
-                                        <label for="image" class="control-label col-lg-3">Image</label>
-                                        <input type="file" name="image" class="file" value="{{$info->image}}">
-                                        <div class="input-group col-md-6 col-md-offset-3 col-xs-12" style="padding-left:15px; padding-right:14px;">
-                                          <span class="input-group-addon"><i class="fa fa-file-image-o"></i></span>
-                                          <input type="text" class="form-control input-lg" disabled placeholder="Upload Image">
-                                          <span class="input-group-btn">
-                                            <button class="browse btn btn-primary input-lg" type="button"><i class="fa fa-folder-open"></i> Browse</button>
-                                          </span>
-                                        </div>
+                                <div class="form-group form-check">
+                                  <label class="col-lg-6 col-md-offset-1 form-check-label">
+                                    <input type="checkbox" id="replace_image" name="replace" class="form-check-input">
+                                    Replace Image?
+                                  </label>
+                                </div>
+                                <div class="form-group" id="image_upload">
+                                    <label for="image" class="control-label col-lg-3">Image</label>
+                                    <input type="file" name="image" class="file" value="{{$info->image}}">
+                                    <div class="input-group col-md-6 col-md-offset-1 col-xs-12" style="padding-left:15px; padding-right:14px;">
+                                      <span class="input-group-addon"><i class="fa fa-file-image-o"></i></span>
+                                      <input type="text" class="form-control input-lg" disabled placeholder="Upload Image">
+                                      <span class="input-group-btn">
+                                        <button class="browse btn btn-primary input-lg" type="button"><i class="fa fa-folder-open"></i> Browse</button>
+                                      </span>
                                     </div>
+                                </div>
 
 
 

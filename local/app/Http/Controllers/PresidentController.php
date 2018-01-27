@@ -44,156 +44,82 @@ class PresidentController extends Controller
     public function store(Request $request)
     {
 
-        $lang = \Session::get('lang');
-        $search_image = '';
+        //multi language variables
+        $lang = Session::get('lang');
+        $title = 'title_'.$lang;
+        $date = 'date_'.$lang;
+        $short_desc = 'short_desc_'.$lang;
+        $description = 'description_'.$lang;
+
+        //data storage
         $the_president = new President();
-        $the_president->type = $request->input('type');
-        if($lang == 'en'){
-          if($request->input('type')=='word') {
-            $this->validate($request,[
-              'short_desc_en'=>'required|unique:president',
-              'image'=>'required|mimes:jpeg,jpg,png,bmp'
-            ]);
-          }
-          else if($request->input('type')=='order' || $request->input('type')=='decree') {
-            $this->validate($request,[
-            'title_en'=>'required',
-            'date_en'=>'required',
-            'short_desc_en'=>'required',
-            'desc_en'=>'required'
-          ]);
-          }
-          else {
-            $this->validate($request,[
-              'title_en'=>'required',
-              'date_en'=>'required',
-              'short_desc_en'=>'required',
-              'desc_en'=>'required',
-              'image'=>'required|mimes:jpeg,jpg,png,bmp'
-            ]);
-          }
-          $the_president->title_en = $request->input('title_en');
-          $the_president->date_en = $request->input('date_en');
-          $the_president->short_desc_en = $request->input('short_desc_en');
-          $the_president->description_en = $request->input('desc_en');
-        }
-        else if($lang == 'dr'){
-          if($request->input('type')=='word') {
-            $this->validate($request,[
-              'short_desc_dr'=>'required|unique:president',
-              'image'=>'required|mimes:jpeg,jpg,png,bmp',
-            ]);
-          }
-          else if($request->input('type')=='order' || $request->input('type')=='decree') {
-            $this->validate($request,[
-            'title_dr'=>'required',
-            'date_dr'=>'required',
-            'short_desc_dr'=>'required',
-            'desc_dr'=>'required'
-          ]);
-          }
-          else {
+        $the_president->$title = $request->$title;
+        $the_president->$date = $request->$date;
+        $the_president->$short_desc = $request->$short_desc;
+        $the_president->$description = $request->$description;
+        $the_president->type = $request->type;
 
-            $this->validate($request,[
-              'title_dr'=>'required',
-              'date_dr'=>'required',
-              'short_desc_dr'=>'required',
-              'desc_dr'=>'required',
-              'image'=>'required|mimes:jpeg,jpg,png,bmp'
-            ]);
-          }
-          $the_president->title_dr = $request->input('title_dr');
-          $the_president->date_dr = $request->input('date_dr');
-          $the_president->short_desc_dr = $request->input('short_desc_dr');
-          $the_president->description_dr = $request->input('desc_dr');
-        }
-        else{
-          if($request->input('type')=='word') {
-            $this->validate($request,[
-              'short_desc_pa'=>'required|unique:president',
-              'image'=>'required|mimes:jpeg,jpg,png,bmp',
-            ]);
-          }
-          else if($request->input('type')=='order' || $request->input('type')=='decree') {
-            $this->validate($request,[
-            'title_pa'=>'required',
-            'date_dr'=>'required',
-            'short_desc_pa'=>'required',
-            'desc_pa'=>'required'
-          ]);
-          }
-          else {
-            $this->validate($request,[
-              'title_pa'=>'required',
-              'date_dr'=>'required',
-              'short_desc_pa'=>'required',
-              'desc_pa'=>'required',
-              'image'=>'required|mimes:jpeg,jpg,png,bmp'
-            ]);
-          }
-          $the_president->title_pa = $request->input('title_pa');
-          $the_president->date_pa = $request->input('date_dr');
-          $the_president->short_desc_pa = $request->input('short_desc_pa');
-          $the_president->description_pa = $request->input('desc_pa');
-        }
-
+        //save the record to retreive id later
         $the_president->save();
-        $pr = '';
-        $max = $the_president->id;
 
-          if($the_president->type!='order' AND $the_president->type!='decree') {
-            // thumbnail generation starts
-            $image = $request->image;
-            $img = $max.'.'.$image->getClientOriginalExtension();
-            $img_thumb = $max.'_t.'.$image->getClientOriginalExtension();
-            $driver = new imageManager(array('driver'=>'gd'));
-            $thumb_img = $driver->make($image)->resize(200,150);
-            $thumb_img->save("uploads/".$the_president->type."/".$img_thumb);
-            // thumbnail generation Ends
+        //retreive id from previously stored record
+        $id = $the_president->id;
 
-            $img = $max.'.'.$image->getClientOriginalExtension();
-            $image->move('uploads/'.$request->input('type'),$img);
-            $pr = President::findOrFail($max);
-            $pr->image = $img;
-            // assign thumb image to image_thumb column in db
-            $pr->image_thumb = $img_thumb;
-            $pr->image =$img;
-            $search_image = "uploads/".$the_president->type."/".$img_thumb;
-            }
-            else{
-              $pr = President::findOrFail($max);
-              $pr->image = '/assets/img/thumb.jpg';
-            }
-              if($pr->save()){
-                $search = new Search();
-                if($lang =='en'){
-                    $search->title_en = $request->input('title_en');
-                    $search->date_en = $request->input('date_en');
-                    $search->short_desc_en = $request->input('short_desc_en');
-                    $search->description_en = $request->input('desc_en');
-                }
-                else if($lang=='dr'){
-                    $search->title_dr = $request->input('title_dr');
-                    $search->date_dr = $request->input('date_dr');
-                    $search->short_desc_dr = $request->input('short_desc_dr');
-                    $search->description_dr = $request->input('desc_dr');
-                }
-                else{
-                    $search->title_pa = $request->input('title_pa');
-                    $search->date_pa = $request->input('date_dr');
-                    $search->short_desc_pa = $request->input('short_desc_pa');
-                    $search->description_pa = $request->input('desc_pa');
-                }
+        //retreive president object again
+        $the_president = President::findOrFail($id);
 
-                $search->table_name = 'president';
-                $search->type = $request->input('type');
-                $search->table_id = $max;
-                $search->image_thumb = $search_image;
-                $search->save();
+
+        //make image path
+        $path = 'uploads/'.$request->type.'/';
+
+        //variable for thumb image if present or otherwise
+        $image_thumb_name = '';
+
+        //image uploading
+        if($request->image!='') {
+          //image names i.e. (image and image_thumb)
+          $image_name = $id.'.'.$request->image->getClientOriginalExtension();
+          $image_thumb_name = $id.'_t.'.$request->image->getClientOriginalExtension();
+
+          //resize image for thumbnail
+          $driver = new imageManager(array('driver'=>'gd'));
+          $image_thumb = $driver->make($request->image)->resize(200,150);
+
+          //store image and thumbnail in storage
+          $request->image->move($path.$image_name);
+          $image_thumb->save($path.$image_thumb_name);
+
+          //db image storage
+          $the_president->image = $image_name;
+          $the_president->image_thumb = $image_thumb_name;
+
         }
-        \Session::put('lang','');
-        \Session::put('type','');
-        Log::info($max." President record created by ".Session::get('email')." on ".date('l jS \of F Y h:i:s A'));
+        else {
+          //if image not present for search table
+          $image_thumb_name = 'default.jpg';
+
+          //if no image received store the default
+          $the_president->image = 'default.jpg';
+          $the_president->image_thumb = 'thumb.jpg';
+        }
+
+        if($the_president->save()) {
+          //search stuff
+          $search = new Search();
+          $search->$title = $request->$title;
+          $search->$date = $request->$date;
+          $search->$short_desc = $request->$short_desc;
+          $search->$description = $request->$description;
+          $search->table_name = 'president';
+          $search->type = $request->type;
+          $search->table_id = $id;
+          $search->image_thumb = $path.$image_thumb_name;
+          $search->save();
+        }
+        // print_r($title);exit;
+        Session::put('lang','');
+        Session::put('type','');
+        Log::info($id." President record created by ".Session::get('email')." on ".date('l jS \of F Y h:i:s A'));
         return Redirect()->route("admin_".$request->type);
     }
 
@@ -229,183 +155,67 @@ class PresidentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $lang = \Session::get('lang');
-        $short_desc = 'short_desc_'.$lang;
+      //multi language variables
+      $lang = \Session::get('lang');
+      $title = 'title_'.$lang;
+      $date = 'date_'.$lang;
+      $short_desc = 'short_desc_'.$lang;
+      $description = 'description_'.$lang;
+      // validation
+      $this->validate($request,[
+        $title=>'required',
+        $short_desc=>'required',
+        $description=>'required',
+      ]);
 
-        $the_president = President::findOrFail($id);
-         $this->validate($request,[
-              'title_en'=>'required',
-              'date_en'=>'required',
-              'short_desc_en'=>'required',
-              'desc_en'=>'required',
-              'image'=>'mimes:jpeg,jpg,png,bmp'
-          ]);
-
-         $the_president->$title = $request->input($title);
-
-
-
-
-
-
-
-
-
-
-
+      // president data storage
+       $the_president = President::findOrFail($id);
+       $search_obj = Search::where('table_name','=','president')->where('table_id','=',$id)->first();
+       $the_president->$title = $request->$title;
+       if($request->$date!='') {
+         $the_president->$date = $request->$date;
+       }
+       $the_president->$short_desc = $request->$short_desc;
+       $the_president->$description = $request->$description;
 
 
+       if($request->image!=null) {
+         //remove existing images
+         File::delete($search_obj->image_thumb);
+         File::delete(str_replace('_t','',$search_obj->image_thumb));
 
+         //set new images name
+         $image_name = $id.'.'.$request->image->getClientOriginalExtension();
+         $image_thumb_name = $id.'_t.'.$request->image->getClientOriginalExtension();
 
+         //resize image for thumbnail
+         $driver = new imageManager(array('driver'=>'gd'));
+         $image_thumb = $driver->make($request->image)->resize(200,150);
 
+         //construct image path
+         $image_path = 'uploads/'.$request->type.'/';
 
+         //move i.e.(to storage) image
+         $image_thumb->save($image_path.$image_name);
+         $request->image->move($image_path.$image_thumb_name);
 
+         //store in db
+         $the_president->image = $image_name;
+         $the_president->image_thumb = $image_thumb_name;
+       }
 
+       if($the_president->save()) {
+         $search_obj->$title = $request->$title;
+         $search_obj->$date = $request->$date;
+         $search_obj->$short_desc = $request->$short_desc;
+         $search_obj->$description = $request->$description;
+         $search_obj->save();
+       }
 
+       Session::put('lang','');
+       Log::info("Record ID No. '".$id."' President record updated by ".Session::get('email')." on ".date('l jS \of F Y h:i:s A'));
+       return Redirect()->route("admin_".$request->type);
 
-
-        $search_image = '';
-        $the_president = President::findOrFail($id);
-        if($lang =='en'){
-          if($request->input('type')=='word') {
-            $this->validate($request,[
-              'short_desc_en'=>'required',
-              'image'=>'mimes:jpeg,jpg,png,bmp',
-            ]);
-          }
-          else if($request->input('type')=='order' || $request->input('type')=='decree') {
-            $this->validate($request,[
-            'title_en'=>'required',
-            'date_en'=>'required',
-            'short_desc_en'=>'required',
-            'desc_en'=>'required'
-          ]);
-          }
-          else {
-            $this->validate($request,[
-              'title_en'=>'required',
-              'date_en'=>'required',
-              'short_desc_en'=>'required',
-              'desc_en'=>'required',
-              'image'=>'mimes:jpeg,jpg,png,bmp'
-            ]);
-          }
-          $the_president->title_en = $request->input('title_en');
-          $the_president->date_en = $request->input('date_en');
-          $the_president->short_desc_en = $request->input('short_desc_en');
-          $the_president->description_en = $request->input('desc_en');
-        }
-        else if($lang =='dr'){
-          if($request->input('type')=='word') {
-            $this->validate($request,[
-              'short_desc_dr'=>'required',
-              'image'=>'mimes:jpeg,jpg,png,bmp',
-            ]);
-          }
-          else if($request->input('type')=='order' || $request->input('type')=='decree') {
-            $this->validate($request,[
-            'title_dr'=>'required',
-            'short_desc_dr'=>'required',
-            'desc_dr'=>'required'
-          ]);
-          }
-          else {
-            $this->validate($request,[
-              'title_dr'=>'required',
-              'short_desc_dr'=>'required',
-              'desc_dr'=>'required',
-              'image'=>'mimes:jpeg,jpg,png,bmp'
-            ]);
-          }
-          $the_president->title_dr = $request->input('title_dr');
-           if($request->date_dr!=null) {
-            $the_president->date_dr = $request->input('date_dr');
-          }
-          $the_president->short_desc_dr = $request->input('short_desc_dr');
-          $the_president->description_dr = $request->input('desc_dr');
-        }
-        else{
-          if($request->input('type')=='word') {
-            $this->validate($request,[
-              'short_desc_pa'=>'required',
-              'image'=>'mimes:jpeg,jpg,png,bmp',
-            ]);
-          }
-          else if($request->input('type')=='order' || $request->input('type')=='decree') {
-            $this->validate($request,[
-            'title_pa'=>'required',
-            'short_desc_pa'=>'required',
-            'desc_pa'=>'required'
-          ]);
-          }
-          else {
-            $this->validate($request,[
-              'title_pa'=>'required',
-              'short_desc_pa'=>'required',
-              'desc_pa'=>'required',
-              'image'=>'mimes:jpeg,jpg,png,bmp'
-            ]);
-          }
-          $the_president->title_pa = $request->input('title_pa');
-          if($request->date_dr!=null) {
-            $the_president->date_pa = $request->input('date_dr');
-          }
-          $the_president->short_desc_pa = $request->input('short_desc_pa');
-          $the_president->description_pa = $request->input('desc_pa');
-        }
-        $the_president->type = $request->input('type');
-        $max = $the_president->id;
-        $image = '';
-        if($request->file('image') ==null){
-            $image = $the_president->image;
-        }
-        else{
-            File::delete('uploads/'.$request->input('type').'/'.$the_president->image);
-
-             // generating thumbnail image for display in home and other pages
-            $img_thumb = $max.'_t.'.$request->file('image')->getClientOriginalExtension();
-            $data = $request->image;
-            $driver = new imageManager(array('driver'=>'gd'));
-            $thumb_img = $driver->make($data)->resize(200,150);
-            $thumb_img->save("uploads/".$request->input('type').'/'.$img_thumb);
-            $the_president->image_thumb = $img_thumb;
-            // thumbnail generation Ends
-
-            $image = $max.'.'.$request->file('image')->getClientOriginalExtension();
-            $request->file('image')->move('uploads/'.$request->input('type'),$image);
-            $search_image = 'uploads/'.$request->input('type').'/'.$image;
-        }
-        $the_president->image = $image;
-
-        if($the_president->save()){
-                $search = Search::where('table_name','=','president')->where('table_id','=',$id)->first();
-                 if($lang =='en'){
-                    $search->title_en = $request->input('title_en');
-                    $search->date_en = $request->input('date_en');
-                    $search->short_desc_en = $request->input('short_desc_en');
-                    $search->description_en = $request->input('desc_en');
-                }
-                else if($lang=='dr'){
-                    $search->title_dr = $request->input('title_dr');
-                    $search->date_dr = $request->input('date_dr');
-                    $search->short_desc_dr = $request->input('short_desc_dr');
-                    $search->description_dr = $request->input('desc_dr');
-                }
-                else{
-                    $search->title_pa = $request->input('title_pa');
-                    $search->date_pa = $request->input('date_dr');
-                    $search->short_desc_pa = $request->input('short_desc_pa');
-                    $search->description_pa = $request->input('desc_pa');
-                }
-                $search->table_name = 'president';
-                $search->type = $request->input('type');
-                $search->table_id = $the_president->id;
-                $search->image_thumb = $search_image;
-                $search->save();
-        }
-        \Session::put('lang','');
-        Log::info("Record ID No. '".$id."' President record updated by ".Session::get('email')." on ".date('l jS \of F Y h:i:s A'));
-        return Redirect()->route("admin_".$request->type);
     }
 
     /**

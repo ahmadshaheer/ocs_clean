@@ -58,9 +58,9 @@ $type = Session::get('type');
                                         </div>
                                     </div>
                                      <div class="form-group ">
-                                        <label for="desc_en" class="control-label col-lg-3">Description English</label>
+                                        <label for="description_en" class="control-label col-lg-3">Description English</label>
                                         <div class="col-lg-6">
-                                            <textarea name="desc_en" value="<?php echo e(old('desc_en')); ?>" class="form-control format"></textarea>
+                                            <textarea name="description_en" value="<?php echo e(old('description_en')); ?>" class="form-control format"></textarea>
                                         </div>
                                     </div>
                                     <?php endif; ?>
@@ -92,9 +92,9 @@ $type = Session::get('type');
                                         </div>
                                     </div>
                                     <div class="form-group ">
-                                        <label for="desc_dr" class="control-label col-lg-3">Description Dari</label>
+                                        <label for="description_dr" class="control-label col-lg-3">Description Dari</label>
                                         <div class="col-lg-6">
-                                            <textarea name="desc_dr" class="form-control format rtl"></textarea>
+                                            <textarea name="description_dr" class="form-control format rtl"></textarea>
                                         </div>
                                     </div>
                                     <?php endif; ?>
@@ -114,9 +114,9 @@ $type = Session::get('type');
                                         </div>
                                     </div>
                                      <div class="form-group ">
-                                        <label for="date_dr" class="control-label col-lg-3">Date Pashto</label>
+                                        <label for="date_pa" class="control-label col-lg-3">Date Pashto</label>
                                         <div class="col-lg-6">
-                                            <input class=" form-control date_dr rtl"  id="date_dr" name="date_dr" type="text" >
+                                            <input class=" form-control date_dr rtl"  id="date_pa" name="date_pa" type="text" >
                                         </div>
                                     </div>
                                     <div class="form-group ">
@@ -126,9 +126,9 @@ $type = Session::get('type');
                                         </div>
                                     </div>
                                     <div class="form-group ">
-                                        <label for="desc_pa" class="control-label col-lg-3">Description Pashto</label>
+                                        <label for="description_pa" class="control-label col-lg-3">Description Pashto</label>
                                         <div class="col-lg-6">
-                                            <textarea name="desc_pa" class="form-control format rtl"></textarea>
+                                            <textarea name="description_pa" class="form-control format rtl"></textarea>
                                         </div>
                                     </div>
                                     <?php endif; ?>
@@ -137,7 +137,7 @@ $type = Session::get('type');
                                       <div class="form-group">
                                         <label for="image" class="control-label col-lg-3">Image</label>
                                         <input type="file" name="image" class="file">
-                                        <div class="input-group col-md-6 col-md-offset-3 col-xs-12" style="padding-left:15px; padding-right:14px;">
+                                        <div class="input-group col-md-6 col-xs-12" style="padding-left:15px; padding-right:14px;">
                                           <span class="input-group-addon"><i class="fa fa-file-image-o"></i></span>
                                           <input type="text" class="form-control input-lg" disabled placeholder="Upload Image">
                                           <span class="input-group-btn">

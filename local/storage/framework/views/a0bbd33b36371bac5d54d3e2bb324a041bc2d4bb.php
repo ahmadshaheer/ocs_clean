@@ -29,7 +29,7 @@ else{
           <a class="btn btn-<?php echo e(($lang=='pa'?'success':'default')); ?>" href="javascript:void(0)" onclick="show('pa')">Pashto</a>
         </div>
 <?php if(Session::get('role')!='editor'): ?>
-    <a class="btn btn-default pull-<?php echo e($dir); ?>" href="javascript:void(0)" onclick="create('<?php echo e($lang); ?>')" style="margin-bottom: 10px;">Create</a>
+    <a class="btn btn-default pull-left" href="javascript:void(0)" onclick="create('<?php echo e($lang); ?>')" style="margin-bottom: 10px;">Create</a>
 <?php endif; ?>
 <table class="table table-bordered" style="direction: <?php echo e($direction); ?>">
   <thead>
@@ -46,20 +46,48 @@ else{
       <?php $i=1; ?>
     <?php $__currentLoopData = $decrees; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
        <?php
-       if($value->$title==''){
-          if($value->title_en=='' && $value->title_dr!=''){
-          $title_value = $value->title_dr;
-        }
-        else if($value->title_en=='' && $value->title_dr ==''){
-         $title_value = $value->title_pa; 
-        }
-        else if($value->title_en=='' && $value->title_dr =='' && $value->title_pa=''){
-          continue;
-        }
-       }
-       else{
-          $title_value = $value->$title;
-       }
+    $title_value ='';
+      switch ($lang) {
+        case 'dr':
+          if($value->$title=='') {
+            if($value->title_pa=='') {
+              $title_value = $value->title_en;
+            }
+            else{
+              $title_value = $value->title_pa;
+            }
+          }
+          else {
+            $title_value = $value->$title;
+          }
+          break;
+        case 'pa':
+          if($value->$title=='') {
+            if($value->title_dr=='') {
+              $title_value = $value->title_en;
+            }
+            else{
+              $title_value = $value->title_dr;
+            }
+          }
+          else {
+            $title_value = $value->$title;
+          }
+          break;
+        case 'en':
+          if($value->$title=='') {
+            if($value->title_pa=='') {
+              $title_value = $value->title_dr;
+            }
+            else{
+              $title_value = $value->title_pa;
+            }
+          }
+          else {
+            $title_value = $value->$title;
+          }
+          break;
+      }
        ?>
     <tr>
 

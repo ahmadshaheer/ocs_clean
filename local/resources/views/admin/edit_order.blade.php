@@ -67,9 +67,9 @@ if (in_array($url, $type)==0) {
                                         </div>
                                     </div>
                                     <div class="form-group ">
-                                        <label for="desc_en" class="control-label col-lg-3">Description English</label>
+                                        <label for="description_en" class="control-label col-lg-3">Description English</label>
                                         <div class="col-lg-6">
-                                            <textarea name="desc_en" class="form-control format">{{$the_president->description_en}}</textarea>
+                                            <textarea name="description_en" class="form-control format">{{$the_president->description_en}}</textarea>
                                         </div>
                                     </div>
                                     @endif
@@ -107,9 +107,9 @@ if (in_array($url, $type)==0) {
                                         </div>
                                     </div>
                                     <div class="form-group ">
-                                        <label for="desc_dr" class="control-label col-lg-3">Description Dari</label>
+                                        <label for="description_dr" class="control-label col-lg-3">Description Dari</label>
                                         <div class="col-lg-6">
-                                            <textarea name="desc_dr" class="form-control format rtl"> {{$the_president->description_dr}}</textarea>
+                                            <textarea name="description_dr" class="form-control format rtl"> {{$the_president->description_dr}}</textarea>
                                         </div>
                                     </div>
                                     @endif
@@ -135,9 +135,9 @@ if (in_array($url, $type)==0) {
                                         </label>
                                       </div>
                                       <div class="form-group date_dari">
-                                          <label for="date_dr" class="control-label col-lg-3">Date Pashto</label>
+                                          <label for="date_pa" class="control-label col-lg-3">Date Pashto</label>
                                           <div class="col-lg-6">
-                                            <input class="form-control change_date" disabled id="date_dr" value="{{$jdate->detailedDate($the_president->date_pa,$session)}}"  name="date_dr" type="text" required>
+                                            <input class="form-control change_date" disabled id="date_pa" value="{{$jdate->detailedDate($the_president->date_pa,$session)}}"  name="date_pa" type="text" required>
                                           </div>
                                       </div>
                                     <div class="form-group ">
@@ -147,9 +147,9 @@ if (in_array($url, $type)==0) {
                                         </div>
                                     </div>
                                     <div class="form-group ">
-                                        <label for="desc_pa" class="control-label col-lg-3">Description Pashto</label>
+                                        <label for="description_pa" class="control-label col-lg-3">Description Pashto</label>
                                         <div class="col-lg-6">
-                                            <textarea name="desc_pa" class="form-control format rtl">{{$the_president->description_pa}}</textarea>
+                                            <textarea name="description_pa" class="form-control format rtl">{{$the_president->description_pa}}</textarea>
                                         </div>
                                     </div>
                                     @endif

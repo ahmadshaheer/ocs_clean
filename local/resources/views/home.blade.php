@@ -85,27 +85,20 @@ $pdf = 'pdf_'.$lang;
                 @if(sizeof($lattest_news)!=0)
                   @foreach($lattest_news as $item)
                     <?php if($item->$title=='')
-                      continue;?>
-                    
-
-                  <?php
+                            continue;
                      // $url =  ($item->table_name=='documents')?asset('uploads/documents_'.$lang.'/'.$item->table_id.'.pdf'):'';
                         // $img = '';
                        if($item->table_name=='documents'){
-                          print_r('doc');
                           $img = asset('assets/img/pdf.png');
                         }
                         else if($item->table_name == 'videos'){
-                          print_r('vid');
                           $img = "https://img.youtube.com/vi/$item->image_thumb/hqdefault.jpg";
                         }
                          else if($item->type == 'decree' || $item->type=='order'){
-                            print_r('dec_ord');
                             $img = asset('assets/img/thumb.jpg');
                         }
                         else{
                           $img = asset($item->image_thumb);
-                          print_r($img);
                         }
                   ?>
                   {{-- <h1>{{print_r($item->table_name)}}</h1> --}}

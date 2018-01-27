@@ -2,7 +2,6 @@
 namespace App\Http\Controllers;
   class DateChanger {
     public static function detailedDate($date, $lang) {
-      return $date;
       if($date==null OR $lang==null) {
 
         $msg='';

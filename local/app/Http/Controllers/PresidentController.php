@@ -86,7 +86,7 @@ class PresidentController extends Controller
           $image_thumb = $driver->make($request->image)->resize(200,150);
 
           //store image and thumbnail in storage
-          $request->image->move($path.$image_name);
+          $request->image->move($path,$image_name);
           $image_thumb->save($path.$image_thumb_name);
 
           //db image storage
@@ -230,6 +230,7 @@ class PresidentController extends Controller
         $president = President::findOrFail($id);
         $type = $president->type;
         File::delete('uploads/'.$type.'/'.$president->image);
+        File::delete('uploads/'.$type.'/'.$president->image_thumb);
         $search = Search::where('table_name','president')->where('table_id',$id);
         $search->delete();
         $president->delete();

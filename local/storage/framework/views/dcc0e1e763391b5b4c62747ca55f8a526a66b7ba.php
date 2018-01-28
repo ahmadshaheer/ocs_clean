@@ -8,7 +8,7 @@
 <!--main content end-->
 </section>
 <script src="<?php echo e(asset('assets/admin-asset/js/jquery.min.js')); ?>"></script>
-
+<script src="<?php echo e(asset('assets/js/semantic.min.js')); ?>"></script>
 <script src="<?php echo e(asset('assets/admin-asset/js/persian-datepicker-0.4.5.min.js')); ?>"></script>
 <script src="<?php echo e(asset('assets/admin-asset/js/persian-date.js')); ?>"></script>
 <script src="<?php echo e(asset('assets/admin-asset/js/jquery.dcjqaccordion.2.7.js')); ?>"></script>
@@ -179,6 +179,8 @@
         // (this works for both single and multiple select elements)
         else if (tag == 'select')
           this.selectedIndex = -1;
+        else if(tinymce.activeEditor!=null)
+          tinymce.activeEditor.setContent('');
       });
 };
  function show(lang){

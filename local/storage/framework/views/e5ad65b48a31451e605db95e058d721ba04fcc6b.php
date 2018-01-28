@@ -24,7 +24,7 @@ $i=1;
 <section class="wrapper">
     <div class="table-responsive ui stacked segment" style="">
         <div class="row ui block header">
-          <h2>Messages</h2>
+          <h2>Statements</h2>
           <a class="btn btn-<?php echo e(($lang=='en'?'success':'default')); ?>" href="javascript:void(0)" onclick="show('en')">English</a>
           <a class="btn btn-<?php echo e(($lang=='dr'?'success':'default')); ?>" href="javascript:void(0)" onclick="show('dr')">Dari</a>
           <a class="btn btn-<?php echo e(($lang=='pa'?'success':'default')); ?>" href="javascript:void(0)" onclick="show('pa')">Pashto</a>
@@ -37,7 +37,7 @@ $i=1;
   <table class="table table-bordered" style="direction: <?php echo e($direction); ?>">
     <thead>
       <tr>
-        <th>No.</th>
+        <th> No.</th>
         <th>Title</th>
         <th>Date</th>
         <th>Short Description</th>
@@ -45,8 +45,8 @@ $i=1;
       </tr>
     </thead>
     <tbody>
-      <?php $__currentLoopData = $messages; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-        <?php
+      <?php $__currentLoopData = $statements; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+       <?php
     $title_value ='';
       switch ($lang) {
         case 'dr':
@@ -92,7 +92,7 @@ $i=1;
        ?>
       <tr>
         <td><?php echo e($i++); ?></td>
-        <td><div style="width:25em;direction:<?php echo e(($value->$title=='')?'rtl':'ltr'); ?>;" class="test"><?php echo e($title_value); ?></div></td>
+        <td><div style="width:20em" class="test"><?php echo e($title_value); ?></div></td>
         <td><div style="width:10em" class="test"><?php echo e($value->$date); ?></div></td>
         <td style=""><?php echo e($value->$short_desc); ?></td>
 
@@ -102,7 +102,7 @@ $i=1;
 
             <?php echo e(csrf_field()); ?>
 
-           <a class="btn btn-default pull-<?php echo e($dir); ?>" href="javascript:void(0)" onclick="edit('<?php echo e($lang.'_'.$value->id); ?>')" style="margin-bottom: 10px;"><?php echo e(($value->$title==''?'Add':'Edit')); ?></a>
+            <a class="btn btn-default pull-<?php echo e($dir); ?>" href="javascript:void(0)" onclick="edit('<?php echo e($lang.'_'.$value->id); ?>')" style="margin-bottom: 10px;"><?php echo e(($value->$title==''?'Add':'Edit')); ?></a>
             <?php if(Session::get('role')=='admin'): ?>
             <button class="ui tiny button red " onclick="return confirm_submit()">Delete</button>
             <?php endif; ?>
@@ -120,8 +120,8 @@ $i=1;
   <?php echo $__env->make('admin.include.footer', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 
   <script>
- function create(lang){
-    var id = lang+"_message";
+   function create(lang){
+    var id = lang+"_statement";
     window.location = "<?php echo e(url('admin/set_session?lang=')); ?>"+id+"&route=<?php echo e(route('the_president.create')); ?>";
   }
 

@@ -3,7 +3,7 @@
 global $lang,$dir,$indir,$rtl,$ltr,$title,$date,$short_desc,$description,$jdate;
 ?>
   
-  <style>
+   <style>
   .ui.fluid.card {
     border:1px solid #ddd;
     margin-bottom:10px;
@@ -14,36 +14,37 @@ global $lang,$dir,$indir,$rtl,$ltr,$title,$date,$short_desc,$description,$jdate;
     direction:<?php echo e($rtl); ?> !important;
   }
   .ui.items {
-    direction:rtl;
-    float: right;
-    text-align: right;
+    direction:<?php echo e($ltr); ?>;
+    float: <?php echo e($dir); ?>;
+    text-align: <?php echo e($dir); ?>;
   }
   </style>
     
+
     <div class="ui segment">
       <div class="ui centered container grid" id="main" style="display: flex">
         <?php echo $__env->make('include.sidebar', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
         <div class="sixteen wide tablet mobile eleven wide computer column">
           <div class="ui fluid card" style="">
             <div class="content">
-              <h2 class="ui header title_font border"><?php echo e(trans('menu.decrees')); ?></h2>
-              <div class="ui items">
-                <?php $__currentLoopData = $decrees; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $decree): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                  <?php 
-                  if(sizeof($decree->$title)==0)
-                    continue;
-                   ?>
-                <div class="ui item <?php echo e(($decree == $decrees->last())?'no_border':''); ?>">
-                  <div class="ui small image">
-                    <img src="<?php echo e(asset('assets/img/thumb.jpg')); ?>" style="padding-left:8px;">
+              <h2 class="ui header title_font border"><?php echo e(trans('menu.messages')); ?></h2>
+              <div class="ui items" style="">
+                 <?php $__currentLoopData = $messages; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $message): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                   <?php 
+                   if(sizeof($message->$title)==0)
+                     continue;
+                    ?>
+                <div class="ui item <?php echo e(($message == $messages->last())?'no_border':''); ?>">
+                  <div class="other_pages_thumbnail">
+                    <img class="" src="<?php echo e(asset('uploads/message/'.$message->image)); ?>" style="padding-left:8px;">
                   </div>
                   <div class="content">
-                    <a href="<?php echo e(url('decree_details/'.$decree->id)); ?>" class="ui small header title_font"><?php echo e($decree->$title); ?></a>
+                    <a href="<?php echo e(url('message_details/'.$message->id)); ?>" class="ui small header title_font"><?php echo e($message->$title); ?></a>
                     <div class="meta">
-                      <span class="body_font" dir=""><?php echo e($jdate->detailedDate($decree->$date,$lang)); ?></span>
+                      <span class="" dir=""><?php echo e($jdate->detailedDate($message->$date,$lang)); ?></span>
                     </div>
                     <div class=" description ">
-                      <p class="body_font"><?php echo e($decree->$short_desc); ?></p>
+                      <p class="body_font"><?php echo e($message->$short_desc); ?></p>
                     </div>
                   </div>
                 </div>
@@ -52,7 +53,7 @@ global $lang,$dir,$indir,$rtl,$ltr,$title,$date,$short_desc,$description,$jdate;
             </div>
              
                     <div class="ui centered grid">
-                      <?php echo e($decrees->links()); ?>
+                      <?php echo e($messages->links()); ?>
 
                     </div>
                

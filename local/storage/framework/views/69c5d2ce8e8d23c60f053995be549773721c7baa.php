@@ -21,7 +21,7 @@ global $lang,$dir,$indir,$rtl,$ltr,$title,$date,$short_desc,$description,$jdate;
     
 
     <div class="ui segment">
-      <div class="ui centered container grid" id="main" style="display: flex">
+      <div class="ui  grid" id="main" style="display: flex">
         <?php echo $__env->make('include.sidebar', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
         <div class="sixteen wide tablet mobile eleven wide computer column">
            <div class="ui fluid card" style="">

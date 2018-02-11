@@ -114,6 +114,7 @@ class PresidentController extends Controller
           $search->type = $request->type;
           $search->table_id = $id;
           $search->image_thumb = $path.$image_thumb_name;
+          // print_r($search->image_thumb);exit;
           $search->save();
         }
         // print_r($title);exit;

@@ -22,7 +22,7 @@
   
   <link rel="stylesheet" href="<?php echo e(asset('local/vendor/unisharp/laravel-filemanager/public/css/mfb.css')); ?>">
   <link rel="stylesheet" href="<?php echo e(asset('local/vendor/unisharp/laravel-filemanager/public/css/dropzone.min.css')); ?>">
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.css">
+  <link rel="stylesheet" href="<?php echo e(asset('local/vendor/unisharp/laravel-filemanager/public/css/jquery-ui.min.css')); ?>">
 </head>
 <body>
   <div class="container-fluid" id="wrapper">
@@ -144,16 +144,16 @@
   </div>
 
   <div id="lfm-loader">
-    <img src="<?php echo e(asset('vendor/laravel-filemanager/img/loader.svg')); ?>">
+    <img src="<?php echo e(asset('local/vendor/unisharp/laravel-filemanager/img/loader.svg')); ?>">
   </div>
 
-  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-  <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
-  <script src="<?php echo e(asset('vendor/laravel-filemanager/js/cropper.min.js')); ?>"></script>
-  <script src="<?php echo e(asset('vendor/laravel-filemanager/js/jquery.form.min.js')); ?>"></script>
-  <script src="<?php echo e(asset('vendor/laravel-filemanager/js/dropzone.min.js')); ?>"></script>
+  <script src="<?php echo e(asset('local/vendor/unisharp/laravel-filemanager/public/js/jquery.min.js')); ?>"></script>
+  <script src="<?php echo e(asset('local/vendor/unisharp/laravel-filemanager/public/js/bootstrap.min.js')); ?>"></script>
+  <script src="<?php echo e(asset('local/vendor/unisharp/laravel-filemanager/public/js/bootbox.min.js')); ?>"></script>
+  <script src="<?php echo e(asset('local/vendor/unisharp/laravel-filemanager/public/js/jquery-ui.min.js')); ?>"></script>
+  <script src="<?php echo e(asset('local/vendor/unisharp/laravel-filemanager/public/js/cropper.min.js')); ?>"></script>
+  <script src="<?php echo e(asset('local/vendor/unisharp/laravel-filemanager/public/js/jquery.form.min.js')); ?>"></script>
+  <script src="<?php echo e(asset('local/vendor/unisharp/laravel-filemanager/public/js/dropzone.min.js')); ?>"></script>
   <script>
     var route_prefix = "<?php echo e(url('/')); ?>";
     var lfm_route = "<?php echo e(url(config('lfm.url_prefix', config('lfm.prefix')))); ?>";

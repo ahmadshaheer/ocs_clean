@@ -15,33 +15,22 @@
                         <header class="panel-heading">
                             Add Image to album
                         </header>
+                          <?php if($errors->any()): ?>
+                          <div class="alert alert-danger">
+                            <ul>
+                              <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <li><?php echo e($error); ?></li>
+                              <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                            </ul>
+                          </div>
+                        <?php endif; ?>
                         <div class="panel-body">
                             <div class="form">
-                                <form class="cmxform form-horizontal " id="signupForm" method="post" action="<?php echo e(url('admin/album/image/'.$id.'/'.$number)); ?>" enctype="multipart/form-data">
-                                <?php for($i=0; $i<$number; $i++): ?>
-                                    <div class="form-group ">
-                                        <label for="title<?php echo e($i); ?>" class="control-label col-lg-3">Title</label>
-                                        <div class="col-lg-6">
-                                            <input class=" form-control" id="title<?php echo e($i); ?>" maxlength="150" name="title<?php echo e($i); ?>" type="text">
-                                        </div>
-                                    </div>
-                                    <div class="form-group ">
-                                        <label for="title_dr<?php echo e($i); ?>" class="control-label col-lg-3">Title Dari</label>
-                                        <div class="col-lg-6">
-                                            <input class=" form-control" id="title_dr<?php echo e($i); ?>" maxlength="150" name="title_dr<?php echo e($i); ?>" type="text">
-                                        </div>
-                                    </div>
-                                    <div class="form-group ">
-                                        <label for="title_pa<?php echo e($i); ?>" class="control-label col-lg-3">Title Pashto</label>
-                                        <div class="col-lg-6">
-                                            <input class=" form-control" id="title_pa<?php echo e($i); ?>" maxlength="150" name="title_pa<?php echo e($i); ?>" type="text">
-                                        </div>
-                                    </div>
-                                    
+                                <form class="cmxform form-horizontal " id="signupForm" method="post" action="<?php echo e(url('admin/album/image/'.$id)); ?>" enctype="multipart/form-data">
                                     <div class="form-group">
-                                        <label for="image<?php echo e($i); ?>" class="control-label col-lg-3">Image</label>
-                                        <input type="file" name="image<?php echo e($i); ?>" class="file">
-                                        <div class="input-group col-md-6 col-md-offset-3 col-xs-12" style="padding-left:15px; padding-right:14px;">
+                                        <label for="image[]" class="control-label col-lg-3">Image</label>
+                                        <input type="file" name="image[]" class="file" multiple>
+                                        <div class="input-group col-md-6 col-xs-12" style="padding-left:15px; padding-right:14px;">
                                           <span class="input-group-addon"><i class="fa fa-file-image-o"></i></span>
                                           <input type="text" class="form-control input-lg" disabled placeholder="Upload Image">
                                           <span class="input-group-btn">
@@ -49,7 +38,6 @@
                                           </span>
                                         </div>
                                     </div>
-                                 <?php endfor; ?>
                                     <?php echo e(csrf_field()); ?>
 
 

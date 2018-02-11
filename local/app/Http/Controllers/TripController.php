@@ -9,6 +9,7 @@ use App\Search;
 use File;
 use Session;
 use Log;
+use Intervention\Image\ImageManager;
 
 class TripController extends Controller
 {
@@ -41,89 +42,88 @@ class TripController extends Controller
     public function store(Request $request)
     {
 
-        $lang=\Session::get('lang');
-        $search_image = '';
+        //multi language variables
+        $lang = Session::get('lang');
+        $title = 'title_'.$lang;
+        $date = 'date_'.$lang;
+        $short_desc = 'short_desc_'.$lang;
+        $description = 'description_'.$lang;
+
+        // validation
+        $this->validate($request,[
+              $title=>'required|unique:trips|max:255',
+              $date=>'required',
+              'image'=>'required|mimes:jpg,jpeg,png,bmp',
+              // $short_desc ='required',
+              // $description ='required'
+            ]);
+        //data storage
         $trip = new Trip();
-        if($lang=='en') {
-          $this->validate($request,[
-            'title_en'=>'required|unique:trips|max:255',
-            'date_en'=>'required',
-            'short_desc_en'=>'required',
-            'desc_en'=>'required',
-            'image'=>'required|mimes:jpeg,jpg,png,bmp'
-          ]);
-          $trip->title_en = $request->input('title_en');
-          $trip->date_en = $request->input('date_en');
-          $trip->short_desc_en = $request->input('short_desc_en');
-          $trip->description_en = $request->input('desc_en');
-        }
-        else if($lang=='dr') {
-          $this->validate($request,[
-            'title_dr'=>'required|unique:trips|max:255',
-            'date_dr'=>'required',
-            'short_desc_dr'=>'required',
-            'desc_dr'=>'required',
-            'image'=>'required|mimes:jpeg,jpg,png,bmp'
-          ]);
-          $trip->title_dr = $request->input('title_dr');
-          $trip->date_dr = $request->input('date_dr');
-          $trip->short_desc_dr = $request->input('short_desc_dr');
-          $trip->description_dr = $request->input('desc_dr');
-        }
-        else if($lang=='pa') {
-          $this->validate($request,[
-            'title_pa'=>'required|unique:trips|max:255',
-            'date_dr'=>'required',
-            'short_desc_pa'=>'required',
-            'desc_pa'=>'required',
-            'image'=>'required|mimes:jpeg,jpg,png,bmp'
-          ]);
-          $trip->title_pa = $request->input('title_pa');
-          $trip->date_pa = $request->input('date_dr');
-          $trip->short_desc_pa = $request->input('short_desc_pa');
-          $trip->description_pa = $request->input('desc_pa');
-        }
+        $trip->$title = $request->$title;
+        $trip->$date = $request->$date;
+        $trip->$short_desc = $request->$short_desc;
+        $trip->$description = $request->$description;
         $trip->type = $request->input('type');
+
+        //save the record to retreive id later
         $trip->save();
 
-        $max = $trip->id;
-        $img = $max.'.'.$request->file('image')->getClientOriginalExtension();
-        $request->file('image')->move('uploads/trips/'.$request->type,$img);
-        $trip_n = Trip::findOrFail($max);
-        $trip_n->image = $img;
-        $search_image = 'uploads/trips/'.$request->type.'/'.$img;
+        //retreive id from previously stored record
+        $id = $trip->id;
 
-        if($trip_n->save()){
-            $search = new Search();
-            if($lang=='en') {
-              $search->title_en = $request->input('title');
-              $search->date_en = $request->input('date');
-              $search->short_desc_en = $request->input('short_desc_en');
-              $search->description_en = $request->input('desc_en');
-            }
-            else if($lang=='dr') {
-              $search->title_dr = $request->input('title_dr');
-              $search->date_dr = $request->input('date_dr');
-              $search->short_desc_dr = $request->input('short_desc_dr');
-              $search->description_dr = $request->input('desc_dr');
-            }
-            else if($lang=='pa') {
-              $search->title_pa = $request->input('title_pa');
-              $search->date_pa = $request->input('date_dr');
-              $search->short_desc_pa = $request->input('short_desc_pa');
-              $search->description_pa = $request->input('desc_pa');
-            }
-            $type = ($request->input('type')=='domestic')?'domestic':'international_trip';
-            $search->type = $type;
-            $search->table_name = 'trips';
-            $search->table_id = $max;
-            $search->image_thumb = $search_image;
-            $search->save();
+        //retreive trip object again
+        $trip = Trip::findOrFail($id);
+
+         //make image path
+        $path = 'uploads/'.$request->type.'/';
+
+        //variable for thumb image if present or otherwise
+        $image_thumb_name = '';
+
+        if($request->image!='') {
+          //image names i.e. (image and image_thumb)
+          $image_name = $id.'.'.$request->image->getClientOriginalExtension();
+          $image_thumb_name = $id.'_t.'.$request->image->getClientOriginalExtension();
+
+          //resize image for thumbnail
+          $driver = new imageManager(array('driver'=>'gd'));
+          $image_thumb = $driver->make($request->image)->resize(200,150);
+
+          //store image and thumbnail in storage
+          $request->image->move($path,$image_name);
+          $image_thumb->save($path.$image_thumb_name);
+
+          //db image storage
+          $trip->image = $image_name;
+          $trip->image_thumb = $image_thumb_name;
+
         }
-        \Session::put('lang','');
-        \Session::put('type','');
-        Log::info($max." Trip created by ".Session::get('email')." on ".date('l jS \of F Y h:i:s A'));
-        return Redirect()->route('admin_'.$trip->type);
+        else {
+          //if image not present for search table
+          $image_thumb_name = 'default.jpg';
+
+          //if no image received store the default
+          $trip->image = 'default.jpg';
+          $trip->image_thumb = 'thumb.jpg';
+        }
+
+        if($trip->save()) {
+          //search stuff
+          $search = new Search();
+          $search->$title = $request->$title;
+          $search->$date = $request->$date;
+          $search->$short_desc = $request->$short_desc;
+          $search->$description = $request->$description;
+          $search->table_name = 'trips';
+          $search->type = $request->type;
+          $search->table_id = $id;
+          $search->image_thumb = $path.$image_thumb_name;
+          $search->save();
+        }
+        Session::put('lang','');
+        Session::put('type','');
+        Log::info($id." Trips record created by ".Session::get('email')." on ".date('l jS \of F Y h:i:s A'));
+        return Redirect()->route("admin_".$request->type);
     }
 
     /**
@@ -159,94 +159,73 @@ class TripController extends Controller
     public function update(Request $request, $id)
     {
 
-        $lang=\Session::get('lang');
-        $search_image ='';
-        $trip = Trip::findOrFail($id);
-        if($lang=='en') {
-          $this->validate($request,[
-            'title_en'=>'required|max:255',
-            'date_en'=>'required',
-            'short_desc_en'=>'required',
-            'desc_en'=>'required',
-          ]);
-          $trip->title_en = $request->input('title_en');
-          $trip->date_en = $request->input('date_en');
-          $trip->short_desc_en = $request->input('short_desc_en');
-          $trip->description_en = $request->input('desc_en');
-        }
-        else if($lang=='dr') {
-          $this->validate($request,[
-            'title_dr'=>'required|max:255',
-            'date_dr'=>'required',
-            'short_desc_dr'=>'required',
-            'desc_dr'=>'required',
-          ]);
-          $trip->title_dr = $request->input('title_dr');
-          $trip->date_dr = $request->input('date_dr');
-          $trip->short_desc_dr = $request->input('short_desc_dr');
-          $trip->description_dr = $request->input('desc_dr');
-        }
-        else if($lang=='pa') {
-          $this->validate($request,[
-            'title_pa'=>'required|max:255',
-            'date_dr'=>'required',
-            'short_desc_pa'=>'required',
-            'desc_pa'=>'required',
-          ]);
-          $trip->title_pa = $request->input('title_pa');
-          $trip->date_pa = $request->input('date_dr');
-          $trip->short_desc_pa = $request->input('short_desc_pa');
-          $trip->description_pa = $request->input('desc_pa');
-        }
+        //multi language variables
+        $lang = Session::get('lang');
+        $title = 'title_'.$lang;
+        $date = 'date_'.$lang;
+        $short_desc = 'short_desc_'.$lang;
+        $description = 'description_'.$lang;
+        // validation
+        $this->validate($request,[
+          $title=>'required',
+          $short_desc=>'required',
+          $description=>'required',
+        ]);
 
-        $trip->type = $request->input('type');
-        $max = $trip->id;
-        $image = '';
-        if($request->file('image') ==null){
-            $image = $trip->image;
-            $search_image = 'uploads/trips/'.$request->input('type').'/'.$trip->image;
-        }
-        else{
-            File::delete('uploads/trips/'.$request->input('type').'/'.$trip->image);
-            $image = $max.'.'.$request->file('image')->getClientOriginalExtension();
-            $request->file('image')->move('uploads/trips/'.$request->input('type'),$image);
-            $search_image = 'uploads/trips/'.$request->input('type').'/'.$image;
-        }
-        $trip->image = $image;
-        if($trip->save()){
-                $search = Search::where('table_name','=','trips')->where('table_id','=',$id)->first();
-                if($lang=='en') {
-                  $search->title_en = $request->input('title');
-                  $search->date_en = $request->input('date');
-                  $search->short_desc_en =
-                  $request->input('short_desc_en');
-                  $search->description_en = $request->input('desc_en');
-                }
-                else if($lang=='dr') {
-                  $search->title_dr = $request->input('title_dr');
-                  $search->date_dr = $request->input('date_dr');
-                  $search->short_desc_dr =
-                  $request->input('short_desc_dr');
-                  $search->description_dr = $request->input('desc_dr');
-                }
-                else if($lang=='pa') {
-                  $search->title_pa = $request->input('title_pa');
-                  $search->date_pa = $request->input('date_dr');
-                  $search->short_desc_pa = $request->input('short_desc_pa');
-                  $search->description_pa = $request->input('desc_pa');
-                }
-                $type = ($request->input('type')=='domestic')?'domestic':'international_trip';
-                $search->type = $type;
-                $search->type = $type;
-                $search->table_name = 'trips';
-                $search->table_id = $trip->id;
-                $search->image_thumb = $search_image;
-                $search->save();
-        }
-        \Session::put('lang','');
-        Log::info($id." Trip updated by ".Session::get('email')." on ".date('l jS \of F Y h:i:s A'));
-        return Redirect()->route('admin_'.$trip->type);
-    }
+      // trip data storage
+       $trip = Trip::findOrFail($id);
+       $search_obj = Search::where('table_name','=','trips')->where('table_id','=',$id)->first();
+       $trip->$title = $request->$title;
+       if($request->$date!='') {
+         $trip->$date = $request->$date;
+       }
+       $trip->$short_desc = $request->$short_desc;
+       $trip->$description = $request->$description;
+        
+       if($request->image!=null) {
+            
+            // validation
+            $this->validate($request,[
+            'image'=>'mimes:jpg,jpeg,png,bmp',
+            ]);
+
+         //remove existing images
+         File::delete($search_obj->image_thumb);
+         File::delete(str_replace('_t','',$search_obj->image_thumb));
+
+         //set new images name
+         $image_name = $id.'.'.$request->image->getClientOriginalExtension();
+         $image_thumb_name = $id.'_t.'.$request->image->getClientOriginalExtension();
+
+         //resize image for thumbnail
+         $driver = new imageManager(array('driver'=>'gd'));
+         $image_thumb = $driver->make($request->image)->resize(200,150);
+
+         //construct image path
+         $image_path = 'uploads/'.$request->type.'/';
+
+         //move i.e.(to storage) image
+         $image_thumb->save($image_path.$image_thumb_name);
+         $request->image->move($image_path,$image_name);
+
+         //store in db
+         $trip->image = $image_name;
+         $trip->image_thumb = $image_thumb_name;
+       }
+
+       if($trip->save()) {
+         $search_obj->$title = $request->$title;
+         $search_obj->$date = $request->$date;
+         $search_obj->$short_desc = $request->$short_desc;
+         $search_obj->$description = $request->$description;
+         $search_obj->save();
+       }
+
+       Session::put('lang','');
+       Log::info($id." $trip->type updated by ".Session::get('email')." on ".date('l jS \of F Y h:i:s A'));
+       return Redirect()->route("admin_".$trip->type);
+
+     }
 
     /**
      * Remove the specified resource from storage.
@@ -259,7 +238,8 @@ class TripController extends Controller
 
         $trip = Trip::findOrFail($id);
         $type = $trip->type;
-        File::delete('uploads/trips/'.$type.'/'.$trip->image);
+        File::delete('uploads/'.$type.'/'.$trip->image);
+        File::delete('uploads/'.$type.'/'.$trip->image_thumb);
         $search = Search::where('table_name','trips')->where('table_id',$id)->first();
         $search->delete();
         $trip->delete();

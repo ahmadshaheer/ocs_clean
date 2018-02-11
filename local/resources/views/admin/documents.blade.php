@@ -19,6 +19,7 @@ else{
  $direction = 'rtl';
 }
 $i=1;
+$title_value ='';
 ?>
 <!--main content start-->
 <section id="main-content">
@@ -49,7 +50,6 @@ $i=1;
     <?php $i=1; ?>
     @foreach($documents as $value)
      <?php
-    $title_value ='';
       switch ($lang) {
         case 'dr':
           if($value->$title=='') {
@@ -96,8 +96,10 @@ $i=1;
       <td>{{$i++}}</td>
       <td><div style="width:10em" class="test">{{$title_value}}</div></td>
       <td><div style="width:10em" class="test">{{$value->$date}}</div></td>
-      <td style="width:10%;"><a href="{{asset('uploads/'.$documents_val.'/'.$value->$pdf)}}" target="_blank"><i class="fa fa-file-pdf-o"></i></a></td>
-
+      <td style="width:10%;">
+        @if($value->$title!='')
+        <a href="{{asset('uploads/'.$documents_val.'/'.$value->$pdf)}}" target="_blank"><i class="fa fa-file-pdf-o"></i></a></td>
+        @endif
       <td>
       <form action="{{ route('documents.destroy', $value->id) }}" class="ui form" method="POST">
           {{ method_field('DELETE') }}

@@ -7,10 +7,6 @@ global $jdate; ?>
       visibility: hidden;
       position: absolute;
     }
-    #image_upload {
-      display: none;
-    }
-
 
 </style>
 <!--main content start-->
@@ -33,12 +29,12 @@ global $jdate; ?>
                         <div class="panel-body">
                             <div class="form cmxform form-horizontal">
                                 {!! Form::model($album, ['route' => array('album.update',$album->id),'files' =>true]) !!}
-                                <input name="_method" type="hidden" value="PATCH">
+                                {{method_field('PATCH')}}
                                 @if($session =='en')
                                     <div class="form-group ">
-                                        <label for="title" class="control-label col-lg-3">Title</label>
+                                        <label for="title_en" class="control-label col-lg-3">Title</label>
                                         <div class="col-lg-6">
-                                            <input class=" form-control" id="title" value="{{$album->title_en}}" name="title" type="text">
+                                            <input class=" form-control" id="title_en" value="{{$album->title_en}}" name="title_en" type="text">
                                         </div>
                                     </div>
                                      <div class="form-group ">

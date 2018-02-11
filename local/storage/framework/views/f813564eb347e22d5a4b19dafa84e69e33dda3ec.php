@@ -290,10 +290,10 @@
     .owl-carousel {
       margin-top:60px;
     }
-    #carousel_image_div img {
+    /*#carousel_image_div img {
       width:100% !important;
       margin:0 !important;
-    }
+    }*/
     blockquote {
       margin-left:0;
       position: relative !important;
@@ -697,7 +697,8 @@
   }
 
   #carousel_image_div img {
-    width:88%;
+    width:683px;
+    height: 353px;
     padding-bottom:5%;
     float: <?php echo e($indir); ?>;
     margin-<?php echo e($dir); ?>: 55px;
@@ -774,9 +775,9 @@
   .ui.items {
     margin: .8em 0 !important;
   }
- .ui.fluid.card>.content img{
+ /*.ui.fluid.card>.content img{
     max-width: 100%;
-  }
+  }*/
  .u-floatLeft{
   display: none !important;
  }

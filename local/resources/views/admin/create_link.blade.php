@@ -28,15 +28,15 @@
                                 <form class="cmxform form-horizontal " id="signupForm" method="post" action="{{route('links.store')}}" enctype="multipart/form-data">
                                 @if($session=='en')
                                     <div class="form-group ">
-                                        <label for="title" class="control-label col-lg-3">Title</label>
+                                        <label for="title_en" class="control-label col-lg-3">Title</label>
                                         <div class="col-lg-6">
                                             <input class=" form-control" id="title_en"  value="{{old('title_en')}}" name="title_en" type="text">
                                         </div>
                                     </div>
                                     <div class="form-group ">
-                                        <label for="desc_en" class="control-label col-lg-3">Description English</label>
+                                        <label for="description_en" class="control-label col-lg-3">Description English</label>
                                         <div class="col-lg-6">
-                                            <textarea name="desc_en" class="form-control">{{old('desc_en')}}</textarea>
+                                            <textarea name="description_en" class="form-control">{{old('description_en')}}</textarea>
                                         </div>
                                     </div>
                                     @elseif($session=='dr')
@@ -47,9 +47,9 @@
                                         </div>
                                     </div>
                                     <div class="form-group ">
-                                        <label for="desc_dr" class="control-label col-lg-3">Description Dari</label>
+                                        <label for="description_dr" class="control-label col-lg-3">Description Dari</label>
                                         <div class="col-lg-6">
-                                            <textarea name="desc_dr" class="form-control rtl">{{old('desc_dr')}}</textarea>
+                                            <textarea name="description_dr" class="form-control rtl">{{old('description_dr')}}</textarea>
                                         </div>
                                     </div>
                                     @else
@@ -60,9 +60,9 @@
                                         </div>
                                     </div>
                                     <div class="form-group ">
-                                        <label for="desc_pa" class="control-label col-lg-3">Description Pashto</label>
+                                        <label for="description_pa" class="control-label col-lg-3">Description Pashto</label>
                                         <div class="col-lg-6">
-                                            <textarea name="desc_pa" class="form-control rtl">{{old('desc_pa')}}</textarea>
+                                            <textarea name="description_pa" class="form-control rtl">{{old('description_pa')}}</textarea>
                                         </div>
                                     </div>
                                     @endif
@@ -77,7 +77,7 @@
                                     <div class="form-group">
                                         <label for="image" class="control-label col-lg-3">Image</label>
                                         <input type="file" name="image" class="file">
-                                        <div class="input-group col-md-6 col-md-offset-3 col-xs-12" style="padding-left:15px; padding-right:14px;">
+                                        <div class="input-group col-md-6 col-xs-12" style="padding-left:15px; padding-right:14px;">
                                           <span class="input-group-addon"><i class="fa fa-file-image-o"></i></span>
                                           <input type="text" class="form-control input-lg" disabled placeholder="Upload Image">
                                           <span class="input-group-btn">

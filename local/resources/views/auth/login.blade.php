@@ -8,6 +8,12 @@
 
                 <div class="panel-heading">Login</div>
                 <div class="panel-body">
+                              @if(Session::get('invalid_email')!='')
+                              <ul class="alert alert-danger">
+                                  <li>{{Session::get('invalid_email')}}</li>
+                              </ul>
+                              @endif
+                <div class="panel-body">
                     <form class="form-horizontal" role="form" method="POST" action="{{ route('check_crediential') }}">
 
 

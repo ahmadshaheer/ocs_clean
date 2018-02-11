@@ -24,7 +24,6 @@ class RegisterController extends Controller
     | provide this functionality without requiring any additional code.
     |
     */
-
     use RegistersUsers;
 
     /**
@@ -41,7 +40,7 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest');
+        $this->middleware('auth');
     }
 
     /**
@@ -73,9 +72,11 @@ class RegisterController extends Controller
             'password' => Hash::make($data['password']),
         ]);
     }
+    
     protected function show_register() {
         return view('admin.register');
     }
+
 //     protected function register(Request $request) {
 
 //         $this->validate($request,[
@@ -122,5 +123,60 @@ class RegisterController extends Controller
             Session::flash('bad_match','Passwords Do not Match');
             return Redirect()->Route('register_user');
         }
+    }
+
+    public function edit_user($id) {
+        $user = User::findOrFail($id);
+        return view('admin.edit_user')->with('user',$user);
+    }
+
+       public function update_user($id,Request $request) {
+      $user = User::findOrFail($id);
+      $user->name = $request->input('name');
+      $user->email = $request->input('email');
+      $user->role = $request->input('role');
+      $user->save();
+      Log::info("User '".$user->email."' updated on ".date('l jS \of F Y h:i:s A'));
+      return Redirect()->route('users');
+    }
+
+     public function show_reset_form($email) {
+      $user = DB::table('users')->where('email',$email)->first();
+      // if(time() < $user->reset_on_timestamp+(5*60)) {
+        return view('auth.passwords.reset')->with('email',$email);
+      // }
+      // else {
+      //   echo "Link Expired";
+      // }
+    }
+
+     public function reset_password(Request $request) {
+        if(isset($_POST['password'])) {
+            if(Session::has('email')) {
+                session()->flush();
+                $email = $_POST['email'];
+                $password = $_POST['password'];
+                // print_r($email);exit;
+                DB::table('users')->where('email',$email)->update(['password'=>Hash::make($password)]);
+                Log::info($email." password reset on ".date('l jS \of F Y h:i:s A'));
+                Session::flash('reset_success','Password Reset was Successfull!!!');
+                return Redirect()->route('login');
+            }
+        }
+        $email = $request->input('email');
+        $password = $request->input('password');
+        // print_r($email);exit;
+        DB::table('users')->where('email',$email)->update(['password'=>Hash::make($password)]);
+        Session::flash('reset_success','Password Reset was Successfull!!!');
+        return Redirect()->route('login');
+    }
+
+    public function destroy($id)
+    {
+        $user = User::findOrFail($id);
+        $email = $user->email;
+        $user->delete();
+        Log::info("User '".$email." has been deleted on ".date('l jS \of F Y h:i:s A'));
+        return Redirect()->route('users');
     }
 }

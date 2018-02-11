@@ -37,27 +37,15 @@ class ChiefController extends Controller
      */
     public function store(Request $request)
     {
-      
-        $chief = new Chief();
+        
         $lang = Session::get('lang');
-        if($lang=='en'){
+        $description = 'description_'.$lang;
             $this->validate($request,[
-              'desc_en'=>'required',
+              $description=>'required',
             ]);
-            $chief->desc_en = $request->input('desc_en');
-        }
-        else if($lang =='dr'){
-            $this->validate($request,[
-              'desc_dr'=>'required',
-            ]);
-            $chief->desc_dr = $request->input('desc_dr');
-        }
-        else{
-            $this->validate($request,[
-              'desc_pa'=>'required',
-            ]);
-            $chief->desc_pa = $request->input('desc_pa');
-        }
+
+        $chief = new Chief();
+        $chief->$description = $request->input($description);
         $chief->save();
         Session::put('lang','');
         Log::info($chief->id." Cheif of staff details created by ".Session::get('email')." on ".date('l jS \of F Y h:i:s A'));
@@ -96,27 +84,15 @@ class ChiefController extends Controller
      */
     public function update(Request $request, $id)
     {
-       
-       $chief =Chief::findOrFail($id);
-       $lang = Session::get('lang');
-       if($lang=='en'){
-           $this->validate($request,[
-             'desc_en'=>'required',
+        $lang = Session::get('lang');
+        $description = 'description_'.$lang;
+
+        $this->validate($request,[
+             $description=>'required',
            ]);
-           $chief->desc_en = $request->input('desc_en');
-       }
-       else if($lang =='dr'){
-           $this->validate($request,[
-             'desc_dr'=>'required',
-           ]);
-           $chief->desc_dr = $request->input('desc_dr');
-       }
-       else{
-           $this->validate($request,[
-             'desc_pa'=>'required',
-           ]);
-           $chief->desc_pa = $request->input('desc_pa');
-       }
+
+        $chief =Chief::findOrFail($id);
+        $chief->$description = $request->input($description);
         $chief->save();
         Session::put('lang','');
         Log::info($id." Cheif of staff details updated by ".Session::get('email')." on ".date('l jS \of F Y h:i:s A'));

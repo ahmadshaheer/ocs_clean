@@ -1,7 +1,7 @@
 @include('include.header')
 <?php
 global $lang,$dir,$indir,$rtl,$ltr,$title,$date,$short_desc,$description,$jdate;
-$desc = "desc_".$lang;
+$description = "description_".$lang;
 ?>
   {{-- main content starts --}}
   <style>

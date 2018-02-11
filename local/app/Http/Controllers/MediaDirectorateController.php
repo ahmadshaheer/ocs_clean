@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\MediaDirectorate;
 use Log;
+use Session;
 
 class MediaDirectorateController extends Controller
 {
@@ -38,28 +39,16 @@ class MediaDirectorateController extends Controller
     public function store(Request $request)
     {
       
-      $lang = \Session::get('lang');
+      $lang = Session::get('lang');
+      $description = 'description_'.$lang;
+      $this->validate($request,[
+          $description=>'required'
+        ]);
+      
       $media = new MediaDirectorate();
-      if($lang=='en') {
-        $this->validate($request,[
-          'desc_en'=>'required'
-        ]);
-        $media->description_en = $request->input('desc_en');
-      }
-      else if($lang=='dr') {
-        $this->validate($request,[
-          'desc_dr'=>'required'
-        ]);
-        $media->description_dr = $request->input('desc_dr');
-      }
-      else if($lang=='pa') {
-        $this->validate($request,[
-          'desc_pa'=>'required'
-        ]);
-        $media->description_pa = $request->input('desc_pa');
-      }
+      $media->$description = $request->input($description);
       $media->save();
-      \Session::put('lang','');
+      Session::put('lang','');
       Log::info($media->id." Media Directorate created by ".Session::get('email')." on ".date('l jS \of F Y h:i:s A'));
       return Redirect()->route('media_directorate.index');
     }
@@ -97,28 +86,17 @@ class MediaDirectorateController extends Controller
     public function update(Request $request, $id)
     {
       
-      $lang = \Session::get('lang');
+      $lang = Session::get('lang');
+      $description = 'description_'.$lang;
+      
+      $this->validate($request,[
+            $description=>'required'
+          ]);
+      
       $media =MediaDirectorate::findOrFail($id);
-      if($lang=='en') {
-          $this->validate($request,[
-            'desc_en'=>'required'
-          ]);
-          $media->description_en = $request->input('desc_en');
-      }
-      else if($lang=='dr') {
-          $this->validate($request,[
-            'desc_dr'=>'required'
-          ]);
-          $media->description_dr = $request->input('desc_dr');
-      }
-      else if($lang=='pa') {
-          $this->validate($request,[
-            'desc_pa'=>'required'
-          ]);
-          $media->description_pa = $request->input('desc_pa');
-      }
+      $media->$description = $request->input($description);
       $media->save();
-      \Session::put('lang','');
+      Session::put('lang','');
       Log::info($id." Media Directorate updated by ".Session::get('email')." on ".date('l jS \of F Y h:i:s A'));
       return Redirect()->route('media_directorate.index');
     }

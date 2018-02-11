@@ -21,38 +21,35 @@
                             <div class="form cmxform form-horizontal">
                                 <?php echo Form::model($palace, ['route' => array('the_palace.update',$palace->id),'files' =>true]); ?>
 
+                                <?php echo e(method_field('PATCH')); ?>
+
                                 <?php if($session=='en'): ?>
                                   <div class="form-group ">
-                                      <label for="desc_en" class="control-label col-lg-3">Description English</label>
+                                      <label for="description_en" class="control-label col-lg-3">Description English</label>
                                       <div class="col-lg-6">
-                                          <textarea name="desc_en" class="form-control format"><?php echo e($palace->desc_en); ?></textarea>
+                                          <textarea name="description_en" class="form-control format"><?php echo e($palace->description_en); ?></textarea>
                                       </div>
                                   </div>
 
                                 <?php elseif($session=='dr'): ?>
                                   <div class="form-group ">
-                                      <label for="desc_dr" class="control-label col-lg-3">Description Dari</label>
+                                      <label for="description_dr" class="control-label col-lg-3">Description Dari</label>
                                       <div class="col-lg-6">
-                                          <textarea name="desc_dr" class="form-control format rtl"><?php echo e($palace->desc_dr); ?></textarea>
+                                          <textarea name="description_dr" class="form-control format rtl"><?php echo e($palace->description_dr); ?></textarea>
                                       </div>
                                   </div>
                                 <?php elseif($session=='pa'): ?>
                                   <div class="form-group ">
-                                      <label for="desc_pa" class="control-label col-lg-3">Description Pashto</label>
+                                      <label for="description_pa" class="control-label col-lg-3">Description Pashto</label>
                                       <div class="col-lg-6">
-                                          <textarea name="desc_pa" class="form-control format rtl"><?php echo e($palace->desc_pa); ?></textarea>
+                                          <textarea name="description_pa" class="form-control format rtl"><?php echo e($palace->description_pa); ?></textarea>
                                       </div>
                                   </div>
                                 <?php endif; ?>
-                                <input name="_method" type="hidden" value="PATCH">
-
-
-
-
-
                                     <div class="form-group">
                                         <div class="col-lg-offset-3 col-lg-6">
                                             <button class="btn btn-primary" type="submit">Update</button>
+                                            <a href="javascript:void(0)" onclick="clearForm()" class="btn btn-warning"  type="button">Clear All</a>
                                             <a href="<?php echo e(url()->previous()); ?>" class="btn btn-default"  type="button">Cancel</a>
                                         </div>
                                     </div>

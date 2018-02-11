@@ -30,12 +30,12 @@ global $lang,$dir,$indir,$rtl,$ltr,$title,$date,$short_desc,$description,$jdate;
               <div class="ui items">
                 <?php $__currentLoopData = $decrees; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $decree): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                   <?php 
-                  if(sizeof($decree->$title)==0)
+                  if($decree->$title=='')
                     continue;
                    ?>
                 <div class="ui item <?php echo e(($decree == $decrees->last())?'no_border':''); ?>">
                   <div class="ui small image">
-                    <img src="<?php echo e(asset('assets/img/thumb.jpg')); ?>" style="padding-left:8px;">
+                    <img src="<?php echo e(asset('uploads/decree/default.jpg')); ?>" style="padding-left:8px;">
                   </div>
                   <div class="content">
                     <a href="<?php echo e(url('decree_details/'.$decree->id)); ?>" class="ui small header title_font"><?php echo e($decree->$title); ?></a>

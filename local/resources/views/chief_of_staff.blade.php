@@ -1,7 +1,7 @@
 @include('include.header')
 <?php
 global $lang,$dir,$indir,$rtl,$ltr,$title,$date,$short_desc,$description,$jdate;
-$desc = "desc_".$lang;
+$description = "description_".$lang;
 ?>
   {{-- main content starts --}}
   <style>
@@ -35,7 +35,7 @@ $desc = "desc_".$lang;
               <div class="ui items" id="ocs" style="width:100%;">
                 <h2 class="ui header title_font border">{{trans('menu.chief_of_staff')}}</h2>
                 @if (sizeof($cos)!=0)
-                  {!! $cos->$desc !!}
+                  {!! $cos->$description !!}
                    <!-- AddToAny BEGIN -->
                 <div class="a2a_kit a2a_kit_size_32 a2a_default_style" style="float:{{$indir}}">
                   <a class="a2a_button_facebook"></a>

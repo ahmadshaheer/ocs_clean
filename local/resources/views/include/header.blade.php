@@ -770,9 +770,9 @@
   .ui.items {
     margin: .8em 0 !important;
   }
- .ui.fluid.card>.content img{
+ /*.ui.fluid.card>.content img{
     max-width: 100%;
-  }
+  }*/
  .u-floatLeft{
   display: none !important;
  }

@@ -30,12 +30,12 @@ global $lang,$dir,$indir,$rtl,$ltr,$title,$date,$short_desc,$description,$jdate;
               <div class="ui items">
                 @foreach($decrees as $decree)
                   @php
-                  if(sizeof($decree->$title)==0)
+                  if($decree->$title=='')
                     continue;
                   @endphp
                 <div class="ui item {{($decree == $decrees->last())?'no_border':''}}">
                   <div class="ui small image">
-                    <img src="{{asset('assets/img/thumb.jpg')}}" style="padding-left:8px;">
+                    <img src="{{asset('uploads/decree/default.jpg')}}" style="padding-left:8px;">
                   </div>
                   <div class="content">
                     <a href="{{url('decree_details/'.$decree->id)}}" class="ui small header title_font">{{$decree->$title}}</a>

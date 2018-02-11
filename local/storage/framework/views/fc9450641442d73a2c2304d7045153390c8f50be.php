@@ -1,7 +1,7 @@
 <?php echo $__env->make('include.header', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 <?php
 global $lang,$dir,$indir,$rtl,$ltr,$title,$date,$short_desc,$description,$jdate;
-$desc = "desc_".$lang;
+$description = "description_".$lang;
 ?>
   
   <style>
@@ -35,7 +35,7 @@ $desc = "desc_".$lang;
               <div class="ui items" id="ocs" style="width:100%;">
                 <h2 class="ui header title_font border"><?php echo e(trans('menu.chief_of_staff')); ?></h2>
                 <?php if(sizeof($cos)!=0): ?>
-                  <?php echo $cos->$desc; ?>
+                  <?php echo $cos->$description; ?>
 
                    <!-- AddToAny BEGIN -->
                 <div class="a2a_kit a2a_kit_size_32 a2a_default_style" style="float:<?php echo e($indir); ?>">

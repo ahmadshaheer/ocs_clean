@@ -93,7 +93,7 @@ $i=1;
        ?>
     <tr>
       <td>{{$i++}}</td>
-      <th><img src="{{asset('uploads/trips/international/'.$value->image)}}" style="width:100px;"></th>
+      <th><img src="{{asset('uploads/international/'.$value->image)}}" style="width:100px;"></th>
       <td><div style="width:20em" class="test">{{$title_value}}</div></td>
       <td><div style="width:10em" class="test">{{$value->$date}}</div></td>
       <td style="">{{$value->$short_desc}}</td>

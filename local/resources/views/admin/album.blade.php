@@ -97,22 +97,23 @@ $i=1;
       <td><div style="width:10em" class="test">{{$value->$date}}</div></td>
 
       <td>
-      <form action="{{ route('album.destroy', $value->id) }}" class="ui form" method="POST">
+      <form action="{{ route('album.destroy', $value->id) }}" class="" method="POST">
           {{ method_field('DELETE') }}
           {{ csrf_field() }}
 
           @if(Session::get('role')!='editor')
-          <select class="form-control me" id="add" name="image_num" style="width:30%;display:inline">
+          <a href="{{route('add_album_image',$value->id)}}" class="btn btn-xs btn-default">Add Images</a>
+        {{--   <select class="form-control me" id="add" name="image_num" style="width:30%;height:23px;padding:0px !important;margin-{{$dir}}:1px;display:inline">
             <option value="">Add Images</option>
             <option value="1_{{$value->id}}">1</option>
             <option value="2_{{$value->id}}">2</option>
             <option value="3_{{$value->id}}">3</option>
-          </select>
+          </select> --}}
           @endif
-          <a href="{{route('edit_images',$value->id)}}" class="ui tiny button black ">Edit Images</a>
-           <a class="btn btn-default pull-{{$dir}}" href="javascript:void(0)" onclick="edit('{{$lang.'_'.$value->id}}')" style="margin-bottom: 10px;">{{($value->$title==''?'Add':'Edit')}}</a>
+          <a href="{{route('edit_images',$value->id)}}" class="btn btn-xs btn-default">Edit Images</a>
+           <a class="btn btn-xs btn-default pull-{{$dir}}" href="javascript:void(0)" onclick="edit('{{$lang.'_'.$value->id}}')" style="margin-bottom: 10px;">{{($value->$title==''?'Add':'Edit')}}</a>
           @if(Session::get('role')=='admin')
-          <button class="ui tiny button red " onclick="return confirm_submit()">Delete</button>
+          <button class="btn btn-xs btn-danger " onclick="return confirm_submit()">Delete</button>
           @endif
       </form>
 
@@ -128,11 +129,11 @@ $i=1;
 @include('admin.include.footer')
 <script>
 
-$(".me").change(function(){
-    var num = $(this).val().substring(0,1);
-    var id = $(this).val().substring(2);
-    window.location = "{{url('admin/album/album_image')}}"+'/'+num+'/'+id;
-  });
+// $(".me").change(function(){
+//     var num = $(this).val().substring(0,1);
+//     var id = $(this).val().substring(2);
+//     window.location = "{{url('admin/album/album_image')}}"+'/'+num+'/'+id;
+//   });
 
 
 

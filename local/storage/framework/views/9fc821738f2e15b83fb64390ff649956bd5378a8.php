@@ -40,9 +40,9 @@
                                   </div>
 
                                   <div class="form-group ">
-                                      <label for="desc_dr" class="control-label col-lg-3">Description Dari</label>
+                                      <label for="description_dr" class="control-label col-lg-3">Description Dari</label>
                                       <div class="col-lg-6">
-                                          <textarea name="desc_dr" class="form-control rtl"> <?php echo e($link->description_dr); ?></textarea>
+                                          <textarea name="description_dr" class="form-control rtl"> <?php echo e($link->description_dr); ?></textarea>
                                       </div>
                                   </div>
 
@@ -55,9 +55,9 @@
                                   </div>
 
                                   <div class="form-group ">
-                                      <label for="desc_pa" class="control-label col-lg-3">Description Pashto</label>
+                                      <label for="description_pa" class="control-label col-lg-3">Description Pashto</label>
                                       <div class="col-lg-6">
-                                          <textarea name="desc_pa" class="form-control rtl"><?php echo e($link->description_pa); ?></textarea>
+                                          <textarea name="description_pa" class="form-control rtl"><?php echo e($link->description_pa); ?></textarea>
                                       </div>
                                   </div>
 
@@ -71,9 +71,9 @@
                                   </div>
 
                                   <div class="form-group ">
-                                      <label for="desc_en" class="control-label col-lg-3">Description English</label>
+                                      <label for="description_en" class="control-label col-lg-3">Description English</label>
                                       <div class="col-lg-6">
-                                          <textarea name="desc_en" class="form-control"><?php echo e($link->description_en); ?></textarea>
+                                          <textarea name="description_en" class="form-control"><?php echo e($link->description_en); ?></textarea>
                                       </div>
                                   </div>
                                 <?php endif; ?>
@@ -86,11 +86,16 @@
                                         <input class="form-control" id="url" name="url" value="<?php echo e($link->url); ?>" type="text">
                                     </div>
                                 </div>
-
-                                <div class="form-group">
+                                 <div class="form-group form-check">
+                                  <label class="col-lg-6 col-md-offset-1 form-check-label">
+                                    <input type="checkbox" id="replace_image" name="replace" class="form-check-input">
+                                    Replace Image?
+                                  </label>
+                                </div>
+                                <div class="form-group" id="image_upload">
                                     <label for="image" class="control-label col-lg-3">Image</label>
                                     <input type="file" name="image" class="file" value="<?php echo e($link->image); ?>">
-                                    <div class="input-group col-md-6 col-md-offset-3 col-xs-12" style="padding-left:15px; padding-right:14px;">
+                                    <div class="input-group col-md-6 col-xs-12" style="padding-left:15px; padding-right:14px;">
                                       <span class="input-group-addon"><i class="fa fa-file-image-o"></i></span>
                                       <input type="text" class="form-control input-lg" disabled placeholder="Upload Image">
                                       <span class="input-group-btn">

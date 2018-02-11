@@ -36,7 +36,7 @@ global $lang,$dir,$indir,$rtl,$ltr,$title,$date,$short_desc,$description,$jdate;
               <div class="ui three doubling stackable cards">
                 <?php $__currentLoopData = $images; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $image): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                 <div class="card">
-                  <a href="<?php echo e(asset('uploads/albumImage/'.$image->image)); ?>" class="image example-image-link" data-lightbox="test" data-title="<?php echo e($image->$title); ?>">
+                  <a href="<?php echo e(asset('uploads/albumImage/'.$image->image)); ?>" class="image example-image-link" data-lightbox="test" data-title="">
                     <img class="example-image" src="<?php echo e(asset('uploads/albumImage/'.$image->image)); ?>">
                   </a>
                 </div>

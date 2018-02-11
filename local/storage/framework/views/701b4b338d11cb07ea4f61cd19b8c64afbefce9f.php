@@ -13,16 +13,16 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="#75C7C3">
 
   <title><?php echo e(trans('laravel-filemanager::lfm.title-page')); ?></title>
-  <link rel="shortcut icon" type="image/png" href="<?php echo e(asset('vendor/laravel-filemanager/img/folder.png')); ?>">
+  <link rel="shortcut icon" type="image/png" href="<?php echo e(asset('local/vendor/unisharp/laravel-filemanager/public/img/folder.png')); ?>">
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="<?php echo e(asset('vendor/laravel-filemanager/css/cropper.min.css')); ?>">
+  <link rel="stylesheet" href="<?php echo e(asset('local/vendor/unisharp/laravel-filemanager/public/css/cropper.min.css')); ?>">
   <style><?php echo \File::get(base_path('vendor/unisharp/laravel-filemanager/public/css/lfm.css')); ?></style>
   
   
-  <link rel="stylesheet" href="<?php echo e(asset('vendor/laravel-filemanager/css/mfb.css')); ?>">
-  <link rel="stylesheet" href="<?php echo e(asset('vendor/laravel-filemanager/css/dropzone.min.css')); ?>">
-  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.css">
+  <link rel="stylesheet" href="<?php echo e(asset('local/vendor/unisharp/laravel-filemanager/public/css/mfb.css')); ?>">
+  <link rel="stylesheet" href="<?php echo e(asset('local/vendor/unisharp/laravel-filemanager/public/css/dropzone.min.css')); ?>">
+  <link rel="stylesheet" href="<?php echo e(asset('local/vendor/unisharp/laravel-filemanager/public/css/jquery-ui.min.css')); ?>">
 </head>
 <body>
   <div class="container-fluid" id="wrapper">
@@ -88,7 +88,7 @@
           </div>
         </nav>
         <div class="visible-xs" id="current_dir" style="padding: 5px 15px;background-color: #f8f8f8;color: #5e5e5e;"></div>
-        
+
         <div id="alerts"></div>
 
         <div id="content"></div>
@@ -124,7 +124,7 @@
         <div class="modal-body">
           <form action="<?php echo e(route('unisharp.lfm.upload')); ?>" role='form' id='uploadForm' name='uploadForm' method='post' enctype='multipart/form-data' class="dropzone">
             <div class="form-group" id="attachment">
-              
+
               <div class="controls text-center">
                 <div class="input-group" style="width: 100%">
                   <a class="btn btn-primary" id="upload-button"><?php echo e(trans('laravel-filemanager::lfm.message-choose')); ?></a>
@@ -144,16 +144,16 @@
   </div>
 
   <div id="lfm-loader">
-    <img src="<?php echo e(asset('vendor/laravel-filemanager/img/loader.svg')); ?>">
+    <img src="<?php echo e(asset('local/vendor/unisharp/laravel-filemanager/img/loader.svg')); ?>">
   </div>
 
-  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-  <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
-  <script src="<?php echo e(asset('vendor/laravel-filemanager/js/cropper.min.js')); ?>"></script>
-  <script src="<?php echo e(asset('vendor/laravel-filemanager/js/jquery.form.min.js')); ?>"></script>
-  <script src="<?php echo e(asset('vendor/laravel-filemanager/js/dropzone.min.js')); ?>"></script>
+  <script src="<?php echo e(asset('local/vendor/unisharp/laravel-filemanager/public/js/jquery.min.js')); ?>"></script>
+  <script src="<?php echo e(asset('local/vendor/unisharp/laravel-filemanager/public/js/bootstrap.min.js')); ?>"></script>
+  <script src="<?php echo e(asset('local/vendor/unisharp/laravel-filemanager/public/js/bootbox.min.js')); ?>"></script>
+  <script src="<?php echo e(asset('local/vendor/unisharp/laravel-filemanager/public/js/jquery-ui.min.js')); ?>"></script>
+  <script src="<?php echo e(asset('local/vendor/unisharp/laravel-filemanager/public/js/cropper.min.js')); ?>"></script>
+  <script src="<?php echo e(asset('local/vendor/unisharp/laravel-filemanager/public/js/jquery.form.min.js')); ?>"></script>
+  <script src="<?php echo e(asset('local/vendor/unisharp/laravel-filemanager/public/js/dropzone.min.js')); ?>"></script>
   <script>
     var route_prefix = "<?php echo e(url('/')); ?>";
     var lfm_route = "<?php echo e(url(config('lfm.url_prefix', config('lfm.prefix')))); ?>";
@@ -202,11 +202,11 @@
         var _this = this; // For the closure
         this.on("addedfile", function(file) { refreshFoldersAndItems('OK'); });
         this.on('success', function(file, response) {
-          
+
           if(response != 'OK'){
             this.defaultOptions.error(file, response.join('\n'));
           }
-          
+
       });
       },
       acceptedFiles: "<?php echo e(lcfirst(str_singular(request('type'))) == 'image' ? implode(',', config('lfm.valid_image_mimetypes')) : implode(',', config('lfm.valid_file_mimetypes'))); ?>",

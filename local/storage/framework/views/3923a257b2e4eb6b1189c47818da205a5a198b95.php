@@ -20,7 +20,8 @@ global $jdate; ?>
                         <div class="form cmxform form-horizontal ">
                             <?php echo Form::model($video, ['route' => array('videos.update',$video->id)]); ?>
 
-                            <input name="_method" type="hidden" value="PATCH">
+                            <?php echo e(method_field('PATCH')); ?>
+
                             <?php if($session=='dr'): ?>
                               <div class="form-group ">
                                   <label for="title_dr" class="control-label col-lg-3">Title Dari</label>
@@ -62,9 +63,9 @@ global $jdate; ?>
                                 </label>
                               </div>
                               <div class="form-group date_dari">
-                                  <label for="date_dr" class="control-label col-lg-3">Date Pashto</label>
+                                  <label for="date_pa" class="control-label col-lg-3">Date Pashto</label>
                                   <div class="col-lg-6">
-                                    <input class="form-control change_date" disabled id="date_dr" value="<?php echo e($jdate->detailedDate($video->date_dr,$session)); ?>"  name="date_dr" type="text" required>
+                                    <input class="form-control change_date" disabled id="date_pa" value="<?php echo e($jdate->detailedDate($video->date_dr,$session)); ?>"  name="date_pa" type="text" required>
                                   </div>
                               </div>
                               <div class="form-group" style="margin-left:.25%;">
@@ -76,29 +77,27 @@ global $jdate; ?>
                               </div>
                             <?php elseif($session=='en'): ?>
                               <div class="form-group ">
-                                <label for="title" class="control-label col-lg-3">Title</label>
+                                <label for="title_en" class="control-label col-lg-3">Title</label>
                                 <div class="col-lg-6">
-                                  <input class=" form-control" maxlength="150" id="title" value="<?php echo e($video->title_en); ?>" name="title" type="text">
+                                  <input class=" form-control" maxlength="150" id="title_en" value="<?php echo e($video->title_en); ?>" name="title_en" type="text">
                                 </div>
                               </div>
 
                               <div class="form-group ">
-                                <label for="date" class="control-label col-lg-3">Date</label>
+                                <label for="date_en" class="control-label col-lg-3">Date</label>
                                 <div class="col-lg-6">
-                                  <input class=" form-control" id="date" name="date" value="<?php echo e($video->date_en); ?>" type="date" required>
+                                  <input class=" form-control" id="date_en" name="date_en" value="<?php echo e($video->date_en); ?>" type="date" required>
                                 </div>
                               </div>
 
                               <div class="form-group" style="margin-left:.25%;">
-                                <label for="video" class="control-label col-lg-3" style="padding-right:30px;">Video English</label>
+                                <label for="video_en" class="control-label col-lg-3" style="padding-right:30px;">Video English</label>
                                 <div class="input-group" style="width:48.7%;margin-bottom:0;">
                                   <span class="input-group-addon" id="basic-addon3">https://www.youtube.com/watch?v=</span>
-                                  <input type="text" name="video" value="<?php echo e($video->url_en); ?>" class="form-control">
+                                  <input type="text" name="video_en" value="<?php echo e($video->url_en); ?>" class="form-control">
                                 </div>
                               </div>
                             <?php endif; ?>
-
-
 
                                     <div class="form-group">
                                       <div class="col-lg-offset-3 col-lg-6">

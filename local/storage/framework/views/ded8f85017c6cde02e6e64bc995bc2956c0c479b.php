@@ -30,19 +30,19 @@
                                     <div class="form-group ">
                                         <label for="title" class="control-label col-lg-3">Title</label>
                                         <div class="col-lg-6">
-                                            <input class=" form-control" id="title" maxlength="150" name="title_en" type="text">
+                                            <input class=" form-control" id="title" value="<?php echo e(old('title_en')); ?>" name="title_en" type="text">
                                         </div>
                                     </div>
                                      <div class="form-group ">
-                                        <label for="date" class="control-label col-lg-3">Date</label>
+                                        <label for="date_en" class="control-label col-lg-3">Date</label>
                                         <div class="col-lg-6">
-                                            <input class=" form-control" id="date_en" maxlength="10"  name="date" type="date" required>
+                                            <input class=" form-control" id="date_en" value="<?php echo e(old('date_en')); ?>"  name="date_en" type="date" required>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="pdf_en" class="control-label col-lg-3">PDF English</label>
                                         <input type="file" name="pdf_en" class="file">
-                                        <div class="input-group col-md-6 col-md-offset-3 col-xs-12" style="padding-left:15px; padding-right:14px;">
+                                        <div class="input-group col-md-6 col-xs-12" style="padding-left:15px; padding-right:14px;">
                                           <span class="input-group-addon"><i class="fa fa-file-image-o"></i></span>
                                           <input type="text" class="form-control input-lg" disabled placeholder="Upload PDF">
                                           <span class="input-group-btn">
@@ -66,7 +66,7 @@
                                     <div class="form-group">
                                     <label for="pdf_dr" class="control-label col-lg-3">PDF Dari</label>
                                         <input type="file" name="pdf_dr" class="file">
-                                        <div class="input-group col-md-6 col-md-offset-3 col-xs-12" style="padding-left:15px; padding-right:14px;">
+                                        <div class="input-group col-md-6 col-xs-12" style="padding-left:15px; padding-right:14px;">
                                           <span class="input-group-addon"><i class="fa fa-file-image-o"></i></span>
                                           <input type="text" class="form-control input-lg" disabled placeholder="Upload PDF">
                                           <span class="input-group-btn">
@@ -82,15 +82,15 @@
                                         </div>
                                     </div>
                                    <div class="form-group ">
-                                        <label for="date_dr" class="control-label col-lg-3">Date Pashto</label>
+                                        <label for="date_pa" class="control-label col-lg-3">Date Pashto</label>
                                         <div class="col-lg-6">
-                                            <input class=" form-control date_dr rtl"  maxlength="10" id="date_dr" name="date_dr" type="text" required>
+                                            <input class=" form-control date_dr rtl"  maxlength="10" id="date_pa" name="date_pa" type="text" required>
                                         </div>
                                     </div>
                                       <div class="form-group">
                                         <label for="pdf_pa" class="control-label col-lg-3">PDF Pashto</label>
                                         <input type="file" name="pdf_pa" class="file">
-                                        <div class="input-group col-md-6 col-md-offset-3 col-xs-12" style="padding-left:15px; padding-right:14px;">
+                                        <div class="input-group col-md-6 col-xs-12" style="padding-left:15px; padding-right:14px;">
                                           <span class="input-group-addon"><i class="fa fa-file-image-o"></i></span>
                                           <input type="text" class="form-control input-lg" disabled placeholder="Upload PDF">
                                           <span class="input-group-btn">

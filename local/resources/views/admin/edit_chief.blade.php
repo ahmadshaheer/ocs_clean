@@ -29,26 +29,26 @@
                           @endif
                             <div class="form cmxform form-horizontal">
                                 {!! Form::model($chief, ['route' => array('the_chief.update',$chief->id),'files' =>true]) !!}
-                                <input name="_method" type="hidden" value="PATCH">
+                                {{method_field('PATCH')}}
                                 @if($session=='en')
                                     <div class="form-group ">
-                                      <label for="desc_en" class="control-label col-lg-3">Description English</label>
+                                      <label for="description_en" class="control-label col-lg-3">Description English</label>
                                       <div class="col-lg-6">
-                                          <textarea name="desc_en" class="form-control format">{{$chief->desc_en}}</textarea>
+                                          <textarea name="description_en" class="form-control format">{{$chief->description_en}}</textarea>
                                       </div>
                                   </div>
                                   @elseif($session=='dr')
                                    <div class="form-group ">
-                                      <label for="desc_dr" class="control-label col-lg-3">Description Dari</label>
+                                      <label for="description_dr" class="control-label col-lg-3">Description Dari</label>
                                       <div class="col-lg-6">
-                                          <textarea name="desc_dr" class="form-control format rtl">{{$chief->desc_dr}}</textarea>
+                                          <textarea name="description_dr" class="form-control format rtl">{{$chief->description_dr}}</textarea>
                                       </div>
                                   </div>
                                   @else
                                    <div class="form-group ">
-                                      <label for="desc_pa" class="control-label col-lg-3">Description Pashto</label>
+                                      <label for="description_pa" class="control-label col-lg-3">Description Pashto</label>
                                       <div class="col-lg-6">
-                                          <textarea name="desc_pa" class="form-control format rtl">{{$chief->desc_pa}}</textarea>
+                                          <textarea name="description_pa" class="form-control format rtl">{{$chief->description_pa}}</textarea>
                                       </div>
                                   </div>
                                   @endif

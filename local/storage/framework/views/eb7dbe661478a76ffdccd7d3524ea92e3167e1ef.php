@@ -42,7 +42,7 @@ $i=1;
     <?php $__currentLoopData = $bio; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
 
        <?php
-    $title_value ='';
+    $bio_value ='';
       switch ($lang) {
         case 'dr':
           if($value->$bio_val=='') {

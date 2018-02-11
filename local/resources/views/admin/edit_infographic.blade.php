@@ -31,7 +31,7 @@ global $jdate;
                             @endif
                             <div class="form cmxform form-horizontal">
                                 {!! Form::model($info, ['route' => array('infographic.update',$info->id),'files' =>true]) !!}
-                                <input name="_method" type="hidden" value="PATCH">
+                                {{method_field('PATCH')}}
                                 @if($session=='dr')
 
                                   <div class="form-group ">

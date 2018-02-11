@@ -14,8 +14,6 @@
                   <img src="{{asset('uploads/albumImage/'.$image->image)}}">
                 </div>
                 
-                  <p class="header">{{$image->title_en}}</p>
-                
               </div>
  @endforeach
  </div>

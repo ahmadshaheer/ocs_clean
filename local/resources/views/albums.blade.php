@@ -25,6 +25,13 @@ global $lang,$dir,$indir,$rtl,$ltr,$title,$date,$short_desc,$description,$jdate;
     padding-left: 0 !important;
 
   }
+  .inner_image{
+    height: 140px;
+  }
+  .inner_image img{
+    height: 100%;
+    width: 100%;
+  }
   </style>
     {{-- left sidebar president word and social boxes start --}}
 
@@ -44,7 +51,9 @@ global $lang,$dir,$indir,$rtl,$ltr,$title,$date,$short_desc,$description,$jdate;
                 <div class="ui card">
                   <a class="image" style="border: 5px solid #ddd !important;border-radius:0 !important;"href="{{route('album_images',$album->id)}}">
                     <div class="ui bottom attached label body_font" style="text-align: center;">{{$jdate->detailedDate($album->$date,$lang)}}</div>
+                    <div class="inner_image">
                     <img src="{{asset('uploads/album/'.$album->image)}}">
+                    </div>
                   </a>
                   <div class="content" id="album">
                     <a class="ui  header" style="clear:both;" href="{{route('album_images',$album->id)}}">{{$album->$title}}</a>

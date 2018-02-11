@@ -32,7 +32,7 @@ global $jdate;
                           @endif
                             <div class="form cmxform form-horizontal">
                                 {!! Form::model($media, ['route' => array('media.update',$media->id),'files' =>true]) !!}
-                                <input name="_method" type="hidden" value="PATCH">
+                                {{method_field('PATCH')}}
 
                                 @if($session=='dr')
                                   <div class="form-group ">
@@ -66,9 +66,9 @@ global $jdate;
                                       </div>
                                   </div>
                                   <div class="form-group ">
-                                      <label for="desc_dr" class="control-label col-lg-3">Description Dari</label>
+                                      <label for="description_dr" class="control-label col-lg-3">Description Dari</label>
                                       <div class="col-lg-6">
-                                          <textarea name="desc_dr" class="form-control format rtl"> {{$media->description_dr}}</textarea>
+                                          <textarea name="description_dr" class="form-control format rtl"> {{$media->description_dr}}</textarea>
                                       </div>
                                   </div>
 
@@ -81,9 +81,9 @@ global $jdate;
                                   </div>
 
                                   <div class="form-group ">
-                                      <label for="date_dr" class="control-label col-lg-3">Date Pashto</label>
+                                      <label for="date_pa" class="control-label col-lg-3">Date Pashto</label>
                                       <div class="col-lg-6">
-                                          <input class=" form-control date_dr rtl"  id="date_dr" value="{{$media->date_dr}}" name="date_dr" type="text" required>
+                                          <input class=" form-control date_dr rtl"  id="date_pa" value="{{$media->date_dr}}" name="date_pa" type="text" required>
                                       </div>
                                   </div>
 
@@ -96,23 +96,23 @@ global $jdate;
                                   </div>
 
                                   <div class="form-group ">
-                                      <label for="desc_pa" class="control-label col-lg-3">Description Pashto</label>
+                                      <label for="description_pa" class="control-label col-lg-3">Description Pashto</label>
                                       <div class="col-lg-6">
-                                          <textarea name="desc_pa" class="form-control format rtl">{{$media->description_pa}}</textarea>
+                                          <textarea name="description_pa" class="form-control format rtl">{{$media->description_pa}}</textarea>
                                       </div>
                                   </div>
 
                                 @elseif ($session=='en')
                                   <div class="form-group">
-                                      <label for="title" class="control-label col-lg-3">Title</label>
+                                      <label for="title_en" class="control-label col-lg-3">Title</label>
                                       <div class="col-lg-6">
-                                          <input class=" form-control" id="title" value="{{$media->title_en}}" name="title" type="text">
+                                          <input class=" form-control" id="title_en" value="{{$media->title_en}}" name="title_en" type="text">
                                       </div>
                                   </div>
                                   <div class="form-group ">
-                                      <label for="date" class="control-label col-lg-3">Date</label>
+                                      <label for="date_en" class="control-label col-lg-3">Date</label>
                                       <div class="col-lg-6">
-                                          <input class=" form-control" id="date" value="{{$media->date_en}}"  name="date" type="date" required>
+                                          <input class=" form-control" id="date_en" value="{{$media->date_en}}"  name="date_en" type="date" required>
                                       </div>
                                   </div>
                                   <div class="form-group ">
@@ -122,9 +122,9 @@ global $jdate;
                                       </div>
                                   </div>
                                   <div class="form-group ">
-                                      <label for="desc_en" class="control-label col-lg-3">Description English</label>
+                                      <label for="description_en" class="control-label col-lg-3">Description English</label>
                                       <div class="col-lg-6">
-                                          <textarea name="desc_en" class="form-control format">{{$media->description_en}}</textarea>
+                                          <textarea name="description_en" class="form-control format">{{$media->description_en}}</textarea>
                                       </div>
                                   </div>
                                       <div class="form-group">

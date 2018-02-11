@@ -38,30 +38,17 @@ class BioController extends Controller
      */
     public function store(Request $request)
     {
-        
-        $bio = new Bio();
+        //multi language variable
         $lang = Session::get('lang');
-        if($lang == 'en'){
-            $this->validate($request,[
-              'bio_en'=>'required',
+        $bio = 'bio_'.$lang;
+        $this->validate($request,[
+              $bio=>'required',
             ]);
-            $bio->bio_en = $request->input('bio_en');
-        }
-        else if($lang=='dr'){
-            $this->validate($request,[
-              'bio_dr'=>'required',
-            ]);
-            $bio->bio_dr = $request->input('bio_dr');
-        }
-        else{
-            $this->validate($request,[
-              'bio_pa'=>'required',
-            ]);
-            $bio->bio_pa = $request->input('bio_pa');
-        }
-        $bio->save();
+        $bio_obj = new Bio();
+        $bio_obj->$request->$bio;
+        $bio_obj->save();
         Session::put('lang','');
-        Log::info($bio->id." Bio created by ".Session::get('email')." on ".date('l jS \of F Y h:i:s A'));
+        Log::info($bio_obj->id." Bio created by ".Session::get('email')." on ".date('l jS \of F Y h:i:s A'));
         return Redirect()->route('the_bio.index');
     }
 
@@ -97,28 +84,14 @@ class BioController extends Controller
      */
     public function update(Request $request, $id)
     {
+        // multi language variables
+        $lang = Session::get('lang');
+        $bio = 'bio_'.$lang;
+
+        $bio_obj =Bio::findOrFail($id);
+        $bio_obj->$bio = $request->$bio;
+        $bio_obj->save();
         
-        $bio =Bio::findOrFail($id);
-         $lang = Session::get('lang');
-        if($lang == 'en'){
-            $this->validate($request,[
-              'bio_en'=>'required',
-            ]);
-            $bio->bio_en = $request->input('bio_en');
-        }
-        else if($lang=='dr'){
-            $this->validate($request,[
-              'bio_dr'=>'required',
-            ]);
-            $bio->bio_dr = $request->input('bio_dr');
-        }
-        else{
-            $this->validate($request,[
-              'bio_pa'=>'required',
-            ]);
-            $bio->bio_pa = $request->input('bio_pa');
-        }
-        $bio->save();
         Session::put('lang','');
         Log::info($id." Bio updated by ".Session::get('email')." on ".date('l jS \of F Y h:i:s A'));
         return Redirect()->route('the_bio.index');

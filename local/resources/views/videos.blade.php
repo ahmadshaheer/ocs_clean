@@ -51,11 +51,16 @@ $url = 'url_'.$lang;
                   @endphp
                   <div class="ui card">
                     <div class="ui image" >
+                      <a href="{{url('video_details/'.$video->id)}}">
                       <img src="https://img.youtube.com/vi/{{$video->$url}}/hqdefault.jpg" alt="">
+                      </a>
                     </div>
-                    <div class="content" style="padding:0 !important;">
-                      <a href="{{url('video_details/'.$video->id)}}" class="ui label blue header title_font" style="background-color:#033B62 !important;">{{$video->$title}}</a>
-                      <div class="ui yellow label meta body_font" style="background-color:#357099 !important;">{{$jdate->detailedDate($video->$date,$lang)}}</div>
+                    <div class="" style="background-color:#033B62 !important;padding:5px;border-radius: 0 !important;">
+                      {{-- <div style=""> --}}
+                      <a href="{{url('video_details/'.$video->id)}}" class="ui inverted header title_font" >{{$video->$title}}</a>
+                      <span class="ui {{$indir}} floated inverted tiny header body_font" style="color:white !important;padding-top:5px;">{{$jdate->detailedDate($video->$date,$lang)}}</span>
+                      {{-- </div> --}}
+
                     </div>
                   </div>
                 @endforeach

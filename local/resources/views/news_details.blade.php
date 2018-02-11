@@ -34,7 +34,7 @@ global $lang,$dir,$indir,$rtl,$ltr,$title,$date,$short_desc,$description,$jdate;
           <div class="ui fluid card" style="direction:rtl;float:right;text-align:right;">
             <div class="content">
               <h2 class="ui header title_font border">{{$news_details->$title}}</h2>
-              <img class="ui image" src="{{asset('uploads/media/news/'.$news_details->image)}}">
+              <img class="ui image" src="{{asset('uploads/news/'.$news_details->image)}}">
               <p class="meta body_font">{{$news_details->$date}}</p>
               <div class="description">
                 <p>{!!$news_details->$description!!}</p>

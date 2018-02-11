@@ -26,15 +26,15 @@ $pdf = 'pdf_'.$lang;
                 <div class="ui stackable container grid" id="carousel_div">
                   <div class="sixteen wide mobile tablet ten wide computer column" id="carousel_image_div" >
                     <div class="carousel_thumbnail">
-                      <img style="" src="{{asset('uploads/media/news/'.$value->image)}}" alt="">
+                      <img style="" src="{{asset('uploads/news/'.$value->image)}}" alt="">
                     </div>
                   </div>
                   <div class="sixteen wide mobile tablet six wide computer column" id="carousel_text_div" style="">
                     <blockquote style="">
-                      <a href="{{url('news_details/'.$value->id)}}" class="ui header title_font news_title" id="carousel_title" style="display:block">{{$value->$title}}</a>
+                      <a href="{{url('news_details/'.$value->id)}}" class="ui header title_font news_title" id="carousel_title" style="display:block;margin-bottom: 2px !important">{{$value->$title}}</a>
                       <p class="body_font " style="color:#888;font-size:14px;" dir=""><i class="icon time"></i>
                         {{$jdate->detailedDate($value->$date,$lang)}}</p>
-                      <div style="font-size:17px;" class="body_font carousel_text">{{$value->$short_desc}}</div>
+                      <div style="font-size:17px;margin-top: -10px;" class="body_font carousel_text">{{$value->$short_desc}}</div>
                       <a class="body_font" href="{{url('news_details/'.$value->id)}}" style="color:#888;font-size:14px;float:{{$indir}}">{{trans('home.read_more')}}</a>
                     </blockquote>
                   </div>
@@ -86,7 +86,7 @@ $pdf = 'pdf_'.$lang;
                   @foreach($lattest_news as $item)
                     <?php if($item->$title=='')
                             continue;
-                     // $url =  ($item->table_name=='documents')?asset('uploads/documents_'.$lang.'/'.$item->table_id.'.pdf'):'';
+                     $url =  ($item->table_name=='documents')?asset('uploads/documents_'.$lang.'/'.$item->table_id.'.pdf'):'';
                         // $img = '';
                        if($item->table_name=='documents'){
                           $img = asset('assets/img/pdf.png');
@@ -95,7 +95,7 @@ $pdf = 'pdf_'.$lang;
                           $img = "https://img.youtube.com/vi/$item->image_thumb/hqdefault.jpg";
                         }
                          else if($item->type == 'decree' || $item->type=='order'){
-                            $img = asset('assets/img/thumb.jpg');
+                            $img = asset('uploads/'.$item->type.'/default.jpg');
                         }
                         else{
                           $img = asset($item->image_thumb);
@@ -111,14 +111,15 @@ $pdf = 'pdf_'.$lang;
                               <i class="icon clock">
                               </i>{{$jdate->detailedDate($item->$date,$lang)}}
                             </p>
-                          </div>
-                          <div class="sixteen wide mobile tablet five wide computer column thumbnail news_image" id="news_image" style="">
-                            <img style="float:right;" class="" src="{{$img}}" alt="">
-                          </div>
-                          <div class="desc">
                             <div class="description body_font short_desc_to_be_trimmed" style="clear:both;">
                             {{$item->$short_desc}}
                             </div>
+                          </div>
+                          <div class="sixteen wide mobile tablet five wide computer column thumbnail news_image" id="news_image" style="">
+                            <img style="float:right;height: auto;width: auto;margin-left: auto;margin-right: auto;" class="" src="{{$img}}" alt="">
+                          </div>
+                          <div class="desc">
+                            
                             <div class="" style="padding-bottom:15px;">
                               <a href="{{($item->table_name=='documents')?$url:url($item->type.'_details/'.$item->table_id)}}" class="meta body_font" style="float:left;">{{trans('home.read_more')}}</a>
                             </div>
@@ -139,7 +140,11 @@ $pdf = 'pdf_'.$lang;
               <div class="ui items" style="margin-top:11px;">
               @if (sizeof($articles)!=0)
                 @foreach($articles as $item)
-
+                <?php
+                  if ($item->$title=='') {
+                    continue;
+                  }
+                ?>
                  @if ($item->$title!=null)
                    <div class="article {{($item == $articles->last())?'no_borders':''}}" style="border-bottom:1px dashed #ddd;padding-bottom:10px;">
                      <div class="ui grid" style="display:flex;margin:0 !important;">
@@ -151,7 +156,7 @@ $pdf = 'pdf_'.$lang;
                          </p>
                        </div>
                        <div class="sixteen wide mobile tablet seven wide computer column thumbnail news_image" id="news_image" style="">
-                         <img style="float:right;" class="" src="{{asset('uploads/media/article/'.$item->image_thumb)}}" alt="">
+                         <img style="float:right;" class="" src="{{asset('uploads/article/'.$item->image_thumb)}}" alt="">
                        </div>
                      </div>
 

@@ -30,26 +30,27 @@
                             <div class="form cmxform form-horizontal">
                                 <?php echo Form::model($chief, ['route' => array('the_chief.update',$chief->id),'files' =>true]); ?>
 
-                                <input name="_method" type="hidden" value="PATCH">
+                                <?php echo e(method_field('PATCH')); ?>
+
                                 <?php if($session=='en'): ?>
                                     <div class="form-group ">
-                                      <label for="desc_en" class="control-label col-lg-3">Description English</label>
+                                      <label for="description_en" class="control-label col-lg-3">Description English</label>
                                       <div class="col-lg-6">
-                                          <textarea name="desc_en" class="form-control format"><?php echo e($chief->desc_en); ?></textarea>
+                                          <textarea name="description_en" class="form-control format"><?php echo e($chief->description_en); ?></textarea>
                                       </div>
                                   </div>
                                   <?php elseif($session=='dr'): ?>
                                    <div class="form-group ">
-                                      <label for="desc_dr" class="control-label col-lg-3">Description Dari</label>
+                                      <label for="description_dr" class="control-label col-lg-3">Description Dari</label>
                                       <div class="col-lg-6">
-                                          <textarea name="desc_dr" class="form-control format rtl"><?php echo e($chief->desc_dr); ?></textarea>
+                                          <textarea name="description_dr" class="form-control format rtl"><?php echo e($chief->description_dr); ?></textarea>
                                       </div>
                                   </div>
                                   <?php else: ?>
                                    <div class="form-group ">
-                                      <label for="desc_pa" class="control-label col-lg-3">Description Pashto</label>
+                                      <label for="description_pa" class="control-label col-lg-3">Description Pashto</label>
                                       <div class="col-lg-6">
-                                          <textarea name="desc_pa" class="form-control format rtl"><?php echo e($chief->desc_pa); ?></textarea>
+                                          <textarea name="description_pa" class="form-control format rtl"><?php echo e($chief->description_pa); ?></textarea>
                                       </div>
                                   </div>
                                   <?php endif; ?>

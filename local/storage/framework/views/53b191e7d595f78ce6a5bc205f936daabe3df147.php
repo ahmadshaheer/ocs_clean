@@ -6,7 +6,7 @@ if(Session::get('view_lang')==''){
 else{
   $lang = Session::get('view_lang');
 }
-$description = "description_".$lang;
+$description_val = "description_".$lang;
 if($lang=='en'){
   $dir = 'left';
   $direction = 'ltr';
@@ -28,7 +28,7 @@ else{
         </div>
 <div class="" style="margin:10px;">
   <?php if(sizeof($palace)==0 && Session::get('role')!='editor'): ?>
-    <a class="btn btn-default pull-<?php echo e($dir); ?>" href="javascript:void(0)" onclick="create('<?php echo e($lang); ?>')" style="margin-bottom: 10px;">Create</a>
+    <a class="btn btn-default pull-left" href="javascript:void(0)" onclick="create('<?php echo e($lang); ?>')" style="margin-bottom: 10px;">Create</a>
     <?php endif; ?>
 </div>
 <table class="table table-bordered" style="direction: <?php echo e($direction); ?>">
@@ -39,21 +39,49 @@ else{
   </thead>
   <tbody>
     <?php $__currentLoopData = $palace; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-     <?php
-       if($value->$description==''){
-          if($value->description_en=='' && $value->description_dr!=''){
-          $description_value = $value->description_dr;
-        }
-        else if($value->description_en=='' && $value->description_dr ==''){
-         $description_value = $value->description_pa; 
-        }
-        else if($value->description_en=='' && $value->description_dr =='' && $value->description_pa=''){
-          continue;
-        }
-       }
-       else{
-          $description_value = $value->$description;
-       }
+    <?php
+    $description_value ='';
+      switch ($lang) {
+        case 'dr':
+          if($value->$description_val=='') {
+            if($value->description_pa=='') {
+              $description_value = $value->description_en;
+            }
+            else{
+              $description_value = $value->description_pa;
+            }
+          }
+          else {
+            $description_value = $value->$description_val;
+          }
+          break;
+        case 'pa':
+          if($value->$description_val=='') {
+            if($value->description_dr=='') {
+              $description_value = $value->description_en;
+            }
+            else{
+              $description_value = $value->description_dr;
+            }
+          }
+          else {
+            $description_value = $value->$description_val;
+          }
+          break;
+        case 'en':
+          if($value->$description_val=='') {
+            if($value->description_pa=='') {
+              $description_value = $value->description_dr;
+            }
+            else{
+              $description_value = $value->description_pa;
+            }
+          }
+          else {
+            $description_value = $value->$description_val;
+          }
+          break;
+      }
        ?>
     <tr>
       <td><div style="width:60em" class="test"><?php echo $description_value; ?></div></td>
@@ -63,7 +91,7 @@ else{
 
             <?php echo e(csrf_field()); ?>
 
-            <a class="btn btn-default pull-<?php echo e($dir); ?>" href="javascript:void(0)" onclick="edit('<?php echo e($lang.'_'.$value->id); ?>')" style="margin-bottom: 10px;"><?php echo e(($value->$description==''?'Add':'Edit')); ?></a>
+            <a class="btn btn-default pull-<?php echo e($dir); ?>" href="javascript:void(0)" onclick="edit('<?php echo e($lang.'_'.$value->id); ?>')" style="margin-bottom: 10px;"><?php echo e(($value->$description_val==''?'Add':'Edit')); ?></a>
             <?php if(Session::get('role')=='admin'): ?>
             <button class="ui tiny button red " onclick="return confirm_submit()">Delete</button>
             <?php endif; ?>

@@ -16,99 +16,77 @@
                         <header class="panel-heading">
                             Add Video
                         </header>
+                        @if($errors->any())
+                          <div class="alert alert-danger">
+                            <ul>
+                              @foreach($errors->all() as $error)
+                                <li>{{$error}}</li>
+                              @endforeach
+                            </ul>
+                          </div>
+                        @endif
                         <div class="panel-body">
                             <div class="form">
                                 <form class="cmxform form-horizontal " id="signupForm" method="post" action="{{route('videos.store')}}" novalidate="novalidate" enctype="multipart/form-data">
                                 @if($session=='en')
                                     <div class="form-group ">
-                                        <label for="title" class="control-label col-lg-3">Title</label>
+                                        <label for="title_en" class="control-label col-lg-3">Title</label>
                                         <div class="col-lg-6">
-                                            <input class=" form-control" id="title" name="title" value="{{old('title')}}" type="text">
+                                            <input class=" form-control" id="title_en" name="title_en" value="{{old('title')}}" type="text">
                                         </div>
                                     </div>
                                      <div class="form-group ">
-                                        <label for="date" class="control-label col-lg-3">Date</label>
+                                        <label for="date_en" class="control-label col-lg-3">Date</label>
                                         <div class="col-lg-6">
-                                            <input class=" form-control" id="date" name="date" value="{{old('date')}}" type="date" required>
+                                            <input class=" form-control" id="date_en" name="date_en" value="{{old('date')}}" type="date" required>
                                         </div>
                                     </div>
 
                                  <div class="form-group">
-                                        <label for="video" class="control-label col-lg-3">Video English</label>
-<<<<<<< HEAD
-                                        <div class="col-lg-6">
-                                        <input type="url" name="video" value="{{old('video')}}" class="form-control">
-=======
+                                        <label for="video_en" class="control-label col-lg-3">Video English</label>
                                         <div class="input-group" style="width:43%;left:15px;">
                                           <span class="input-group-addon" id="basic-addon3">https://www.youtube.com/watch?v=</span>
-                                        <input type="url" name="video" class="form-control">
->>>>>>> 5eca33ae590378911d6ea862350fa1380a487053
+                                        <input type="url" name="video_en" class="form-control">
                                       </div>
                                     </div>
                                   @elseif($session=='dr')
                                     <div class="form-group ">
                                         <label for="title_dr" class="control-label col-lg-3">Title Dari</label>
                                         <div class="col-lg-6">
-<<<<<<< HEAD
-                                            <input class=" form-control" id="title_dr" name="title_dr" value="{{old('title_dr')}}" type="text">
-=======
                                             <input class=" form-control rtl" id="title_dr" maxlength="150" name="title_dr" type="text">
->>>>>>> 5eca33ae590378911d6ea862350fa1380a487053
                                         </div>
                                     </div>
                                      <div class="form-group ">
                                         <label for="date_dr" class="control-label col-lg-3">Date Dari</label>
                                         <div class="col-lg-6">
-<<<<<<< HEAD
-                                            <input class=" form-control date_dr"  maxlength="10" id="date_dr" name="date_dr" value="{{old('date_dr')}}" type="text" required>
-=======
                                             <input class=" form-control date_dr rtl"  maxlength="10" id="date_dr" name="date_dr" type="text" required>
->>>>>>> 5eca33ae590378911d6ea862350fa1380a487053
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="video_dr" class="control-label col-lg-3">Video Dari</label>
-<<<<<<< HEAD
-                                        <div class="col-lg-6">
-                                        <input type="url" name="video_dr" value="{{old('video_dr')}}" class="form-control">
-=======
                                         <div class="input-group" style="width:43%;left:15px;">
                                           <span class="input-group-addon" id="basic-addon3">https://www.youtube.com/watch?v=</span>
                                         <input type="url" name="video_dr" class="form-control">
->>>>>>> 5eca33ae590378911d6ea862350fa1380a487053
                                       </div>
                                     </div>
                                   @elseif($session=='pa')
                                     <div class="form-group ">
                                         <label for="title_pa" class="control-label col-lg-3">Title Pashto</label>
                                         <div class="col-lg-6">
-<<<<<<< HEAD
-                                            <input class=" form-control" id="title_pa" maxlength="150" name="title_pa" value="{{old('title_pa')}}" type="text">
-=======
                                             <input class=" form-control rtl" id="title_pa" maxlength="150" name="title_pa" type="text">
->>>>>>> 5eca33ae590378911d6ea862350fa1380a487053
                                         </div>
                                     </div>
                                      <div class="form-group ">
-                                        <label for="date_dr" class="control-label col-lg-3">Date Pashto</label>
+                                        <label for="date_pa" class="control-label col-lg-3">Date Pashto</label>
                                         <div class="col-lg-6">
-<<<<<<< HEAD
-                                            <input class=" form-control date_dr"  maxlength="10" id="date_dr" name="date_dr" value="{{old('date_dr')}}" type="text" required>
-=======
-                                            <input class=" form-control date_dr rtl"  maxlength="10" id="date_dr" name="date_dr" type="text" required>
->>>>>>> 5eca33ae590378911d6ea862350fa1380a487053
+                                            <input class=" form-control date_dr rtl"  maxlength="10" id="date_pa" name="date_pa" type="text" required>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="video_pa" class="control-label col-lg-3">Video Pashto</label>
-<<<<<<< HEAD
-                                        <div class="col-lg-6">
-                                        <input type="url" name="video_pa" value="{{old('video_pa')}}" class="form-control">
-=======
                                         <div class="input-group" style="width:43%;left:15px;">
                                           <span class="input-group-addon" id="basic-addon3">https://www.youtube.com/watch?v=</span>
                                         <input type="url" name="video_pa" class="form-control">
->>>>>>> 5eca33ae590378911d6ea862350fa1380a487053
                                       </div>
                                     </div>
                                     @endif

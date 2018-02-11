@@ -93,7 +93,7 @@ $i=1;
        ?>
     <tr>
       <td>{{$i++}}</td>
-      <th><img src="{{asset('uploads/media/news/'.$value->image)}}" style="width:100px;"></th>
+      <th><img src="{{asset('uploads/news/'.$value->image)}}" style="width:100px;"></th>
       <td><div style="width:20em" class="test">{{$title_value}}</div></td>
       <td><div style="width:10em" class="test">{{$value->$date}}</div></td>
       <td style="">{{$value->$short_desc}}</td>
@@ -118,7 +118,8 @@ $i=1;
 @include('admin.include.footer')
 <script>
  function create(lang){
-    window.location = "{{url('admin/set_session_all?lang=')}}"+lang+"&route={{route('media.create')}}";
+    var id = lang+"_news";
+    window.location = "{{url('admin/set_session?lang=')}}"+id+"&route={{route('media.create')}}";
   }
 
   function edit(para){

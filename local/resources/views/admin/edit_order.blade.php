@@ -6,9 +6,7 @@ global $jdate;?>
       visibility: hidden;
       position: absolute;
     }
-    #image_upload {
-        display: none;
-    }
+
 
 <?php
 $type = array('decree','order','message','word','statement');
@@ -38,7 +36,7 @@ if (in_array($url, $type)==0) {
                           @endif
                             <div class="form cmxform form-horizontal">
                                 {!! Form::model($the_president, ['route' => array('the_president.update',$the_president->id),'files' =>true,'id'=>'edit_form']) !!}
-                                <input name="_method" type="hidden" value="PATCH">
+                                {{method_field('PATCH')}}
                                 @if($session =='en')
                                  @if($url=='word')
                                  <div class="form-group ">
@@ -172,7 +170,26 @@ if (in_array($url, $type)==0) {
                                           </span>
                                         </div>
                                     </div>
+                                    @else
+                                    <div class="form-group form-check">
+                                      <label class="col-lg-6 col-md-offset-1 form-check-label">
+                                        <input type="checkbox" id="replace_image" name="replace" class="form-check-input">
+                                        Replace Default Image?
+                                      </label>
+                                    </div>
+                                    <div class="form-group" id="image_upload">
+                                        <label for="image" class="control-label col-lg-3">Image</label>
+                                        <input type="file" name="image" class="file">
+                                        <div class="input-group col-md-6 col-md-offset-1 col-xs-12" style="padding-left:15px; padding-right:14px;">
+                                          <span class="input-group-addon"><i class="fa fa-file-image-o"></i></span>
+                                          <input type="text" class="form-control input-lg" disabled placeholder="Upload Image">
+                                          <span class="input-group-btn">
+                                            <button class="browse btn btn-primary input-lg" type="button"><i class="fa fa-folder-open"></i> Browse</button>
+                                          </span>
+                                        </div>
+                                    </div>
                                     @endif
+
                                     <input type="hidden" name="type" value="{{$the_president->type}}">
 
                                     <div class="form-group">

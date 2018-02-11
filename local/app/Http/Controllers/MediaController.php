@@ -43,100 +43,93 @@ class MediaController extends Controller
      */
     public function store(Request $request)
     {
-      $lang=Session::get('lang');
-      $media = new Media();
-      // print_r($request->input());exit;
-      if($lang=='en') {
-        $this->validate($request,[
-          'title_en'=>'required|unique:media|max:255',
-          'date_en'=>'required',
-          'short_desc_en'=>'required',
-          'desc_en'=>'required',
-          'image'=>'required|mimes:jpeg,jpg,png,bmp'
-        ]);
-        $media->title_en = $request->input('title_en');
-        $media->date_en = $request->input('date_en');
-        $media->short_desc_en = $request->input('short_desc_en');
-        $media->description_en = $request->input('desc_en');
-      }
-      else if($lang=='dr') {
-        $this->validate($request,[
-          'title_dr'=>'required|unique:media|max:255',
-          'date_dr'=>'required',
-          'short_desc_dr'=>'required',
-          'desc_dr'=>'required',
-          'image'=>'required|mimes:jpeg,jpg,png,bmp'
-        ]);
-        $media->title_dr = $request->input('title_dr');
-        $media->date_dr = $request->input('date_dr');
-        $media->short_desc_dr = $request->input('short_desc_dr');
-        $media->description_dr = $request->input('desc_dr');
-      }
-      else if($lang=='pa') {
-        $this->validate($request,[
-          'title_pa'=>'required|unique:media|max:255',
-          'date_dr'=>'required',
-          'short_desc_pa'=>'required',
-          'desc_pa'=>'required',
-          'image'=>'required|mimes:jpeg,jpg,png,bmp'
-        ]);
-        $media->title_pa = $request->input('title_pa');
-        $media->date_pa = $request->input('date_dr');
-        $media->short_desc_pa = $request->input('short_desc_pa');
-        $media->description_pa = $request->input('desc_pa');
-      }
-      $media->tags = $request->input('tags_array');
-      $media->type = $request->input('type');
-      $media->save();
 
-      $max = $media->id;
+      //multi language variables
+        $lang = Session::get('lang');
+        $title = 'title_'.$lang;
+        $date = 'date_'.$lang;
+        $short_desc = 'short_desc_'.$lang;
+        $description = 'description_'.$lang;
 
-      // thumbnail generation starts
-      $image = $request->image;
-      $img_thumb = $max.'_t.'.$image->getClientOriginalExtension();
-      $driver = new imageManager(array('driver'=>'gd'));
-      $thumb_img = $driver->make($image)->resize(200,150);
-      $thumb_img->save("uploads/media/".$media->type."/".$img_thumb);
-      // thumbnail generation Ends
-      $search_thumb = "uploads/media/".$media->type."/".$img_thumb;
+        // validation
+          $this->validate($request,[
+           $title=>'required|max:255|unique:media',
+           $date=>'required',
+           $short_desc=>'required',
+           $description=>'required',
+           'image' =>'required|mimes:jpg,jpeg,bmp,png',
+          ]);
 
-      $img = $max.'.'.$image->getClientOriginalExtension();
-      $image->move('uploads/media/'.$request->input('type'),$img);
-      $media_n = Media::findOrFail($max);
-      $media_n->image = $img;
-      // assign thumb image to image_thumb column in db
-      $media_n->image_thumb = $img_thumb;
+        //data storage
+        $media = new Media();
+        $media->$title = $request->$title;
+        $media->$date = $request->$date;
+        $media->$short_desc = $request->$short_desc;
+        $media->$description = $request->$description;
+        $media->type = $request->type;
+        $media->tags = $request->input('tags_array');
+        $media->type = $request->input('type');
+        
+        //save the record to retreive id later
+        $media->save();
 
-      if($media_n->save()){
-          $search = new Search();
-          if($lang=='en') {
-            $search->title_en = $request->input('title');
-            $search->date_en = $request->input('date');
-            $search->short_desc_en = $request->input('short_desc_en');
-            $search->description_en = $request->input('desc_en');
-          }
-          else if($lang=='dr') {
-            $search->title_dr = $request->input('title_dr');
-            $search->date_dr = $request->input('date_dr');
-            $search->short_desc_dr = $request->input('short_desc_dr');
-            $search->description_dr = $request->input('desc_dr');
-          }
-          else if($lang=='pa') {
-            $search->title_pa = $request->input('title_pa');
-            $search->date_pa = $request->input('date_dr');
-            $search->short_desc_pa = $request->input('short_desc_pa');
-            $search->description_pa = $request->input('desc_pa');
+        //retreive id from previously stored record
+        $id = $media->id;
+
+        //retreive media object again
+        $media = Media::findOrFail($id);
+
+         //make image path
+        $path = 'uploads/'.$request->type.'/';
+
+        //variable for thumb image if present or otherwise
+        $image_thumb_name = '';
+
+          //image uploading
+        if($request->image!='') {
+          //image names i.e. (image and image_thumb)
+          $image_name = $id.'.'.$request->image->getClientOriginalExtension();
+          $image_thumb_name = $id.'_t.'.$request->image->getClientOriginalExtension();
+
+          //resize image for thumbnail
+          $driver = new imageManager(array('driver'=>'gd'));
+          $image_thumb = $driver->make($request->image)->resize(200,150);
+
+          //store image and thumbnail in storage
+          $request->image->move($path,$image_name);
+          $image_thumb->save($path.$image_thumb_name);
+
+          //db image storage
+          $media->image = $image_name;
+          $media->image_thumb = $image_thumb_name;
+
         }
-        $search->type = $request->input('type');
-        $search->table_name = 'media';
-        $search->table_id = $max;
-        $search->image_thumb = $search_thumb;
-        $search->save();
+         else {
+          //if image not present for search table
+          $image_thumb_name = 'default.jpg';
+
+          //if no image received store the default
+          $media->image = 'default.jpg';
+          $media->image_thumb = 'thumb.jpg';
+        }
+
+        if($media->save()) {
+          //search stuff
+          $search = new Search();
+          $search->$title = $request->$title;
+          $search->$date = $request->$date;
+          $search->$short_desc = $request->$short_desc;
+          $search->$description = $request->$description;
+          $search->table_name = 'media';
+          $search->type = $request->type;
+          $search->table_id = $id;
+          $search->image_thumb = $path.$image_thumb_name;
+          $search->save();
+        }
         Session::put('lang','');
         Session::put('type','');
-        Log::info($max." ".$request->input('type')."  created by ".Session::get('email')." on ".date('l jS \of F Y h:i:s A'));
-        return Redirect()->route('admin_'.$media->type);
-    }
+        Log::info($id." Media record created by ".Session::get('email')." on ".date('l jS \of F Y h:i:s A'));
+        return Redirect()->route("admin_".$request->type);
 }
 
     /**
@@ -172,100 +165,69 @@ class MediaController extends Controller
      */
     public function update(Request $request, $id)
     {
+       //multi language variables
+        $lang = Session::get('lang');
+        $title = 'title_'.$lang;
+        $date = 'date_'.$lang;
+        $short_desc = 'short_desc_'.$lang;
+        $description = 'description_'.$lang;
+        // validation
+        $this->validate($request,[
+          $title=>'required',
+          $short_desc=>'required',
+          $description=>'required',
+        ]);
 
-        $lang=Session::get('lang');
-        $media = Media::findOrFail($id);
-        $search_pdf = '';
-        if($lang=='en') {
+      // media data storage
+       $media = Media::findOrFail($id);
+       $search_obj = Search::where('table_name','=','media')->where('table_id','=',$id)->first();
+       $media->$title = $request->$title;
+       if($request->$date!='') {
+         $media->$date = $request->$date;
+       }
+       $media->$short_desc = $request->$short_desc;
+       $media->$description = $request->$description;
+        
+       if($request->image!=null) {
+          // validation
           $this->validate($request,[
-            'title'=>'required|max:255',
-            'date'=>'required',
-            'short_desc_en'=>'required',
-            'desc_en'=>'required',
+            'image'=>'mimes:jpg,png,jpeg,bmp',
           ]);
-          $media->title_en = $request->input('title_en');
-          $media->date_en = $request->input('date_en');
-          $media->short_desc_en = $request->input('short_desc_en');
-          $media->description_en = $request->input('desc_en');
-        }
-        else if($lang=='dr') {
-          $this->validate($request,[
-            'title_dr'=>'required|max:255',
-            'short_desc_dr'=>'required',
-            'desc_dr'=>'required',
-          ]);
-          $media->title_dr = $request->input('title_dr');
-          if($request->date_dr!=null) {
-            $media->date_dr = $request->input('date_dr');
-          }
-          $media->short_desc_dr = $request->input('short_desc_dr');
-          $media->description_dr = $request->input('desc_dr');
-        }
-        else if($lang=='pa') {
-          $this->validate($request,[
-            'title_pa'=>'required|max:255',
-            'short_desc_pa'=>'required',
-            'desc_pa'=>'required',
-          ]);
-          $media->title_pa = $request->input('title_pa');
-          if($request->date_pa!=null) {
-            $media->date_pa = $request->input('date_dr');
-          }
-          $media->short_desc_pa = $request->input('short_desc_pa');
-          $media->description_pa = $request->input('desc_pa');
-        }
 
-        $max = $media->id;
-        $image = '';
-        if($request->file('image') ==null){
-            $image = $media->image;
-        }
-        else{
-            File::delete('uploads/media/'.$request->input('type').'/'.$media->image);
-            File::delete('uploads/media/'.$request->input('type').'/'.$media->image_thumb);
-            // generating thumbnail image for display in home and other pages
-            $img_thumb = $max.'_t.'.$request->file('image')->getClientOriginalExtension();
-            $data = $request->image;
-            $driver = new imageManager(array('driver'=>'gd'));
-            $thumb_img = $driver->make($data)->resize(200,150);
-            $thumb_img->save("uploads/media/".$media->type."/".$img_thumb);
-            $media->image_thumb = $img_thumb;
-            // thumbnail generation Ends
-            $image = $max.'.'.$request->file('image')->getClientOriginalExtension();
-            $request->file('image')->move('uploads/media/'.$request->input('type'),$image);
-            $search_pdf = 'uploads/media/'.$request->input('type').'/'.$image;
-        }
-        $media->image = $image;
-        $media->type = $request->input('type');
-        if($media->save()){
-            $search = Search::where('table_name','=','media')->where('table_id','=',$id)->first();
-            if($lang=='en') {
-              $search->title_en = $request->input('title');
-              $search->date_en = $request->input('date');
-              $search->short_desc_en = $request->input('short_desc_en');
-              $search->description_en = $request->input('desc_en');
-            }
-            else if($lang=='dr') {
-              $search->title_dr = $request->input('title_dr');
-              $search->date_dr = $request->input('date_dr');
-              $search->short_desc_dr = $request->input('short_desc_dr');
-              $search->description_dr = $request->input('desc_dr');
-            }
-            else if($lang=='pa') {
-              $search->title_pa = $request->input('title_pa');
-              $search->date_pa = $request->input('date_dr');
-              $search->short_desc_pa = $request->input('short_desc_pa');
-              $search->description_pa = $request->input('desc_pa');
-            }
-            $search->type = $request->input('type');
-            $search->table_name = 'media';
-            $search->table_id = $id;
-            $search->image_thumb = $search_pdf;
-            $search->save();
-        }
-        Session::put('lang','');
-        Log::info($id." $media->type updated by ".Session::get('email')." on ".date('l jS \of F Y h:i:s A'));
-        return Redirect()->route('admin_'.$media->type);
+         //remove existing images
+         File::delete($search_obj->image_thumb);
+         File::delete(str_replace('_t','',$search_obj->image_thumb));
+
+         //set new images name
+         $image_name = $id.'.'.$request->image->getClientOriginalExtension();
+         $image_thumb_name = $id.'_t.'.$request->image->getClientOriginalExtension();
+
+         //resize image for thumbnail
+         $driver = new imageManager(array('driver'=>'gd'));
+         $image_thumb = $driver->make($request->image)->resize(200,150);
+
+         //construct image path
+         $image_path = 'uploads/'.$request->type.'/';
+
+         //move i.e.(to storage) image
+         $image_thumb->save($image_path.$image_thumb_name);
+         $request->image->move($image_path,$image_name);
+         //store in db
+         $media->image = $image_name;
+         $media->image_thumb = $image_thumb_name;
+       }
+
+       if($media->save()) {
+         $search_obj->$title = $request->$title;
+         $search_obj->$date = $request->$date;
+         $search_obj->$short_desc = $request->$short_desc;
+         $search_obj->$description = $request->$description;
+         $search_obj->save();
+       }
+
+       Session::put('lang','');
+       Log::info($id." $media->type updated by ".Session::get('email')." on ".date('l jS \of F Y h:i:s A'));
+       return Redirect()->route("admin_".$media->type);
     }
 
     /**
@@ -280,8 +242,8 @@ class MediaController extends Controller
         $media = Media::findOrFail($id);
         $type = $media->type;
         // File::delete(public_path().'../uploads/media/'.$type.'/'.$media->image);
-        $path = 'uploads/media/'.$type.'/'.$media->image;
-        $path_thumb = 'uploads/media/'.$type.'/'.$media->image_thumb;
+        $path = 'uploads/'.$type.'/'.$media->image;
+        $path_thumb = 'uploads/'.$type.'/'.$media->image_thumb;
         File::delete($path);
         File::delete($path_thumb);
         $search = Search::where('table_name','media')->where('table_id',$id);

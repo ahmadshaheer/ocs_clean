@@ -1,5 +1,11 @@
 <?php echo $__env->make('admin.include.header', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
-<?php $lang = Session::get('view_lang');
+<?php 
+if(Session::get('view_lang')==''){
+  $lang='en';
+}
+else{
+  $lang = Session::get('view_lang');
+}
 $title = "title_".$lang;
 $date = "date_".$lang;
 $short_desc = "short_desc_".$lang;
@@ -25,7 +31,7 @@ $i=1;
         </div>
 <div class="" style="margin:10px;">
   <?php if(Session::get('role')!='editor'): ?>
- <a class="btn btn-default pull-<?php echo e($dir); ?>" href="javascript:void(0)" onclick="create('<?php echo e($lang); ?>')" style="margin-bottom: 10px;">Create</a>
+ <a class="btn btn-default pull-left" href="javascript:void(0)" onclick="create('<?php echo e($lang); ?>')" style="margin-bottom: 10px;">Create</a>
   <?php endif; ?>
 </div>
 <table class="table table-bordered" style="direction: <?php echo e($direction); ?>">
@@ -42,29 +48,57 @@ $i=1;
   <tbody>
     <?php $__currentLoopData = $international; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
    <?php
-       if($value->$title==''){
-          if($value->title_en=='' && $value->title_dr!=''){
-          $title_value = $value->title_dr;
-        }
-        else if($value->title_en=='' && $value->title_dr ==''){
-         $title_value = $value->title_pa; 
-        }
-        else if($value->title_en=='' && $value->title_dr =='' && $value->title_pa=''){
-          continue;
-        }
-       }
-       else{
-          $title_value = $value->$title;
-       }
+    $title_value ='';
+      switch ($lang) {
+        case 'dr':
+          if($value->$title=='') {
+            if($value->title_pa=='') {
+              $title_value = $value->title_en;
+            }
+            else{
+              $title_value = $value->title_pa;
+            }
+          }
+          else {
+            $title_value = $value->$title;
+          }
+          break;
+        case 'pa':
+          if($value->$title=='') {
+            if($value->title_dr=='') {
+              $title_value = $value->title_en;
+            }
+            else{
+              $title_value = $value->title_dr;
+            }
+          }
+          else {
+            $title_value = $value->$title;
+          }
+          break;
+        case 'en':
+          if($value->$title=='') {
+            if($value->title_pa=='') {
+              $title_value = $value->title_dr;
+            }
+            else{
+              $title_value = $value->title_pa;
+            }
+          }
+          else {
+            $title_value = $value->$title;
+          }
+          break;
+      }
        ?>
     <tr>
       <td><?php echo e($i++); ?></td>
-      <th><img src="<?php echo e(asset('uploads/trips/international/'.$value->image)); ?>" style="width:100px;"></th>
+      <th><img src="<?php echo e(asset('uploads/international/'.$value->image)); ?>" style="width:100px;"></th>
       <td><div style="width:20em" class="test"><?php echo e($title_value); ?></div></td>
       <td><div style="width:10em" class="test"><?php echo e($value->$date); ?></div></td>
       <td style=""><?php echo e($value->$short_desc); ?></td>
 
-      <td style="width:20em;">
+      <td style="width:12em;">
       <form action="<?php echo e(route('trips.destroy', $value->id)); ?>" class="ui form" method="POST">
           <?php echo e(method_field('DELETE')); ?>
 
@@ -75,8 +109,6 @@ $i=1;
           <button class="ui tiny button red " onclick="return confirm_submit()">Delete</button>
           <?php endif; ?>
       </form>
-
-
       </td>
     </tr>
  <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>

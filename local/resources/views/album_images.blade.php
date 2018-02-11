@@ -36,7 +36,7 @@ global $lang,$dir,$indir,$rtl,$ltr,$title,$date,$short_desc,$description,$jdate;
               <div class="ui three doubling stackable cards">
                 @foreach($images as $image)
                 <div class="card">
-                  <a href="{{asset('uploads/albumImage/'.$image->image)}}" class="image example-image-link" data-lightbox="test" data-title="{{$image->$title}}">
+                  <a href="{{asset('uploads/albumImage/'.$image->image)}}" class="image example-image-link" data-lightbox="test" data-title="">
                     <img class="example-image" src="{{asset('uploads/albumImage/'.$image->image)}}">
                   </a>
                 </div>

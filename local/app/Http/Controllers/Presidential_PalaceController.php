@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Presidential_Palace;
 use Log;
+use Session;
 
 class Presidential_PalaceController extends Controller
 {
@@ -38,28 +39,17 @@ class Presidential_PalaceController extends Controller
     public function store(Request $request)
     {
       
-      $lang = \Session::get('lang');
+      $lang = Session::get('lang');
+      $description = 'description_'.$lang;
+      $this->validate($request,[
+          $description=>'required',
+        ]);
+      
       $palace = new Presidential_Palace();
-      if($lang=='en') {
-        $this->validate($request,[
-          'desc_en'=>'required',
-        ]);
-        $palace->desc_en = $request->input('desc_en');
-      }
-      else if($lang=='dr') {
-        $this->validate($request,[
-          'desc_dr'=>'required',
-        ]);
-        $palace->desc_dr = $request->input('desc_dr');
-      }
-      else if($lang=='pa') {
-        $this->validate($request,[
-          'desc_pa'=>'required',
-        ]);
-        $palace->desc_pa = $request->input('desc_pa');
-      }
+      $palace->$description = $request->input($description);
       $palace->save();
-      \Session::put('lang','');
+
+      Session::put('lang','');
       Log::info($palace->id." President palace record created by ".Session::get('email')." on ".date('l jS \of F Y h:i:s A'));
       return Redirect()->route('the_palace.index');
     }
@@ -97,28 +87,18 @@ class Presidential_PalaceController extends Controller
     public function update(Request $request, $id)
     {
       
-      $lang=\Session::get('lang');
+      $lang=Session::get('lang');
+      $description = 'description_'.$lang;
+      
+      $this->validate($request,[
+          $description=>'required',
+        ]);
+      
       $palace =Presidential_Palace::findOrFail($id);
-      if($lang=='en') {
-        $this->validate($request,[
-          'desc_en'=>'required',
-        ]);
-        $palace->desc_en = $request->input('desc_en');
-      }
-      else if($lang=='dr') {
-        $this->validate($request,[
-          'desc_dr'=>'required',
-        ]);
-        $palace->desc_dr = $request->input('desc_dr');
-      }
-      else if($lang=='pa') {
-        $this->validate($request,[
-          'desc_pa'=>'required',
-        ]);
-        $palace->desc_pa = $request->input('desc_pa');
-      }
+      $palace->$description = $request->input($description);
       $palace->save();
-      \Session::put('lang','');
+
+      Session::put('lang','');
       Log::info($id." President Palace Record updated by ".Session::get('email')." on ".date('l jS \of F Y h:i:s A'));
       return Redirect()->route('the_palace.index');
     }

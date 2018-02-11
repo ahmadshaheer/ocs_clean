@@ -63,9 +63,9 @@
                                     </div>
 
                                     <div class="form-group ">
-                                        <label for="date_dr" class="control-label col-lg-3">Date Pashto</label>
+                                        <label for="date_pa" class="control-label col-lg-3">Date Pashto</label>
                                         <div class="col-lg-6">
-                                            <input class=" form-control date_dr rtl" id="date_dr" name="date_dr" type="text" required>
+                                            <input class=" form-control date_dr rtl" id="date_pa" name="date_pa" type="text" required>
                                         </div>
                                     </div>
                                     @endif
@@ -73,7 +73,7 @@
                                     <div class="form-group">
                                         <label for="image" class="control-label col-lg-3">Image</label>
                                         <input type="file" name="image" class="file">
-                                        <div class="input-group col-md-6 col-md-offset-3 col-xs-12" style="padding-left:15px; padding-right:14px;">
+                                        <div class="input-group col-md-6 col-xs-12" style="padding-left:15px; padding-right:14px;">
                                           <span class="input-group-addon"><i class="fa fa-file-image-o"></i></span>
                                           <input type="text" class="form-control input-lg" disabled placeholder="Upload Image">
                                           <span class="input-group-btn">

@@ -66,6 +66,9 @@ footer.timeline-Footer.u-cf {
   background:red !important;
 
 }*/
+ #image_upload{
+    display: none;
+ }
 
 </style>
 

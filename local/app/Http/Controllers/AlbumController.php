@@ -42,82 +42,77 @@ class AlbumController extends Controller
      */
     public function store(Request $request)
     {
+        //multi language variables
+          $lang = Session::get('lang');
+          $title = 'title_'.$lang;
+          $date = 'date_'.$lang;
 
-        $lang = Session::get('lang');
-        $album = new Album();
-        // print_r($request->input('title_en'));exit;
-        if($lang=='en') {
-          $this->validate($request, [
-              'title_en' => 'required|unique:album|max:255',
-              'date_en' => 'required',
-              'image'=>'required|mimes:jpeg,jpg,png,bmp'
+          // validation
+          $this->validate($request,[
+           $title=>'required|max:255|unique:album',
+           $date=>'required',
+           'image'=>'required|mimes:jpg,jpeg,png,bmp',
           ]);
-          //if passes the validation
-          $album->title_en = $request->input('title_en');
-          $album->date_en = $request->input('date_en');
-        }
-        else if($lang=='dr') {
-          $this->validate($request, [
-              'title_dr' => 'required|unique:album|max:255',
-              'date_dr' => 'required',
-              'image'=>'required|mimes:jpeg,jpg,png,bmp'
-          ]);
-          //if passes the validation
-          $album->title_dr = $request->input('title_dr');
-          $album->date_dr = $request->input('date_dr');
-        }
-        else if($lang=='pa') {
-          $this->validate($request, [
-              'title_pa' => 'required|unique:album|max:255',
-              'date_dr' => 'required',
-              'image'=>'required|mimes:jpeg,jpg,png,bmp'
-          ]);
-          //if passes the validation
-          $album->title_pa = $request->input('title_pa');
-          $album->date_pa = $request->input('date_dr');
-        }
 
-        $search_image = '';
+         //data storage
+         $album = new Album();
+         $album->$title = $request->$title;
+         $album->$date = $request->$date;
 
-        $album->save();
-        $max = $album->id;
+         //save the record to retreive id later
+         $album->save();
 
-         // thumbnail generation starts
-          $image = $request->image;
-          $img_thumb = $max.'_t.'.$image->getClientOriginalExtension();
-          $driver = new imageManager(array('driver'=>'gd'));
-          $thumb_img = $driver->make($image)->resize(200,150);
-          $thumb_img->save("uploads/album/".$img_thumb);
-          // thumbnail generation Ends
-          $search_thumb = 'uploads/album/'.$img_thumb;
+         //retreive id from previously stored record
+          $id = $album->id;
 
-        $image = $max.'.'.$request->file('image')->getClientOriginalExtension();
-        $request->file('image')->move('uploads/album/',$image);
-        $album_n = Album::findOrFail($max);
-        $album_n->image = $image;
-        if($album_n->save()){
-                $search = new Search();
-                if($lang == 'en'){
-                        $search->title_en = $request->input('title');
-                        $search->date_en = $request->input('date');
+          //retreive Album graphic object again
+          $album = Album::findOrFail($id);
+
+           //make image path
+            $path = 'uploads/album/';
+          
+              //image uploading
+                if($request->image!='') {
+                  //image names i.e. (image and image_thumb)
+                  $image_name = $id.'.'.$request->image->getClientOriginalExtension();
+                  $image_thumb_name = $id.'_t.'.$request->image->getClientOriginalExtension();
+
+                  //resize image for thumbnail
+                  $driver = new imageManager(array('driver'=>'gd'));
+                  $image_thumb = $driver->make($request->image)->resize(200,150);
+
+                  //store image and thumbnail in storage
+                  $request->image->move($path,$image_name);
+                  $image_thumb->save($path.$image_thumb_name);
+
+                  //db image storage
+                  $album->image = $image_name;
+                  $album->image_thumb = $image_thumb_name;
+
                 }
-                else if($lang =='dr'){
-                        $search->title_dr = $request->input('title_dr');
-                        $search->date_dr = $request->input('date_dr');
+               else {
+                //if image not present for search table
+                $image_thumb_name = 'default.jpg';
+
+                //if no image received store the default
+                $album->image = 'default.jpg';
+                $album->image_thumb = 'thumb.jpg';
+              }
+
+               if($album->save()) {
+                  //search stuff
+                  $search = new Search();
+                  $search->$title = $request->$title;
+                  $search->$date = $request->$date;
+                  $search->table_name = 'album';
+                  $search->type = 'album';
+                  $search->table_id = $id;
+                  $search->image_thumb = $path.$image_thumb_name;
+                  $search->save();
                 }
-                else{
-                    $search->title_pa = $request->input('title_pa');
-                    $search->date_pa = $request->input('date_dr');
-                }
-                $search->table_name = 'album';
-                $search->type = 'album';
-                $search->table_id = $max;
-                $search->image_thumb = $search_thumb;
-                $search->save();
-        }
-        Session::put('lang','');
-        Log::info("ID No. ".$max." Album created by ".Session::get('email')." on ".date('l jS \of F Y h:i:s A'));
-        return redirect()->route('album.index');
+                Session::put('lang','');
+                Log::info($id." Album record created by ".Session::get('email')." on ".date('l jS \of F Y h:i:s A'));
+                return Redirect()->route('album.index');
 
     }
 
@@ -154,89 +149,61 @@ class AlbumController extends Controller
     public function update(Request $request, $id)
     {
 
-      $album = Album::findOrFail($id);
-      $lang = Session::get('lang');
-
-      if($lang=='en') {
-        $this->validate($request, [
-            'title_en' => 'required|max:255',
-            'date_en' => 'required',
-            'image'=>'required',
+       //multi language variables
+        $lang = Session::get('lang');
+        $title = 'title_'.$lang;
+        $date = 'date_'.$lang;
+        // validation
+        $this->validate($request,[
+          $title=>'required',
         ]);
-        //if passed the validation then
-        $album->title_en = $request->input('title');
-        $album->date_en = $request->input('date');
-      }
-      else if($lang=='dr') {
-        $this->validate($request, [
-            'title_dr' => 'required|max:255',
-            'date_dr' => 'required',
-            'image'=>'required',
-        ]);
-        //if passed the validation then
-        $album->title_dr = $request->input('title_dr');
-        if($request->date_dr!=null) {
-        $album->date_dr = $request->input('date_dr');
-        }
-      }
-      else if($lang=='pa') {
-        $this->validate($request, [
-            'title_pa' => 'required|max:255',
-            'date_dr' => 'required',
-            'image'=>'required',
-        ]);
-        //if passed the validation then
-        $album->title_pa = $request->input('title_pa');
-        if($request->date_pa!=null) {
-          $album->date_pa = $request->input('date_pa');
-        }
-      }
 
-        $search_image = '';
-        $image = '';
-        if($request->file('image')==null){
-            $image = $album->image;
-        }
-        else{
-            File::delete('uploads/album/'.$album->image);
-            File::delete('uploads/album/'.$album->image_thumb);
-            // generating thumbnail image for display in home and other pages
-            $img_thumb = $id.'_t.'.$request->file('image')->getClientOriginalExtension();
-            $data = $request->image;
-            $driver = new imageManager(array('driver'=>'gd'));
-            $thumb_img = $driver->make($data)->resize(200,150);
-            $thumb_img->save("uploads/album/".$img_thumb);
-            // thumbnail generation Ends
+      // album data storage
+       $album = Album::findOrFail($id);
+       $search_obj = Search::where('table_name','=','album')->where('table_id','=',$id)->first();
+       $album->$title = $request->$title;
+       if($request->$date!='') {
+         $album->$date = $request->$date;
+       }
 
-            $image = $id.'.'.$request->file('image')->getClientOriginalExtension();
-            $request->file('image')->move('uploads/album/',$image);
-            $search_image = 'uploads/album/'.$img_thumb;
-        }
+        if($request->image!=null) {
+          // validation
+          $this->validate($request,[
+           'image'=>'mimes:jpg,jpeg,png,bmp',
+          ]);
+         //remove existing images
+         File::delete($search_obj->image_thumb);
+         File::delete(str_replace('_t','',$search_obj->image_thumb));
 
-        $album->image = $image;
-        if($album->save()){
-                $search = Search::where('table_name','=','album')->where('table_id','=',$id)->first();
-                 if($lang == 'en'){
-                        $search->title_en = $request->input('title');
-                        $search->date_en = $request->input('date');
-                }
-                else if($lang =='dr'){
-                        $search->title_dr = $request->input('title_dr');
-                        $search->date_dr = $request->input('date_dr');
-                }
-                else{
-                    $search->title_pa = $request->input('title_pa');
-                    $search->date_pa = $request->input('date_dr');
-                }
-                $search->table_name = 'album';
-                $search->type = 'album';
-                $search->table_id = $album->id;
-                $search->image_thumb = $search_image;
-                $search->save();
-        }
-        Session::put('lang','');
-        Log::info("ID No. ".$album->id." Album updated by ".Session::get('email')." on ".date('l jS \of F Y h:i:s A'));
-        return redirect()->route('album.index');
+         //set new images name
+         $image_name = $id.'.'.$request->image->getClientOriginalExtension();
+         $image_thumb_name = $id.'_t.'.$request->image->getClientOriginalExtension();
+
+         //resize image for thumbnail
+         $driver = new imageManager(array('driver'=>'gd'));
+         $image_thumb = $driver->make($request->image)->resize(200,150);
+
+         //construct image path
+         $image_path = 'uploads/album/';
+
+         //move i.e.(to storage) image
+         $image_thumb->save($image_path.$image_thumb_name);
+         $request->image->move($image_path,$image_name);
+
+         //store in db
+         $album->image = $image_name;
+         $album->image_thumb = $image_thumb_name;
+       }
+
+        if($album->save()) {
+         $search_obj->$title = $request->$title;
+         $search_obj->$date = $request->$date;
+         $search_obj->save();
+       }
+
+         Session::put('lang','');
+         Log::info($id." $album->type updated by ".Session::get('email')." on ".date('l jS \of F Y h:i:s A'));
+         return Redirect()->route('album.index');
     }
 
     /**
@@ -268,27 +235,29 @@ class AlbumController extends Controller
         return redirect()->route('album.index');
     }
 
-    public function add_album_image($number,$id){
-        return view('admin.add_album_image')->with(['number'=>$number,'id'=>$id]);
+    public function add_album_image($id){
+        return view('admin.add_album_image')->with('id',$id);
     }
 
-    public function add_image(Request $request,$id,$number){
+    public function add_image(Request $request,$id){
 
-        for ($i=0; $i <$number ; $i++) {
+        foreach ($request->image as $value) {
+            // validation
+            $this->validate($request,[
+             "$value"=>'mimes:jpg,jpeg,png,bmp',
+            ]);
+
             $album_image = new AlbumImage();
-            $album_image->title_en = $request->input('title'.$i);
-            $album_image->title_dr = $request->input('title_dr'.$i);
-            $album_image->title_pa = $request->input('title_pa'.$i);
             $album_image->album_id = $id;
 
-            $max = AlbumImage::max('id');
-            $max +=1;
-
-            $img = $max.'.'.$request->file('image'.$i)->getClientOriginalExtension();
-            $request->file('image'.$i)->move('uploads/albumImage/',$img);
-
-            $album_image->image = $img;
-            $album_image->save();
+            if($album_image->save()){
+              $max = $album_image->id;
+              $album_image = AlbumImage::findOrFail($max);
+              $img = $max.'.'.$value->getClientOriginalExtension();
+              $value->move('uploads/albumImage/',$img);
+              $album_image->image = $img;
+              $album_image->save();
+            }
         }
         Log::info("Images added to ID No.  ".$id." album by ".Session::get('email')." on ".date('l jS \of F Y h:i:s A'));
         return redirect()->route('album.index');
@@ -310,10 +279,12 @@ class AlbumController extends Controller
     }
     public function update_album_image(Request $request , $id){
 
+        // validation
+          $this->validate($request,[
+           'image'=>'mimes:jpg,jpej,png,bmp',
+          ]);
+
         $album_image = AlbumImage::findOrFail($id);
-        $album_image->title_en = $request->input('title');
-        $album_image->title_dr = $request->input('title_dr');
-        $album_image->title_pa = $request->input('title_pa');
 
         $image = '';
         if($request->file('image')==null){

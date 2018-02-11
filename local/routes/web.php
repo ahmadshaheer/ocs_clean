@@ -22,16 +22,12 @@ use Intervention\Image\ImageManager;
 |
 */
 Route::group(['middleware' => ['change_lang']],function(){
-
 Route::get('/', function () {
-	// print_r(Quotes::all());exit;
 	$ids = Quotes::where('id','>',0)->pluck('id')->toArray();
-	// print_r("here");exit;
 	if(sizeof($ids)==0){
 		$quotes = null;
 		return view('index')->with('quotes',$quotes);
 	}
-	// print_r(Quotes::all());exit;
 	$id = array_rand($ids,1);
 	$db_id = $ids[$id];
 	$quotes = Quotes::findOrFail($db_id);
@@ -69,8 +65,9 @@ Route::get('test',function() {
 
 
 Route::get('decrees',function(){
+	$lang = Config::get('app.locale');
 	$words = DB::table('president')->where('type','word')->orderBy('id','desc')->first();
-	$decrees = DB::table('president')->where('type','decree')->orderBy('id','desc')->paginate(3);
+	$decrees = DB::table('president')->where('type','decree')->whereNotNull('title_'.$lang)->orderBy('id','desc')->paginate(4);
 	$news = DB::table('media')->where('type','news')->orderBy('id','desc')->take(5)->get();
 	return view('decrees')->with(['word'=>$words,'decrees'=>$decrees,'news'=>$news]);
 })->name('decrees');
@@ -83,9 +80,10 @@ Route::get('decree_details/{id?}',function($id){
 })->name('decree_details');
 
 Route::get('orders',function(){
+	$lang = Config::get('app.locale');
 	$words = DB::table('president')->where('type','word')->orderBy('id','desc')->first();
 	$news = DB::table('media')->where('type','news')->orderBy('id','desc')->take(5)->get();
-	$orders = DB::table('president')->where('type','order')->orderBy('id','desc')->paginate(4);
+	$orders = DB::table('president')->where('type','order')->whereNotNull('title_'.$lang)->orderBy('id','desc')->paginate(4);
 	return view('orders')->with(['word'=>$words,'news'=>$news,'orders'=>$orders]);
 })->name('orders');
 
@@ -98,9 +96,10 @@ Route::get('order_details/{id?}',function($id){
 })->name('order_details');
 
 Route::get('statements',function(){
+	$lang = Config::get('app.locale');
 	$words = DB::table('president')->where('type','word')->orderBy('id','desc')->first();
 	$news = DB::table('media')->where('type','news')->orderBy('id','desc')->take(5)->get();
-	$statements = DB::table('president')->where('type','statement')->orderBy('id','desc')->paginate(4);
+	$statements = DB::table('president')->where('type','statement')->whereNotNull('title_'.$lang)->orderBy('id','desc')->paginate(4);
 	return view('statements')->with(['word'=>$words,'news'=>$news,'statements'=>$statements]);
 })->name('statements');
 
@@ -112,9 +111,10 @@ Route::get('statement_details/{id?}',function($id){
 })->name('statement_details');
 
 Route::get('messages',function(){
+	$lang = Config::get('app.locale');
 	$words = DB::table('president')->where('type','word')->orderBy('id','desc')->first();
 	$news = DB::table('media')->where('type','news')->orderBy('id','desc')->take(5)->get();
-	$messages = DB::table('president')->where('type','message')->orderBy('id','desc')->paginate(4);
+	$messages = DB::table('president')->where('type','message')->whereNotNull('title_'.$lang)->orderBy('id','desc')->paginate(4);
 	return view('messages')->with(['word'=>$words,'news'=>$news,'messages'=>$messages]);
 })->name('messages');
 
@@ -126,8 +126,9 @@ Route::get('message_details/{id?}',function($id){
 })->name('message_details');
 
 Route::get('words',function(){
+	$lang = Config::get('app.locale');
 	$words = DB::table('president')->where('type','word')->orderBy('id','desc')->first();
-	$words_all = DB::table('president')->where('type','word')->orderBy('id','desc')->paginate(4);
+	$words_all = DB::table('president')->where('type','word')->whereNotNull('title_'.$lang)->orderBy('id','desc')->paginate(4);
 	$news = DB::table('media')->where('type','news')->orderBy('id','desc')->take(5)->get();
 	return view('words')->with(['word'=>$words,'news'=>$news,'words_all'=>$words_all]);
 })->name('words');
@@ -140,8 +141,9 @@ Route::get('word_details/{id?}',function($id){
 })->name('word_details');
 
 Route::get('domestic_trips',function(){
+	$lang = Config::get('app.locale');
 	$words = DB::table('president')->where('type','word')->orderBy('id','desc')->first();
-	$domestic= DB::table('trips')->where('type','domestic')->orderBy('id','desc')->paginate(4);
+	$domestic= DB::table('trips')->where('type','domestic')->whereNotNull('title_'.$lang)->orderBy('id','desc')->paginate(4);
 	$news = DB::table('media')->where('type','news')->orderBy('id','desc')->take(5)->get();
 	return view('domestic_trips')->with(['word'=>$words,'news'=>$news,'domestic'=>$domestic]);
 })->name('domestic_trips');
@@ -154,8 +156,9 @@ Route::get('domestic_details/{id}',function($id){
 })->name('domestic_details');
 
 Route::get('international_trips',function(){
+	$lang = Config::get('app.locale');
 	$words = DB::table('president')->where('type','word')->orderBy('id','desc')->first();
-	$international = DB::table('trips')->where('type','international')->orderBy('id','desc')->paginate(4);
+	$international = DB::table('trips')->where('type','international')->whereNotNull('title_'.$lang)->orderBy('id','desc')->paginate(4);
 	$news = DB::table('media')->where('type','news')->orderBy('id','desc')->take(5)->get();
 
 	return view('international_trips')->with(['word'=>$words,'news'=>$news,'international'=>$international]);
@@ -169,15 +172,17 @@ Route::get('international_trip_details/{id}',function($id){
 })->name('international_trip_details');
 
 Route::get('news',function(){
+	$lang = Config::get('app.locale');
 	$words = DB::table('president')->where('type','word')->orderBy('id','desc')->first();
-	$news = DB::table('media')->where('type','news')->orderBy('id','desc')->paginate(4);
+	$news = DB::table('media')->where('type','news')->whereNotNull('title_'.$lang)->orderBy('id','desc')->paginate(4);
 	return view('news')->with(['word'=>$words,'news'=>$news]);
 })->name('news');
 
 Route::get('articles',function(){
+	$lang = Config::get('app.locale');
 	$words = DB::table('president')->where('type','word')->orderBy('id','desc')->first();
 	$news = DB::table('media')->where('type','news')->orderBy('id','desc')->paginate(4);
-	$articles = DB::table('media')->where('type','article')->orderBy('id','desc')->paginate(4);
+	$articles = DB::table('media')->where('type','article')->whereNotNull('title_'.$lang)->orderBy('id','desc')->paginate(4);
 	return view('articles')->with(['word'=>$words,'news'=>$news,'articles'=>$articles]);
 })->name('articles');
 
@@ -189,16 +194,18 @@ Route::get('article_details/{id?}',function($id){
 })->name('article_details');
 
 Route::get('documents',function(){
+	$lang = Config::get('app.locale');
 	$words = DB::table('president')->where('type','word')->orderBy('id','desc')->first();
 	$news = DB::table('media')->where('type','news')->orderBy('id','desc')->take(5)->get();
-	$documents = DB::table('documents')->orderBy('id','desc')->paginate(4);
+	$documents = DB::table('documents')->whereNotNull('title_'.$lang)->orderBy('id','desc')->paginate(4);
 	return view('documents')->with(['word'=>$words,'news'=>$news,'documents'=>$documents]);
 })->name('documents');
 
 Route::get('videos',function(){
+	$lang = Config::get('app.locale');
 	$words = DB::table('president')->where('type','word')->orderBy('id','desc')->first();
 	$news = DB::table('media')->where('type','news')->orderBy('id','desc')->take(5)->get();
-	$videos = DB::table('videos')->orderBy('id','desc')->paginate(4);
+	$videos = DB::table('videos')->orderBy('id','desc')->whereNotNull('title_'.$lang)->paginate(4);
 	return view('videos')->with(['word'=>$words,'news'=>$news,'videos'=>$videos]);
 })->name('videos');
 
@@ -210,9 +217,10 @@ Route::get('video_details/{id?}',function($id){
 })->name('video_details');
 
 Route::get('trips',function(){
+	$lang = Config::get('app.locale');
 	$words = DB::table('president')->where('type','word')->orderBy('id','desc')->first();
 	$news = DB::table('media')->where('type','news')->orderBy('id','desc')->take(5)->get();
-	$trips = DB::table('trips')->orderBy('id','desc')->paginate(4);
+	$trips = DB::table('trips')->whereNotNull('title_'.$lang)->orderBy('id','desc')->paginate(4);
 	return view('trips')->with(['word'=>$words,'news'=>$news,'trips'=>$trips]);
 })->name('trips');
 
@@ -224,10 +232,10 @@ Route::get('biography',function(){
 })->name('biography');
 
 Route::get('infographics',function(){
+	$lang = Config::get('app.locale');
 	$words = DB::table('president')->where('type','word')->orderBy('id','desc')->first();
 	$news = DB::table('media')->where('type','news')->orderBy('id','desc')->take(5)->get();
-	$info = InfoGraphic::paginate(6);
-	// print_r($info);exit;
+	$info = InfoGraphic::whereNotNull('title_'.$lang)->paginate(6);
 	return view('infographics')->with(['word'=>$words,'news'=>$news,'info'=>$info]);
 })->name('infographics');
 
@@ -239,9 +247,10 @@ Route::get('infographic_details/{id?}',function($id){
 })->name('infographic_details');
 
 Route::get('photo_albums',function(){
+	$lang = Config::get('app.locale');
 	$words = DB::table('president')->where('type','word')->orderBy('id','desc')->first();
 	$news = DB::table('media')->where('type','news')->orderBy('id','desc')->take(5)->get();
-	$albums = Album::paginate(8);
+	$albums = Album::whereNotNull('title_'.$lang)->paginate(8);
 	return view('albums')->with(['word'=>$words,'news'=>$news,'albums'=>$albums]);
 })->name('photo_albums');
 
@@ -425,16 +434,15 @@ Route::group(['middleware'=>['chk_usr']],function(){
 
 	Route::get('register','Auth\RegisterController@show_register')->name('register_user');
 	Route::post('register','Auth\RegisterController@register')->name('register');
+	Route::delete('delete_user/{id?}','Auth\RegisterController@destroy')->name('delete_user');
+	Route::get('edit_user/{id?}','Auth\RegisterController@edit_user')->name('edit_user');
+	Route::patch('update_user/{id?}','Auth\RegisterController@update_user')->name('update_user');
 
 	Route::get('admin/users',function(){
 		$users = User::all();
 		return view('admin.users')->with('users',$users);
 	})->name('users');
 
-	Route::delete('delete_user/{id?}','Auth\LoginController@destroy')->name('delete_user');
-	Route::get('edit_user/{id?}','Auth\LoginController@edit_user')->name('edit_user');
-	Route::any('update_user/{id?}','Auth\LoginController@update_user')->name('update_user');
-	Route::get('logout','Auth\LoginController@logout')->name('logout');
 
 	// Form Registered Route
 
@@ -444,32 +452,35 @@ Route::group(['middleware'=>['chk_usr']],function(){
 
 	});
 
+	Route::get('logout','Auth\LoginController@logout')->name('logout');
 
 	Route::get('admin',function(){
 		return view('admin.index');
 	})->name('admin');
 
-	// Resource Controllers
-	Route::resource('admin/documents','DocumentsController');
-	Route::resource('admin/videos','VideoController');
-	Route::resource('admin/quotes','QuotesController');
-	Route::resource('admin/infographic','InfoGraphicController');
-	Route::resource('admin/album','AlbumController');
-	Route::resource('admin/the_president','PresidentController');
-	Route::resource('admin/the_bio','BioController');
-	Route::resource('admin/the_ocs','OCSController');
-	Route::resource('admin/the_chief','ChiefController');
-	Route::resource('admin/links','LinksController');
-	Route::resource('admin/the_palace','Presidential_PalaceController');
-	Route::resource('admin/media_directorate','MediaDirectorateController');
-	Route::resource('admin/trips','TripController');
-	Route::resource('admin/media','MediaController');
+	// Resourcefull Controllers
 
+	Route::resources([
+		'admin/documents'=>'DocumentsController',
+		'admin/videos'=>'VideoController',
+		'admin/quotes'=>'QuotesController',
+		'admin/infographic'=>'InfoGraphicController',
+		'admin/album'=>'AlbumController',
+		'admin/the_president'=>'PresidentController',
+		'admin/the_bio'=>'BioController',
+		'admin/the_ocs'=>'OCSController',
+		'admin/the_chief'=>'ChiefController',
+		'admin/links'=>'LinksController',
+		'admin/the_palace'=>'Presidential_PalaceController',
+		'admin/media_directorate'=>'MediaDirectorateController',
+		'admin/trips'=>'TripController',
+		'admin/media'=>'MediaController'
+	]);
 
 	// Album Routes
 
-	Route::get('admin/album/album_image/{number?}/{id?}','AlbumController@add_album_image')->name('add_album_image');
-	Route::post('admin/album/image/{id?}/{number?}','AlbumController@add_image')->name('add_image');
+	Route::get('admin/album/album_image/{id?}','AlbumController@add_album_image')->name('add_album_image');
+	Route::post('admin/album/image/{id?}','AlbumController@add_image')->name('add_image');
 	Route::get('admin/view_album_images/{id?}','AlbumController@view_album_images')->name('view_album_images');
 	Route::get('admin/edit_images/{id?}','AlbumController@edit_images')->name('edit_images');
 	Route::get('admin/edit_album_image/{id?}','AlbumController@edit_album_image')->name('edit_album_image');
@@ -539,10 +550,7 @@ Route::get('admin/set_session_all',function(){
 
 	Route::get('forgot','Auth\ResetPasswordController@forgot')->name('forgot');
 	Route::post('send_reset_link','Auth\ResetPasswordController@send_reset_link')->name('send_reset_link');
-	Route::get('show_reset_form/{email?}','Auth\ResetPasswordController@show_reset_form')->name('show_reset_form');
-	Route::post('reset_password','Auth\ResetPasswordController@reset_password')->name('reset_password');
+	Route::get('show_reset_form/{email?}','Auth\RegisterController@show_reset_form')->name('show_reset_form');
+	Route::post('reset_password','Auth\RegisterController@reset_password')->name('reset_password');
 
 // Login Routes Ends
-	// Route::get('test',function(){
-	// 	return view('test');
-	// });

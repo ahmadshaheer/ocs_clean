@@ -93,7 +93,7 @@ $i=1;
        ?>
     <tr>
       <td><?php echo e($i++); ?></td>
-      <th><img src="<?php echo e(asset('uploads/media/article/'.$value->image)); ?>" style="width:100px;"></th>
+      <th><img src="<?php echo e(asset('uploads/article/'.$value->image)); ?>" style="width:100px;"></th>
       <td><div style="width:20em" class="test"><?php echo e($title_value); ?></div></td>
       <td><div style="width:10em" class="test"><?php echo e($value->$date); ?></div></td>
       <td style=""><?php echo e($value->$short_desc); ?></td>
@@ -122,7 +122,8 @@ $i=1;
 <?php echo $__env->make('admin.include.footer', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 <script>
    function create(lang){
-    window.location = "<?php echo e(url('admin/set_session_all?lang=')); ?>"+lang+"&route=<?php echo e(route('media.create')); ?>";
+    var id = lang+'_article';
+    window.location = "<?php echo e(url('admin/set_session?lang=')); ?>"+id+"&route=<?php echo e(route('media.create')); ?>";
   }
 
   function edit(para){

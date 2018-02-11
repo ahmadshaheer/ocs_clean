@@ -41,57 +41,59 @@ class LinksController extends Controller
     public function store(Request $request)
     {
 
-        $links = new Links();
+        //multi language variables
         $lang = Session::get('lang');
-        if($lang=='en'){
-            $this->validate($request,[
-              'title_en'=>'required|unique:links|max:255',
-              'desc_en'=>'required',
-              'image'=>'required|mimes:jpeg,jpg,png,bmp',
+        $title = 'title_'.$lang;
+        $description = 'description_'.$lang;
+
+        // validation
+        $this->validate($request,[
+              $title=>'required|unique:links|max:255',
+              $description=>'required',
               'url'=>'required'
             ]);
-            $links->title_en = $request->input('title');
-            $links->description_en = $request->input('desc_en');
+
+        //data storage
+        $link = new Links();
+        $link->$title = $request->$title;
+        $link->$description = $request->$description;
+        $link->url = $request->input('url');
+        
+        //save the record to retreive id later
+        $link->save();
+
+        //retreive id from previously stored record
+        $id = $link->id;
+
+        //retreive link object again
+        $link = Links::findOrFail($id);
+
+         //make image path
+        $path = 'uploads/links/';
+
+        //variable for thumb image if present or otherwise
+        $image_thumb_name = '';
+
+          //image uploading
+        if($request->image!='') {
+          //image names i.e. (image and image_thumb)
+          $image_name = $id.'.'.$request->image->getClientOriginalExtension();
+          
+          //store image and thumbnail in storage
+          $request->image->move($path,$image_name);
+
+          //db image storage
+          $link->image = $image_name;
+
         }
-        else if($lang=='dr'){
-            $this->validate($request,[
-              'title_dr'=>'required|unique:links|max:255',
-              'desc_dr'=>'required',
-              'image'=>'required|mimes:jpeg,jpg,png,bmp',
-              'url'=>'required'
-            ]);
-            $links->title_dr = $request->input('title_dr');
-            $links->description_dr = $request->input('desc_dr');
-        }
-        else{
-            $this->validate($request,[
-              'title_pa'=>'required|unique:links|max:255',
-              'desc_pa'=>'required',
-              'image'=>'required|mimes:jpeg,jpg,png,bmp',
-              'url'=>'required'
-            ]);
-            $links->title_pa = $request->input('title_pa');
-            $links->description_pa = $request->input('desc_pa');
+        else {
+          //if no image received store the default
+          $link->image = 'default.jpg';
         }
 
-        $links->url = $request->input('url');
-
-        $links->save();
-
-        $max = $links->id;
-        // thumbnail generation starts
-      $image = $request->image;
-      $img_thumb = $max.'.'.$image->getClientOriginalExtension();
-      $driver = new imageManager(array('driver'=>'gd'));
-      $thumb_img = $driver->make($image)->resize(200,150);
-      $thumb_img->save("uploads/links/".$img_thumb);
-      // thumbnail generation Ends
-
-        $links_n = Links::findOrFail($max);
-        $links_n->image = $img_thumb;
-        $links_n->save();
+        $link->save();
         Session::put('lang','');
-        Log::info($max." Link created by ".Session::get('email')." on ".date('l jS \of F Y h:i:s A'));
+        Log::info($id." Link created by ".Session::get('email')." on ".date('l jS \of F Y h:i:s A'));
         return Redirect()->route('links.index');
     }
 
@@ -128,61 +130,45 @@ class LinksController extends Controller
     public function update(Request $request, $id)
     {
 
-        $links = Links::findOrFail($id);
+        //multi language variables
         $lang = Session::get('lang');
-        if($lang=='en'){
-            $this->validate($request,[
-              'title_en'=>'required|unique:links|max:255',
-              'desc_en'=>'required',
-              'image'=>'mimes:jpg,png,bmp',
-              'url'=>'required'
-            ]);
-            $links->title_en = $request->input('title_en');
-            $links->description_en = $request->input('desc_en');
-        }
-        else if($lang=='dr'){
-            $this->validate($request,[
-              'title_dr'=>'required|unique:links|max:255',
-              'desc_dr'=>'required',
-              'image'=>'mimes:jpg,png,bmp',
-              'url'=>'required'
-            ]);
-            $links->title_dr = $request->input('title_dr');
-            $links->description_dr = $request->input('desc_dr');
-        }
-        else{
-            $this->validate($request,[
-              'title_pa'=>'required|unique:links|max:255',
-              'desc_pa'=>'required',
-              'image'=>'mimes:jpg,png,bmp',
-              'url'=>'required'
-            ]);
-            $links->title_pa = $request->input('title_pa');
-            $links->description_pa = $request->input('desc_pa');
-        }
-        $links->url = $request->input('url');
+        $title = 'title_'.$lang;
+        $description = 'description_'.$lang;
+        // validation
+        $this->validate($request,[
+          $title=>'required',
+          $description=>'required',
+        ]);
 
-        $max = $links->id;
-        $image = '';
+        //construct image path
+         $image_path = 'uploads/links/';
+        // link data storage
+         $link = Links::findOrFail($id);
+         $link->$title = $request->$title;
+         $link->$description = $request->$description;
+         $link->url = $request->url;
 
-        if($request->file('image') ==null){
-            $image = $links->image;
-        }
-        else{
-            File::delete('uploads/links/'.$links->image);
-            // thumbnail generation starts
-          $image = $request->image;
-          $img_thumb = $max.'.'.$image->getClientOriginalExtension();
-          $driver = new imageManager(array('driver'=>'gd'));
-          $thumb_img = $driver->make($image)->resize(200,150);
-          $thumb_img->save("uploads/links/".$img_thumb);
-          // thumbnail generation Ends
-        }
-        $links->image = $img_thumb;
-        $links->save();
-        Session::put('lang','');
-        Log::info($id." Link updated by ".Session::get('email')." on ".date('l jS \of F Y h:i:s A'));
-        return Redirect()->route('links.index');
+         if($request->image!=null) {
+           //remove existing images
+           File::delete($path.$link->image);
+           //set new images name
+           $image_name = $id.'.'.$request->image->getClientOriginalExtension();
+
+           //resize image for thumbnail
+           $driver = new imageManager(array('driver'=>'gd'));
+           $image = $driver->make($request->image)->resize(200,150);
+
+           //move i.e.(to storage) image
+           $image->save($image_path.$image_name);
+           
+           //store in db
+           $link->image = $image_name;
+         }
+
+          $link->save();
+          Session::put('lang','');
+          Log::info($id." Link updated by ".Session::get('email')." on ".date('l jS \of F Y h:i:s A'));
+          return Redirect()->route('links.index');
     }
 
     /**

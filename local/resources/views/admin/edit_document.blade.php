@@ -9,10 +9,7 @@ global $jdate;
       visibility: hidden;
       position: absolute;
     }
-    
-    #image_upload {
-      display: none;
-    }
+
 </style>
 <!--main content start-->
 <section id="main-content">
@@ -32,7 +29,8 @@ global $jdate;
                           @endif
                         <div class="form cmxform form-horizontal ">
                             {!! Form::model($document, ['route' => array('documents.update',$document->id),'files' => true]) !!}
-                            <input name="_method" type="hidden" value="PATCH">
+                            {{method_field('PATCH')}}
+                            
                             @if($session=='dr')
                               <div class="form-group ">
                                   <label for="title_dr" class="control-label col-lg-3">Title Dari</label>
@@ -84,9 +82,9 @@ global $jdate;
                                 </label>
                               </div>
                               <div class="form-group date_dari">
-                                  <label for="date_dr" class="control-label col-lg-3">Date Pashto</label>
+                                  <label for="date_pa" class="control-label col-lg-3">Date Pashto</label>
                                   <div class="col-lg-6">
-                                    <input class="form-control change_date" disabled id="date_dr" value="{{$jdate->detailedDate($document->date_dr,$session)}}"  name="date_dr" type="text" required>
+                                    <input class="form-control change_date" disabled id="date_pa" value="{{$jdate->detailedDate($document->date_dr,$session)}}"  name="date_pa" type="text" required>
                                   </div>
                               </div>
 
@@ -110,15 +108,15 @@ global $jdate;
 
                             @elseif ($session=='en')
                               <div class="form-group ">
-                                  <label for="title" class="control-label col-lg-3">Title</label>
+                                  <label for="title_en" class="control-label col-lg-3">Title</label>
                                   <div class="col-lg-6">
-                                      <input class=" form-control" maxlength="150" id="title" value="{{$document->title_en}}" name="title" type="text">
+                                      <input class=" form-control" maxlength="150" id="title_en" value="{{$document->title_en}}" name="title_en" type="text">
                                   </div>
                               </div>
                               <div class="form-group ">
-                                  <label for="date" class="control-label col-lg-3">Date</label>
+                                  <label for="date_en" class="control-label col-lg-3">Date</label>
                                   <div class="col-lg-6">
-                                      <input class=" form-control" id="date" name="date" value="{{$document->date_en}}" type="date" required>
+                                      <input class=" form-control" id="date_en" name="date_en" value="{{$document->date_en}}" type="date" required>
                                   </div>
                               </div>
                               <div class="form-group form-check">

@@ -31,7 +31,7 @@ global $lang,$dir,$indir,$rtl,$ltr,$title,$date,$short_desc,$description,$jdate;
               <div class="ui items" style="">
                 @foreach($orders as $order)
                   @php
-                  if(sizeof($order->$title)==0)
+                  if($order->$title=='')
                     continue;
                   @endphp
                 <div class="ui item {{($order == $orders->last())?'no_border':''}}">

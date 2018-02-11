@@ -11,7 +11,7 @@
                         <div class="ui bottom attached segment">
                         <div class="form cmxform form-horizontal ">
                             {!! Form::model($user, ['route' => array('update_user',$user->id)]) !!}
-                            <input name="_method" type="hidden" value="PATCH">
+                            {{method_field('PATCH')}}
                             {{csrf_field()}}
                               <div class="form-group ">
                                         <label for="name" class="control-label col-lg-3">Name</label>

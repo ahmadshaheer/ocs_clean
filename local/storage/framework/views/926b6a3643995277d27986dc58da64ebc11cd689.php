@@ -1,7 +1,7 @@
 <?php echo $__env->make('include.header', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 <?php
 global $lang,$dir,$indir,$rtl,$ltr,$title,$date,$short_desc,$description,$jdate;
-$desc = "desc_".$lang;
+$description = "description_".$lang;
 ?>
   
   <style>

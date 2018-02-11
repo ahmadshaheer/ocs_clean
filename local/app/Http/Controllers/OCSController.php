@@ -38,29 +38,17 @@ class OCSController extends Controller
      */
     public function store(Request $request)
     {
-        
-        $ocs = new OCS();
         $lang = Session::get('lang');
-        if($lang=='en') {
-            $this->validate($request,[
-              'desc_en'=>'required|'
-            ]);
-            $ocs->description_en = $request->input('desc_en');
-        }
-        else if($lang=='dr') {
-            $this->validate($request,[
-              'desc_dr'=>'required|'
-            ]);
-            $ocs->description_dr = $request->input('desc_dr');
-        }
-        else if($lang=='pa') {
-            $this->validate($request,[
-              'desc_pa'=>'required|'
-            ]);
-            $ocs->description_pa = $request->input('desc_pa');
-        }
+        $description = 'description_'.$lang;
+        
+        $this->validate($request,[
+              $description=>'required|'
+        ]);
+
+        $ocs = new OCS();
+        $ocs->$description = $request->input($description);
         $ocs->save();
-        \Session::put('lang','');
+        Session::put('lang','');
         Log::info($ocs->id." OCS created by ".Session::get('email')." on ".date('l jS \of F Y h:i:s A'));
         return Redirect()->route('the_ocs.index');
     }
@@ -98,30 +86,18 @@ class OCSController extends Controller
     public function update(Request $request, $id)
     {
       
-      $lang=\Session::get('lang');
+      $lang=Session::get('lang');
+      $description = 'description_'.$lang;
+      $this->validate($request,[
+          $description=>'required|'
+        ]);
       $ocs =OCS::findOrFail($id);
-      if($lang=='en') {
-        $this->validate($request,[
-          'desc_en'=>'required|'
-        ]);
-        $ocs->description_en = $request->input('desc_en');
-      }
-      else if($lang=='dr') {
-        $this->validate($request,[
-          'desc_dr'=>'required|'
-        ]);
-        $ocs->description_dr = $request->input('desc_dr');
-      }
-      else if($lang=='pa') {
-        $this->validate($request,[
-          'desc_pa'=>'required|'
-        ]);
-        $ocs->description_pa = $request->input('desc_pa');
-      }
-      \Session::put('lang','');
+      $ocs->$description = $request->input($description);
       $ocs->save();
+      
+      Session::put('lang','');
       Log::info($id." OCS updated by ".Session::get('email')." on ".date('l jS \of F Y h:i:s A'));
-return Redirect()->route('the_ocs.index');
+      return Redirect()->route('the_ocs.index');
     }
 
     /**

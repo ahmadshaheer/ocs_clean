@@ -21,31 +21,23 @@
                                 <form class="cmxform form-horizontal " id="signupForm" method="post" action="{{route('the_palace.store')}}" enctype="multipart/form-data">
                                   @if($session=='en')
                                       <div class="form-group ">
-                                        <label for="desc_en" class="control-label col-lg-3">Description English</label>
+                                        <label for="description_en" class="control-label col-lg-3">Description English</label>
                                         <div class="col-lg-9">
-                                            <textarea name="desc_en" value="{{old('desc_en')}}" class="form-control format"></textarea>
+                                            <textarea name="description_en" value="{{old('description_en')}}" class="form-control format"></textarea>
                                         </div>
                                     </div>
                                     @elseif($session=='dr')
                                      <div class="form-group ">
-                                        <label for="desc_dr" class="control-label col-lg-3">Description Dari</label>
+                                        <label for="description_dr" class="control-label col-lg-3">Description Dari</label>
                                         <div class="col-lg-9">
-<<<<<<< HEAD
-                                            <textarea name="desc_dr" value="{{old('desc_dr')}}" class="form-control format"></textarea>
-=======
-                                            <textarea name="desc_dr" class="form-control format rtl"></textarea>
->>>>>>> 5eca33ae590378911d6ea862350fa1380a487053
+                                            <textarea name="description_dr" class="form-control format rtl"></textarea>
                                         </div>
                                     </div>
                                     @else
                                      <div class="form-group ">
-                                        <label for="desc_pa" class="control-label col-lg-3">Description Pashto</label>
+                                        <label for="description_pa" class="control-label col-lg-3">Description Pashto</label>
                                         <div class="col-lg-9">
-<<<<<<< HEAD
-                                            <textarea name="desc_pa" value="{{old('desc_pa')}}" class="form-control format"></textarea>
-=======
-                                            <textarea name="desc_pa" class="form-control format rtl"></textarea>
->>>>>>> 5eca33ae590378911d6ea862350fa1380a487053
+                                            <textarea name="description_pa" class="form-control format rtl"></textarea>
                                         </div>
                                     </div>
                                     @endif

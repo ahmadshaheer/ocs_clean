@@ -6,7 +6,7 @@ if(Session::get('view_lang')==''){
 else{
   $lang = Session::get('view_lang');
 }
-$description = "description_".$lang;
+$description_val = "description_".$lang;
 if($lang=='en'){
   $dir = 'left';
   $direction = 'ltr';
@@ -43,7 +43,7 @@ else{
     $description_value ='';
       switch ($lang) {
         case 'dr':
-          if($value->$description=='') {
+          if($value->$description_val=='') {
             if($value->description_pa=='') {
               $description_value = $value->description_en;
             }
@@ -56,7 +56,7 @@ else{
           }
           break;
         case 'pa':
-          if($value->$description=='') {
+          if($value->$description_val=='') {
             if($value->description_dr=='') {
               $description_value = $value->description_en;
             }
@@ -65,11 +65,11 @@ else{
             }
           }
           else {
-            $description_value = $value->$description;
+            $description_value = $value->$description_val;
           }
           break;
         case 'en':
-          if($value->$description=='') {
+          if($value->$description_val=='') {
             if($value->description_pa=='') {
               $description_value = $value->description_dr;
             }
@@ -78,7 +78,7 @@ else{
             }
           }
           else {
-            $description_value = $value->$description;
+            $description_value = $value->$description_val;
           }
           break;
       }
@@ -89,7 +89,7 @@ else{
         <form action="{{ route('the_bio.destroy', $value->id) }}" class="ui form" method="POST">
             {{ method_field('DELETE') }}
             {{ csrf_field() }}
-            <a class="btn btn-default pull-{{$dir}}" href="javascript:void(0)" onclick="edit('{{$lang.'_'.$value->id}}')" style="margin-bottom: 10px;">{{($value->$description==''?'Add':'Edit')}}</a>
+            <a class="btn btn-default pull-{{$dir}}" href="javascript:void(0)" onclick="edit('{{$lang.'_'.$value->id}}')" style="margin-bottom: 10px;">{{($value->$description_val==''?'Add':'Edit')}}</a>
             @if(Session::get('role')=='admin')
             <button class="ui tiny button red " onclick="return confirm_submit()">Delete</button>
             @endif

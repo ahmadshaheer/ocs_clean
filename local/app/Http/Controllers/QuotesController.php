@@ -99,6 +99,7 @@ class QuotesController extends Controller
         $quote =Quotes::findOrFail($id);
         $this->validate($request,[
           'title'=>'required|max:255',
+          'image'=>'mimes:jpg,jpeg,png,bmp',
         ]);
         $quote->title = $request->input('title');
 

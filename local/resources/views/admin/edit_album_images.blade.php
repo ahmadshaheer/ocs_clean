@@ -13,11 +13,11 @@
                 <div class="image">
                   <img src="{{asset('uploads/albumImage/'.$image->image)}}" style="width:290px !important;height: 130px;">
                 </div>
-                  <p class="header" style="padding-top: 10px;padding-left: 5px">{{$image->title_en}}</p>
+                  {{-- <p class="header" style="padding-top: 10px;padding-left: 5px">{{$image->title_en}}</p> --}}
                 <div class="extra content">
                   <a href="{{route('edit_album_image',$image->id)}}" class="left floated like">
                     <i class="edit icon"></i>
-                    Edit
+                    Replace
                   </a>
                   <a onclick="return confirm_click({{$image->id}},{{$id}})" class="right floated star">
                     <i class="delete icon"></i>

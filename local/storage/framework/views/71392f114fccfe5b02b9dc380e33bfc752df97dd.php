@@ -17,27 +17,35 @@
                             Add OCS Description
                         </header>
                         <div class="panel-body">
+                            <?php if($errors->any()): ?>
+                              <ul class="alert alert-danger">
+                                <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                  <li><?php echo e($error); ?></li>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                              </ul>
+                            <?php endif; ?>
+                        <div class="panel-body">
                             <div class="form">
                                 <form class="cmxform form-horizontal " id="signupForm" method="post" action="<?php echo e(route('the_ocs.store')); ?>" enctype="multipart/form-data">
                                   <?php if($session=='en'): ?>
                                       <div class="form-group ">
-                                        <label for="desc_en" class="control-label col-lg-3">Description English</label>
+                                        <label for="description_en" class="control-label col-lg-3">Description English</label>
                                         <div class="col-lg-9">
-                                            <textarea name="desc_en" class="form-control format"></textarea>
+                                            <textarea name="description_en" value="<?php echo e(old('description_en')); ?>" class="form-control format"></textarea>
                                         </div>
                                     </div>
                                     <?php elseif($session=='dr'): ?>
                                      <div class="form-group ">
-                                        <label for="desc_dr" class="control-label col-lg-3">Description Dari</label>
+                                        <label for="description_dr" class="control-label col-lg-3">Description Dari</label>
                                         <div class="col-lg-9">
-                                            <textarea name="desc_dr" class="form-control format rtl"></textarea>
+                                            <textarea name="description_dr" class="form-control format rtl"></textarea>
                                         </div>
                                     </div>
                                     <?php else: ?>
                                      <div class="form-group ">
-                                        <label for="desc_pa" class="control-label col-lg-3">Description Pashto</label>
+                                        <label for="description_pa" class="control-label col-lg-3">Description Pashto</label>
                                         <div class="col-lg-9">
-                                            <textarea name="desc_pa" class="form-control format rtl"></textarea>
+                                            <textarea name="description_pa" class="form-control format rtl"></textarea>
                                         </div>
                                     </div>
                                     <?php endif; ?>

@@ -1,7 +1,7 @@
 @include('include.header')
 <?php
 global $lang,$dir,$indir,$rtl,$ltr,$title,$date,$short_desc,$description,$jdate;
-$desc = "desc_".$lang;
+$description = "description_".$lang;
 ?>
   {{-- main content starts --}}
   <style>
@@ -33,7 +33,7 @@ $desc = "desc_".$lang;
             <div class="content" id="bio" style="text-align:right">
               <h2 class="ui header title_font border">{{trans('menu.presidential_palace')}}</h2>
               @if (sizeof($palace)!=0)
-                {!! $palace->$desc !!}
+                {!! $palace->$description !!}
                 <!-- AddToAny BEGIN -->
                 <div class="a2a_kit a2a_kit_size_32 a2a_default_style" style="float:{{$indir}}">
                  <a class="a2a_button_facebook"></a>

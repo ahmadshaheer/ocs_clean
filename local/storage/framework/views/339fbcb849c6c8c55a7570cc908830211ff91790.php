@@ -14,8 +14,6 @@
                   <img src="<?php echo e(asset('uploads/albumImage/'.$image->image)); ?>">
                 </div>
                 
-                  <p class="header"><?php echo e($image->title_en); ?></p>
-                
               </div>
  <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
  </div>

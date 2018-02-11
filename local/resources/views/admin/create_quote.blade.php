@@ -15,6 +15,14 @@
                         <header class="panel-heading">
                             Add Quote
                         </header>
+                         <div class="panel-body">
+                            @if($errors->any())
+                              <ul class="alert alert-danger">
+                                @foreach($errors->all() as $error)
+                                  <li>{{$error}}</li>
+                                @endforeach
+                              </ul>
+                            @endif
                         <div class="panel-body">
                             <div class="form">
                                 <form class="cmxform form-horizontal " id="signupForm" method="post" action="{{route('quotes.store')}}" enctype="multipart/form-data">
@@ -28,7 +36,7 @@
                                     <div class="form-group">
                                         <label for="image" class="control-label col-lg-3">Quote Image</label>
                                         <input type="file" name="image" value="{{old('image')}}" class="file">
-                                        <div class="input-group col-md-6 col-md-offset-3 col-xs-12" style="padding-left:15px; padding-right:14px;">
+                                        <div class="input-group col-md-6 col-xs-12" style="padding-left:15px; padding-right:14px;">
                                           <span class="input-group-addon"><i class="fa fa-file-image-o"></i></span>
                                           <input type="text" class="form-control input-lg" disabled placeholder="Upload Image">
                                           <span class="input-group-btn">

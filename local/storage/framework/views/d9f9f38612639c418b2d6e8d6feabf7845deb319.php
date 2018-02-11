@@ -13,11 +13,11 @@
                 <div class="image">
                   <img src="<?php echo e(asset('uploads/albumImage/'.$image->image)); ?>" style="width:290px !important;height: 130px;">
                 </div>
-                  <p class="header" style="padding-top: 10px;padding-left: 5px"><?php echo e($image->title_en); ?></p>
+                  
                 <div class="extra content">
                   <a href="<?php echo e(route('edit_album_image',$image->id)); ?>" class="left floated like">
                     <i class="edit icon"></i>
-                    Edit
+                    Replace
                   </a>
                   <a onclick="return confirm_click(<?php echo e($image->id); ?>,<?php echo e($id); ?>)" class="right floated star">
                     <i class="delete icon"></i>

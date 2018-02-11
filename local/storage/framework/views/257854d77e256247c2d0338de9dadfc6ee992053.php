@@ -12,7 +12,8 @@
                         <div class="form cmxform form-horizontal ">
                             <?php echo Form::model($user, ['route' => array('update_user',$user->id)]); ?>
 
-                            <input name="_method" type="hidden" value="PATCH">
+                            <?php echo e(method_field('PATCH')); ?>
+
                             <?php echo e(csrf_field()); ?>
 
                               <div class="form-group ">

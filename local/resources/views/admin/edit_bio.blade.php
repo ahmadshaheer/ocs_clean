@@ -26,7 +26,7 @@
                           @endif
                             <div class="form cmxform form-horizontal">
                                 {!! Form::model($bio, ['route' => array('the_bio.update',$bio->id),'files' =>true]) !!}
-                                <input name="_method" type="hidden" value="PATCH">
+                                {{method_field('PATCH')}}
                                     @if($session=='en')
                                       <div class="form-group ">
                                         <label for="bio_en" class="control-label col-lg-3">Biography English</label>

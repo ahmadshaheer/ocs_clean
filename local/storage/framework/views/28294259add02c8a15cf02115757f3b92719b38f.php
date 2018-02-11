@@ -34,7 +34,7 @@ global $lang,$dir,$indir,$rtl,$ltr,$title,$date,$short_desc,$description,$jdate;
           <div class="ui fluid card" style="direction:rtl;float:right;text-align:right;">
             <div class="content">
               <h2 class="ui header title_font border"><?php echo e($news_details->$title); ?></h2>
-              <img class="ui image" src="<?php echo e(asset('uploads/media/news/'.$news_details->image)); ?>">
+              <img class="ui image" src="<?php echo e(asset('uploads/news/'.$news_details->image)); ?>">
               <p class="meta body_font"><?php echo e($news_details->$date); ?></p>
               <div class="description">
                 <p><?php echo $news_details->$description; ?></p>

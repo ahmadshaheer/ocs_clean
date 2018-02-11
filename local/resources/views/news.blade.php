@@ -39,7 +39,7 @@ global $lang,$dir,$indir,$rtl,$ltr,$title,$date,$short_desc,$description,$jdate;
                  @endphp
                 <div class="item {{($value==$news->last())?'no_border':''}}">
                   <div class="other_pages_thumbnail">
-                    <img src="{{asset('uploads/media/news/'.$value->image)}}" style="padding-left:8px;">
+                    <img src="{{asset('uploads/news/'.$value->image)}}" style="padding-left:8px;">
                   </div>
                   <div class="content">
                     <a href="{{url('news_details/'.$value->id)}}" class="ui small header title_font">{{$value->$title}}</a>

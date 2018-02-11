@@ -16,28 +16,37 @@
                         <header class="panel-heading">
                             Add Video
                         </header>
+                        <?php if($errors->any()): ?>
+                          <div class="alert alert-danger">
+                            <ul>
+                              <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <li><?php echo e($error); ?></li>
+                              <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                            </ul>
+                          </div>
+                        <?php endif; ?>
                         <div class="panel-body">
                             <div class="form">
                                 <form class="cmxform form-horizontal " id="signupForm" method="post" action="<?php echo e(route('videos.store')); ?>" novalidate="novalidate" enctype="multipart/form-data">
                                 <?php if($session=='en'): ?>
                                     <div class="form-group ">
-                                        <label for="title" class="control-label col-lg-3">Title</label>
+                                        <label for="title_en" class="control-label col-lg-3">Title</label>
                                         <div class="col-lg-6">
-                                            <input class=" form-control" id="title" maxlength="150" name="title" type="text">
+                                            <input class=" form-control" id="title_en" name="title_en" value="<?php echo e(old('title')); ?>" type="text">
                                         </div>
                                     </div>
                                      <div class="form-group ">
-                                        <label for="date" class="control-label col-lg-3">Date</label>
+                                        <label for="date_en" class="control-label col-lg-3">Date</label>
                                         <div class="col-lg-6">
-                                            <input class=" form-control" id="date" maxlength="10"  name="date" type="date" required>
+                                            <input class=" form-control" id="date_en" name="date_en" value="<?php echo e(old('date')); ?>" type="date" required>
                                         </div>
                                     </div>
 
                                  <div class="form-group">
-                                        <label for="video" class="control-label col-lg-3">Video English</label>
+                                        <label for="video_en" class="control-label col-lg-3">Video English</label>
                                         <div class="input-group" style="width:43%;left:15px;">
                                           <span class="input-group-addon" id="basic-addon3">https://www.youtube.com/watch?v=</span>
-                                        <input type="url" name="video" class="form-control">
+                                        <input type="url" name="video_en" class="form-control">
                                       </div>
                                     </div>
                                   <?php elseif($session=='dr'): ?>
@@ -68,9 +77,9 @@
                                         </div>
                                     </div>
                                      <div class="form-group ">
-                                        <label for="date_dr" class="control-label col-lg-3">Date Pashto</label>
+                                        <label for="date_pa" class="control-label col-lg-3">Date Pashto</label>
                                         <div class="col-lg-6">
-                                            <input class=" form-control date_dr rtl"  maxlength="10" id="date_dr" name="date_dr" type="text" required>
+                                            <input class=" form-control date_dr rtl"  maxlength="10" id="date_pa" name="date_pa" type="text" required>
                                         </div>
                                     </div>
                                     <div class="form-group">

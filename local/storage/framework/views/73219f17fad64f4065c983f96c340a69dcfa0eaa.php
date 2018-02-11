@@ -4,7 +4,7 @@
       visibility: hidden;
       position: absolute;
     }
-  
+
 
 
 </style>
@@ -20,30 +20,14 @@
                             <div class="form cmxform form-horizontal">
                                 <?php echo Form::model($image, ['route' => array('update_album_image',$image->id),'files' =>true]); ?>
 
-                                <input name="_method" type="hidden" value="PATCH">
-                                    <div class="form-group ">
-                                        <label for="title" class="control-label col-lg-3">Title</label>
-                                        <div class="col-lg-6">
-                                            <input class=" form-control" id="title" maxlength="150" value="<?php echo e($image->title_en); ?>" name="title" type="text">
-                                        </div>
-                                    </div>
-                                    <div class="form-group ">
-                                        <label for="title_dr" class="control-label col-lg-3">Title Dari</label>
-                                        <div class="col-lg-6">
-                                            <input class=" form-control" id="title_dr" maxlength="150" value="<?php echo e($image->title_dr); ?>" name="title_dr" type="text">
-                                        </div>
-                                    </div>
-                                    <div class="form-group ">
-                                        <label for="title_pa" class="control-label col-lg-3">Title Pashto</label>
-                                        <div class="col-lg-6">
-                                            <input class=" form-control" id="title_pa" maxlength="150" value="<?php echo e($image->title_pa); ?>" name="title_pa" type="text">
-                                        </div>
-                                    </div>
-                                   
+                                <?php echo e(method_field('PATCH')); ?>
+
+                                    
+
                                     <div class="form-group">
                                         <label for="image" class="control-label col-lg-3">Image</label>
                                         <input type="file" name="image" class="file" value="<?php echo e($image->image); ?>">
-                                        <div class="input-group col-md-6 col-md-offset-3 col-xs-12" style="padding-left:15px; padding-right:14px;">
+                                        <div class="input-group col-md-6 col-xs-12" style="padding-left:15px; padding-right:14px;">
                                           <span class="input-group-addon"><i class="fa fa-file-image-o"></i></span>
                                           <input type="text" class="form-control input-lg" disabled placeholder="Upload Image">
                                           <span class="input-group-btn">
@@ -52,11 +36,11 @@
                                         </div>
                                     </div>
 
-                                   
+
 
                                     <div class="form-group">
                                         <div class="col-lg-offset-3 col-lg-6">
-                                            <button class="btn btn-primary" type="submit">Save</button>
+                                            <button class="btn btn-primary" type="submit">Update</button>
                                             <a href="<?php echo e(url()->previous()); ?>" class="btn btn-default"  type="button">Cancel</a>
                                         </div>
                                     </div>

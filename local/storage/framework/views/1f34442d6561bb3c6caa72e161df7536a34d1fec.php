@@ -97,24 +97,20 @@ $i=1;
       <td><div style="width:10em" class="test"><?php echo e($value->$date); ?></div></td>
 
       <td>
-      <form action="<?php echo e(route('album.destroy', $value->id)); ?>" class="ui form" method="POST">
+      <form action="<?php echo e(route('album.destroy', $value->id)); ?>" class="" method="POST">
           <?php echo e(method_field('DELETE')); ?>
 
           <?php echo e(csrf_field()); ?>
 
 
           <?php if(Session::get('role')!='editor'): ?>
-          <select class="form-control me" id="add" name="image_num" style="width:30%;display:inline">
-            <option value="">Add Images</option>
-            <option value="1_<?php echo e($value->id); ?>">1</option>
-            <option value="2_<?php echo e($value->id); ?>">2</option>
-            <option value="3_<?php echo e($value->id); ?>">3</option>
-          </select>
+          <a href="<?php echo e(route('add_album_image',$value->id)); ?>" class="btn btn-xs btn-default">Add Images</a>
+        
           <?php endif; ?>
-          <a href="<?php echo e(route('edit_images',$value->id)); ?>" class="ui tiny button black ">Edit Images</a>
-           <a class="btn btn-default pull-<?php echo e($dir); ?>" href="javascript:void(0)" onclick="edit('<?php echo e($lang.'_'.$value->id); ?>')" style="margin-bottom: 10px;"><?php echo e(($value->$title==''?'Add':'Edit')); ?></a>
+          <a href="<?php echo e(route('edit_images',$value->id)); ?>" class="btn btn-xs btn-default">Edit Images</a>
+           <a class="btn btn-xs btn-default pull-<?php echo e($dir); ?>" href="javascript:void(0)" onclick="edit('<?php echo e($lang.'_'.$value->id); ?>')" style="margin-bottom: 10px;"><?php echo e(($value->$title==''?'Add':'Edit')); ?></a>
           <?php if(Session::get('role')=='admin'): ?>
-          <button class="ui tiny button red " onclick="return confirm_submit()">Delete</button>
+          <button class="btn btn-xs btn-danger " onclick="return confirm_submit()">Delete</button>
           <?php endif; ?>
       </form>
 
@@ -130,11 +126,11 @@ $i=1;
 <?php echo $__env->make('admin.include.footer', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
 <script>
 
-$(".me").change(function(){
-    var num = $(this).val().substring(0,1);
-    var id = $(this).val().substring(2);
-    window.location = "<?php echo e(url('admin/album/album_image')); ?>"+'/'+num+'/'+id;
-  });
+// $(".me").change(function(){
+//     var num = $(this).val().substring(0,1);
+//     var id = $(this).val().substring(2);
+//     window.location = "<?php echo e(url('admin/album/album_image')); ?>"+'/'+num+'/'+id;
+//   });
 
 
 

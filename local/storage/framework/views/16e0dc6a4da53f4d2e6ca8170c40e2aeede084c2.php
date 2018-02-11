@@ -31,7 +31,7 @@ global $lang,$dir,$indir,$rtl,$ltr,$title,$date,$short_desc,$description,$jdate;
               <div class="ui items" style="">
                 <?php $__currentLoopData = $orders; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $order): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                   <?php 
-                  if(sizeof($order->$title)==0)
+                  if($order->$title=='')
                     continue;
                    ?>
                 <div class="ui item <?php echo e(($order == $orders->last())?'no_border':''); ?>">

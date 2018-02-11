@@ -11,6 +11,7 @@ use Session;
 use URL;
 use Log;
 use Intervention\Image\ImageManager;
+use Image;
 
 class PresidentController extends Controller
 {
@@ -43,13 +44,20 @@ class PresidentController extends Controller
      */
     public function store(Request $request)
     {
-
         //multi language variables
         $lang = Session::get('lang');
         $title = 'title_'.$lang;
         $date = 'date_'.$lang;
         $short_desc = 'short_desc_'.$lang;
         $description = 'description_'.$lang;
+        
+        // validation
+        $this->validate($request,[
+          $title=>'required|',
+          $short_desc=>'required',
+          $description=>'required',
+          'image'=>'mimes:jpg,jpeg,png,bmp',
+        ]);
 
         //data storage
         $the_president = new President();
@@ -82,9 +90,8 @@ class PresidentController extends Controller
           $image_thumb_name = $id.'_t.'.$request->image->getClientOriginalExtension();
 
           //resize image for thumbnail
-          $driver = new imageManager(array('driver'=>'gd'));
-          $image_thumb = $driver->make($request->image)->resize(200,150);
-
+          $img = Image::make($request->image);
+          $image_thumb = $img->fit(200,150);
           //store image and thumbnail in storage
           $request->image->move($path,$image_name);
           $image_thumb->save($path.$image_thumb_name);
@@ -180,6 +187,22 @@ class PresidentController extends Controller
 
 
        if($request->image!=null) {
+        if($request->type=='order' || $request->type=='decree'){
+          File::delete('uploads/'.$request->type.'/default.jpg');
+          //resize image for thumbnail
+         $driver = new imageManager(array('driver'=>'gd'));
+         $image = $driver->make($request->image)->resize(200,150);
+         $image_name= 'default.jpg';
+         $image_path = 'uploads/'.$request->type.'/';
+         $image->save($image_path.$image_name);
+        }
+        else{
+          
+          // validation
+          $this->validate($request,[
+            'image'=>'required|mimes:jpg,jpeg,png,bmp',
+          ]);
+
          //remove existing images
          File::delete($search_obj->image_thumb);
          File::delete(str_replace('_t','',$search_obj->image_thumb));
@@ -197,11 +220,12 @@ class PresidentController extends Controller
 
          //move i.e.(to storage) image
          $image_thumb->save($image_path.$image_name);
-         $request->image->move($image_path.$image_thumb_name);
+         $request->image->move($image_path,$image_thumb_name);
 
          //store in db
          $the_president->image = $image_name;
          $the_president->image_thumb = $image_thumb_name;
+         }
        }
 
        if($the_president->save()) {

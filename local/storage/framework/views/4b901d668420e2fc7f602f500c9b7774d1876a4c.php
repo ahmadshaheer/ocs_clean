@@ -29,23 +29,23 @@
 
                                   <?php if($session=='en'): ?>
                                       <div class="form-group ">
-                                        <label for="desc_en" class="control-label col-lg-3">Description English</label>
+                                        <label for="description_en" class="control-label col-lg-3">Description English</label>
                                         <div class="col-lg-6">
-                                            <textarea name="desc_en" value="<?php echo e(old('desc_en')); ?>"class="form-control format"></textarea>
+                                            <textarea name="description_en" value="<?php echo e(old('description_en')); ?>"class="form-control format"></textarea>
                                         </div>
                                     </div>
                                     <?php elseif($session=='dr'): ?>
                                      <div class="form-group ">
-                                        <label for="desc_dr" class="control-label col-lg-3">Description Dari</label>
+                                        <label for="description_dr" class="control-label col-lg-3">Description Dari</label>
                                         <div class="col-lg-6">
-                                            <textarea name="desc_dr" value="<?php echo e(old('desc_dr')); ?>"class="form-control format rtl"></textarea>
+                                            <textarea name="description_dr" value="<?php echo e(old('description_dr')); ?>"class="form-control format rtl"></textarea>
                                         </div>
                                     </div>
                                     <?php else: ?>
                                      <div class="form-group ">
-                                        <label for="desc_pa" class="control-label col-lg-3">Description Pashto</label>
+                                        <label for="description_pa" class="control-label col-lg-3">Description Pashto</label>
                                         <div class="col-lg-6">
-                                            <textarea name="desc_pa" value="<?php echo e(old('desc_pa')); ?>"class="form-control format rtl"></textarea>
+                                            <textarea name="description_pa" value="<?php echo e(old('description_pa')); ?>"class="form-control format rtl"></textarea>
                                         </div>
                                     </div>
                                     <?php endif; ?>

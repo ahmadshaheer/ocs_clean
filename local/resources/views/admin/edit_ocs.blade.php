@@ -19,26 +19,26 @@
                         <div class="panel-body">
                             <div class="form cmxform form-horizontal">
                                 {!! Form::model($ocs, ['route' => array('the_ocs.update',$ocs->id),'files' =>true]) !!}
-                                <input name="_method" type="hidden" value="PATCH">
+                                {{method_field('PATCH')}}
                                     @if($session=='en')
                                       <div class="form-group ">
-                                        <label for="desc_en" class="control-label col-lg-3">Description English</label>
+                                        <label for="description_en" class="control-label col-lg-3">Description English</label>
                                         <div class="col-lg-9">
-                                            <textarea name="desc_en" class="form-control format">{{$ocs->desc_en}}</textarea>
+                                            <textarea name="description_en" class="form-control format">{{$ocs->description_en}}</textarea>
                                         </div>
                                     </div>
                                     @elseif($session=='dr')
                                     <div class="form-group ">
-                                        <label for="desc_dr" class="control-label col-lg-3">Description Dari</label>
+                                        <label for="description_dr" class="control-label col-lg-3">Description Dari</label>
                                         <div class="col-lg-9">
-                                            <textarea name="desc_dr" class="form-control format rtl">{{$ocs->desc_dr}}</textarea>
+                                            <textarea name="description_dr" class="form-control format rtl">{{$ocs->description_dr}}</textarea>
                                         </div>
                                     </div>
                                      @else
                                     <div class="form-group ">
-                                        <label for="desc_pa" class="control-label col-lg-3">Description Pashto</label>
+                                        <label for="description_pa" class="control-label col-lg-3">Description Pashto</label>
                                         <div class="col-lg-9">
-                                            <textarea name="desc_pa" class="form-control format rtl">{{$ocs->description_en}}</textarea>
+                                            <textarea name="description_pa" class="form-control format rtl">{{$ocs->description_en}}</textarea>
                                         </div>
                                     </div>
                                     @endif

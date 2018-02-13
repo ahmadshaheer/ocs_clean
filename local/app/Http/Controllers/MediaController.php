@@ -91,12 +91,23 @@ class MediaController extends Controller
           $image_name = $id.'.'.$request->image->getClientOriginalExtension();
           $image_thumb_name = $id.'_t.'.$request->image->getClientOriginalExtension();
 
+
           //resize image for thumbnail
           $driver = new imageManager(array('driver'=>'gd'));
           $image_thumb = $driver->make($request->image)->resize(200,150);
 
+          //resize original image
+          $img_width = \Image::make($request->image)->width();
+          if($img_width>2200){
+          $image = $driver->make($request->image)->resize(2186,null,function($constraint) {
+              $constraint->aspectRatio();
+          });
+          $image->save($path.$image_name);
+        }else{
+         //store image and thumbnail in storage
+          $request->image->move($path,$image_name); 
+        }
           //store image and thumbnail in storage
-          $request->image->move($path,$image_name);
           $image_thumb->save($path.$image_thumb_name);
 
           //db image storage
@@ -194,6 +205,7 @@ class MediaController extends Controller
             'image'=>'mimes:jpg,png,jpeg,bmp',
           ]);
 
+          $image_path = 'uploads/'.$request->type.'/';
          //remove existing images
          File::delete($search_obj->image_thumb);
          File::delete(str_replace('_t','',$search_obj->image_thumb));
@@ -202,16 +214,26 @@ class MediaController extends Controller
          $image_name = $id.'.'.$request->image->getClientOriginalExtension();
          $image_thumb_name = $id.'_t.'.$request->image->getClientOriginalExtension();
 
-         //resize image for thumbnail
          $driver = new imageManager(array('driver'=>'gd'));
          $image_thumb = $driver->make($request->image)->resize(200,150);
-
+         
+         //resize image for thumbnail
+          //resize original image
+          $img_width = \Image::make($request->image)->width();
+          if($img_width>2200){
+          $image = $driver->make($request->image)->resize(2186,null,function($constraint) {
+                $constraint->aspectRatio();
+            });
+            $image->save($image_path.$image_name);
+          }
+          else{
+           //store image and thumbnail in storage
+            $request->image->move($image_path,$image_name); 
+          }
          //construct image path
-         $image_path = 'uploads/'.$request->type.'/';
 
          //move i.e.(to storage) image
          $image_thumb->save($image_path.$image_thumb_name);
-         $request->image->move($image_path,$image_name);
          //store in db
          $media->image = $image_name;
          $media->image_thumb = $image_thumb_name;

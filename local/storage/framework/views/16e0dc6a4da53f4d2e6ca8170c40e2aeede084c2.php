@@ -36,7 +36,7 @@ global $lang,$dir,$indir,$rtl,$ltr,$title,$date,$short_desc,$description,$jdate;
                    ?>
                 <div class="ui item <?php echo e(($order == $orders->last())?'no_border':''); ?>">
                   <div class="ui small image">
-                    <img src="<?php echo e(asset('assets/img/thumb.jpg')); ?>" style="padding-left:8px;height:100%;">
+                    <img src="<?php echo e(asset('uploads/order/'.$order->image)); ?>" style="padding-left:8px;height:100%;">
                   </div>
                   <div class="content">
                     <a href="<?php echo e(url('order_details/'.$order->id)); ?>" class="ui small header title_font"><?php echo e($order->$title); ?></a>

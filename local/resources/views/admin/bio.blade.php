@@ -28,7 +28,7 @@ $i=1;
           <a class="btn btn-{{($lang=='pa'?'success':'default')}}" href="javascript:void(0)" onclick="show('pa')">Pashto</a>
         </div>
 <div class="" style="margin:10px;">
-  @if($bio==null && Session::get('role')!='editor')
+  @if(sizeof($bio)==0 && Session::get('role')!='editor')
     <a class="btn btn-default pull-left" href="javascript:void(0)" onclick="create('{{$lang}}')" style="margin-bottom: 10px;">Create</a>
     @endif
 </div>
@@ -86,8 +86,9 @@ $i=1;
       }
        ?>
     <tr>
-      <td>{{$i++}}</td>
       <td><div style="width:60em" class="test">{!!$bio_value!!}</div></td>
+    </tr>
+    <tr>
       <td style="width:12em;">
         <form action="{{ route('the_bio.destroy', $value->id) }}" class="ui form" method="POST">
             {{ method_field('DELETE') }}
@@ -112,7 +113,7 @@ $i=1;
 <script>
 
   function create(lang){
-    window.location = "{{url('admin/set_session?lang=')}}"+lang+"&route={{route('the_bio.create')}}";
+    window.location = "{{url('admin/set_session_all?lang=')}}"+lang+"&route={{route('the_bio.create')}}";
   }
 
   function edit(para){

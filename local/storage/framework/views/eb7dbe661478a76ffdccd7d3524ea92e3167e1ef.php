@@ -28,7 +28,7 @@ $i=1;
           <a class="btn btn-<?php echo e(($lang=='pa'?'success':'default')); ?>" href="javascript:void(0)" onclick="show('pa')">Pashto</a>
         </div>
 <div class="" style="margin:10px;">
-  <?php if($bio==null && Session::get('role')!='editor'): ?>
+  <?php if(sizeof($bio)==0 && Session::get('role')!='editor'): ?>
     <a class="btn btn-default pull-left" href="javascript:void(0)" onclick="create('<?php echo e($lang); ?>')" style="margin-bottom: 10px;">Create</a>
     <?php endif; ?>
 </div>
@@ -86,8 +86,9 @@ $i=1;
       }
        ?>
     <tr>
-      <td><?php echo e($i++); ?></td>
       <td><div style="width:60em" class="test"><?php echo $bio_value; ?></div></td>
+    </tr>
+    <tr>
       <td style="width:12em;">
         <form action="<?php echo e(route('the_bio.destroy', $value->id)); ?>" class="ui form" method="POST">
             <?php echo e(method_field('DELETE')); ?>
@@ -114,7 +115,7 @@ $i=1;
 <script>
 
   function create(lang){
-    window.location = "<?php echo e(url('admin/set_session?lang=')); ?>"+lang+"&route=<?php echo e(route('the_bio.create')); ?>";
+    window.location = "<?php echo e(url('admin/set_session_all?lang=')); ?>"+lang+"&route=<?php echo e(route('the_bio.create')); ?>";
   }
 
   function edit(para){

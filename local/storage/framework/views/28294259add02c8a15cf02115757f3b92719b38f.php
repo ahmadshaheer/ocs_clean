@@ -71,7 +71,7 @@ global $lang,$dir,$indir,$rtl,$ltr,$title,$date,$short_desc,$description,$jdate;
                 <div class="ui card">
                   <div class="content">
                     <div class="ui image" style="height: 103px;">
-                      <img src="<?php echo e(asset('uploads/media/news/'.$item->image)); ?>" style="height: 100%" alt="">
+                      <img src="<?php echo e(asset('uploads/news/'.$item->image)); ?>" style="height: 100%" alt="">
                     </div>
                     <a href="<?php echo e(url('news_details/'.$item->id)); ?>" class="title_font"><?php echo e($item->$title); ?></a>
                   </div>

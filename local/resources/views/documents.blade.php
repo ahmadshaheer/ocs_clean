@@ -35,13 +35,24 @@ $pdf = 'pdf_'.$lang;
               <div class="ui items" style="width:100%;">
                 @foreach($documents as $document)
                   @php
+                  $extension = \File::extension($document->$pdf);
+                  $icon = '';
+                  if($extension=='xls' || $extension=='xlsx'){
+                      $icon = 'excel.png';
+                  }
+                  else if($extension=='doc'){
+                   $icon = 'doc.png'; 
+                  }
+                  else{
+                    $icon = 'pdf.png';
+                  }
                   if(sizeof($document->$title)==0)
                     continue;
                   @endphp
                 <div class="ui item {{($document==$documents->last())?'no_border':''}}">
                   <div class="ui tiny image icon" style="width: 12%;padding:0;">
                     <a target="_blank" href="{{asset('uploads/documents_'.$lang.'/'.$document->$pdf)}}">
-                    <img src="{{asset('assets/img/pdf.png')}}">
+                    <img src="{{asset('assets/img/'.$icon)}}">
                     </a>
                   </div>
                   <div class="content">

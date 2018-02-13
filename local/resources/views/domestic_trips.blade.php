@@ -15,7 +15,7 @@ global $lang,$dir,$indir,$rtl,$ltr,$title,$date,$short_desc,$description,$jdate;
   }
   .ui.items {
     direction:rtl;
-    float: right;
+    /*float: right;*/
     text-align: right;
   }
   </style>
@@ -36,7 +36,7 @@ global $lang,$dir,$indir,$rtl,$ltr,$title,$date,$short_desc,$description,$jdate;
                    @endphp
                 <div class="ui item {{($value == $domestic->last())?'no_border':''}}">
                   <div class="other_pages_thumbnail">
-                    <img src="{{asset('uploads/trips/domestic/'.$value->image)}}" style="padding-left:8px;">
+                    <img src="{{asset('uploads/domestic/'.$value->image)}}" style="padding-left:8px;">
                   </div>
                   <div class="content">
                     <a href="{{url('domestic_details/'.$value->id)}}" class="ui small header title_font">{{$value->$title}}</a>

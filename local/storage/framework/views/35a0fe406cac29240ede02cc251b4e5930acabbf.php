@@ -36,7 +36,7 @@ global $lang,$dir,$indir,$rtl,$ltr,$title,$date,$short_desc,$description,$jdate;
                     ?>
                 <div class="ui item <?php echo e(($value == $international->last())?'no_border':''); ?>">
                   <div class="other_pages_thumbnail">
-                    <img src="<?php echo e(asset('uploads/trips/international/'.$value->image)); ?>" style="padding-left:8px;">
+                    <img src="<?php echo e(asset('uploads/international/'.$value->image)); ?>" style="padding-left:8px;">
                   </div>
                   <div class="content">
                     <a href="<?php echo e(url('international_trip_details/'.$value->id)); ?>" class="ui small header title_font"><?php echo e($value->$title); ?></a>

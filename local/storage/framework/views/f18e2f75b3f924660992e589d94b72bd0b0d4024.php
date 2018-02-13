@@ -32,7 +32,7 @@ global $lang,$dir,$indir,$rtl,$ltr,$title,$date,$short_desc,$description,$jdate;
                  <?php $__currentLoopData = $articles; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                 <div class="item">
                   <div class="other_pages_thumbnail">
-                    <img src="<?php echo e(asset('uploads/media/articles/'.$value->image)); ?>" style="padding-left:8px;">
+                    <img src="<?php echo e(asset('uploads/article/'.$value->image)); ?>" style="padding-left:8px;">
                   </div>
                   <div class="content">
                     <a href="<?php echo e(url('article_details/'.$value->id)); ?>" class="ui small header title_font"><?php echo e($value->$title); ?></a>

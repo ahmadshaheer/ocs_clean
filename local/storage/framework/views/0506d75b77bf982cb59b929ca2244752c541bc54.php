@@ -6,9 +6,7 @@ global $jdate;?>
       visibility: hidden;
       position: absolute;
     }
-    #image_upload {
-        display: none;
-    }
+
 
 <?php
 $type = array('decree','order','message','word','statement');
@@ -40,7 +38,8 @@ if (in_array($url, $type)==0) {
                             <div class="form cmxform form-horizontal">
                                 <?php echo Form::model($the_president, ['route' => array('the_president.update',$the_president->id),'files' =>true,'id'=>'edit_form']); ?>
 
-                                <input name="_method" type="hidden" value="PATCH">
+                                <?php echo e(method_field('PATCH')); ?>
+
                                 <?php if($session =='en'): ?>
                                  <?php if($url=='word'): ?>
                                  <div class="form-group ">

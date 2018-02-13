@@ -43,10 +43,10 @@ Route::get('advance_search',function() {
 })->name('advance_search');
 
 Route::get('home',function() {
-
-	$news = DB::table('media')->where('type','news')->orderBy('id','desc')->take('3')->get();
+	$lang = Config::get('app.locale');
+	$news = DB::table('media')->where('type','news')->whereNotNull('title_'.$lang)->orderBy('id','desc')->take(3)->get();
 	$lattest_news = Search::take('4')->orderBy('id','desc')->get();
-	$articles = DB::table('media')->where('type','article')->orderBy('id','desc')->take('6')->get();
+	$articles = DB::table('media')->where('type','article')->whereNotNull('title_'.$lang)->orderBy('id','desc')->take(6)->get();
 	$videos = Video::take('2')->get();
 	$documents = Document::take('5')->orderBy('id','desc')->get();
 	$words = DB::table('president')->where('type','word')->orderBy('id','desc')->first();
@@ -128,7 +128,7 @@ Route::get('message_details/{id?}',function($id){
 Route::get('words',function(){
 	$lang = Config::get('app.locale');
 	$words = DB::table('president')->where('type','word')->orderBy('id','desc')->first();
-	$words_all = DB::table('president')->where('type','word')->whereNotNull('title_'.$lang)->orderBy('id','desc')->paginate(4);
+	$words_all = DB::table('president')->where('type','word')->whereNotNull('short_desc_'.$lang)->orderBy('id','desc')->paginate(4);
 	$news = DB::table('media')->where('type','news')->orderBy('id','desc')->take(5)->get();
 	return view('words')->with(['word'=>$words,'news'=>$news,'words_all'=>$words_all]);
 })->name('words');

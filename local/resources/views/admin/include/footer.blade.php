@@ -150,9 +150,9 @@
    var test = $('.dropdown').dropdown("get value");
    $('#tags_array').val(test);
  }
- $('#title_en').focusout(function() {
+ $('#title_dr').focusout(function() {
    $('#menu').empty();
-   var text = $('#title_en').val();
+   var text = $('#title_dr').val();
    arr = text.split(" ");
    var length = arr.length;
    var data=[];

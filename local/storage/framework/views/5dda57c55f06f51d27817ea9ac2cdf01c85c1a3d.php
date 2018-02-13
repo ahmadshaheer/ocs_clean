@@ -41,7 +41,7 @@ global $lang,$dir,$indir,$rtl,$ltr,$title,$date,$short_desc,$description,$jdate;
                       </div>
                     </a>
                     <div class="content">
-                      <a href="<?php echo e($item->url); ?>" target="_blank" class="ui header title_font"><?php echo e($item->$title); ?></a>
+                      <a href="//<?php echo e($item->url); ?>" target="_blank" class="ui header title_font"><?php echo e($item->$title); ?></a>
                       <div class="description body_font"><?php echo e($item->$description); ?></div>
                     </div>
                   </div>

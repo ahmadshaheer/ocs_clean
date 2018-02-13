@@ -27,7 +27,8 @@
                             <div class="form cmxform form-horizontal">
                                 <?php echo Form::model($bio, ['route' => array('the_bio.update',$bio->id),'files' =>true]); ?>
 
-                                <input name="_method" type="hidden" value="PATCH">
+                                <?php echo e(method_field('PATCH')); ?>
+
                                     <?php if($session=='en'): ?>
                                       <div class="form-group ">
                                         <label for="bio_en" class="control-label col-lg-3">Biography English</label>

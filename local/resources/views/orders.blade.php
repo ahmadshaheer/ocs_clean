@@ -36,7 +36,7 @@ global $lang,$dir,$indir,$rtl,$ltr,$title,$date,$short_desc,$description,$jdate;
                   @endphp
                 <div class="ui item {{($order == $orders->last())?'no_border':''}}">
                   <div class="ui small image">
-                    <img src="{{asset('assets/img/thumb.jpg')}}" style="padding-left:8px;height:100%;">
+                    <img src="{{asset('uploads/order/'.$order->image)}}" style="padding-left:8px;height:100%;">
                   </div>
                   <div class="content">
                     <a href="{{url('order_details/'.$order->id)}}" class="ui small header title_font">{{$order->$title}}</a>

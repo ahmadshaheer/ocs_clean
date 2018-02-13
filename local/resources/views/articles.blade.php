@@ -32,7 +32,7 @@ global $lang,$dir,$indir,$rtl,$ltr,$title,$date,$short_desc,$description,$jdate;
                  @foreach($articles as $value)
                 <div class="item">
                   <div class="other_pages_thumbnail">
-                    <img src="{{asset('uploads/media/articles/'.$value->image)}}" style="padding-left:8px;">
+                    <img src="{{asset('uploads/article/'.$value->image)}}" style="padding-left:8px;">
                   </div>
                   <div class="content">
                     <a href="{{url('article_details/'.$value->id)}}" class="ui small header title_font">{{$value->$title}}</a>

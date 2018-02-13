@@ -6,9 +6,7 @@ global $jdate; ?>
       visibility: hidden;
       position: absolute;
     }
-    #image_upload {
-      display: none;
-    }
+
 
 
 </style>
@@ -30,6 +28,8 @@ global $jdate; ?>
                           <?php endif; ?>
                             <div class="form cmxform form-horizontal">
                                 <?php echo Form::model($trip, ['route' => array('trips.update',$trip->id),'files' =>true]); ?>
+
+                                <?php echo e(method_field('PATCH')); ?>
 
                                 <?php if($session=='dr'): ?>
                                   <div class="form-group ">
@@ -125,7 +125,6 @@ global $jdate; ?>
                                       </div>
                                   </div>
                                 <?php endif; ?>
-                                <input name="_method" type="hidden" value="PATCH">
                                    <div class="form-group form-check">
                                       <label class="col-lg-6 col-md-offset-1 form-check-label">
                                         <input type="checkbox" id="replace_image" name="replace" class="form-check-input">

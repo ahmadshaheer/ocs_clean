@@ -45,7 +45,7 @@ class BioController extends Controller
               $bio=>'required',
             ]);
         $bio_obj = new Bio();
-        $bio_obj->$request->$bio;
+        $bio_obj->$bio = $request->$bio;
         $bio_obj->save();
         Session::put('lang','');
         Log::info($bio_obj->id." Bio created by ".Session::get('email')." on ".date('l jS \of F Y h:i:s A'));

@@ -2,6 +2,7 @@
 <?php 
 global $lang,$dir,$indir,$rtl,$ltr,$title,$date,$short_desc,$description,$url,$jdate;
 $pdf = 'pdf_'.$lang;
+$icon = '';
  ?>
 <style>
 .ui.fluid.card {
@@ -13,11 +14,12 @@ $pdf = 'pdf_'.$lang;
 #carousel_div {
   position: relative;
 }
+
 </style>
 
   
     
-    <div class="ui stackable segment masthead" style="background-color:#dfdfdf;margin-top:0;">
+    <div class="ui stackable segment masthead" style="background-color:#dfdfdf;margin-top:0;padding-bottom:0;">
       <div class="owl-carousel" style="">
         <?php if(sizeof($news)!=0): ?>
           <?php $__currentLoopData = $news; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
@@ -89,7 +91,16 @@ $pdf = 'pdf_'.$lang;
                      $url =  ($item->table_name=='documents')?asset('uploads/documents_'.$lang.'/'.$item->table_id.'.pdf'):'';
                         // $img = '';
                        if($item->table_name=='documents'){
-                          $img = asset('assets/img/pdf.png');
+                          $extension = \File::extension($document->$pdf);
+                          if($extension=='xls' || $extension=='xlsx'){
+                              $img = asset('assets/img/excel.png');
+                          }
+                          else if($extension=='doc'){
+                           $img = asset('assets/img/doc.png');
+                          }
+                          else{
+                            $img = asset('assets/img/pdf.png');
+                          }
                         }
                         else if($item->table_name == 'videos'){
                           $img = "https://img.youtube.com/vi/$item->image_thumb/hqdefault.jpg";
@@ -118,10 +129,10 @@ $pdf = 'pdf_'.$lang;
                             </div>
                           </div>
                           <div class="sixteen wide mobile tablet five wide computer column thumbnail news_image" id="news_image" style="">
-                            <img style="float:right;height: auto;width: auto;margin-left: auto;margin-right: auto;" class="" src="<?php echo e($img); ?>" alt="">
+                            <img style="float:right;" class="" src="<?php echo e($img); ?>" alt="">
                           </div>
                           <div class="desc">
-                            
+
                             <div class="" style="padding-bottom:15px;">
                               <a href="<?php echo e(($item->table_name=='documents')?$url:url($item->type.'_details/'.$item->table_id)); ?>" class="meta body_font" style="float:left;"><?php echo e(trans('home.read_more')); ?></a>
                             </div>
@@ -202,10 +213,22 @@ $pdf = 'pdf_'.$lang;
                 <?php if(sizeof($documents)!=0): ?>
                   <?php $__currentLoopData = $documents; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $document): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                     <?php if($document->$title!=null): ?>
+                      <?php
+                          $extension = \File::extension($document->$pdf);
+                          if($extension=='xls' || $extension=='xlsx'){
+                              $img = asset('assets/img/excel.png');
+                          }
+                          else if($extension=='doc'){
+                           $img = asset('assets/img/doc.png');
+                          }
+                          else{
+                            $img = asset('assets/img/pdf.png');
+                          }
+                      ?>
                       <div class="item <?php echo e(($document==$documents->last())?'no_border':''); ?>" style="direction:<?php echo e($rtl); ?>;border-bottom: 1px dashed #ddd;padding-bottom: 10px;">
                         <div class="ui tiny image icon" style="width: 12%">
                           <a target="_blank" href="<?php echo e(asset('uploads/documents_'.$lang.'/'.$document->$pdf)); ?>">
-                          <img id="pdf_img" src="<?php echo e(asset('assets/img/pdf.png')); ?>">
+                          <img id="pdf_img" src="<?php echo e($img); ?>">
                           </a>
                         </div>
                         <div class="top aligned content docs" style="padding-top: 7px;">

@@ -18,22 +18,27 @@
 
 <!--[if lte IE 8]><script language="javascript" type="text/javascript" src="js/flot-chart/excanvas.min.js"></script><![endif]-->
 <script src="<?php echo e(asset('assets/admin-asset/js/jquery.scrollTo.js')); ?>"></script>
+<script src="<?php echo e(asset('assets/admin-asset/js/jquery.cropit.js')); ?>"></script>
 <!-- morris JavaScript -->
-<script type="text/javascript">
+<script >
+$(function() {
+  $('.image-editor').cropit();
 
-    //toggle change date
-    $('input#change_date').change(function() {
-      $('.change_date').prop('disabled', function(i, v) { return !v; });
-      $('.change_date').toggleClass('date_dr');
-      if($('.change_date').hasClass('date_dr')) {
-        $(".date_dr").pDatepicker({
-           format : "YYYY - MM - DD"
-         });
-      }
-      else {
-        $('.change_date').val($('.change_date').attr("value"));
-      }
+  $('form').submit(function() {
+    // Move cropped image data to hidden input
+    var imageData = $('.image-editor').cropit('export', {
+      type: 'image/jpeg',
+      quality: .9,
+      originalSize: true
     });
+    $('.hidden-image-data').val(imageData);
+    // return false;
+  });
+
+});
+
+</script>
+<script type="text/javascript">
 
     //toggle image replace
     $('form #replace_image').change(function() {
@@ -147,9 +152,9 @@
    var test = $('.dropdown').dropdown("get value");
    $('#tags_array').val(test);
  }
- $('#title_en').focusout(function() {
+ $('#title_dr').focusout(function() {
    $('#menu').empty();
-   var text = $('#title_en').val();
+   var text = $('#title_dr').val();
    arr = text.split(" ");
    var length = arr.length;
    var data=[];

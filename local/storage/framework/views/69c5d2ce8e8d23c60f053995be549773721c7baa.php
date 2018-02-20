@@ -21,7 +21,7 @@ global $lang,$dir,$indir,$rtl,$ltr,$title,$date,$short_desc,$description,$jdate;
     
 
     <div class="ui segment">
-      <div class="ui  grid" id="main" style="display: flex">
+      <div class="ui centered container grid" id="main" style="display: flex">
         <?php echo $__env->make('include.sidebar', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
         <div class="sixteen wide tablet mobile eleven wide computer column">
            <div class="ui fluid card" style="">
@@ -34,7 +34,7 @@ global $lang,$dir,$indir,$rtl,$ltr,$title,$date,$short_desc,$description,$jdate;
           <div class="ui fluid card" style="direction:rtl;float:right;text-align:right;">
             <div class="content">
               <h2 class="ui header title_font border"><?php echo e($news_details->$title); ?></h2>
-              <img class="ui image" src="<?php echo e(asset('uploads/media/news/'.$news_details->image)); ?>">
+              <img class="ui image" src="<?php echo e(asset('uploads/news/'.$news_details->image)); ?>">
               <p class="meta body_font"><?php echo e($news_details->$date); ?></p>
               <div class="description">
                 <p><?php echo $news_details->$description; ?></p>
@@ -71,7 +71,7 @@ global $lang,$dir,$indir,$rtl,$ltr,$title,$date,$short_desc,$description,$jdate;
                 <div class="ui card">
                   <div class="content">
                     <div class="ui image" style="height: 103px;">
-                      <img src="<?php echo e(asset('uploads/media/news/'.$item->image)); ?>" style="height: 100%" alt="">
+                      <img src="<?php echo e(asset('uploads/news/'.$item->image)); ?>" style="height: 100%" alt="">
                     </div>
                     <a href="<?php echo e(url('news_details/'.$item->id)); ?>" class="title_font"><?php echo e($item->$title); ?></a>
                   </div>

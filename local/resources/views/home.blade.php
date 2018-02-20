@@ -19,7 +19,7 @@ $icon = '';
 
   {{-- main content starts --}}
     {{-- carousel starts --}}
-    <div class="ui stackable segment masthead" style="background-color:#dfdfdf;margin-top:0;">
+    <div class="ui stackable segment masthead" style="background-color:#dfdfdf;margin-top:0;padding-bottom:0;">
       <div class="owl-carousel" style="">
         @if(sizeof($news)!=0)
           @foreach($news as $value)
@@ -96,7 +96,7 @@ $icon = '';
                               $img = asset('assets/img/excel.png');
                           }
                           else if($extension=='doc'){
-                           $img = asset('assets/img/doc.png'); 
+                           $img = asset('assets/img/doc.png');
                           }
                           else{
                             $img = asset('assets/img/pdf.png');
@@ -130,7 +130,7 @@ $icon = '';
                             <img style="float:right;" class="" src="{{$img}}" alt="">
                           </div>
                           <div class="desc">
-                            
+
                             <div class="" style="padding-bottom:15px;">
                               <a href="{{($item->table_name=='documents')?$url:url($item->type.'_details/'.$item->table_id)}}" class="meta body_font" style="float:left;">{{trans('home.read_more')}}</a>
                             </div>
@@ -222,7 +222,7 @@ $icon = '';
                               $img = asset('assets/img/excel.png');
                           }
                           else if($extension=='doc'){
-                           $img = asset('assets/img/doc.png'); 
+                           $img = asset('assets/img/doc.png');
                           }
                           else{
                             $img = asset('assets/img/pdf.png');

@@ -151,7 +151,7 @@
     padding-top:5px;
   }
   .body_font,p,a,span,label {
-    font-family:aop_font !important;
+    font-family:<?php echo e(($lang=='en')?'sans-serif':'aop_font'); ?> !important;
     text-align: <?php echo e($dir); ?>;
     direction:<?php echo e($rtl); ?>;
     color:black;
@@ -697,8 +697,8 @@
   }
 
   #carousel_image_div img {
-    width:683px;
-    height: 353px;
+    width:100%;
+    height: auto;
     padding-bottom:5%;
     float: <?php echo e($indir); ?>;
     margin-<?php echo e($dir); ?>: 55px;
@@ -706,8 +706,8 @@
   @media (min-width:990px) {
     .carousel_thumbnail {
       position: relative;
-      width: 100%;
-      height: 36vh;
+      width: auto;
+      height: 280px;
       overflow: hidden;
       top: 3px;
     }
@@ -717,7 +717,7 @@
       left: 48%;
       top: 50%;
       height: 100%;
-      width: auto;
+      width: 100%;
       -webkit-transform: translate(-50%,-50%);
       -ms-transform: translate(-50%,-50%);
       transform: translate(-50%,-50%);
@@ -745,6 +745,8 @@
   #carousel_image_div {
     <?php echo e(($lang=='en')?'padding-right:35px !important;':''); ?>
 
+    height: 280px;
+    width: 661px;
   }
 
   #social a,#footer_social_buttons a{
@@ -752,6 +754,12 @@
   }
   .meta {
     color:rgba(0,0,0,.6) !important;
+    margin-bottom: 1px !important;
+    margin-top: 0px !important;
+
+  }
+  .description{
+    margin-top: 1px !important;
   }
   #carousel_title {
     font-size: 1.89em !important;
@@ -775,9 +783,9 @@
   .ui.items {
     margin: .8em 0 !important;
   }
- /*.ui.fluid.card>.content img{
-    max-width: 100%;
-  }*/
+ .ui.fluid.card>.content img{
+    /*max-width: 100%;*/
+  }
  .u-floatLeft{
   display: none !important;
  }

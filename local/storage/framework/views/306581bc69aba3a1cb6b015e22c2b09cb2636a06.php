@@ -6,6 +6,12 @@
 
                 <div class="panel-heading">Login</div>
                 <div class="panel-body">
+                              <?php if(Session::get('invalid_email')!=''): ?>
+                              <ul class="alert alert-danger">
+                                  <li><?php echo e(Session::get('invalid_email')); ?></li>
+                              </ul>
+                              <?php endif; ?>
+                <div class="panel-body">
                     <form class="form-horizontal" role="form" method="POST" action="<?php echo e(route('check_crediential')); ?>">
 
 

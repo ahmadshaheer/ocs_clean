@@ -9,6 +9,7 @@ use App\Search;
 use File;
 use Session;
 use Log;
+use Image;
 use Intervention\Image\ImageManager;
 
 class MediaController extends Controller
@@ -50,6 +51,7 @@ class MediaController extends Controller
         $date = 'date_'.$lang;
         $short_desc = 'short_desc_'.$lang;
         $description = 'description_'.$lang;
+        // print_r($image);exit;
 
         // validation
           $this->validate($request,[
@@ -57,7 +59,7 @@ class MediaController extends Controller
            $date=>'required',
            $short_desc=>'required',
            $description=>'required',
-           'image' =>'required|mimes:jpg,jpeg,bmp,png',
+           'image-data' =>'required',
           ]);
 
         //data storage
@@ -69,12 +71,13 @@ class MediaController extends Controller
         $media->type = $request->type;
         $media->tags = $request->input('tags_array');
         $media->type = $request->input('type');
-        
+
         //save the record to retreive id later
         $media->save();
 
         //retreive id from previously stored record
         $id = $media->id;
+        // $id = 99;
 
         //retreive media object again
         $media = Media::findOrFail($id);
@@ -86,34 +89,37 @@ class MediaController extends Controller
         $image_thumb_name = '';
 
           //image uploading
-        if($request->image!='') {
-          //image names i.e. (image and image_thumb)
-          $image_name = $id.'.'.$request->image->getClientOriginalExtension();
-          $image_thumb_name = $id.'_t.'.$request->image->getClientOriginalExtension();
+        if($request->input('image-data')!='') {
+          // if image is present
 
-
-          //resize image for thumbnail
-          $driver = new imageManager(array('driver'=>'gd'));
-          $image_thumb = $driver->make($request->image)->resize(200,150);
-
-          //resize original image
-          $img_width = \Image::make($request->image)->width();
-          if($img_width>2200){
-          $image = $driver->make($request->image)->resize(2186,null,function($constraint) {
+          //get the Image
+          $image = Image::make($request->input('image-data'));
+          //resize if width larger than 2000px
+          if($image->width()>2000) {
+            $image->resize(725, null, function ($constraint) {
               $constraint->aspectRatio();
-          });
+            });
+          }
+          // set an image name and path
+          $image_name = $id.'.jpg';
+          // save the image to storage and store in db
           $image->save($path.$image_name);
-        }else{
-         //store image and thumbnail in storage
-          $request->image->move($path,$image_name); 
-        }
-          //store image and thumbnail in storage
-          $image_thumb->save($path.$image_thumb_name);
-
-          //db image storage
           $media->image = $image_name;
-          $media->image_thumb = $image_thumb_name;
 
+
+          //make thumbnail
+
+          // set an image thumbnail name and path
+          $image_thumb_name = $id.'_t.jpg';
+          //resize image for thumbnail
+          $image_thumb = $image->resize(200, null, function ($constraint) {
+                            $constraint->aspectRatio();
+                          });
+
+          // save the thumbnail image to storage and store in db
+          $image_thumb->save($path.$image_thumb_name);
+          $media->image_thumb = $image_thumb_name;
+          $media->save();
         }
          else {
           //if image not present for search table
@@ -198,45 +204,82 @@ class MediaController extends Controller
        }
        $media->$short_desc = $request->$short_desc;
        $media->$description = $request->$description;
-        
-       if($request->image!=null) {
+
+      //  if($request->image!=null) {
           // validation
-          $this->validate($request,[
-            'image'=>'mimes:jpg,png,jpeg,bmp',
-          ]);
+        //   $this->validate($request,[
+        //     'image'=>'mimes:jpg,png,jpeg,bmp',
+        //   ]);
+         //
+        //   $image_path = 'uploads/'.$request->type.'/';
+        //  //remove existing images
+        //  File::delete($search_obj->image_thumb);
+        //  File::delete(str_replace('_t','',$search_obj->image_thumb));
+         //
+        //  //set new images name
+        //  $image_name = $id.'.'.$request->image->getClientOriginalExtension();
+        //  $image_thumb_name = $id.'_t.'.$request->image->getClientOriginalExtension();
+         //
+        //  $driver = new imageManager(array('driver'=>'gd'));
+        //  $image_thumb = $driver->make($request->image)->resize(200,150);
+         //
+        //  //resize image for thumbnail
+        //   //resize original image
+        //   $img_width = \Image::make($request->image)->width();
+        //   if($img_width>2200){
+        //   $image = $driver->make($request->image)->resize(2186,null,function($constraint) {
+        //         $constraint->aspectRatio();
+        //     });
+        //     $image->save($image_path.$image_name);
+        //   }
+        //   else{
+        //    //store image and thumbnail in storage
+        //     $request->image->move($image_path,$image_name);
+        //   }
+        //  //construct image path
+         //
+        //  //move i.e.(to storage) image
+        //  $image_thumb->save($image_path.$image_thumb_name);
+        //  //store in db
+        //  $media->image = $image_name;
+        //  $media->image_thumb = $image_thumb_name;
+        //image uploading
+      if($request->input('image-data')!='') {
+        // if image is present
 
-          $image_path = 'uploads/'.$request->type.'/';
-         //remove existing images
-         File::delete($search_obj->image_thumb);
-         File::delete(str_replace('_t','',$search_obj->image_thumb));
+        //make image path
+       $path = 'uploads/'.$request->type.'/';
 
-         //set new images name
-         $image_name = $id.'.'.$request->image->getClientOriginalExtension();
-         $image_thumb_name = $id.'_t.'.$request->image->getClientOriginalExtension();
+        //get the Image
+        $image = Image::make($request->input('image-data'));
 
-         $driver = new imageManager(array('driver'=>'gd'));
-         $image_thumb = $driver->make($request->image)->resize(200,150);
-         
-         //resize image for thumbnail
-          //resize original image
-          $img_width = \Image::make($request->image)->width();
-          if($img_width>2200){
-          $image = $driver->make($request->image)->resize(2186,null,function($constraint) {
-                $constraint->aspectRatio();
-            });
-            $image->save($image_path.$image_name);
-          }
-          else{
-           //store image and thumbnail in storage
-            $request->image->move($image_path,$image_name); 
-          }
-         //construct image path
+        //resize if width larger than 2000px
+        if($image->width()>2000) {
+          $image->resize(725, null, function ($constraint) {
+            $constraint->aspectRatio();
+          });
+        }
 
-         //move i.e.(to storage) image
-         $image_thumb->save($image_path.$image_thumb_name);
-         //store in db
-         $media->image = $image_name;
-         $media->image_thumb = $image_thumb_name;
+        // set an image name and path
+        $image_name = $id.'.jpg';
+        // save the image to storage and store in db
+        $image->save($path.$image_name);
+        $media->image = $image_name;
+
+
+        //make thumbnail
+
+        // set an image thumbnail name and path
+        $image_thumb_name = $id.'_t.jpg';
+        //resize image for thumbnail
+        $image_thumb = $image->resize(200, null, function ($constraint) {
+                          $constraint->aspectRatio();
+                        });
+
+        // save the thumbnail image to storage and store in db
+        $image_thumb->save($path.$image_thumb_name);
+        $media->image_thumb = $image_thumb_name;
+        $media->save();
        }
 
        if($media->save()) {

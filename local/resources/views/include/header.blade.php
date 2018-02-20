@@ -695,8 +695,8 @@
   }
 
   #carousel_image_div img {
-    width:auto;
-    height: 100%;
+    width:100%;
+    height: auto;
     padding-bottom:5%;
     float: {{$indir}};
     margin-{{$dir}}: 55px;
@@ -779,7 +779,7 @@
     margin: .8em 0 !important;
   }
  .ui.fluid.card>.content img{
-    max-width: 100%;
+    /*max-width: 100%;*/
   }
  .u-floatLeft{
   display: none !important;
